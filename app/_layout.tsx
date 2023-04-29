@@ -1,4 +1,3 @@
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { configureStore } from '@reduxjs/toolkit';
 import { useFonts } from 'expo-font';
 import * as NavigationBar from 'expo-navigation-bar';
@@ -6,18 +5,14 @@ import { Slot, useRouter, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { User } from 'firebase/auth';
 import { useCallback, useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 
-import { auth } from '../firebaseConfig';
+import { auth } from '../firebase/firebaseConfig';
 import { setUserInfo } from '../redux/authSlice';
 import { rootReducer } from '../redux/reducer';
 
-GoogleSignin.configure({
-  offlineAccess: true,
-  webClientId: '244734442198-d4mo1hj0a21q2887672csn2s23j5evd9.apps.googleusercontent.com',
-  scopes: ['profile', 'email'],
-});
+SplashScreen.preventAutoHideAsync();
 
 export type RootState = ReturnType<typeof store.getState>;
 
@@ -32,7 +27,9 @@ const AuthLiscenter = ({ children }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    NavigationBar.setBackgroundColorAsync(theme.styles.color.surface300);
+    if (Platform.OS === 'android') {
+      NavigationBar.setBackgroundColorAsync(theme.styles.color.surface200);
+    }
   }, [theme.themeId]);
 
   useEffect(() => {
@@ -80,22 +77,20 @@ const store = configureStore({
   reducer: rootReducer,
 });
 
-SplashScreen.preventAutoHideAsync();
-
 export default function Root() {
-  const [fontsLoaded] = useFonts({
+  const [loaded] = useFonts({
     'Kanit-Medium': require('../assets/fonts/Kanit-Medium.ttf'),
     'Kanit-Regular': require('../assets/fonts/Kanit-Regular.ttf'),
     'Kanit-SemiBold': require('../assets/fonts/Kanit-SemiBold.ttf'),
   });
 
   const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
+    if (loaded) {
       await SplashScreen.hideAsync();
     }
-  }, [fontsLoaded]);
+  }, [loaded]);
 
-  return (
+  return loaded ? (
     <Provider store={store}>
       <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
         <AuthLiscenter>
@@ -103,5 +98,5 @@ export default function Root() {
         </AuthLiscenter>
       </View>
     </Provider>
-  );
+  ) : null;
 }

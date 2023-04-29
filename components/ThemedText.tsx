@@ -1,4 +1,5 @@
 import { Text, StyleSheet } from 'react-native';
+import Animated from 'react-native-reanimated';
 
 import { useThemedStyles } from '../hooks/useThemedStyles';
 import { Theme } from '../redux/themeSlice';
@@ -6,15 +7,31 @@ import { Theme } from '../redux/themeSlice';
 interface IProps {
   text: string;
   size?: 'body1' | 'body2' | 'body3' | 'body4' | 'body5' | 'heading1' | 'heading2' | 'heading3';
-  color?: 'primary' | 'text300' | 'secondary';
-  style?: 'medium' | 'regular' | 'bold';
+  color?: 'primary' | 'text300' | 'secondary' | 'text100' | 'text200';
+  weight?: 'medium' | 'regular' | 'bold';
+  animatedStyles?: any;
+  styles?: any;
 }
 
 export default function ThemedText(props: IProps) {
-  const { text, size = 'body1', color = 'text300', style = 'regular' } = props;
+  const {
+    text,
+    size = 'body1',
+    color = 'text300',
+    weight = 'regular',
+    animatedStyles,
+    styles: customStyles,
+  } = props;
   const styles = useThemedStyles(themedStyles);
 
-  return <Text style={[styles[color], styles[style], styles[size]]}>{text}</Text>;
+  return animatedStyles ? (
+    <Animated.Text
+      style={[styles[color], styles[size], styles[weight], animatedStyles, customStyles]}>
+      {text}
+    </Animated.Text>
+  ) : (
+    <Text style={[styles[color], styles[size], styles[weight], customStyles]}>{text}</Text>
+  );
 }
 
 const themedStyles = (theme: Theme) => {
@@ -37,15 +54,18 @@ const themedStyles = (theme: Theme) => {
     text300: {
       color: theme.color.text300,
     },
+    text200: {
+      color: theme.color.text200,
+    },
     text100: {
       color: theme.color.text100,
     },
     heading1: {
-      fontSize: 30,
+      fontSize: 24,
       fontFamily: 'Kanit-Medium',
     },
     heading2: {
-      fontSize: 22,
+      fontSize: 21,
       fontFamily: 'Kanit-Medium',
     },
     heading3: {

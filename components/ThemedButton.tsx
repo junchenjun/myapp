@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import { BaseButton } from 'react-native-gesture-handler';
+import { RectButton } from 'react-native-gesture-handler';
 
 import ThemedText from './ThemedText';
 import { useThemedStyles } from '../hooks/useThemedStyles';
@@ -15,19 +15,22 @@ export default function ThemedButton(props: IProps) {
   const { onPress, title, type = 'primary' } = props;
   const styles = useThemedStyles(themedStyles);
 
+  const isPrimary = type === 'primary';
+
   return (
-    <BaseButton
-      rippleColor={type !== 'primary' ? '#9AAC93' : null}
+    <RectButton
+      rippleColor={type !== 'primary' ? '#D1D2E8' : null}
       style={[styles.button, type === 'primary' ? styles.primary : {}]}
       onPress={onPress}>
-      <View style={[styles.view, type === 'primary' ? {} : styles.viewSecondary]}>
+      <View style={[styles.view, isPrimary ? {} : styles.viewSecondary]}>
         <ThemedText
           text={title}
-          size={type === 'primary' ? 'heading3' : 'body1'}
-          color={type === 'primary' ? 'text300' : 'secondary'}
+          size={isPrimary ? 'body1' : 'body2'}
+          weight={isPrimary ? 'medium' : 'regular'}
+          color={isPrimary ? 'text300' : 'secondary'}
         />
       </View>
-    </BaseButton>
+    </RectButton>
   );
 }
 
@@ -37,7 +40,7 @@ const themedStyles = (theme: Theme) => {
       alignItems: 'center',
       justifyContent: 'center',
       height: 50,
-      borderRadius: 8,
+      borderRadius: theme.borders.borderRadius,
       width: '100%',
     },
     primary: {
@@ -46,15 +49,15 @@ const themedStyles = (theme: Theme) => {
     view: {
       width: '100%',
       height: '100%',
-      borderRadius: 8,
+      borderRadius: theme.borders.borderRadius,
       justifyContent: 'center',
       alignItems: 'center',
     },
     viewSecondary: {
       backgroundColor: 'transparent',
       borderColor: theme.color.secondary,
+      borderStyle: 'dashed',
       borderWidth: 1,
-      borderStyle: 'solid',
     },
   });
 };

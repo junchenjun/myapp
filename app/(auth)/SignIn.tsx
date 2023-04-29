@@ -1,58 +1,21 @@
-import {
-  GoogleSignin,
-  statusCodes,
-  GoogleSigninButton,
-} from '@react-native-google-signin/google-signin';
-import { Link } from 'expo-router';
-import { GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
-import { StyleSheet, Text, View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
+import { StyleSheet, View } from 'react-native';
 
 import ThemedText from '../../components/ThemedText';
-import { auth } from '../../firebaseConfig';
+import { googleSignIn } from '../../firebase/auth';
 import { useThemedStyles } from '../../hooks/useThemedStyles';
 import { Theme } from '../../redux/themeSlice';
-import { RootState } from '../_layout';
+
+GoogleSignin.configure({
+  offlineAccess: true,
+  webClientId: '244734442198-d4mo1hj0a21q2887672csn2s23j5evd9.apps.googleusercontent.com',
+  iosClientId: '244734442198-spvdk7vrtvn6huohnqb89cs4mgpd9c80.apps.googleusercontent.com',
+  scopes: ['profile', 'email'],
+  googleServicePlistPath: '../../GoogleService-Info.plist',
+});
 
 export default function SignIn() {
   const styles = useThemedStyles(createStyles);
-
-  const user = useSelector((state: RootState) => state.auth);
-
-  const signIn = async () => {
-    try {
-      await GoogleSignin.hasPlayServices();
-      const response = await GoogleSignin.signIn();
-
-      // Build Firebase credential with the Google ID token.
-      const idToken = response.idToken;
-      const credential = GoogleAuthProvider.credential(idToken);
-
-      // Sign in with credential from the Google user.
-      signInWithCredential(auth, credential)
-        .then((v) => {})
-        .catch((error) => {
-          // Handle Errors here.
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // The email of the user's account used.
-          const email = error.email;
-          // The credential that was used.
-          const credential = GoogleAuthProvider.credentialFromError(error);
-          console.log('signInWithCredential error', errorCode, errorMessage, email, credential);
-        });
-    } catch (error) {
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        // user cancelled the login flow
-      } else if (error.code === statusCodes.IN_PROGRESS) {
-        // operation (e.g. sign in) is in progress already
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        // play services not available or outdated
-      } else {
-        // some other error happened
-      }
-    }
-  };
 
   return (
     <View style={styles.container}>
@@ -62,7 +25,7 @@ export default function SignIn() {
           style={{ width: 192, height: 48 }}
           size={GoogleSigninButton.Size.Wide}
           color={GoogleSigninButton.Color.Dark}
-          onPress={signIn}
+          onPress={googleSignIn}
           disabled={false}
         />
       </View>
@@ -76,7 +39,7 @@ const createStyles = (theme: Theme) => {
       flex: 1,
       alignItems: 'center',
       padding: 24,
-      backgroundColor: theme.color.surface300,
+      backgroundColor: theme.color.surface200,
     },
     main: {
       flex: 1,

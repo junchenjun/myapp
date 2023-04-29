@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 
 import ThemedButton from '../../../components/ThemedButton';
 import ThemedText from '../../../components/ThemedText';
-import { auth } from '../../../firebaseConfig';
+import { auth } from '../../../firebase/firebaseConfig';
 
 export default function Settings() {
   const logout = async () => {
@@ -16,6 +16,10 @@ export default function Settings() {
     <View style={styles.container}>
       <ThemedText text="settings" />
       <ThemedButton type="secondary" title="Log Out" onPress={logout} />
+      <ThemedText text="" />
+      <ThemedButton type="secondary" title="fake" onPress={() => null} />
+      <ThemedText text="" />
+      <ThemedButton title="Start" onPress={() => null} />
     </View>
   );
 }

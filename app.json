@@ -3,22 +3,21 @@
     "scheme": "acme",
     "name": "my-app",
     "slug": "my-app",
-    "android": {
-      "package": "com.junchenjun.myapp"
-    },
     "extra": {
       "eas": {
         "projectId": "d07f4ce2-9833-4bd3-88c7-b86067f065cc"
       }
-    }
-  },
-  "android": {
-    "googleServicesFile": "./google-services.json"
-  },
-  "ios": {
-    "googleServicesFile": "./GoogleService-Info.plist"
-  },
-  "plugins": [
-    "@react-native-google-signin/google-signin"
-  ]
+    },
+    "android": {
+      "package": "com.junchenjun.myapp",
+      "googleServicesFile": "./google-services.json"
+    },
+    "ios": {
+      "bundleIdentifier": "com.junchenjun.myapp",
+      "googleServicesFile": "./GoogleService-Info.plist"
+    },
+    "plugins": [
+      "@react-native-google-signin/google-signin"
+    ]
+  }
 }

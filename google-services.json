@@ -37,6 +37,13 @@
             {
               "client_id": "244734442198-4qf1an65emvh6b3bg7m618segbkrbt8i.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "244734442198-spvdk7vrtvn6huohnqb89cs4mgpd9c80.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.junchenjun.myapp"
+              }
             }
           ]
         }

@@ -1,9 +1,4 @@
-import {
-  HeaderStyleInterpolators,
-  StackCardInterpolationProps,
-  TransitionPresets,
-  TransitionSpecs,
-} from '@react-navigation/stack';
+import { TransitionPresets } from '@react-navigation/stack';
 
 import { CustomStack } from '../../components/CustomStack';
 
