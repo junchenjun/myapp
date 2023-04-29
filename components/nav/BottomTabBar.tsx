@@ -9,10 +9,10 @@ import Animated, {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 
-import ThemedText from './ThemedText';
-import { RootState } from '../app/_layout';
-import { useThemedStyles } from '../hooks/useThemedStyles';
-import { Theme } from '../redux/themeSlice';
+import ThemedText from '../element/ThemedText';
+import { RootState } from '../../app/_layout';
+import { useThemedStyles } from '../../hooks/useThemedStyles';
+import { Theme } from '../../redux/themeSlice';
 
 const TAB_WIDTH = 76;
 

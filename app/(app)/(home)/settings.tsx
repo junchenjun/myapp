@@ -1,8 +1,8 @@
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { StyleSheet, View } from 'react-native';
 
-import ThemedButton from '../../../components/ThemedButton';
-import ThemedText from '../../../components/ThemedText';
+import ThemedButton from '../../../components/element/ThemedButton';
+import ThemedText from '../../../components/element/ThemedText';
 import { auth } from '../../../firebase/firebaseConfig';
 
 export default function Settings() {

@@ -2,17 +2,18 @@ import { StyleSheet, View } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 
 import ThemedText from './ThemedText';
-import { useThemedStyles } from '../hooks/useThemedStyles';
-import { Theme } from '../redux/themeSlice';
+import { useThemedStyles } from '../../hooks/useThemedStyles';
+import { Theme } from '../../redux/themeSlice';
 
 interface IProps {
   onPress: () => void;
   title: string;
   type?: 'primary' | 'secondary';
+  style?: any;
 }
 
 export default function ThemedButton(props: IProps) {
-  const { onPress, title, type = 'primary' } = props;
+  const { onPress, title, type = 'primary', style: customStyle } = props;
   const styles = useThemedStyles(themedStyles);
 
   const isPrimary = type === 'primary';
@@ -20,7 +21,7 @@ export default function ThemedButton(props: IProps) {
   return (
     <RectButton
       rippleColor={type !== 'primary' ? '#D1D2E8' : null}
-      style={[styles.button, type === 'primary' ? styles.primary : {}]}
+      style={[styles.button, type === 'primary' ? styles.primary : {}, customStyle]}
       onPress={onPress}>
       <View style={[styles.view, isPrimary ? {} : styles.viewSecondary]}>
         <ThemedText

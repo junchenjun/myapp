@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useFonts } from 'expo-font';
 import * as NavigationBar from 'expo-navigation-bar';
-import { Slot, useRouter, useSegments } from 'expo-router';
+import { Stack, useRouter, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { User } from 'firebase/auth';
 import { useCallback, useEffect, useState } from 'react';
@@ -94,7 +94,7 @@ export default function Root() {
     <Provider store={store}>
       <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
         <AuthLiscenter>
-          <Slot />
+          <Stack screenOptions={{ headerShown: false }} />
         </AuthLiscenter>
       </View>
     </Provider>

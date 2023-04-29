@@ -1,31 +1,29 @@
-import { useRouter } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
-import Animated, { FadeInDown } from 'react-native-reanimated';
 
-import ThemedText from './ThemedText';
-import { Workout } from '../firebase/plans';
-import { useThemedStyles } from '../hooks/useThemedStyles';
-import { Theme } from '../redux/themeSlice';
+import { Workout } from '../../firebase/plans';
+import { useThemedStyles } from '../../hooks/useThemedStyles';
+import { Theme } from '../../redux/themeSlice';
+import ThemedText from '../element/ThemedText';
 
 interface IProps {
   workouts: Workout;
   index: number;
+  onPress: () => void;
 }
 
 export default function Container(props: IProps) {
-  const { workouts, index } = props;
+  const { workouts, index, onPress } = props;
   const styles = useThemedStyles(themedStyles);
-  const router = useRouter();
 
   return (
-    <Animated.View entering={FadeInDown}>
-      <RectButton style={styles.container} onPress={() => router.push('./workoutPreview')}>
+    <View>
+      <RectButton style={styles.container} onPress={onPress}>
         <ThemedText
           text={workouts.name}
           size="heading2"
           color="secondary"
-          styles={styles.title}
+          style={styles.title}
           weight="medium"
         />
         <ThemedText text="Last Performed: 5 days ago" color="text100" size="body2" />
@@ -44,7 +42,7 @@ export default function Container(props: IProps) {
           })}
         </View>
       </RectButton>
-    </Animated.View>
+    </View>
   );
 }
 

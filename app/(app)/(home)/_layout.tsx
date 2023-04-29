@@ -2,7 +2,7 @@ import { Tabs } from 'expo-router';
 
 import FireIcon from '../../../assets/icons/fireIcon.svg';
 import ProfileIcon from '../../../assets/icons/profileIcon.svg';
-import { MyTabBar } from '../../../components/BottomTabBar';
+import { MyTabBar } from '../../../components/nav/BottomTabBar';
 
 export default function Root() {
   return (

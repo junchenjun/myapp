@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function StartWorkout() {
+export default function ManageWorkouts() {
   return (
     <View style={styles.container}>
       <View style={styles.main}>

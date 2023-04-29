@@ -1,8 +1,8 @@
 import {
   Timestamp,
+  addDoc,
   collection,
   doc,
-  getDoc,
   getDocs,
   query,
   setDoc,
@@ -26,12 +26,14 @@ export interface Workout {
   name: string;
   lastPerformed?: Timestamp;
   exercises: Exercise[];
+  id: string;
 }
 
 export interface Plan {
   name: string;
   userId?: string;
   workouts?: Workout[];
+  id?: string;
 }
 
 const samplePlan: Plan = {
@@ -41,31 +43,35 @@ const samplePlan: Plan = {
       days: ['monday'],
       name: 'Chest & triceps',
       exercises: [{ name: 'pushups', sets: [{ weight: '100', reps: 20 }] }],
+      id: '001',
     },
     {
       days: ['sunday'],
       name: 'Back & biceps',
       exercises: [{ name: 'pushups', sets: [{ weight: '100', reps: 20 }] }],
+      id: '002',
     },
     {
       days: ['monday', 'sunday'],
       name: 'legs',
       exercises: [{ name: 'pushups', sets: [{ weight: '100', reps: 20 }] }],
+      id: '003',
     },
   ],
 };
 
 export const createSamplePlan = (userId: string) => {
-  const plansRef = doc(db, 'plans');
-  return setDoc(plansRef, {
+  const plansRef = collection(db, 'plans');
+  return addDoc(plansRef, {
     ...samplePlan,
     userId,
-    id: plansRef.id,
   });
 };
 
 export const getPlans = async (userId: string) => {
   const q = query(collection(db, 'plans'), where('userId', '==', userId));
   const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map((d) => d.data());
+  return querySnapshot.docs.map((d) => {
+    return { id: d.id, ...d.data() };
+  });
 };

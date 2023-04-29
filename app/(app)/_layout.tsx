@@ -1,6 +1,6 @@
 import { TransitionPresets } from '@react-navigation/stack';
 
-import { CustomStack } from '../../components/CustomStack';
+import { CustomStack } from '../../components/nav/CustomStack';
 
 export default function Layout() {
   return (

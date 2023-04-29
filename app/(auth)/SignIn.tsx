@@ -1,7 +1,7 @@
 import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import { StyleSheet, View } from 'react-native';
 
-import ThemedText from '../../components/ThemedText';
+import ThemedText from '../../components/element/ThemedText';
 import { googleSignIn } from '../../firebase/auth';
 import { useThemedStyles } from '../../hooks/useThemedStyles';
 import { Theme } from '../../redux/themeSlice';

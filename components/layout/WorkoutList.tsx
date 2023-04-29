@@ -1,14 +1,14 @@
 import { useRouter } from 'expo-router';
 import { SectionList, StyleSheet, View } from 'react-native';
+import { BorderlessButton } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
 
 import Container from './Container';
-import ThemedButton from './ThemedButton';
-import ThemedText from './ThemedText';
-import { RootState } from '../app/_layout';
-import { useThemedStyles } from '../hooks/useThemedStyles';
-import { Theme } from '../redux/themeSlice';
-import { BorderlessButton } from 'react-native-gesture-handler';
+import { RootState } from '../../app/_layout';
+import { useThemedStyles } from '../../hooks/useThemedStyles';
+import { Theme } from '../../redux/themeSlice';
+import ThemedButton from '../element/ThemedButton';
+import ThemedText from '../element/ThemedText';
 
 const getCurrentDate = () => {
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -42,16 +42,27 @@ export default function WorkoutList(props: IProps) {
   const router = useRouter();
 
   const sectionData = plans?.map((p) => {
-    return { title: p.name, data: p.workouts };
+    return { title: p.name, data: p.workouts, id: p.id };
   });
 
-  return sectionData?.length ? (
+  return sectionData ? (
     <SectionList
       style={styles.container}
       sections={sectionData}
       stickySectionHeadersEnabled={false}
       keyExtractor={(item, index) => item.name + index}
-      renderItem={({ item, index }) => <Container workouts={item} index={index} />}
+      renderItem={({ item, section, index }) => (
+        <Container
+          onPress={() => {
+            return router.push({
+              pathname: 'workoutPreview',
+              params: { planId: section.id, workoutId: item.id },
+            });
+          }}
+          workouts={item}
+          index={index}
+        />
+      )}
       renderSectionHeader={({ section }) => {
         return (
           <View style={styles.sectionTitle}>

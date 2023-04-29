@@ -19,10 +19,10 @@ export const googleSignIn = async () => {
         const userInfo = getAdditionalUserInfo(v);
         return { ...userInfo, ...v };
       })
-      .then((info) => {
+      .then(async (info) => {
         const isNewUser = info.isNewUser;
         if (isNewUser) {
-          createSamplePlan(info.user.uid);
+          await createSamplePlan(info.user.uid);
         }
       })
       .catch((error) => {

@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector, useDispatch } from 'react-redux';
 
-import WorkoutList from '../../../components/WorkoutList';
+import WorkoutList from '../../../components/layout/WorkoutList';
 import { getPlans } from '../../../firebase/plans';
 import { useThemedStyles } from '../../../hooks/useThemedStyles';
 import { setPlans } from '../../../redux/planSlice';
