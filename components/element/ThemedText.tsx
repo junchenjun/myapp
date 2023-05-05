@@ -1,17 +1,18 @@
-import { Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet, TextStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
 
-import { useThemedStyles } from '../../hooks/useThemedStyles';
 import { Theme } from '../../redux/themeSlice';
+import { useThemedStyles } from '../../utils/hooks/useThemedStyles';
 
 interface IProps {
   text?: string;
   size?: 'body1' | 'body2' | 'body3' | 'body4' | 'body5' | 'heading1' | 'heading2' | 'heading3';
-  color?: 'primary' | 'text300' | 'secondary' | 'text100' | 'text200';
+  color?: 'primary' | 'text300' | 'secondary' | 'text100' | 'text200' | 'white';
   weight?: 'medium' | 'regular' | 'bold';
-  animatedStyles?: any;
-  style?: any;
+  animatedStyles?: TextStyle;
+  style?: TextStyle;
   children?: string | number;
+  numberOfLines?: number;
 }
 
 export default function ThemedText(props: IProps) {
@@ -20,6 +21,7 @@ export default function ThemedText(props: IProps) {
     size = 'body1',
     color = 'text300',
     weight = 'regular',
+    numberOfLines = 1,
     animatedStyles,
     children,
     style: customStyles,
@@ -28,11 +30,14 @@ export default function ThemedText(props: IProps) {
 
   return animatedStyles ? (
     <Animated.Text
+      numberOfLines={numberOfLines}
       style={[styles[color], styles[size], styles[weight], animatedStyles, customStyles]}>
       {children || text}
     </Animated.Text>
   ) : (
-    <Text style={[styles[color], styles[size], styles[weight], customStyles]}>
+    <Text
+      numberOfLines={numberOfLines}
+      style={[styles[color], styles[size], styles[weight], customStyles]}>
       {children || text}
     </Text>
   );
@@ -63,6 +68,9 @@ const themedStyles = (theme: Theme) => {
     },
     text100: {
       color: theme.color.text100,
+    },
+    white: {
+      color: theme.color.white,
     },
     heading1: {
       fontSize: 30,

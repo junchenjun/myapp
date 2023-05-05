@@ -3,8 +3,8 @@ import { StyleSheet, View } from 'react-native';
 
 import ThemedText from '../../components/element/ThemedText';
 import { googleSignIn } from '../../firebase/auth';
-import { useThemedStyles } from '../../hooks/useThemedStyles';
 import { Theme } from '../../redux/themeSlice';
+import { useThemedStyles } from '../../utils/hooks/useThemedStyles';
 
 GoogleSignin.configure({
   offlineAccess: true,

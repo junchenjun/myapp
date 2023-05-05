@@ -9,6 +9,7 @@ export interface ColorTheme {
   text300: string;
   text200: string;
   text100: string;
+  white: string;
   transprant05: string;
 }
 
@@ -24,26 +25,28 @@ export const DARK_THEME_ID = 'DARK_THEME';
 export const LIGHT_THEME_ID = 'LIGHT_THEME';
 
 const lightThemeColors: ColorTheme = {
-  surface300: '#D1D1D1',
-  surface200: '#EDEDED',
+  surface300: '#D9D9D9',
+  surface200: '#E6E6E6',
   surface100: '#FAFAFA',
-  primary: '#9AF090',
-  secondary: '#3D46E8',
-  text300: '#1F1F1F',
-  text200: '#333333',
+  primary: '#0066FF',
+  secondary: '#2C2C2C',
+  text300: '#2C2C2C',
+  text200: '#404040',
   text100: '#808080',
+  white: '#ffffff',
   transprant05: 'rgba(0, 0, 0, 0.05)',
 };
 
 const darkThemeColors: ColorTheme = {
-  surface300: '#D1D1D1',
-  surface200: '#EDEDED',
+  surface300: '#D9D9D9',
+  surface200: '#E6E6E6',
   surface100: '#FAFAFA',
-  primary: '#9AF090',
-  secondary: '#3D46E8',
-  text300: '#1F1F1F',
-  text200: '#333333',
+  primary: '#0066FF',
+  secondary: '#2C2C2C',
+  text300: '#2C2C2C',
+  text200: '#404040',
   text100: '#808080',
+  white: '#ffffff',
   transprant05: 'rgba(0, 0, 0, 0.05)',
 };
 

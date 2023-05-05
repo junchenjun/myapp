@@ -1,13 +1,12 @@
 import { Tabs } from 'expo-router';
 
-import FireIcon from '../../../assets/icons/fireIcon.svg';
-import ProfileIcon from '../../../assets/icons/profileIcon.svg';
-import { MyTabBar } from '../../../components/nav/BottomTabBar';
+import { IconFire, IconProfile } from '../../../assets/icons';
+import { BottomTabBar } from '../../../components/nav/BottomTabBar';
 
 export default function Root() {
   return (
     <Tabs
-      tabBar={(props) => <MyTabBar {...props} />}
+      tabBar={(props) => <BottomTabBar {...props} />}
       screenOptions={{
         headerShown: false,
       }}>
@@ -16,7 +15,7 @@ export default function Root() {
         key="dashboard"
         options={{
           title: 'Workouts',
-          tabBarIcon: () => <FireIcon width={22} height={22} />,
+          tabBarIcon: () => <IconFire width={22} height={22} fill="white" />,
         }}
       />
       <Tabs.Screen
@@ -24,7 +23,7 @@ export default function Root() {
         key="settings"
         options={{
           title: 'Other Stuff',
-          tabBarIcon: () => <ProfileIcon width={20} height={20} />,
+          tabBarIcon: () => <IconProfile width={20} height={20} fill="white" />,
         }}
       />
     </Tabs>

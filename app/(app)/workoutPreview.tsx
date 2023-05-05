@@ -1,16 +1,18 @@
 import { useRouter, useSearchParams } from 'expo-router';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Dimensions, Platform, StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import Animated, { FadeInDown, FadeOutDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 
+import IconEdit from '../../assets/icons/IconEdit';
 import ThemedButton from '../../components/element/ThemedButton';
 import ThemedText from '../../components/element/ThemedText';
 import ExerciseContainer from '../../components/layout/ExerciseContainer';
 import InfoConatiner from '../../components/layout/InfoContainer';
 import ModalHeader from '../../components/layout/ModalHeader';
-import { useThemedStyles } from '../../hooks/useThemedStyles';
 import { Theme } from '../../redux/themeSlice';
+import { useThemedStyles } from '../../utils/hooks/useThemedStyles';
 import { RootState } from '../_layout';
 
 export default function WorkoutPreview() {
@@ -23,8 +25,10 @@ export default function WorkoutPreview() {
 
   const workout = plans?.find((p) => p.id === planId)?.workouts.find((w) => w.id === workoutId);
 
+  const isAndroid = Platform.OS === 'android';
+
   return (
-    <View style={styles.containter}>
+    <View style={[styles.containter, isAndroid ? { paddingTop: insets.top } : null]}>
       <ScrollView contentContainerStyle={styles.scroll}>
         <ModalHeader />
         {workout && (
@@ -32,7 +36,7 @@ export default function WorkoutPreview() {
             <ThemedText
               text={workout?.name}
               size="heading1"
-              color="secondary"
+              color="primary"
               weight="bold"
               style={styles.title}
             />
@@ -46,7 +50,12 @@ export default function WorkoutPreview() {
             </View>
             <InfoConatiner title="Traget Muscles" content="#Back #Biceps" />
             <View style={styles.info}>
-              <ThemedButton type="secondary" title="Edit This Workout" onPress={() => null} />
+              <ThemedButton
+                type="secondary"
+                title="Edit This Workout"
+                onPress={() => null}
+                icon={<IconEdit width={20} height={20} stroke={styles.icon.color} />}
+              />
             </View>
             <View>
               <ThemedText
@@ -61,13 +70,15 @@ export default function WorkoutPreview() {
           </View>
         )}
       </ScrollView>
-      <ThemedButton
-        title="Start"
-        onPress={() => {
-          router.replace('WorkoutInProgress');
-        }}
-        style={[styles.float, { bottom: insets.bottom ? insets.bottom + 10 : 20 }]}
-      />
+      <Animated.View entering={FadeInDown} exiting={FadeOutDown}>
+        <ThemedButton
+          title="Start"
+          onPress={() => {
+            router.replace('WorkoutInProgress');
+          }}
+          style={[styles.float, { bottom: insets.bottom ? insets.bottom + 10 : 20 }]}
+        />
+      </Animated.View>
     </View>
   );
 }
@@ -101,6 +112,9 @@ const themedStyles = (theme: Theme) => {
       position: 'absolute',
       left: 15,
       width: Dimensions.get('window').width - 15 * 2,
+    },
+    icon: {
+      color: theme.color.text300,
     },
   });
 };

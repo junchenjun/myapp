@@ -1,8 +1,8 @@
 import { StyleSheet, View } from 'react-native';
 
 import { Exercise } from '../../firebase/plans';
-import { useThemedStyles } from '../../hooks/useThemedStyles';
 import { Theme } from '../../redux/themeSlice';
+import { useThemedStyles } from '../../utils/hooks/useThemedStyles';
 import ThemedText from '../element/ThemedText';
 
 interface IProps {

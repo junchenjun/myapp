@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 
-import { useThemedStyles } from '../../hooks/useThemedStyles';
 import { Theme } from '../../redux/themeSlice';
+import { useThemedStyles } from '../../utils/hooks/useThemedStyles';
 import ThemedText from '../element/ThemedText';
 
 interface IProps {
@@ -19,7 +19,7 @@ export default function InfoConatiner(props: IProps) {
       <ThemedText size="body4" color="text100">
         {title}
       </ThemedText>
-      <ThemedText size="body2" color="secondary">
+      <ThemedText size="body2" color="primary">
         {content}
       </ThemedText>
     </View>

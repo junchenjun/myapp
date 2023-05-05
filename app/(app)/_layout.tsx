@@ -1,33 +1,32 @@
-import { TransitionPresets } from '@react-navigation/stack';
-
-import { CustomStack } from '../../components/nav/CustomStack';
+import { Stack } from 'expo-router';
 
 export default function Layout() {
   return (
-    <CustomStack>
-      <CustomStack.Screen
+    <Stack>
+      <Stack.Screen
         name="(home)"
         options={{
           headerShown: false,
         }}
         key="home"
       />
-      <CustomStack.Screen
+      <Stack.Screen
         name="workoutPreview"
         options={{
           headerShown: false,
-          ...TransitionPresets.ModalPresentationIOS,
+          presentation: 'modal',
+          animation: 'fade_from_bottom',
         }}
         key="workoutPreview"
       />
-      <CustomStack.Screen
+      <Stack.Screen
         name="manageWorkouts"
         options={{
           headerShown: false,
-          ...TransitionPresets.SlideFromRightIOS,
+          animation: 'slide_from_right',
         }}
         key="manageWorkouts"
       />
-    </CustomStack>
+    </Stack>
   );
 }

@@ -7,29 +7,26 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useSelector } from 'react-redux';
 
-import ThemedText from '../element/ThemedText';
-import { RootState } from '../../app/_layout';
-import { useThemedStyles } from '../../hooks/useThemedStyles';
 import { Theme } from '../../redux/themeSlice';
+import { useThemedStyles } from '../../utils/hooks/useThemedStyles';
+import ThemedText from '../element/ThemedText';
 
 const TAB_WIDTH = 76;
 
 const Tab = ({ isFocused, index, onPress, options, label, initializing }) => {
   const styles = useThemedStyles(themedStyles);
-  const theme = useSelector((state: RootState) => state.theme.styles);
 
   const defaultActiveTab = isFocused && initializing;
 
-  const width = useSharedValue(defaultActiveTab ? TAB_WIDTH * 2 : TAB_WIDTH);
+  const tabWidth = useSharedValue(defaultActiveTab ? TAB_WIDTH * 2 : TAB_WIDTH);
   const opacity = useSharedValue(defaultActiveTab ? 1 : 0);
-  const color = useSharedValue(theme.color.text300);
-  const xxxx = useSharedValue(defaultActiveTab ? 90 : 0);
+  const color = useSharedValue(1);
+  const textViewWidth = useSharedValue(defaultActiveTab ? 90 : 0);
 
   const animatedStyles = useAnimatedStyle(() => {
     return {
-      width: withTiming(width.value, {
+      width: withTiming(tabWidth.value, {
         duration: 200,
       }),
     };
@@ -38,30 +35,33 @@ const Tab = ({ isFocused, index, onPress, options, label, initializing }) => {
   const animatedTextStyles = useAnimatedStyle(() => {
     return {
       opacity: opacity.value,
-      width: withTiming(xxxx.value, {
+      width: withTiming(textViewWidth.value, {
         duration: 200,
       }),
-      alignItems: 'center',
     };
   });
 
   const animatedPressableStyles = useAnimatedStyle(() => {
     return {
-      color: withTiming(color.value, {
-        duration: 200,
-      }),
+      transform: [
+        {
+          scale: withTiming(color.value, {
+            duration: 200,
+          }),
+        },
+      ],
     };
   });
 
   if (!initializing) {
     if (isFocused) {
-      width.value = TAB_WIDTH * 2;
+      tabWidth.value = TAB_WIDTH * 2;
       opacity.value = withDelay(100, withTiming(1));
-      xxxx.value = 90;
+      textViewWidth.value = 90;
     } else {
-      width.value = TAB_WIDTH;
+      tabWidth.value = TAB_WIDTH;
       opacity.value = 0;
-      xxxx.value = 0;
+      textViewWidth.value = 0;
     }
   }
 
@@ -69,27 +69,23 @@ const Tab = ({ isFocused, index, onPress, options, label, initializing }) => {
     <Animated.View style={[styles.container, index === 1 ? styles.left : {}, animatedStyles]}>
       <Pressable
         onPress={onPress}
-        onPressIn={() => (color.value = theme.color.text100)}
-        onPressOut={() => (color.value = theme.color.text300)}
+        onPressIn={() => (color.value = 0.9)}
+        onPressOut={() => (color.value = 1)}
+        style={styles.button}
         children={({ pressed }) => (
-          <View style={styles.button}>
+          <Animated.View style={[styles.tab, animatedPressableStyles]}>
             {options.tabBarIcon()}
-            <Animated.View style={animatedTextStyles}>
-              <ThemedText
-                text={label}
-                size="body2"
-                weight="bold"
-                animatedStyles={animatedPressableStyles}
-              />
+            <Animated.View style={[styles.textView, animatedTextStyles]}>
+              <ThemedText text={label} size="body2" weight="bold" color="white" />
             </Animated.View>
-          </View>
+          </Animated.View>
         )}
       />
     </Animated.View>
   );
 };
 
-export const MyTabBar = ({ state, descriptors, navigation }) => {
+export const BottomTabBar = ({ state, descriptors, navigation }) => {
   const [initializing, setInitializing] = useState(true);
   const insets = useSafeAreaInsets();
   const styles = useThemedStyles(themedStyles);
@@ -152,8 +148,13 @@ const themedStyles = (theme: Theme) => {
       height: TAB_WIDTH,
       overflow: 'hidden',
     },
+    tab: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
     button: {
-      backgroundColor: '#CCCCCC',
+      backgroundColor: theme.color.secondary,
       flexDirection: 'row',
       width: '100%',
       height: '100%',
@@ -163,6 +164,9 @@ const themedStyles = (theme: Theme) => {
     left: {
       position: 'absolute',
       right: 0,
+    },
+    textView: {
+      alignItems: 'center',
     },
   });
 };

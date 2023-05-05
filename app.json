@@ -17,7 +17,16 @@
       "googleServicesFile": "./GoogleService-Info.plist"
     },
     "plugins": [
-      "@react-native-google-signin/google-signin"
+      "@react-native-google-signin/google-signin",
+      "expo-build-properties",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "flipper": true
+          }
+        }
+      ]
     ]
   }
 }

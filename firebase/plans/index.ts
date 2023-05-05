@@ -1,14 +1,6 @@
-import {
-  Timestamp,
-  addDoc,
-  collection,
-  doc,
-  getDocs,
-  query,
-  setDoc,
-  where,
-} from 'firebase/firestore';
+import { Timestamp, addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 
+import { fetchData } from '../../utils/promiseHelper';
 import { db } from '../firebaseConfig';
 
 export interface ExerciseSet {
@@ -75,3 +67,5 @@ export const getPlans = async (userId: string) => {
     return { id: d.id, ...d.data() };
   });
 };
+
+export const fetchPlansData = fetchData(getPlans);

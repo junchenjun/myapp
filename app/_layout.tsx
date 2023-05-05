@@ -6,6 +6,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { User } from 'firebase/auth';
 import { useCallback, useEffect, useState } from 'react';
 import { Platform, View } from 'react-native';
+import { MenuProvider } from 'react-native-popup-menu';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 
 import { auth } from '../firebase/firebaseConfig';
@@ -92,11 +93,13 @@ export default function Root() {
 
   return loaded ? (
     <Provider store={store}>
-      <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
-        <AuthLiscenter>
-          <Stack screenOptions={{ headerShown: false }} />
-        </AuthLiscenter>
-      </View>
+      <MenuProvider>
+        <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
+          <AuthLiscenter>
+            <Stack screenOptions={{ headerShown: false }} />
+          </AuthLiscenter>
+        </View>
+      </MenuProvider>
     </Provider>
   ) : null;
 }

@@ -8,9 +8,9 @@ import { auth } from '../../../firebase/firebaseConfig';
 export default function Settings() {
   const logout = async () => {
     try {
-      const resp = await GoogleSignin.signOut();
-      const resp2 = await auth.signOut();
-    } catch (error) {}
+      await GoogleSignin.signOut();
+      await auth.signOut();
+    } catch {}
   };
   return (
     <View style={styles.container}>

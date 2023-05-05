@@ -1,56 +1,47 @@
 import { useRouter } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { SectionList, StyleSheet, View } from 'react-native';
-import { BorderlessButton } from 'react-native-gesture-handler';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Container from './Container';
 import { RootState } from '../../app/_layout';
-import { useThemedStyles } from '../../hooks/useThemedStyles';
+import { fetchPlansData } from '../../firebase/plans';
+import { setPlans } from '../../redux/planSlice';
 import { Theme } from '../../redux/themeSlice';
-import ThemedButton from '../element/ThemedButton';
+import { useThemedStyles } from '../../utils/hooks/useThemedStyles';
 import ThemedText from '../element/ThemedText';
 
-const getCurrentDate = () => {
-  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-  const date = new Date().getDate();
-  const month = new Date().getMonth() + 1;
-  const day = new Date().getDay();
-
-  return months[month - 1] + ' ' + date + ', ' + days[day];
-};
+const plansResource = fetchPlansData();
 
 interface IProps {}
 
 export default function WorkoutList(props: IProps) {
   const styles = useThemedStyles(themedStyles);
-  const plans = useSelector((state: RootState) => state.plans.list);
-
+  const planList = useSelector((state: RootState) => state.plans.list);
+  const user = useSelector((state: RootState) => state.auth);
   const router = useRouter();
+  const dispatch = useDispatch();
 
-  const sectionData = plans?.map((p) => {
-    return { title: p.name, data: p.workouts, id: p.id };
-  });
+  const [openedMenu, setOpenMenu] = useState('');
 
-  return sectionData ? (
+  const plans = plansResource.read(user?.userInfo?.uid);
+
+  useEffect(() => {
+    dispatch(setPlans(plans));
+  }, [plans]);
+
+  const sectionData =
+    planList?.map((p) => {
+      return { title: p.name, data: p.workouts, id: p.id };
+    }) || [];
+
+  return (
     <SectionList
       style={styles.container}
       sections={sectionData}
       stickySectionHeadersEnabled={false}
       keyExtractor={(item, index) => item.name + index}
+      scrollEnabled={false}
       renderItem={({ item, section, index }) => (
         <Container
           onPress={() => {
@@ -61,6 +52,8 @@ export default function WorkoutList(props: IProps) {
           }}
           workouts={item}
           index={index}
+          openedMenu={openedMenu}
+          setOpenMenu={setOpenMenu}
         />
       )}
       renderSectionHeader={({ section }) => {
@@ -74,59 +67,8 @@ export default function WorkoutList(props: IProps) {
           </View>
         );
       }}
-      ListHeaderComponent={() => {
-        return (
-          <View style={styles.listHeader}>
-            <View style={styles.header}>
-              <ThemedText
-                text={getCurrentDate()}
-                size="heading3"
-                color="text200"
-                weight="regular"
-              />
-              <View style={styles.button}>
-                <ThemedButton
-                  type="secondary"
-                  title="Create"
-                  onPress={() => router.push('./manageWorkouts')}
-                />
-              </View>
-            </View>
-            <View style={styles.calender}>
-              <BorderlessButton style={styles.day}>
-                <ThemedText text="Mo" color="text100" size="body2" />
-                <ThemedText text="12" color="text100" size="body2" />
-              </BorderlessButton>
-              <BorderlessButton style={styles.day}>
-                <ThemedText text="Tu" color="text100" size="body2" />
-                <ThemedText text="13" color="text100" size="body2" />
-              </BorderlessButton>
-              <BorderlessButton style={styles.day}>
-                <ThemedText text="We" color="text100" size="body2" />
-                <ThemedText text="14" color="secondary" size="body2" />
-              </BorderlessButton>
-              <BorderlessButton style={styles.day}>
-                <ThemedText text="Th" color="text100" size="body2" />
-                <ThemedText text="15" color="secondary" size="body2" />
-              </BorderlessButton>
-              <BorderlessButton style={styles.day}>
-                <ThemedText text="Fr" color="text100" size="body2" />
-                <ThemedText text="16" color="text100" size="body2" />
-              </BorderlessButton>
-              <BorderlessButton style={styles.day}>
-                <ThemedText text="Sa" color="text100" size="body2" />
-                <ThemedText text="17" color="text100" size="body2" />
-              </BorderlessButton>
-              <BorderlessButton style={styles.day}>
-                <ThemedText text="Su" color="text100" size="body2" />
-                <ThemedText text="18" color="text100" size="body2" />
-              </BorderlessButton>
-            </View>
-          </View>
-        );
-      }}
     />
-  ) : null;
+  );
 }
 
 const themedStyles = (theme: Theme) => {
@@ -147,6 +89,9 @@ const themedStyles = (theme: Theme) => {
       justifyContent: 'space-between',
       alignItems: 'center',
     },
+    headerIcon: {
+      color: theme.color.primary,
+    },
     calender: {
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -157,7 +102,7 @@ const themedStyles = (theme: Theme) => {
       alignItems: 'center',
     },
     button: {
-      width: 90,
+      width: 100,
     },
     sectionTitle: {
       paddingHorizontal: 20,

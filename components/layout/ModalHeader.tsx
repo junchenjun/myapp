@@ -2,9 +2,9 @@ import { useRouter } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
 import { BorderlessButton } from 'react-native-gesture-handler';
 
-import FireIcon from '../../assets/icons/fireIcon.svg';
-import { useThemedStyles } from '../../hooks/useThemedStyles';
+import IconClose from '../../assets/icons/IconClose';
 import { Theme } from '../../redux/themeSlice';
+import { useThemedStyles } from '../../utils/hooks/useThemedStyles';
 import ThemedText from '../element/ThemedText';
 
 interface IProps {
@@ -27,7 +27,7 @@ export default function ModalHeader(props: IProps) {
       ]}>
       {title && <ThemedText text={title} size="heading2" />}
       <BorderlessButton onPress={() => (onClose ? onClose() : router.back())}>
-        <FireIcon width={22} height={22} />
+        <IconClose width={30} height={30} stroke={styles.icon.color} />
       </BorderlessButton>
     </View>
   );
@@ -39,6 +39,9 @@ const themedStyles = (theme: Theme) => {
       width: '100%',
       flexDirection: 'row',
       paddingTop: 20,
+    },
+    icon: {
+      color: theme.color.text100,
     },
   });
 };
