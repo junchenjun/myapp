@@ -19,7 +19,7 @@ export default function InfoConatiner(props: IProps) {
       <ThemedText size="body4" color="text100">
         {title}
       </ThemedText>
-      <ThemedText size="body2" color="primary">
+      <ThemedText size="body2" color="text300">
         {content}
       </ThemedText>
     </View>

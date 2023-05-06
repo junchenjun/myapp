@@ -31,7 +31,7 @@ export default function Container(props: IProps) {
           <ThemedText
             text={workouts.name}
             size="heading2"
-            color="primary"
+            color="text300"
             style={styles.title}
             weight="medium"
           />

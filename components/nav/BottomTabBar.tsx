@@ -76,7 +76,7 @@ const Tab = ({ isFocused, index, onPress, options, label, initializing }) => {
           <Animated.View style={[styles.tab, animatedPressableStyles]}>
             {options.tabBarIcon()}
             <Animated.View style={[styles.textView, animatedTextStyles]}>
-              <ThemedText text={label} size="body2" weight="bold" color="white" />
+              <ThemedText text={label} size="body2" weight="bold" color="text300" />
             </Animated.View>
           </Animated.View>
         )}

@@ -74,11 +74,11 @@ const themedStyles = (theme: Theme) => {
       flexDirection: 'row',
     },
     icon: {
-      color: theme.color.text100,
+      color: theme.color.text200,
     },
     wrapper: {
       borderRadius: theme.borders.borderRadius,
-      backgroundColor: theme.color.secondary,
+      backgroundColor: theme.color.black,
       width: 150,
     },
     pressable: {

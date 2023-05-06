@@ -7,7 +7,7 @@ import { useThemedStyles } from '../../utils/hooks/useThemedStyles';
 interface IProps {
   text?: string;
   size?: 'body1' | 'body2' | 'body3' | 'body4' | 'body5' | 'heading1' | 'heading2' | 'heading3';
-  color?: 'primary' | 'text300' | 'secondary' | 'text100' | 'text200' | 'white';
+  color?: 'primary' | 'text300' | 'secondary' | 'text100' | 'text200' | 'white' | 'black';
   weight?: 'medium' | 'regular' | 'bold';
   animatedStyles?: TextStyle;
   style?: TextStyle;
@@ -71,6 +71,9 @@ const themedStyles = (theme: Theme) => {
     },
     white: {
       color: theme.color.white,
+    },
+    black: {
+      color: theme.color.black,
     },
     heading1: {
       fontSize: 30,

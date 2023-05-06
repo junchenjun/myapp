@@ -3,8 +3,10 @@ import { StyleSheet, View, ViewStyle } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 
 import ThemedText from './ThemedText';
-import { Theme } from '../../redux/themeSlice';
+import { DARK_THEME_ID, Theme } from '../../redux/themeSlice';
 import { useThemedStyles } from '../../utils/hooks/useThemedStyles';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../app/_layout';
 
 interface IProps {
   onPress: () => void;
@@ -25,20 +27,27 @@ export default function ThemedButton(props: IProps) {
     icon,
   } = props;
   const styles = useThemedStyles(themedStyles);
+  const theme = useSelector((state: RootState) => state.theme.styles);
 
   const isPrimary = type === 'primary';
 
+  const primaryButtonTextColor = theme.id === DARK_THEME_ID ? 'black' : 'white';
+
   return (
     <RectButton
-      rippleColor={type !== 'primary' ? '#D1D2E8' : null}
-      style={[styles.button, styles[size], type === 'primary' ? styles.primary : {}, customStyle]}
+      style={[
+        styles.button,
+        styles[size],
+        isPrimary ? styles.primary : styles.secondary,
+        customStyle,
+      ]}
       onPress={onPress}>
-      <View style={[styles.view, isPrimary ? {} : styles.viewSecondary]}>
+      <View style={styles.view}>
         <ThemedText
           text={title}
           size={isPrimary ? 'body1' : 'body2'}
           weight={isPrimary ? 'medium' : 'regular'}
-          color={isPrimary ? 'white' : 'text300'}
+          color={isPrimary ? primaryButtonTextColor : 'text300'}
         />
         {icon}
       </View>
@@ -64,9 +73,6 @@ const themedStyles = (theme: Theme) => {
     tall: {
       height: 55,
     },
-    primary: {
-      backgroundColor: theme.color.secondary,
-    },
     view: {
       width: '100%',
       height: '100%',
@@ -77,8 +83,11 @@ const themedStyles = (theme: Theme) => {
       gap: 4,
       alignContent: 'center',
     },
-    viewSecondary: {
-      backgroundColor: theme.color.transprant05,
+    primary: {
+      backgroundColor: theme.color.primary,
+    },
+    secondary: {
+      backgroundColor: theme.color.secondary,
     },
   });
 };

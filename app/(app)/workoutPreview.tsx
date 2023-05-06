@@ -1,7 +1,7 @@
 import { useRouter, useSearchParams } from 'expo-router';
 import { Dimensions, Platform, StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import Animated, { FadeInDown, FadeOutDown } from 'react-native-reanimated';
+import Animated, { FadeIn, FadeInDown, FadeOutDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 
@@ -70,7 +70,7 @@ export default function WorkoutPreview() {
           </View>
         )}
       </ScrollView>
-      <Animated.View entering={FadeInDown} exiting={FadeOutDown}>
+      <Animated.View entering={FadeIn}>
         <ThemedButton
           title="Start"
           onPress={() => {
