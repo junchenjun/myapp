@@ -1,12 +1,12 @@
 import { ReactElement } from 'react';
 import { StyleSheet, View, ViewStyle } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
+import { useSelector } from 'react-redux';
 
 import ThemedText from './ThemedText';
+import { RootState } from '../../app/_layout';
 import { DARK_THEME_ID, Theme } from '../../redux/themeSlice';
 import { useThemedStyles } from '../../utils/hooks/useThemedStyles';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../app/_layout';
 
 interface IProps {
   onPress: () => void;

@@ -1,9 +1,8 @@
 import { useRouter, useSearchParams } from 'expo-router';
 import { Dimensions, Platform, StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import Animated, { FadeIn, FadeInDown, FadeOutDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import IconEdit from '../../assets/icons/IconEdit';
 import ThemedButton from '../../components/element/ThemedButton';
@@ -12,6 +11,7 @@ import ExerciseContainer from '../../components/layout/ExerciseContainer';
 import InfoConatiner from '../../components/layout/InfoContainer';
 import ModalHeader from '../../components/layout/ModalHeader';
 import { Theme } from '../../redux/themeSlice';
+import { setWorkout } from '../../redux/workoutSlice';
 import { useThemedStyles } from '../../utils/hooks/useThemedStyles';
 import { RootState } from '../_layout';
 
@@ -19,17 +19,22 @@ export default function WorkoutPreview() {
   const plans = useSelector((state: RootState) => state.plans.list);
   const { workoutId, planId } = useSearchParams();
   const insets = useSafeAreaInsets();
-
   const styles = useThemedStyles(themedStyles);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const workout = plans?.find((p) => p.id === planId)?.workouts.find((w) => w.id === workoutId);
 
   const isAndroid = Platform.OS === 'android';
 
   return (
-    <View style={[styles.containter, isAndroid ? { paddingTop: insets.top } : null]}>
-      <ScrollView contentContainerStyle={styles.scroll}>
+    <View style={styles.containter}>
+      <ScrollView
+        contentContainerStyle={styles.scroll}
+        style={{
+          backgroundColor: styles.scroll.backgroundColor,
+          paddingTop: isAndroid ? insets.top : 0,
+        }}>
         <ModalHeader />
         {workout && (
           <View style={styles.content}>
@@ -70,15 +75,17 @@ export default function WorkoutPreview() {
           </View>
         )}
       </ScrollView>
-      <Animated.View entering={FadeIn}>
-        <ThemedButton
-          title="Start"
-          onPress={() => {
-            router.replace('WorkoutInProgress');
-          }}
-          style={[styles.float, { bottom: insets.bottom ? insets.bottom + 10 : 20 }]}
-        />
-      </Animated.View>
+      <ThemedButton
+        title="Start"
+        onPress={() => {
+          dispatch(setWorkout(workout));
+          router.replace({
+            pathname: 'WorkoutInProgress',
+            params: { title: encodeURIComponent(workout.name) },
+          });
+        }}
+        style={[styles.float, { bottom: insets.bottom ? insets.bottom + 10 : 20 }]}
+      />
     </View>
   );
 }
@@ -93,6 +100,7 @@ const themedStyles = (theme: Theme) => {
       alignItems: 'center',
       paddingHorizontal: 15,
       paddingBottom: 100,
+      backgroundColor: theme.color.surface200,
     },
     content: {
       width: '100%',

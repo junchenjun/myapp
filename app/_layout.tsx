@@ -1,31 +1,39 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useFonts } from 'expo-font';
 import * as NavigationBar from 'expo-navigation-bar';
-import { Stack, useRouter, useSegments } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
+import { SplashScreen, Stack, useRouter, useSegments } from 'expo-router';
 import { User } from 'firebase/auth';
 import { useCallback, useEffect, useState } from 'react';
-import { Platform, View } from 'react-native';
+import { Platform, View, useColorScheme } from 'react-native';
 import { MenuProvider } from 'react-native-popup-menu';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 
+import { Header } from '../components/layout/Header';
 import { auth } from '../firebase/firebaseConfig';
 import { setUserInfo } from '../redux/authSlice';
 import { rootReducer } from '../redux/reducer';
-
-SplashScreen.preventAutoHideAsync();
+import { DARK_THEME_ID, LIGHT_THEME_ID, setTheme } from '../redux/themeSlice';
 
 export type RootState = ReturnType<typeof store.getState>;
 
-const AuthLiscenter = ({ children }) => {
+const RootLayout = () => {
   const [initializing, setInitializing] = useState(true);
 
   const user = useSelector((state: RootState) => state.auth);
   const theme = useSelector((state: RootState) => state.theme);
+  const colorScheme = useColorScheme();
 
   const segments = useSegments();
   const router = useRouter();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (colorScheme === 'light') {
+      dispatch(setTheme(LIGHT_THEME_ID));
+    } else {
+      dispatch(setTheme(DARK_THEME_ID));
+    }
+  }, [colorScheme]);
 
   useEffect(() => {
     if (Platform.OS === 'android') {
@@ -71,12 +79,36 @@ const AuthLiscenter = ({ children }) => {
 
   if (initializing) return null;
 
-  return children;
+  return (
+    <Stack
+      screenOptions={{
+        headerShown: false,
+        animation: 'fade_from_bottom',
+        contentStyle: {
+          backgroundColor: theme.styles.color.surface200,
+        },
+      }}>
+      <Stack.Screen
+        name="WorkoutInProgress"
+        options={{
+          headerShown: true,
+          headerBackVisible: true,
+          headerShadowVisible: false,
+          header: Header,
+          headerTransparent: true,
+          animation: 'fade_from_bottom',
+        }}
+        key="WorkoutInProgress"
+      />
+    </Stack>
+  );
 };
 
 const store = configureStore({
   reducer: rootReducer,
 });
+
+SplashScreen.preventAutoHideAsync();
 
 export default function Root() {
   const [loaded] = useFonts({
@@ -95,9 +127,7 @@ export default function Root() {
     <Provider store={store}>
       <MenuProvider>
         <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
-          <AuthLiscenter>
-            <Stack screenOptions={{ headerShown: false }} />
-          </AuthLiscenter>
+          <RootLayout />
         </View>
       </MenuProvider>
     </Provider>

@@ -1,4 +1,5 @@
-import { Image, StyleSheet, View } from 'react-native';
+import { Image } from 'expo-image';
+import { StyleSheet, View } from 'react-native';
 
 import { Exercise } from '../../firebase/plans';
 import { Theme } from '../../redux/themeSlice';
@@ -17,17 +18,18 @@ export default function ExerciseContainer(props: IProps) {
     <View style={[styles.container]}>
       <View style={styles.imageBox}>
         <Image
-          resizeMode="cover"
           style={styles.image}
-          source={{ uri: 'http://d205bpvrqc9yn1.cloudfront.net/0001.gif' }}
+          source="http://d205bpvrqc9yn1.cloudfront.net/0001.gif"
+          contentFit="cover"
+          cachePolicy="memory-disk"
         />
       </View>
       <View style={styles.content}>
         <ThemedText size="body1" color="text300">
           Push ups
         </ThemedText>
-        <ThemedText size="body3" color="text200">
-          {item.sets.length + ' Sets'}
+        <ThemedText size="body3" color="text100">
+          {item?.sets?.length + ' Sets'}
         </ThemedText>
       </View>
     </View>
@@ -46,6 +48,7 @@ const themedStyles = (theme: Theme) => {
     image: {
       height: 55,
       width: 55,
+      backgroundColor: theme.color.white,
     },
     imageBox: {
       backgroundColor: theme.color.surface300,

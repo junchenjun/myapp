@@ -24,7 +24,7 @@ export default function WorkoutList(props: IProps) {
 
   const [openedMenu, setOpenMenu] = useState('');
 
-  const plans = plansResource.read(user?.userInfo?.uid);
+  const plans = user?.userInfo?.uid ? plansResource.read(user?.userInfo?.uid) : [];
 
   useEffect(() => {
     dispatch(setPlans(plans));

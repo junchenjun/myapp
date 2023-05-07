@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { setStatusBarStyle } from 'expo-status-bar';
 
 export interface ColorTheme {
   surface300: string;
@@ -13,6 +14,7 @@ export interface ColorTheme {
   black: string;
   transprant05: string;
   transprant01: string;
+  transparentHeader: string;
 }
 
 export interface Theme {
@@ -39,6 +41,7 @@ const lightThemeColors: ColorTheme = {
   black: '#17171A',
   transprant05: 'rgba(0, 0, 0, 0.05)',
   transprant01: 'rgba(0, 0, 0, 0.02)',
+  transparentHeader: 'rgba(230, 230, 230, 0.5)',
 };
 
 const darkThemeColors: ColorTheme = {
@@ -54,6 +57,7 @@ const darkThemeColors: ColorTheme = {
   black: '#17171A',
   transprant05: 'rgba(0, 0, 0, 0.05)',
   transprant01: 'rgba(0, 0, 0, 0.02)',
+  transparentHeader: 'rgba(36, 37, 41, 0.9)',
 };
 
 export const lightTheme: Theme = {
@@ -86,11 +90,13 @@ export const themeSlice = createSlice({
   reducers: {
     setTheme: (state, action) => {
       if (action.payload === LIGHT_THEME_ID) {
-        state.themeId = DARK_THEME_ID;
-        state.styles = darkTheme;
-      } else if (action.payload === DARK_THEME_ID) {
-        state.styles = lightTheme;
         state.themeId = LIGHT_THEME_ID;
+        state.styles = lightTheme;
+        setStatusBarStyle('dark');
+      } else if (action.payload === DARK_THEME_ID) {
+        state.styles = darkTheme;
+        state.themeId = DARK_THEME_ID;
+        setStatusBarStyle('light');
       }
     },
   },
