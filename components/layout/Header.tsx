@@ -1,4 +1,3 @@
-import { BlurView } from '@react-native-community/blur';
 import { StyleSheet, View } from 'react-native';
 
 import IconAdd from '../../assets/icons/IconAdd';
@@ -11,12 +10,10 @@ export const Header = ({ navigation, route, options, back }) => {
   const styles = useThemedStyles(themedStyles);
 
   return (
-    <BlurView blurType="dark" blurAmount={8} overlayColor="">
-      <View style={styles.inner}>
-        <IconAdd width={20} height={20} stroke={styles.icon.color} />
-        <ThemedText size="heading2">{title}</ThemedText>
-      </View>
-    </BlurView>
+    <View style={styles.inner}>
+      <IconAdd width={20} height={20} stroke={styles.icon.color} />
+      <ThemedText size="heading2">{title}</ThemedText>
+    </View>
   );
 };
 

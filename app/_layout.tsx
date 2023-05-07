@@ -92,11 +92,8 @@ const RootLayout = () => {
         name="WorkoutInProgress"
         options={{
           headerShown: true,
-          headerBackVisible: true,
-          headerShadowVisible: false,
           header: Header,
           headerTransparent: true,
-          animation: 'fade_from_bottom',
         }}
         key="WorkoutInProgress"
       />

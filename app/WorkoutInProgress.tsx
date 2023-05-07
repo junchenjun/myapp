@@ -1,7 +1,6 @@
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
-import { BackHandler, StyleSheet } from 'react-native';
-import Animated, { FadeInDown } from 'react-native-reanimated';
+import { BackHandler, ScrollView, StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import { RootState } from './_layout';
@@ -26,24 +25,25 @@ export default function WorkoutInProgress() {
   }, []);
 
   return (
-    <Animated.ScrollView
-      entering={FadeInDown}
-      contentContainerStyle={styles.container}
-      style={{ backgroundColor: styles.container.backgroundColor }}>
-      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(() => {
-        return <ExerciseContainer item={workout?.exercises && workout?.exercises[0]} />;
-      })}
-    </Animated.ScrollView>
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scroll}>
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(() => {
+          return <ExerciseContainer item={workout?.exercises && workout?.exercises[0]} />;
+        })}
+      </ScrollView>
+    </View>
   );
 }
 const themedStyles = (theme: Theme) => {
   return StyleSheet.create({
     container: {
-      width: '100%',
-      alignItems: 'stretch',
+      flex: 1,
+      position: 'relative',
+      backgroundColor: theme.color.surface200,
+    },
+    scroll: {
       padding: 15,
       paddingTop: 100,
-      backgroundColor: theme.color.surface200,
       gap: 10,
     },
     title: {

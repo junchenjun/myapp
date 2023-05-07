@@ -41,7 +41,7 @@ const lightThemeColors: ColorTheme = {
   black: '#17171A',
   transprant05: 'rgba(0, 0, 0, 0.05)',
   transprant01: 'rgba(0, 0, 0, 0.02)',
-  transparentHeader: 'rgba(230, 230, 230, 0.5)',
+  transparentHeader: 'rgba(230, 230, 230, 0.94)',
 };
 
 const darkThemeColors: ColorTheme = {
@@ -57,7 +57,7 @@ const darkThemeColors: ColorTheme = {
   black: '#17171A',
   transprant05: 'rgba(0, 0, 0, 0.05)',
   transprant01: 'rgba(0, 0, 0, 0.02)',
-  transparentHeader: 'rgba(36, 37, 41, 0.9)',
+  transparentHeader: 'rgba(36, 37, 41, 0.98)',
 };
 
 export const lightTheme: Theme = {

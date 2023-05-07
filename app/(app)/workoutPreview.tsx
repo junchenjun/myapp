@@ -1,6 +1,5 @@
 import { useRouter, useSearchParams } from 'expo-router';
-import { Dimensions, Platform, StyleSheet, View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { Dimensions, Platform, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -28,13 +27,14 @@ export default function WorkoutPreview() {
   const isAndroid = Platform.OS === 'android';
 
   return (
-    <View style={styles.containter}>
-      <ScrollView
-        contentContainerStyle={styles.scroll}
-        style={{
-          backgroundColor: styles.scroll.backgroundColor,
+    <View
+      style={[
+        styles.container,
+        {
           paddingTop: isAndroid ? insets.top : 0,
-        }}>
+        },
+      ]}>
+      <ScrollView contentContainerStyle={styles.scroll}>
         <ModalHeader />
         {workout && (
           <View style={styles.content}>
@@ -91,7 +91,7 @@ export default function WorkoutPreview() {
 }
 const themedStyles = (theme: Theme) => {
   return StyleSheet.create({
-    containter: {
+    container: {
       flex: 1,
       position: 'relative',
       backgroundColor: theme.color.surface200,
@@ -100,7 +100,6 @@ const themedStyles = (theme: Theme) => {
       alignItems: 'center',
       paddingHorizontal: 15,
       paddingBottom: 100,
-      backgroundColor: theme.color.surface200,
     },
     content: {
       width: '100%',
