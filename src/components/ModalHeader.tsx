@@ -1,0 +1,48 @@
+import { useRouter } from 'expo-router';
+import { StyleSheet, View } from 'react-native';
+import { BorderlessButton } from 'react-native-gesture-handler';
+
+import { IconClose } from '~assets/icons/IconClose';
+import { ThemedText } from '~components/ThemedText';
+import { ITheme } from '~redux/themeSlice';
+import { useThemedStyles } from '~utils/hooks/useThemedStyles';
+
+interface IProps {
+  onClose?: () => void;
+  title?: string;
+}
+
+export const ModalHeader = (props: IProps) => {
+  const { onClose, title } = props;
+  const styles = useThemedStyles(themedStyles);
+  const router = useRouter();
+
+  return (
+    <View
+      style={[
+        styles.container,
+        {
+          justifyContent: title ? 'space-between' : 'flex-end',
+        },
+      ]}
+    >
+      {title && <ThemedText text={title} size='heading2' />}
+      <BorderlessButton onPress={() => (onClose ? onClose() : router.back())}>
+        <IconClose width={30} height={30} stroke={styles.icon.color} />
+      </BorderlessButton>
+    </View>
+  );
+};
+
+const themedStyles = (theme: ITheme) => {
+  return StyleSheet.create({
+    container: {
+      width: '100%',
+      flexDirection: 'row',
+      paddingTop: 20,
+    },
+    icon: {
+      color: theme.color.text100,
+    },
+  });
+};

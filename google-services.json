@@ -1,45 +1,32 @@
 {
-  "project_info": {
-    "project_number": "244734442198",
-    "project_id": "gym-log-by-jun",
-    "storage_bucket": "gym-log-by-jun.appspot.com"
-  },
   "client": [
     {
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEEf4GwiGqYIEhBr0UjSaraAH-258dKCw"
+        }
+      ],
       "client_info": {
-        "mobilesdk_app_id": "1:244734442198:android:09f62193446ffc74482777",
         "android_client_info": {
           "package_name": "com.junchenjun.myapp"
-        }
+        },
+        "mobilesdk_app_id": "1:878529743045:android:0e405658a33ca08464c8ac"
       },
       "oauth_client": [
         {
-          "client_id": "244734442198-cq3up65839ilkcheavhdf7lh3hhia5q7.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.junchenjun.myapp",
-            "certificate_hash": "d8a1c071a82759472511e18ef7912bfd7da8fc4b"
-          }
-        },
-        {
-          "client_id": "244734442198-4qf1an65emvh6b3bg7m618segbkrbt8i.apps.googleusercontent.com",
+          "client_id": "878529743045-prlrevc1bfonrg7k4lfgvg9m0fuqtqon.apps.googleusercontent.com",
           "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAurDaG3Xo0gXjCwhHTo8HcFwrwxrUKJ-s"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "244734442198-4qf1an65emvh6b3bg7m618segbkrbt8i.apps.googleusercontent.com",
+              "client_id": "878529743045-prlrevc1bfonrg7k4lfgvg9m0fuqtqon.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "244734442198-spvdk7vrtvn6huohnqb89cs4mgpd9c80.apps.googleusercontent.com",
+              "client_id": "878529743045-2vgcb7o636p3pvhdjvjpvnq8vb8g5l7p.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.junchenjun.myapp"
@@ -50,5 +37,10 @@
       }
     }
   ],
-  "configuration_version": "1"
+  "configuration_version": "1",
+  "project_info": {
+    "project_id": "myapp-403222",
+    "project_number": "878529743045",
+    "storage_bucket": "myapp-403222.appspot.com"
+  }
 }

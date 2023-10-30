@@ -1,4 +1,26 @@
 {
+    "compilerOptions": {
+
+        /* Linting */
+        "strict": true,
+        // "noUnusedLocals": true,
+        // "noUnusedParameters": true,
+        // "noFallthroughCasesInSwitch": true,
+
+        /* Alias support */
+        "baseUrl": "./", 
+        "paths": {
+            "~components/*": ["./src/components/*"],
+            "~assets/*": ["./src/assets/*"],
+            "~supabase/*": ["./src/supabase/*"],
+            "~utils/*": ["./src/utils/*"],
+            "~redux/*": ["./src/redux/*"],
+            "~app/*": ["./src/app/*"],
+            "~firebase/*": ["./src/firebase/*"],
+
+            "@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"]
+        },
+    },
+
     "extends": "expo/tsconfig.base",
-    "compilerOptions": {}
 }

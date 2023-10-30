@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { getDefaultConfig } = require('@expo/metro-config');
 
 module.exports = (() => {
@@ -12,9 +13,11 @@ module.exports = (() => {
   };
   config.resolver = {
     ...resolver,
-    assetExts: resolver.assetExts.filter((ext) => ext !== 'svg'),
+    assetExts: resolver.assetExts.filter(ext => ext !== 'svg'),
     sourceExts: [...resolver.sourceExts, 'svg'],
   };
+
+  config.resolver.resolverMainFields = ['react-native', 'browser', 'main'];
 
   config.resolver.assetExts.push('cjs');
 
