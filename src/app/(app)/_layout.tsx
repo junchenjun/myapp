@@ -8,8 +8,8 @@ import {
 import { Stack, useRouter, withLayoutContext } from 'expo-router';
 
 import { PageHeader } from '~components/PageHeader';
-import { ThemedButton } from '~components/ThemedButton';
-import { ThemedText } from '~components/ThemedText';
+import { Pressable } from '~components/pressable/Pressable';
+import { Text } from '~components/text/Text';
 
 const { Navigator } = createStackNavigator();
 
@@ -43,7 +43,11 @@ export default function Layout() {
           header: () => {
             return (
               <PageHeader
-                rightComponent={<ThemedButton title='Edit' type='text' onPress={() => null} />}
+                rightComponent={
+                  <Pressable>
+                    <Text text='Edit' color='primary' />
+                  </Pressable>
+                }
                 leftIcon='goBack'
                 onPress={() => router.back()}
               />
@@ -62,9 +66,9 @@ export default function Layout() {
             return (
               <PageHeader
                 rightComponent={
-                  <ThemedText color='primary' size='body2'>
+                  <Text color='primary' size='body2'>
                     00:13:22
-                  </ThemedText>
+                  </Text>
                 }
                 title={title}
                 leftIcon='goBack'
@@ -112,7 +116,7 @@ export default function Layout() {
           headerShown: true,
           header: ({ route }) => {
             const title = (route?.params as { title: string }).title;
-            return <PageHeader title={title} leftIcon='close' />;
+            return <PageHeader title={title} leftIcon='goBack' />;
           },
           animation: 'fade',
           headerTransparent: true,

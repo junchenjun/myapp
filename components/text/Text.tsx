@@ -1,13 +1,12 @@
-import { Text, StyleSheet, TextStyle } from 'react-native';
+import { Text as RNText, StyleSheet, TextStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
 
-import { ITheme } from '~redux/themeSlice';
-import { useThemedStyles } from '~utils/hooks/useThemedStyles';
+import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
 interface IProps {
   text?: string;
   size?: 'body1' | 'body2' | 'body3' | 'body4' | 'body5' | 'heading1' | 'heading2' | 'heading3';
-  color?: 'primary' | 'text300' | 'secondary' | 'text100' | 'text200' | 'surface300';
+  color?: 'primary' | 'text300' | 'text100' | 'text200' | 'surface300';
   weight?: 'medium' | 'regular' | 'bold';
   animatedStyles?: TextStyle;
   style?: TextStyle;
@@ -15,7 +14,7 @@ interface IProps {
   numberOfLines?: number;
 }
 
-export const ThemedText = (props: IProps) => {
+export const Text = (props: IProps) => {
   const {
     text,
     size = 'body1',
@@ -36,9 +35,9 @@ export const ThemedText = (props: IProps) => {
       {children || text}
     </Animated.Text>
   ) : (
-    <Text numberOfLines={numberOfLines} style={[styles[color], styles[size], styles[weight], customStyles]}>
+    <RNText numberOfLines={numberOfLines} style={[styles[color], styles[size], styles[weight], customStyles]}>
       {children || text}
-    </Text>
+    </RNText>
   );
 };
 
@@ -54,22 +53,19 @@ const themedStyles = (theme: ITheme) => {
       fontFamily: 'Kanit-SemiBold',
     },
     primary: {
-      color: theme.color.primary,
-    },
-    secondary: {
-      color: theme.color.secondary,
+      color: theme.colors.primary,
     },
     text300: {
-      color: theme.color.text300,
+      color: theme.colors.text300,
     },
     text200: {
-      color: theme.color.text200,
+      color: theme.colors.text200,
     },
     text100: {
-      color: theme.color.text100,
+      color: theme.colors.text100,
     },
     surface300: {
-      color: theme.color.surface300,
+      color: theme.colors.surface300,
     },
     heading1: {
       fontSize: 30,

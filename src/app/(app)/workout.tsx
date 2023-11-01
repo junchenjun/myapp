@@ -3,12 +3,11 @@ import { useEffect } from 'react';
 import { BackHandler, ScrollView, StyleSheet, View } from 'react-native';
 import { EdgeInsets } from 'react-native-safe-area-context';
 
+import { Button } from '~components/button/Button';
 import { ExerciseContainer } from '~components/ExerciseContainer';
-import { ThemedButton } from '~components/ThemedButton';
 import { useAppSelector } from '~redux/store';
-import { ITheme } from '~redux/themeSlice';
-import { useThemedStyles } from '~utils/hooks/useThemedStyles';
 import { getFloatButtonDistance, getPagePaddingTopWithHeader } from '~utils/styleHelper';
+import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
 const WorkoutInProgress = () => {
   const styles = useThemedStyles(themedStyles);
@@ -29,7 +28,7 @@ const WorkoutInProgress = () => {
         {workout?.exercises.map((i, index) => {
           return <ExerciseContainer key={index} item={workout?.exercises && workout?.exercises[0]} />;
         })}
-        <ThemedButton title='Complete' onPress={() => router.back()} type='secondary' />
+        <Button title='Complete' onPress={() => router.back()} />
       </ScrollView>
     </View>
   );
@@ -42,7 +41,7 @@ const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
     container: {
       flex: 1,
       position: 'relative',
-      backgroundColor: theme.color.surface200,
+      backgroundColor: theme.colors.surface100,
     },
     scroll: {
       padding: 15,

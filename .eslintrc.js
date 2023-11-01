@@ -30,15 +30,14 @@ module.exports = {
       },
       alias: {
         map: [
-          ['~components', './src/components'],
+          ['~components', './components'],
           ['~assets', './src/assets'],
-          ['~supabase', './src/supabase'],
           ['~redux', './src/redux'],
           ['~utils', './src/utils'],
           ['~app', './src/app'],
           ['~firebase', './src/firebase'],
         ],
-        extensions: ['.ts', '.js', '.tsx', '.json'],
+        extensions: ['.ts', '.js', '.tsx', '.json', '.stories.tsx'],
       },
     },
   },

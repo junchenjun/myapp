@@ -5,11 +5,9 @@ import { combineReducers } from 'redux';
 
 import { authReducer, authSlice } from '~redux/authSlice';
 import { planReducer } from '~redux/planSlice';
-import { themeReducer } from '~redux/themeSlice';
 import { workoutReducer } from '~redux/workoutSlice';
 
 export const rootReducer = combineReducers({
-  theme: themeReducer,
   auth: authReducer,
   plans: planReducer,
   workout: workoutReducer,

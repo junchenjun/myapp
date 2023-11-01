@@ -5,12 +5,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { IconFire, IconProfile } from '~assets/icons';
 import { BottomTab } from '~components/BottomTab';
-import { useAppSelector } from '~redux/store';
-import { ITheme } from '~redux/themeSlice';
-import { useThemedStyles } from '~utils/hooks/useThemedStyles';
+import { useTheme, useThemedStyles } from '~utils/ThemeContext';
 
-export default function Root() {
-  const theme = useAppSelector(state => state.theme);
+export default function Layout() {
+  const theme = useTheme();
   const insets = useSafeAreaInsets();
   const styles = useThemedStyles(themedStyles);
 
@@ -73,7 +71,7 @@ export default function Root() {
         key='home'
         options={{
           title: 'Workouts',
-          tabBarIcon: () => <IconFire width={22} height={22} fill={theme.color.primary} />,
+          tabBarIcon: () => <IconFire width={22} height={22} fill={theme.colors.primary} />,
         }}
       />
       <Tabs.Screen
@@ -81,14 +79,14 @@ export default function Root() {
         key='settings'
         options={{
           title: 'Other Stuff',
-          tabBarIcon: () => <IconProfile width={20} height={20} fill={theme.color.primary} />,
+          tabBarIcon: () => <IconProfile width={20} height={20} fill={theme.colors.primary} />,
         }}
       />
     </Tabs>
   );
 }
 
-const themedStyles = (theme: ITheme) => {
+const themedStyles = () => {
   const TAB_WIDTH = 76;
   return StyleSheet.create({
     tabs: {
@@ -105,14 +103,6 @@ const themedStyles = (theme: ITheme) => {
     },
     tab: {
       flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    button: {
-      backgroundColor: theme.color.secondary,
-      flexDirection: 'row',
-      width: '100%',
-      height: '100%',
       justifyContent: 'center',
       alignItems: 'center',
     },

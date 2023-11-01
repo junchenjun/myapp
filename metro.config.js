@@ -7,6 +7,8 @@ module.exports = (() => {
 
   const { transformer, resolver } = config;
 
+  config.resolver.resolverMainFields.unshift('sbmodern');
+
   config.transformer = {
     ...transformer,
     babelTransformerPath: require.resolve('react-native-svg-transformer'),

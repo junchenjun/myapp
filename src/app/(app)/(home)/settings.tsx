@@ -4,11 +4,10 @@ import { Alert, StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { EdgeInsets } from 'react-native-safe-area-context';
 
-import { ThemedButton } from '~components/ThemedButton';
-import { ThemedText } from '~components/ThemedText';
+import { Button } from '~components/button/Button';
+import { Text } from '~components/text/Text';
 import { firebaseAuth } from '~firebase/firebaseConfig';
-import { ITheme } from '~redux/themeSlice';
-import { useThemedStyles } from '~utils/hooks/useThemedStyles';
+import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
 const Settings = () => {
   const styles = useThemedStyles(createStyles);
@@ -44,17 +43,16 @@ const Settings = () => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scroll}>
-        <ThemedText text='Settings' size='heading1' />
-        <ThemedButton
+        <Text text='Settings' size='heading1' />
+        <Button
           loading={loading}
           title='Log Out'
           onPress={() => {
             setLoading(true);
             createTwoButtonAlert();
           }}
-          type='secondary'
         />
-        <ThemedButton title='Log Out' onPress={() => {}} type='secondary' />
+        <Button title='Log Out' onPress={() => {}} />
       </ScrollView>
     </View>
   );
@@ -66,7 +64,7 @@ const createStyles = (theme: ITheme, insets: EdgeInsets) => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.color.surface200,
+      backgroundColor: theme.colors.surface100,
       paddingTop: insets.top,
     },
     scroll: {
@@ -75,7 +73,7 @@ const createStyles = (theme: ITheme, insets: EdgeInsets) => {
       paddingHorizontal: 15,
     },
     icon: {
-      color: theme.color.primary,
+      color: theme.colors.primary,
     },
   });
   return styles;

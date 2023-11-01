@@ -2,9 +2,8 @@ import { ReactNode } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withDelay, withTiming } from 'react-native-reanimated';
 
-import { ThemedText } from '~components/ThemedText';
-import { ITheme } from '~redux/themeSlice';
-import { useThemedStyles } from '~utils/hooks/useThemedStyles';
+import { Text } from '~components/text/Text';
+import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
 interface ITab {
   isFocused: boolean;
@@ -69,7 +68,7 @@ export const BottomTab = ({ isFocused, index, onPress, options, label, initializ
           <View style={[styles.tab]}>
             {options.tabBarIcon()}
             <Animated.View style={[styles.textView, animatedTextStyles]}>
-              <ThemedText text={label} size='body2' weight='bold' color='primary' />
+              <Text text={label} size='body2' weight='bold' color='primary' />
             </Animated.View>
           </View>
         )}
@@ -91,7 +90,7 @@ const themedStyles = (theme: ITheme) => {
       alignItems: 'center',
     },
     button: {
-      backgroundColor: theme.color.surface400,
+      backgroundColor: theme.colors.surface400,
       flexDirection: 'row',
       width: '100%',
       height: '100%',

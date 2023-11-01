@@ -3,7 +3,8 @@
     "version": ">= 3.10.0"
   },
   "build": {
-    "development": {
+    "dev": {
+      "EXPO_PUBLIC_API_URL": "false",
       "developmentClient": true,
       "distribution": "internal",
       "ios": {
@@ -11,12 +12,14 @@
       }
     },
     "preview": {
+      "EXPO_PUBLIC_API_URL": "false",
       "distribution": "internal",
       "android": {
         "buildType": "apk"
       }
     },
     "production": {
+      "EXPO_PUBLIC_API_URL": "false",
       "ios": {
         "resourceClass": "m-medium"
       }

@@ -4,33 +4,27 @@ import * as NavigationBar from 'expo-navigation-bar';
 import { Slot, SplashScreen, useRouter } from 'expo-router';
 import { setStatusBarStyle } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { Platform, useColorScheme } from 'react-native';
+import { Platform, View, useColorScheme } from 'react-native';
 import { Provider } from 'react-redux';
 
 import { firebaseAuth, getPlansCollection } from '~firebase/firebaseConfig';
 import { setAuth } from '~redux/authSlice';
 import { setPlans } from '~redux/planSlice';
 import { store, useAppDispatch, useAppSelector } from '~redux/store';
-import { DARK_THEME_ID, LIGHT_THEME_ID, setTheme } from '~redux/themeSlice';
+import { DARK_THEME_ID, LIGHT_THEME_ID, ThemeProvider, useTheme, useUpdateTheme } from '~utils/ThemeContext';
 
 SplashScreen.preventAutoHideAsync();
+const storybookEnabled = process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true';
 
-const RootLayout = () => {
+const RootLayout = ({ loaded }: { loaded: boolean }) => {
   const [initializing, setInitializing] = useState(true);
 
-  const theme = useAppSelector(state => state.theme);
+  const theme = useTheme();
   const auth = useAppSelector(state => state.auth);
   const router = useRouter();
-
   const colorScheme = useColorScheme();
-
   const dispatch = useAppDispatch();
-
-  const [loaded] = useFonts({
-    'Kanit-Medium': require('../assets/fonts/Kanit-Medium.ttf'),
-    'Kanit-Regular': require('../assets/fonts/Kanit-Regular.ttf'),
-    'Kanit-SemiBold': require('../assets/fonts/Kanit-SemiBold.ttf'),
-  });
+  const updateTheme = useUpdateTheme();
 
   const isAppReady = loaded && !initializing;
 
@@ -48,15 +42,15 @@ const RootLayout = () => {
 
   useEffect(() => {
     if (colorScheme === 'light') {
-      dispatch(setTheme(LIGHT_THEME_ID));
+      updateTheme(LIGHT_THEME_ID);
     } else {
-      dispatch(setTheme(DARK_THEME_ID));
+      updateTheme(LIGHT_THEME_ID);
     }
   }, [colorScheme]);
 
   useEffect(() => {
     if (Platform.OS === 'android') {
-      NavigationBar.setBackgroundColorAsync(theme.color.surface200);
+      NavigationBar.setBackgroundColorAsync(theme.colors.surface100);
     }
     if (theme.id === LIGHT_THEME_ID) {
       setStatusBarStyle('dark');
@@ -105,9 +99,32 @@ const RootLayout = () => {
 };
 
 export default function Root() {
-  return (
+  const [loaded] = useFonts({
+    'Kanit-Medium': require('../assets/fonts/Kanit-Medium.ttf'),
+    'Kanit-Regular': require('../assets/fonts/Kanit-Regular.ttf'),
+    'Kanit-SemiBold': require('../assets/fonts/Kanit-SemiBold.ttf'),
+  });
+
+  let EntryPoint = (
     <Provider store={store}>
-      <RootLayout />
+      <ThemeProvider>
+        <RootLayout loaded={loaded} />
+      </ThemeProvider>
     </Provider>
   );
+
+  const hide = async () => {
+    await SplashScreen.hideAsync();
+  };
+
+  if (storybookEnabled && loaded) {
+    const StorybookUI = require('../../.storybook').default;
+    EntryPoint = (
+      <View style={{ flex: 1 }}>
+        <StorybookUI />
+      </View>
+    );
+    hide();
+  }
+  return EntryPoint;
 }

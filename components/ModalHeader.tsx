@@ -3,9 +3,8 @@ import { StyleSheet, View } from 'react-native';
 import { BorderlessButton } from 'react-native-gesture-handler';
 
 import { IconClose } from '~assets/icons/IconClose';
-import { ThemedText } from '~components/ThemedText';
-import { ITheme } from '~redux/themeSlice';
-import { useThemedStyles } from '~utils/hooks/useThemedStyles';
+import { Text } from '~components/text/Text';
+import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
 interface IProps {
   onClose?: () => void;
@@ -26,7 +25,7 @@ export const ModalHeader = (props: IProps) => {
         },
       ]}
     >
-      {title && <ThemedText text={title} size='heading2' />}
+      {title && <Text text={title} size='heading2' />}
       <BorderlessButton onPress={() => (onClose ? onClose() : router.back())}>
         <IconClose width={30} height={30} stroke={styles.icon.color} />
       </BorderlessButton>
@@ -42,7 +41,7 @@ const themedStyles = (theme: ITheme) => {
       paddingTop: 20,
     },
     icon: {
-      color: theme.color.text100,
+      color: theme.colors.text100,
     },
   });
 };

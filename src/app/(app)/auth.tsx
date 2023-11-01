@@ -5,12 +5,11 @@ import { StyleSheet, View } from 'react-native';
 import { EdgeInsets } from 'react-native-safe-area-context';
 
 import { IconApple, IconGoogle } from '~assets/icons';
-import { ThemedButton } from '~components/ThemedButton';
-import { ThemedText } from '~components/ThemedText';
+import { Button } from '~components/button/Button';
+import { Text } from '~components/text/Text';
 import { firebaseAuth } from '~firebase/firebaseConfig';
-import { ITheme } from '~redux/themeSlice';
-import { useThemedStyles } from '~utils/hooks/useThemedStyles';
 import { getFloatButtonDistance } from '~utils/styleHelper';
+import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
 GoogleSignin.configure({
   offlineAccess: true,
@@ -40,14 +39,14 @@ export default function SignIn() {
           }
           router.replace('(home)');
         })
-        .catch(error => {
+        .catch(() => {
           setLoading(false);
-          // Handle Errors here.
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // The email of the user's account used.
-          const email = error.email;
-          // The credential that was used.
+          // // Handle Errors here.
+          // const errorCode = error.code;
+          // const errorMessage = error.message;
+          // // The email of the user's account used.
+          // const email = error.email;
+          // // The credential that was used.
         });
     } catch (error) {
       setLoading(false);
@@ -57,15 +56,15 @@ export default function SignIn() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <ThemedText text='Sign In' size='heading1' />
+        <Text text='Sign In' size='heading1' />
       </View>
-      <ThemedButton
+      <Button
         leftComponent={<IconGoogle height={18} width={18} fill={styles.icon.color} />}
         loading={loading}
         title='Sign in with Google'
         onPress={googleSignIn}
       />
-      <ThemedButton
+      <Button
         leftComponent={<IconApple height={22} width={22} fill={styles.icon.color} />}
         loading={loading}
         title='Sign in with Apple'
@@ -83,14 +82,14 @@ const createStyles = (theme: ITheme, insets: EdgeInsets) => {
       alignItems: 'flex-start',
       padding: 24,
       gap: 15,
-      backgroundColor: theme.color.surface200,
+      backgroundColor: theme.colors.surface100,
       paddingBottom: getFloatButtonDistance(insets) + 50,
     },
     header: {
       marginBottom: 10,
     },
     icon: {
-      color: theme.color.primary,
+      color: theme.colors.primary,
     },
     title: {
       fontSize: 64,

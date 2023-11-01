@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-
         /* Linting */
         "strict": true,
         // "noUnusedLocals": true,
@@ -10,9 +9,8 @@
         /* Alias support */
         "baseUrl": "./", 
         "paths": {
-            "~components/*": ["./src/components/*"],
+            "~components/*": ["./components/*"],
             "~assets/*": ["./src/assets/*"],
-            "~supabase/*": ["./src/supabase/*"],
             "~utils/*": ["./src/utils/*"],
             "~redux/*": ["./src/redux/*"],
             "~app/*": ["./src/app/*"],
@@ -21,6 +19,12 @@
             "@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"]
         },
     },
+
+    "include": [
+        "src/**/*",
+        "components/**/*",
+        ".storybook/**/*",
+    ],
 
     "extends": "expo/tsconfig.base",
 }

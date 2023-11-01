@@ -3,10 +3,9 @@ import { StyleSheet, View } from 'react-native';
 import { EdgeInsets } from 'react-native-safe-area-context';
 
 import { IconGoBack } from '~assets/icons';
-import { ThemedButton } from '~components/ThemedButton';
-import { ThemedText } from '~components/ThemedText';
-import { ITheme } from '~redux/themeSlice';
-import { useThemedStyles } from '~utils/hooks/useThemedStyles';
+import { Pressable } from '~components/pressable/Pressable';
+import { Text } from '~components/text/Text';
+import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
 type IIconType = 'goBack';
 
@@ -34,8 +33,8 @@ export const PageHeader = (props: IPageHeader) => {
     goBack: <IconGoBack {...iconSize} stroke={iconColor} />,
   };
 
-  const componentLeft = leftIcon ? <ThemedButton component={icons[leftIcon]} onPress={onPress} /> : leftComponent;
-  const componentRight = rightIcon ? <ThemedButton component={icons[rightIcon]} onPress={onPress} /> : rightComponent;
+  const componentLeft = leftIcon ? <Pressable onPress={onPress}>{icons[leftIcon]}</Pressable> : leftComponent;
+  const componentRight = rightIcon ? <Pressable onPress={onPress}>{icons[rightIcon]}</Pressable> : rightComponent;
   const componentPlaceholder = !(rightIcon && leftIcon) ? <View style={styles.empty} /> : null;
 
   return (
@@ -43,7 +42,7 @@ export const PageHeader = (props: IPageHeader) => {
       {leftIcon || leftComponent ? componentLeft : componentPlaceholder}
       {title && (
         <View style={styles.title}>
-          <ThemedText size='heading3'>{title}</ThemedText>
+          <Text size='heading3'>{title}</Text>
         </View>
       )}
       {rightIcon || rightComponent ? componentRight : componentPlaceholder}
@@ -65,7 +64,7 @@ const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
       height,
       overflow: 'hidden',
       position: 'relative',
-      backgroundColor: theme.color.transparentHeader,
+      backgroundColor: theme.colors.transparentHeader,
       justifyContent: 'space-between',
     },
     title: {
@@ -75,7 +74,7 @@ const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
       justifyContent: 'flex-start',
     },
     icon: {
-      color: theme.color.text300,
+      color: theme.colors.text300,
     },
     empty: {
       height: 30,
