@@ -18,45 +18,42 @@ interface IAction<T> {
 }
 
 interface IThemeColors {
-  surface400: string; // accent, chip background, darkest surface
+  primary: string; // button text, button border, bright
+  textOnPrimary: string;
+  secondary: string; //
   surface300: string; // button background
   surface200: string; // card background
   surface100: string; // page background, lightest surface
-  primary: string; // button text, button border, bright
-  secondary: string; // unused
   text300: string;
   text200: string;
   text100: string;
-  transparentHeader: string;
   ripple: string;
 }
 
 const lightThemeColors: IThemeColors = {
-  surface400: '#D9D9D9',
-  surface300: '#E0F0FF',
-  surface200: '#ECF1F9',
-  surface100: '#FBFCFE',
-  primary: '#0066FF',
-  secondary: '#17171A',
-  text300: '#2C2C2C',
-  text200: '#404040',
-  text100: '#808080',
-  transparentHeader: 'rgba(251, 252, 254, 0.9)',
-  ripple: '#B2DAFF',
+  primary: '#30302E',
+  textOnPrimary: '#ffffff',
+  secondary: '#425F85',
+  surface300: '#BFBFBF',
+  surface200: '#E3E3E3',
+  surface100: '#FDFDFD',
+  text300: '#30302E',
+  text200: '#60605F',
+  text100: '#8C8C8B',
+  ripple: '#E3E3E3',
 };
 
 const darkThemeColors: IThemeColors = {
-  surface400: '#000000',
-  surface300: '#0A1724',
-  surface200: '#202329',
-  surface100: '#14161A',
-  primary: '#4DA9FF',
-  secondary: '#95B0E5',
-  text300: '#FEFEFE',
-  text200: '#D1D1D1',
-  text100: '#848484',
-  transparentHeader: 'rgba(20, 22, 26, 0.8)',
-  ripple: '#292929',
+  primary: '#30302E',
+  textOnPrimary: '#ffffff',
+  secondary: '#425F85',
+  surface300: '#BFBFBF',
+  surface200: '#E3E3E3',
+  surface100: '#FDFDFD',
+  text300: '#30302E',
+  text200: '#60605F',
+  text100: '#8C8C8B',
+  ripple: '#E3E3E3',
 };
 
 const shared = {

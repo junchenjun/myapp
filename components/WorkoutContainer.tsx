@@ -49,7 +49,7 @@ const themedStyles = (theme: ITheme) => {
       marginTop: 10,
     },
     day: {
-      backgroundColor: theme.colors.surface400,
+      backgroundColor: theme.colors.surface200,
       width: 24,
       height: 24,
       borderRadius: theme.border.borderRadius,

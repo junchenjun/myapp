@@ -4,7 +4,7 @@ import * as NavigationBar from 'expo-navigation-bar';
 import { Slot, SplashScreen, useRouter } from 'expo-router';
 import { setStatusBarStyle } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { Platform, View, useColorScheme } from 'react-native';
+import { Platform, View, useColorScheme, Appearance } from 'react-native';
 import { Provider } from 'react-redux';
 
 import { firebaseAuth, getPlansCollection } from '~firebase/firebaseConfig';
@@ -43,14 +43,17 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
   useEffect(() => {
     if (colorScheme === 'light') {
       updateTheme(LIGHT_THEME_ID);
+      Appearance.setColorScheme('light');
     } else {
       updateTheme(LIGHT_THEME_ID);
+      Appearance.setColorScheme('dark');
     }
   }, [colorScheme]);
 
   useEffect(() => {
     if (Platform.OS === 'android') {
       NavigationBar.setBackgroundColorAsync(theme.colors.surface100);
+      NavigationBar.setBorderColorAsync(theme.colors.surface100);
     }
     if (theme.id === LIGHT_THEME_ID) {
       setStatusBarStyle('dark');

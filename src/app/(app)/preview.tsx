@@ -2,8 +2,9 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Dimensions, ScrollView, StyleSheet, View } from 'react-native';
 import { EdgeInsets } from 'react-native-safe-area-context';
 
+import { Accordion } from '~components/accordion/Accordion';
+import { AccordionItem } from '~components/accordion/accordionItem/AccordionItem';
 import { Button } from '~components/button/Button';
-import { ExerciseContainer } from '~components/ExerciseContainer';
 import { InfoConatiner } from '~components/InfoContainer';
 import { Text } from '~components/text/Text';
 import { useAppDispatch, useAppSelector } from '~redux/store';
@@ -34,9 +35,37 @@ export default function WorkoutPreview() {
             <View>
               <Text text={'Exercises (' + workout.exercises.length + ')'} color='text100' size='body4' />
             </View>
-            {workout.exercises.map((i, index) => {
-              return <ExerciseContainer key={index} item={i} />;
-            })}
+            <Accordion style={styles.accordion}>
+              {workout.exercises.map((i, index) => {
+                return (
+                  <View key={index}>
+                    <AccordionItem
+                      id={index + i.name}
+                      header={
+                        <>
+                          <Text size='body1' color='text300'>
+                            Push ups
+                          </Text>
+                          <Text size='body3' color='text100'>
+                            {i?.sets?.length + ' Sets'}
+                          </Text>
+                        </>
+                      }
+                    >
+                      <Text>content</Text>
+                      <Text>content</Text>
+                      <Text>content</Text>
+                      <Text>content</Text>
+                      <Text>content</Text>
+                      <Text>content</Text>
+                      <Text>content</Text>
+                      <Text>content</Text>
+                      <Text>content</Text>
+                    </AccordionItem>
+                  </View>
+                );
+              })}
+            </Accordion>
           </View>
         )}
       </ScrollView>
@@ -73,6 +102,9 @@ const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
       alignItems: 'stretch',
       gap: 10,
     },
+    accordion: {
+      gap: 10,
+    },
     title: {
       textAlign: 'center',
       marginBottom: 20,
@@ -81,15 +113,11 @@ const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
       flexDirection: 'row',
       gap: 10,
     },
-    info: {},
     float: {
       position: 'absolute',
       left: 15,
       width: Dimensions.get('window').width - 15 * 2,
       bottom: getFloatButtonDistance(insets),
-    },
-    icon: {
-      color: theme.colors.primary,
     },
   });
 };

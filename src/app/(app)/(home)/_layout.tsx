@@ -71,7 +71,7 @@ export default function Layout() {
         key='home'
         options={{
           title: 'Workouts',
-          tabBarIcon: () => <IconFire width={22} height={22} fill={theme.colors.primary} />,
+          tabBarIcon: () => <IconFire width={22} height={22} fill={theme.colors.textOnPrimary} />,
         }}
       />
       <Tabs.Screen
@@ -79,7 +79,7 @@ export default function Layout() {
         key='settings'
         options={{
           title: 'Other Stuff',
-          tabBarIcon: () => <IconProfile width={20} height={20} fill={theme.colors.primary} />,
+          tabBarIcon: () => <IconProfile width={20} height={20} fill={theme.colors.textOnPrimary} />,
         }}
       />
     </Tabs>

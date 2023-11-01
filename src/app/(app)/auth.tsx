@@ -89,7 +89,7 @@ const createStyles = (theme: ITheme, insets: EdgeInsets) => {
       marginBottom: 10,
     },
     icon: {
-      color: theme.colors.primary,
+      color: theme.colors.textOnPrimary,
     },
     title: {
       fontSize: 64,

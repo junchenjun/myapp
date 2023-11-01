@@ -7,7 +7,7 @@ import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 interface IProps {
   onPress?: () => void;
   title?: string;
-  type?: 'primary';
+  type?: 'primary' | 'secondary';
   disabled?: boolean;
   loading?: boolean;
   leftComponent?: ReactElement;
@@ -19,9 +19,9 @@ export const Button = (props: IProps) => {
   const styles = useThemedStyles(themedStyles);
   const isDisabled = disabled || loading;
 
-  if (type === 'primary') {
+  if (type === 'primary' || type === 'secondary') {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, isDisabled && styles.disabled]}>
         <Pressable
           disabled={isDisabled}
           android_ripple={{
@@ -30,16 +30,14 @@ export const Button = (props: IProps) => {
           }}
           style={({ pressed }) => [
             styles.button,
-            styles.primary,
+            styles[type],
             pressed && Platform.OS === 'ios' ? { ...styles.disabled } : {},
           ]}
           onPress={onPress}
         >
-          <View style={[styles.view, isDisabled && styles.disabled]}>
-            {leftComponent || <View />}
-            <Text text={title} size='body1' weight='regular' color='primary' />
-            {rightComponent || <View />}
-          </View>
+          {leftComponent || <View />}
+          <Text text={title} size='body1' weight='regular' color={type === 'primary' ? 'textOnPrimary' : 'primary'} />
+          {rightComponent || <View />}
         </Pressable>
       </View>
     );
@@ -52,8 +50,8 @@ const themedStyles = (theme: ITheme) => {
       borderRadius: theme.border.borderRadius,
       overflow: 'hidden',
       width: '100%',
-      backgroundColor: theme.colors.surface300,
       maxWidth: 400,
+      backgroundColor: theme.colors.surface100,
     },
     button: {
       overflow: 'hidden',
@@ -63,24 +61,20 @@ const themedStyles = (theme: ITheme) => {
       borderRadius: theme.border.borderRadius,
       width: '100%',
       color: theme.colors.ripple,
-    },
-    view: {
-      width: '100%',
-      height: '100%',
-      borderRadius: theme.border.borderRadius,
-      justifyContent: 'center',
-      alignItems: 'center',
       flexDirection: 'row',
       gap: 6,
       alignContent: 'center',
-      borderWidth: 1,
-      borderColor: theme.colors.primary,
     },
     primary: {
-      backgroundColor: theme.colors.surface300,
+      backgroundColor: theme.colors.primary,
+    },
+    secondary: {
+      backgroundColor: 'transparent',
+      borderColor: theme.colors.primary,
+      borderWidth: 1,
     },
     disabled: {
-      opacity: 0.5,
+      opacity: 0.6,
     },
   });
 };

@@ -68,7 +68,7 @@ export const BottomTab = ({ isFocused, index, onPress, options, label, initializ
           <View style={[styles.tab]}>
             {options.tabBarIcon()}
             <Animated.View style={[styles.textView, animatedTextStyles]}>
-              <Text text={label} size='body2' weight='bold' color='primary' />
+              <Text text={label} size='body2' weight='bold' color='textOnPrimary' />
             </Animated.View>
           </View>
         )}
@@ -90,7 +90,7 @@ const themedStyles = (theme: ITheme) => {
       alignItems: 'center',
     },
     button: {
-      backgroundColor: theme.colors.surface400,
+      backgroundColor: theme.colors.primary,
       flexDirection: 'row',
       width: '100%',
       height: '100%',

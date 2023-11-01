@@ -47,6 +47,7 @@ try {
 
 const getStories = () => {
   return {
+    "./components/accordion/Accordion.stories.tsx": require("../components/accordion/Accordion.stories.tsx"),
     "./components/button/Button.stories.tsx": require("../components/button/Button.stories.tsx"),
     "./components/card/Card.stories.tsx": require("../components/card/Card.stories.tsx"),
     "./components/pressable/Pressable.stories.tsx": require("../components/pressable/Pressable.stories.tsx"),

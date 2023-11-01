@@ -4,7 +4,7 @@ const ButtonStory = {
   title: 'Button',
   component: Button,
   argTypes: {
-    type: { options: ['priamry'], control: { type: 'radio' } },
+    type: { options: ['primary', 'secondary'], control: { type: 'radio' } },
   },
   args: {
     title: 'Hello world',

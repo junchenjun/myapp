@@ -1,7 +1,7 @@
 {
   "main": "expo-router/entry",
   "scripts": {
-    "start": "sb-rn-get-stories && expo start --dev-client",
+    "start": "sb-rn-get-stories && expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",
     "build-dev": "EXPO_PUBLIC_STORYBOOK_ENABLED='false' && eas build --profile dev",

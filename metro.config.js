@@ -7,8 +7,6 @@ module.exports = (() => {
 
   const { transformer, resolver } = config;
 
-  config.resolver.resolverMainFields.unshift('sbmodern');
-
   config.transformer = {
     ...transformer,
     babelTransformerPath: require.resolve('react-native-svg-transformer'),
@@ -22,6 +20,8 @@ module.exports = (() => {
   config.resolver.resolverMainFields = ['react-native', 'browser', 'main'];
 
   config.resolver.assetExts.push('cjs');
+
+  config.resolver.resolverMainFields.unshift('sbmodern');
 
   return config;
 })();

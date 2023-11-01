@@ -6,6 +6,7 @@ import {
   TransitionPresets,
 } from '@react-navigation/stack';
 import { Stack, useRouter, withLayoutContext } from 'expo-router';
+import { Alert } from 'react-native';
 
 import { PageHeader } from '~components/PageHeader';
 import { Pressable } from '~components/pressable/Pressable';
@@ -24,6 +25,22 @@ export default function Layout() {
   const xx = true;
 
   const router = useRouter();
+
+  const createAlert = () =>
+    Alert.alert(
+      'Leave workout?',
+      'You will be able to resume later',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        { text: 'Confirm', onPress: () => router.replace('(home)') },
+      ],
+      {
+        cancelable: true,
+      }
+    );
 
   return xx ? (
     <JsStack>
@@ -73,6 +90,7 @@ export default function Layout() {
                 title={title}
                 leftIcon='goBack'
                 titleAlign='left'
+                onPress={createAlert}
               />
             );
           },

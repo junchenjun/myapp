@@ -6,7 +6,7 @@ import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 interface IProps {
   text?: string;
   size?: 'body1' | 'body2' | 'body3' | 'body4' | 'body5' | 'heading1' | 'heading2' | 'heading3';
-  color?: 'primary' | 'text300' | 'text100' | 'text200' | 'surface300';
+  color?: 'primary' | 'text300' | 'text100' | 'text200' | 'surface300' | 'surface100' | 'textOnPrimary';
   weight?: 'medium' | 'regular' | 'bold';
   animatedStyles?: TextStyle;
   style?: TextStyle;
@@ -55,6 +55,9 @@ const themedStyles = (theme: ITheme) => {
     primary: {
       color: theme.colors.primary,
     },
+    textOnPrimary: {
+      color: theme.colors.textOnPrimary,
+    },
     text300: {
       color: theme.colors.text300,
     },
@@ -65,6 +68,9 @@ const themedStyles = (theme: ITheme) => {
       color: theme.colors.text100,
     },
     surface300: {
+      color: theme.colors.surface300,
+    },
+    surface100: {
       color: theme.colors.surface300,
     },
     heading1: {

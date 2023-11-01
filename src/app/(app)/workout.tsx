@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
-import { BackHandler, ScrollView, StyleSheet, View } from 'react-native';
+import { Alert, BackHandler, ScrollView, StyleSheet, View } from 'react-native';
 import { EdgeInsets } from 'react-native-safe-area-context';
 
 import { Button } from '~components/button/Button';
@@ -14,8 +14,25 @@ const WorkoutInProgress = () => {
   const { workout } = useAppSelector(state => state.workout);
   const router = useRouter();
 
+  const createAlert = () =>
+    Alert.alert(
+      'Leave workout?',
+      'You will be able to resume later',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        { text: 'Confirm', onPress: () => router.replace('(home)') },
+      ],
+      {
+        cancelable: true,
+      }
+    );
+
   useEffect(() => {
     const backAction = () => {
+      createAlert();
       return true;
     };
     const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
@@ -28,7 +45,7 @@ const WorkoutInProgress = () => {
         {workout?.exercises.map((i, index) => {
           return <ExerciseContainer key={index} item={workout?.exercises && workout?.exercises[0]} />;
         })}
-        <Button title='Complete' onPress={() => router.back()} />
+        <Button title='Complete' type='secondary' onPress={() => router.back()} />
       </ScrollView>
     </View>
   );
