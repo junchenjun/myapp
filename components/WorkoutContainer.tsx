@@ -21,7 +21,7 @@ export const WorkoutContainer = (props: IProps) => {
       </View>
       <Text text='Last Performed: 5 days ago' color='text100' size='body2' />
       <Text text={`${workouts.exercises.length} Excercises`} color='text100' size='body2' />
-      <View style={styles.footer}>
+      {/* <View style={styles.footer}>
         {workouts?.repeteOn?.map(day => {
           const firstLetter = day.charAt(0);
           const firstLetterCap = firstLetter.toUpperCase();
@@ -33,7 +33,7 @@ export const WorkoutContainer = (props: IProps) => {
             </View>
           );
         })}
-      </View>
+      </View> */}
     </Card>
   );
 };

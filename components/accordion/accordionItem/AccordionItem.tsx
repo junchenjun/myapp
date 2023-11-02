@@ -2,7 +2,8 @@ import { ReactElement, useCallback, useContext, useMemo, useState } from 'react'
 import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
-import { IconExpandDown, IconExpandUp } from '~assets/icons';
+import { IconExpandDown } from '~assets/icons/IconExpandDown';
+import { IconExpandUp } from '~assets/icons/IconExpandUp';
 import { AccordionContext } from '~components/accordion/Accordion';
 import { Card } from '~components/card/Card';
 import { Pressable } from '~components/pressable/Pressable';
@@ -64,7 +65,7 @@ export const AccordionItem = (props: IProps) => {
     }
   }, [autoCollapse, expanded, id]);
 
-  const icon = useMemo(
+  const Icon = useMemo(
     () =>
       expanded ? (
         <IconExpandUp width={30} height={30} stroke={styles.icon.color} />
@@ -78,7 +79,7 @@ export const AccordionItem = (props: IProps) => {
     <Card>
       <View style={styles.header}>
         <View>{header}</View>
-        <Pressable onPress={onPress}>{icon}</Pressable>
+        <Pressable onPress={onPress}>{Icon}</Pressable>
       </View>
       <Animated.View style={[styles.collapsable, animatedStyle, { overflow: 'hidden' }]}>
         <View style={{ position: 'absolute' }} onLayout={onLayout}>
@@ -99,7 +100,7 @@ const themedStyles = (theme: ITheme) => {
       // paddingBottom: 15,
     },
     icon: {
-      color: theme.colors.surface200,
+      color: theme.colors.surface300,
     },
     collapsable: {
       justifyContent: 'flex-end',
