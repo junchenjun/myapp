@@ -58,7 +58,7 @@ const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
     container: {
       flex: 1,
       position: 'relative',
-      backgroundColor: theme.colors.surface100,
+      backgroundColor: theme.colors.surface200,
     },
     scroll: {
       padding: 15,

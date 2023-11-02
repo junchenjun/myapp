@@ -20,10 +20,11 @@ interface IAction<T> {
 interface IThemeColors {
   primary: string; // button text, button border, bright
   textOnPrimary: string;
-  secondary: string; //
-  surface300: string; // button background
-  surface200: string; // card background
-  surface100: string; // page background, lightest surface
+  secondary: string;
+  surface400: string;
+  surface300: string;
+  surface200: string;
+  surface100: string;
   text300: string;
   text200: string;
   text100: string;
@@ -34,9 +35,10 @@ const lightThemeColors: IThemeColors = {
   primary: '#30302E',
   textOnPrimary: '#ffffff',
   secondary: '#425F85',
-  surface300: '#BFBFBF',
-  surface200: '#E3E3E3',
-  surface100: '#FDFDFD',
+  surface400: '#BFBFBF',
+  surface300: '#E3E3E3',
+  surface200: '#FDFDFD',
+  surface100: '#FFFFFF',
   text300: '#30302E',
   text200: '#60605F',
   text100: '#8C8C8B',
@@ -47,9 +49,10 @@ const darkThemeColors: IThemeColors = {
   primary: '#30302E',
   textOnPrimary: '#ffffff',
   secondary: '#425F85',
-  surface300: '#BFBFBF',
-  surface200: '#E3E3E3',
-  surface100: '#FDFDFD',
+  surface400: '#BFBFBF',
+  surface300: '#E3E3E3',
+  surface200: '#FDFDFD',
+  surface100: '#FFFFFF',
   text300: '#30302E',
   text200: '#60605F',
   text100: '#8C8C8B',

@@ -31,7 +31,7 @@ const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
     container: {
       backgroundColor: theme.colors.surface100,
-      borderColor: theme.colors.surface200,
+      borderColor: theme.colors.surface300,
       borderRadius: theme.border.borderRadius,
       borderWidth: 1,
       height: 'auto',

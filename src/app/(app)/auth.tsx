@@ -81,7 +81,7 @@ const createStyles = (theme: ITheme, insets: EdgeInsets) => {
       alignItems: 'flex-start',
       padding: 24,
       gap: 15,
-      backgroundColor: theme.colors.surface100,
+      backgroundColor: theme.colors.surface200,
       paddingBottom: getFloatButtonDistance(insets) + 50,
     },
     header: {

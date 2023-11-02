@@ -19,9 +19,15 @@ export const Button = (props: IProps) => {
   const styles = useThemedStyles(themedStyles);
   const isDisabled = disabled || loading;
 
+  let disabledStyle = styles.lowOpacity;
+
+  if (type === 'primary') {
+    disabledStyle = styles.highOpacity;
+  }
+
   if (type === 'primary' || type === 'secondary') {
     return (
-      <View style={[styles.container, isDisabled && styles.disabled]}>
+      <View style={[styles.container, isDisabled && disabledStyle]}>
         <Pressable
           disabled={isDisabled}
           android_ripple={{
@@ -31,7 +37,7 @@ export const Button = (props: IProps) => {
           style={({ pressed }) => [
             styles.button,
             styles[type],
-            pressed && Platform.OS === 'ios' ? { ...styles.disabled } : {},
+            pressed && Platform.OS === 'ios' ? { ...disabledStyle } : {},
           ]}
           onPress={onPress}
         >
@@ -73,8 +79,11 @@ const themedStyles = (theme: ITheme) => {
       borderColor: theme.colors.primary,
       borderWidth: 1,
     },
-    disabled: {
-      opacity: 0.6,
+    lowOpacity: {
+      opacity: 0.5,
+    },
+    highOpacity: {
+      opacity: 0.8,
     },
   });
 };

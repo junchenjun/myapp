@@ -98,7 +98,7 @@ const createStyles = (theme: ITheme) => {
   return StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.colors.surface100,
+      backgroundColor: theme.colors.surface200,
       width: '100%',
       overflow: 'visible',
     },

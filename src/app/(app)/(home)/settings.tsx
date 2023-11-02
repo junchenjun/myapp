@@ -64,7 +64,7 @@ const createStyles = (theme: ITheme, insets: EdgeInsets) => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.colors.surface100,
+      backgroundColor: theme.colors.surface200,
       paddingTop: insets.top,
     },
     scroll: {

@@ -18,7 +18,7 @@ export const decorators = [
   const theme = useTheme();
     return ( 
       <ThemeProvider>
-          <View style={{ alignItems: 'center', justifyContent: 'center', paddingHorizontal: 15, flex: 1, backgroundColor: theme.colors.surface100 }}>
+          <View style={{ alignItems: 'center', justifyContent: 'center', paddingHorizontal: 15, flex: 1, backgroundColor: theme.colors.surface200 }}>
             <Story />
           </View>
       </ThemeProvider>

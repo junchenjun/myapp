@@ -64,7 +64,7 @@ const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
       height,
       overflow: 'hidden',
       position: 'relative',
-      backgroundColor: theme.colors.surface100,
+      backgroundColor: theme.colors.surface200,
       justifyContent: 'space-between',
     },
     title: {
