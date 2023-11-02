@@ -8,17 +8,26 @@
       "distribution": "internal",
       "ios": {
         "simulator": true
+      },
+      "env": {
+        "EXPO_PUBLIC_STORYBOOK_ENABLED": "false",
+        "APP_VARIANT": "development"
       }
     },
     "preview": {
       "distribution": "internal",
       "android": {
         "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_STORYBOOK_ENABLED": "false",
+        "APP_VARIANT": "preview"
       }
     },
     "production": {
-      "ios": {
-        "resourceClass": "m-medium"
+      "env": {
+        "EXPO_PUBLIC_STORYBOOK_ENABLED": "false",
+        "APP_VARIANT": "production"
       }
     }
   },
