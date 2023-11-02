@@ -10,7 +10,7 @@ import { useAppSelector } from '~redux/store';
 import { getCurrentDateMDW } from '~utils/dateHelper';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
-const DashBoard = () => {
+const Home = () => {
   const styles = useThemedStyles(createStyles);
   const router = useRouter();
   const planList = useAppSelector(state => state.plans.list);
@@ -25,7 +25,7 @@ const DashBoard = () => {
       <ScrollView>
         <View style={styles.listHeader}>
           <View style={styles.header}>
-            <Text text={getCurrentDateMDW()} size='heading2' />
+            <Text text={getCurrentDateMDW()} size='body1' />
           </View>
           <View style={styles.calender}>
             <BorderlessButton style={styles.day}>
@@ -92,7 +92,7 @@ const DashBoard = () => {
   );
 };
 
-export default DashBoard;
+export default Home;
 
 const createStyles = (theme: ITheme) => {
   return StyleSheet.create({

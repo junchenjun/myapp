@@ -21,6 +21,7 @@ export const AccordionItem = (props: IProps) => {
 
   const [height, setHeight] = useState(0);
   const animatedHeight = useSharedValue(0);
+  const animatedOpacity = useSharedValue(0);
 
   const styles = useThemedStyles(themedStyles);
 
@@ -32,18 +33,20 @@ export const AccordionItem = (props: IProps) => {
     expanded = expandedIds[0] === id;
   }
 
-  const collapsableStyle = useAnimatedStyle(() => {
-    animatedHeight.value = expanded ? withTiming(height) : withTiming(0);
+  const animatedStyle = useAnimatedStyle(() => {
+    animatedHeight.value = expanded ? withTiming(height, { duration: 200 }) : withTiming(0);
+    animatedOpacity.value = expanded ? withTiming(1, { duration: 200 }) : withTiming(0);
 
     return {
       height: animatedHeight.value,
+      opacity: animatedOpacity.value,
     };
   }, [expanded, height]);
 
   const onLayout = (event: LayoutChangeEvent) => {
     const onLayoutHeight = event.nativeEvent.layout.height;
     if (onLayoutHeight > 0 && height !== onLayoutHeight) {
-      setHeight(onLayoutHeight);
+      setHeight(Math.round(onLayoutHeight + 8));
     }
   };
 
@@ -77,7 +80,7 @@ export const AccordionItem = (props: IProps) => {
         <View>{header}</View>
         <Pressable onPress={onPress}>{icon}</Pressable>
       </View>
-      <Animated.View style={[collapsableStyle, { overflow: 'hidden' }]}>
+      <Animated.View style={[styles.collapsable, animatedStyle, { overflow: 'hidden' }]}>
         <View style={{ position: 'absolute' }} onLayout={onLayout}>
           {children}
         </View>
@@ -93,9 +96,13 @@ const themedStyles = (theme: ITheme) => {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
+      // paddingBottom: 15,
     },
     icon: {
       color: theme.colors.surface200,
+    },
+    collapsable: {
+      justifyContent: 'flex-end',
     },
   });
 };

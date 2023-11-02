@@ -23,7 +23,7 @@ export const Card = (props: IProps) => {
       </View>
     );
   } else {
-    return <View style={[styles.container, styles.padding]}>{children}</View>;
+    return <View style={[styles.container, styles.padding, style && style]}>{children}</View>;
   }
 };
 
