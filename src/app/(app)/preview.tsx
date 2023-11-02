@@ -40,14 +40,14 @@ export default function WorkoutPreview() {
                 return (
                   <View key={index}>
                     <AccordionItem
-                      id={index + i.name}
+                      id={index.toString()}
                       header={
                         <>
                           <Text size='body1' color='text300'>
                             Push ups
                           </Text>
                           <Text size='body3' color='text100'>
-                            {i?.sets?.length + ' Sets'}
+                            content content content content content content content
                           </Text>
                         </>
                       }

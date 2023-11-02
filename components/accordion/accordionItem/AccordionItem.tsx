@@ -78,10 +78,10 @@ export const AccordionItem = (props: IProps) => {
   return (
     <Card>
       <View style={styles.header}>
-        <View>{header}</View>
+        <View style={styles.headerContent}>{header}</View>
         <Pressable onPress={onPress}>{Icon}</Pressable>
       </View>
-      <Animated.View style={[styles.collapsable, animatedStyle, { overflow: 'hidden' }]}>
+      <Animated.View style={[styles.collapsible, animatedStyle, { overflow: 'hidden' }]}>
         <View style={{ position: 'absolute' }} onLayout={onLayout}>
           {children}
         </View>
@@ -93,16 +93,18 @@ export const AccordionItem = (props: IProps) => {
 const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
     header: {
-      display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      // paddingBottom: 15,
+    },
+    headerContent: {
+      flex: 1,
+      overflow: 'hidden',
     },
     icon: {
       color: theme.colors.surface300,
     },
-    collapsable: {
+    collapsible: {
       justifyContent: 'flex-end',
     },
   });
