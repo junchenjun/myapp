@@ -14,9 +14,8 @@ import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 GoogleSignin.configure({
   offlineAccess: true,
   webClientId: '878529743045-prlrevc1bfonrg7k4lfgvg9m0fuqtqon.apps.googleusercontent.com',
-  iosClientId: '878529743045-2vgcb7o636p3pvhdjvjpvnq8vb8g5l7p.apps.googleusercontent.com',
+  iosClientId: '878529743045-75atqbf09t8id612juvjudp43ts3fn7u.apps.googleusercontent.com',
   scopes: ['profile', 'email'],
-  googleServicePlistPath: '../../GoogleService-Info.plist',
 });
 
 export default function SignIn() {

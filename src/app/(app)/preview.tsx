@@ -52,15 +52,13 @@ export default function WorkoutPreview() {
                         </>
                       }
                     >
-                      <Text>content</Text>
-                      <Text>content</Text>
-                      <Text>content</Text>
-                      <Text>content</Text>
-                      <Text>content</Text>
-                      <Text>content</Text>
-                      <Text>content</Text>
-                      <Text>content</Text>
-                      <Text>content</Text>
+                      <Text>content content content content content content content</Text>
+                      <Text>content content content content content content content</Text>
+                      <Text>content content content content content content content</Text>
+                      <Text>content content content content content content content</Text>
+                      <Text>content content content content content content content</Text>
+                      <Text>content content content content content content content</Text>
+                      <Text>content content content content content content content</Text>
                     </AccordionItem>
                   </View>
                 );

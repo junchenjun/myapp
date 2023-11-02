@@ -1,4 +1,4 @@
-import { ReactElement, useContext, useMemo, useState } from 'react';
+import { ReactElement, useCallback, useContext, useMemo, useState } from 'react';
 import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
@@ -35,7 +35,7 @@ export const AccordionItem = (props: IProps) => {
 
   const animatedStyle = useAnimatedStyle(() => {
     animatedHeight.value = expanded ? withTiming(height, { duration: 200 }) : withTiming(0);
-    animatedOpacity.value = expanded ? withTiming(1, { duration: 200 }) : withTiming(0);
+    animatedOpacity.value = expanded ? withTiming(1, { duration: 500 }) : withTiming(0, { duration: 200 });
 
     return {
       height: animatedHeight.value,
@@ -50,7 +50,7 @@ export const AccordionItem = (props: IProps) => {
     }
   };
 
-  const onPress = () => {
+  const onPress = useCallback(() => {
     if (autoCollapse) {
       setExpandedIds(expanded ? [''] : [id]);
     } else {
@@ -62,7 +62,7 @@ export const AccordionItem = (props: IProps) => {
         }
       });
     }
-  };
+  }, [autoCollapse, expanded, id]);
 
   const icon = useMemo(
     () =>
