@@ -29,6 +29,30 @@
         "EXPO_PUBLIC_STORYBOOK_ENABLED": "false",
         "APP_VARIANT": "production"
       }
+    },
+    // local builds
+    "local-dev": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "simulator": true
+      },
+      "env": {
+        "EXPO_PUBLIC_STORYBOOK_ENABLED": "false",
+        "APP_VARIANT": "dev",
+        "USE_LOCAL_FILES": "true"
+      }
+    },
+    "local-pre": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_STORYBOOK_ENABLED": "false",
+        "APP_VARIANT": "preview",
+        "USE_LOCAL_FILES": "true"
+      }
     }
   },
   "submit": {

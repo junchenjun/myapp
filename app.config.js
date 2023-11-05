@@ -1,34 +1,73 @@
 const IS_DEV = process.env.APP_VARIANT === 'development';
 const IS_PREVIEW = process.env.APP_VARIANT === 'preview';
+const IS_PROD = process.env.APP_VARIANT === 'production';
+const USE_LOCAL_FILES = process.env.USE_LOCAL_FILES === 'true';
+
+// IS_DEV
+let config = {
+  file: {
+    ios: process.env.GOOGLE_SERVICES_PLIST_DEV,
+    android: process.env.GOOGLE_SERVICES_JSON,
+  },
+  icon: './src/assets/images/iconDev.png',
+  package: 'com.myapp.dev',
+  name: 'Pump(dev)',
+};
+if (IS_PREVIEW) {
+  config = {
+    file: {
+      ios: process.env.GOOGLE_SERVICES_PLIST_PRE,
+      android: process.env.GOOGLE_SERVICES_JSON,
+    },
+    icon: './src/assets/images/icon.png',
+    package: 'com.myapp.preview',
+    name: 'Pump(Preview)',
+  };
+} else if (IS_PROD) {
+  config = {
+    file: {
+      ios: process.env.GOOGLE_SERVICES_PLIST_PRO,
+      android: process.env.GOOGLE_SERVICES_JSON,
+    },
+    icon: './src/assets/images/icon.png',
+    package: 'com.myapp',
+    name: 'Pump',
+  };
+}
+
+if (USE_LOCAL_FILES) {
+  config = {
+    ...config,
+    file: {
+      ios: './GoogleService-Info.plist',
+      android: './google-services.json',
+    },
+  };
+}
 
 export default {
   android: {
-    googleServicesFile: IS_DEV
-      ? process.env.GOOGLE_SERVICES_JSON_DEV
-      : IS_PREVIEW
-      ? process.env.GOOGLE_SERVICES_JSON_PREVIEW
-      : process.env.GOOGLE_SERVICES_JSON_PRODUCTION,
-    package: IS_DEV ? 'com.myapp.dev' : IS_PREVIEW ? 'com.myapp.preview' : 'com.myapp',
+    googleServicesFile: config.file.android,
+    package: config.package,
     backgroundColor: '#000000',
-    adaptiveIcon: {
-      foregroundImage: './src/assets/images/foreground.png',
-      backgroundImage: './src/assets/images/background.png',
-      monochromeImage: './src/assets/images/monochrome.png',
-    },
+    adaptiveIcon:
+      IS_PROD || IS_PREVIEW
+        ? {
+            foregroundImage: './src/assets/images/foreground.png',
+            backgroundImage: './src/assets/images/background.png',
+            monochromeImage: './src/assets/images/monochrome.png',
+          }
+        : null,
   },
   ios: {
-    bundleIdentifier: IS_DEV ? 'com.myapp.dev' : IS_PREVIEW ? 'com.myapp.preview' : 'com.myapp',
-    googleServicesFile: IS_DEV
-      ? process.env.GOOGLE_SERVICES_PLIST_DEV
-      : IS_PREVIEW
-      ? process.env.GOOGLE_SERVICES_PLIST_PREVIEW
-      : process.env.GOOGLE_SERVICES_PLIST_PRODUCTION,
+    bundleIdentifier: config.package,
+    googleServicesFile: config.file.ios,
   },
   splash: {
-    backgroundColor: '#000000',
+    backgroundColor: '#ffffff',
     image: './src/assets/images/splash.png',
   },
-  icon: IS_DEV ? './src/assets/images/iconDev.png' : './src/assets/images/icon.png',
+  icon: config.icon,
   plugins: [
     '@react-native-firebase/app',
     '@react-native-google-signin/google-signin',
@@ -46,7 +85,7 @@ export default {
   },
   userInterfaceStyle: 'automatic',
   scheme: 'acme',
-  name: IS_DEV ? 'MyApp (Dev)' : IS_PREVIEW ? 'MyApp (Preview)' : 'MyApp',
+  name: config.name,
   slug: 'my-app',
   extra: {
     eas: {

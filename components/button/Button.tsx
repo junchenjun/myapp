@@ -4,17 +4,30 @@ import { Platform, Pressable, StyleSheet, View } from 'react-native';
 import { Text } from '~components/text/Text';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
-interface IProps {
+interface ICommonButtonProps {
   onPress?: () => void;
   title?: string;
-  type?: 'primary' | 'secondary';
   disabled?: boolean;
   loading?: boolean;
   leftComponent?: ReactElement;
   rightComponent?: ReactElement;
 }
 
-export const Button = (props: IProps) => {
+interface IPrimaryButton extends ICommonButtonProps {
+  type?: 'primary';
+}
+
+interface ISecondaryButton extends ICommonButtonProps {
+  type?: 'secondary';
+}
+
+interface GhostButton extends ICommonButtonProps {
+  type?: 'ghost';
+}
+
+type IButton = IPrimaryButton | ISecondaryButton | GhostButton;
+
+export const Button = (props: IButton) => {
   const { onPress, title, type = 'primary', disabled, leftComponent, rightComponent, loading } = props;
   const styles = useThemedStyles(themedStyles);
   const isDisabled = disabled || loading;
