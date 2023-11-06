@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useContext, useMemo, useState } from 'react';
+import { ReactElement, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
@@ -7,16 +7,19 @@ import { IconExpandUp } from '~assets/icons/IconExpandUp';
 import { AccordionContext } from '~components/accordion/Accordion';
 import { Card } from '~components/card/Card';
 import { Pressable } from '~components/pressable/Pressable';
+import { Text } from '~components/text/Text';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
 interface IProps {
   id: string;
   children?: ReactElement | ReactElement[];
-  header?: ReactElement;
+  renderTitle?: (expandIcon: ReactElement) => ReactElement;
+  title?: string;
+  itemHeight?: number;
 }
 
 export const AccordionItem = (props: IProps) => {
-  const { header, children, id } = props;
+  const { renderTitle, title = '', children, id, itemHeight } = props;
 
   const { expandedIds, setExpandedIds, autoCollapse } = useContext(AccordionContext);
 
@@ -25,6 +28,16 @@ export const AccordionItem = (props: IProps) => {
   const animatedOpacity = useSharedValue(0);
 
   const styles = useThemedStyles(themedStyles);
+
+  useEffect(() => {
+    if (itemHeight) {
+      if (Array.isArray(children)) {
+        setHeight(itemHeight * children.length);
+      } else {
+        setHeight(itemHeight);
+      }
+    }
+  }, [itemHeight, children]);
 
   let expanded = false;
 
@@ -77,12 +90,16 @@ export const AccordionItem = (props: IProps) => {
 
   return (
     <Card>
-      <View style={styles.header}>
-        <View style={styles.headerContent}>{header}</View>
-        <Pressable onPress={onPress}>{Icon}</Pressable>
-      </View>
+      {renderTitle ? (
+        renderTitle(<Pressable onPress={onPress}>{Icon}</Pressable>)
+      ) : (
+        <View style={styles.header}>
+          <Text style={styles.headerContent}>{title}</Text>
+          <Pressable onPress={onPress}>{Icon}</Pressable>
+        </View>
+      )}
       <Animated.View style={[styles.collapsible, animatedStyle, { overflow: 'hidden' }]}>
-        <View style={{ position: 'absolute' }} onLayout={onLayout}>
+        <View style={{ position: 'absolute' }} onLayout={itemHeight ? undefined : onLayout}>
           {children}
         </View>
       </Animated.View>

@@ -3,17 +3,26 @@ const IS_PREVIEW = process.env.APP_VARIANT === 'preview';
 const IS_PROD = process.env.APP_VARIANT === 'production';
 const USE_LOCAL_FILES = process.env.USE_LOCAL_FILES === 'true';
 
-// IS_DEV
 let config = {
   file: {
-    ios: process.env.GOOGLE_SERVICES_PLIST_DEV,
-    android: process.env.GOOGLE_SERVICES_JSON,
+    ios: './GoogleService-Info.plist',
+    android: './google-services.json',
   },
   icon: './src/assets/images/iconDev.png',
   package: 'com.myapp.dev',
   name: 'Pump(dev)',
 };
-if (IS_PREVIEW) {
+if (IS_DEV) {
+  config = {
+    file: {
+      ios: process.env.GOOGLE_SERVICES_PLIST_DEV,
+      android: process.env.GOOGLE_SERVICES_JSON,
+    },
+    icon: './src/assets/images/iconDev.png',
+    package: 'com.myapp.dev',
+    name: 'Pump(dev)',
+  };
+} else if (IS_PREVIEW) {
   config = {
     file: {
       ios: process.env.GOOGLE_SERVICES_PLIST_PRE,
@@ -57,7 +66,7 @@ export default {
             backgroundImage: './src/assets/images/background.png',
             monochromeImage: './src/assets/images/monochrome.png',
           }
-        : null,
+        : undefined,
   },
   ios: {
     bundleIdentifier: config.package,

@@ -40,17 +40,27 @@ export default function WorkoutPreview() {
                 return (
                   <View key={index}>
                     <AccordionItem
+                      itemHeight={28}
                       id={index.toString()}
-                      header={
-                        <>
-                          <Text size='body1' color='text300'>
-                            Push ups
-                          </Text>
-                          <Text size='body3' color='text100'>
-                            content content content content content content content
-                          </Text>
-                        </>
-                      }
+                      renderTitle={expandIcon => (
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                          }}
+                        >
+                          <View style={{ flex: 1, overflow: 'hidden' }}>
+                            <Text size='body1' color='text300'>
+                              Push ups
+                            </Text>
+                            <Text size='body3' color='text100'>
+                              content content content content content content content
+                            </Text>
+                          </View>
+                          {expandIcon}
+                        </View>
+                      )}
                     >
                       <Text>content content content content content content content</Text>
                       <Text>content content content content content content content</Text>

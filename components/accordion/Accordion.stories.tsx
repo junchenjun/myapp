@@ -18,10 +18,10 @@ export const Default = {
   render: ({ ...args }) => (
     <View style={{ flex: 1, width: '100%' }}>
       <Accordion {...args}>
-        <AccordionItem id='1' header={<Text>Item 1</Text>}>
+        <AccordionItem id='1' title='1'>
           <Text>Item 1</Text>
         </AccordionItem>
-        <AccordionItem id='2' header={<Text>Item 2</Text>}>
+        <AccordionItem id='2' title='2'>
           <Text>Item 2</Text>
           <Text>Item 2</Text>
           <Text>Item 2</Text>
@@ -33,7 +33,7 @@ export const Default = {
           <Text>Item 2</Text>
           <Text>Item 2</Text>
         </AccordionItem>
-        <AccordionItem id='3' header={<Text>Item 3</Text>}>
+        <AccordionItem id='3' title='3'>
           <Text>Item 3</Text>
         </AccordionItem>
       </Accordion>
