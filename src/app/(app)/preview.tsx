@@ -26,14 +26,14 @@ export default function WorkoutPreview() {
       <ScrollView contentContainerStyle={styles.scroll}>
         {workout && (
           <View style={styles.content}>
-            <Text text={workout?.name} size='heading1' weight='bold' style={styles.title} />
+            <Text text={workout?.name} style={styles.title} />
             <View style={styles.infoGroup}>
               <InfoConatiner title='Last Perfomed' content={workout.lastPerformed} styles={{ flex: 2 }} />
               <InfoConatiner title='Repete On' content='Mo, Tu, We, Th, Fr, Sa' styles={{ flex: 3 }} />
             </View>
             <InfoConatiner title='Traget Muscles' content='#Back #Biceps' />
             <View>
-              <Text text={'Exercises (' + workout.exercises.length + ')'} color='text100' size='body4' />
+              <Text text={'Exercises (' + workout.exercises.length + ')'} />
             </View>
             <Accordion style={styles.accordion}>
               {workout.exercises.map((i, index) => {
@@ -51,12 +51,8 @@ export default function WorkoutPreview() {
                           }}
                         >
                           <View style={{ flex: 1, overflow: 'hidden' }}>
-                            <Text size='body1' color='text300'>
-                              Push ups
-                            </Text>
-                            <Text size='body3' color='text100'>
-                              content content content content content content content
-                            </Text>
+                            <Text>Push ups</Text>
+                            <Text>content content content content content content content</Text>
                           </View>
                           {expandIcon}
                         </View>
@@ -97,7 +93,7 @@ const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
     container: {
       flex: 1,
       position: 'relative',
-      backgroundColor: theme.colors.surface200,
+      backgroundColor: theme.colors.surfaceExtraDim,
     },
     scroll: {
       alignItems: 'center',

@@ -16,12 +16,8 @@ export const ExerciseContainer = (props: IProps) => {
   return (
     <Card>
       <View style={styles.content}>
-        <Text size='body1' color='text300'>
-          Push ups
-        </Text>
-        <Text size='body3' color='text100'>
-          {item?.sets?.length + ' Sets'}
-        </Text>
+        <Text>Push ups</Text>
+        <Text>{item?.sets?.length + ' Sets'}</Text>
       </View>
     </Card>
   );

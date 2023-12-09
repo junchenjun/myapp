@@ -45,7 +45,7 @@ const WorkoutInProgress = () => {
         {workout?.exercises.map((i, index) => {
           return <ExerciseContainer key={index} item={workout?.exercises && workout?.exercises[0]} />;
         })}
-        <Button title='Complete' type='secondary' onPress={() => router.back()} />
+        <Button title='Complete' onPress={() => router.back()} />
       </ScrollView>
     </View>
   );
@@ -58,7 +58,7 @@ const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
     container: {
       flex: 1,
       position: 'relative',
-      backgroundColor: theme.colors.surface200,
+      backgroundColor: theme.colors.onSurface,
     },
     scroll: {
       padding: 15,

@@ -25,37 +25,7 @@ const Home = () => {
       <ScrollView>
         <View style={styles.listHeader}>
           <View style={styles.header}>
-            <Text text={getCurrentDateMDW()} size='body1' />
-          </View>
-          <View style={styles.calender}>
-            <BorderlessButton style={styles.day}>
-              <Text text='Mo' color='text100' size='body2' />
-              <Text text='12' color='text100' size='body2' />
-            </BorderlessButton>
-            <BorderlessButton style={styles.day}>
-              <Text text='Tu' color='text100' size='body2' />
-              <Text text='13' color='primary' size='body2' />
-            </BorderlessButton>
-            <BorderlessButton style={styles.day}>
-              <Text text='We' color='text100' size='body2' />
-              <Text text='14' color='primary' size='body2' />
-            </BorderlessButton>
-            <BorderlessButton style={styles.day}>
-              <Text text='Th' color='text100' size='body2' />
-              <Text text='15' color='primary' size='body2' />
-            </BorderlessButton>
-            <BorderlessButton style={styles.day}>
-              <Text text='Fr' color='text100' size='body2' />
-              <Text text='16' color='text100' size='body2' />
-            </BorderlessButton>
-            <BorderlessButton style={styles.day}>
-              <Text text='Sa' color='text100' size='body2' />
-              <Text text='17' color='text100' size='body2' />
-            </BorderlessButton>
-            <BorderlessButton style={styles.day}>
-              <Text text='Su' color='text100' size='body2' />
-              <Text text='18' color='text100' size='body2' />
-            </BorderlessButton>
+            <Text text={getCurrentDateMDW()} />
           </View>
         </View>
         <Suspense fallback={<View />}>
@@ -81,7 +51,7 @@ const Home = () => {
             renderSectionHeader={({ section }) => {
               return (
                 <View style={styles.sectionTitle}>
-                  <Text text={section.title + ' (' + section.data.length + ')'} color='text100' size='body4' />
+                  <Text text={section.title + ' (' + section.data.length + ')'} />
                 </View>
               );
             }}
@@ -98,7 +68,7 @@ const createStyles = (theme: ITheme) => {
   return StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.colors.surface200,
+      backgroundColor: theme.colors.surfaceExtraDim,
       width: '100%',
       overflow: 'visible',
     },

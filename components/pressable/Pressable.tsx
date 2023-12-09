@@ -38,7 +38,7 @@ export const Pressable = (props: IProps) => {
 const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
     button: {
-      color: theme.colors.ripple,
+      color: theme.colors.primary,
     },
     textDisabled: {
       opacity: 0.5,

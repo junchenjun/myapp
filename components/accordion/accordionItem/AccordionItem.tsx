@@ -119,7 +119,7 @@ const themedStyles = (theme: ITheme) => {
       overflow: 'hidden',
     },
     icon: {
-      color: theme.colors.surface300,
+      color: theme.colors.onSurfaceDim,
     },
     collapsible: {
       justifyContent: 'flex-end',

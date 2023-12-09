@@ -30,9 +30,9 @@ export const Card = (props: IProps) => {
 const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
     container: {
-      backgroundColor: theme.colors.surface100,
-      borderColor: theme.colors.surface300,
-      borderRadius: theme.border.borderRadius,
+      backgroundColor: theme.colors.surfaceExtraBright,
+      borderColor: theme.colors.surfaceExtraBright,
+      borderRadius: theme.radius.sm,
       borderWidth: 1,
       height: 'auto',
       display: 'flex',

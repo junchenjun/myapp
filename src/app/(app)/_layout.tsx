@@ -82,11 +82,7 @@ export default function Layout() {
             const title = (route?.params as { title: string }).title;
             return (
               <PageHeader
-                rightComponent={
-                  <Text color='primary' size='body2'>
-                    00:13:22
-                  </Text>
-                }
+                rightComponent={<Text color='primary'>00:13:22</Text>}
                 title={title}
                 leftIcon='goBack'
                 titleAlign='left'

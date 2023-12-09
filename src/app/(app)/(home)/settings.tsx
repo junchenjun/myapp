@@ -43,7 +43,7 @@ const Settings = () => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scroll}>
-        <Text text='Settings' size='heading1' />
+        <Text text='Settings' />
         <Button
           loading={loading}
           title='Log Out'
@@ -64,7 +64,7 @@ const createStyles = (theme: ITheme, insets: EdgeInsets) => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.colors.surface200,
+      backgroundColor: theme.colors.surfaceExtraDim,
       paddingTop: insets.top,
     },
     scroll: {

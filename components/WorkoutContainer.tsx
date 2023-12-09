@@ -17,10 +17,10 @@ export const WorkoutContainer = (props: IProps) => {
   return (
     <Card onPress={onPress} style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text text={workouts.name} size='heading3' color='text300' style={styles.title} weight='medium' />
+        <Text text={workouts.name} style={styles.title} />
       </View>
-      <Text text='Last Performed: 5 days ago' color='text100' size='body2' />
-      <Text text={`${workouts.exercises.length} Excercises`} color='text100' size='body2' />
+      <Text text='Last Performed: 5 days ago' />
+      <Text text={`${workouts.exercises.length} Excercises`} />
       {/* <View style={styles.footer}>
         {workouts?.repeteOn?.map(day => {
           const firstLetter = day.charAt(0);
@@ -49,10 +49,9 @@ const themedStyles = (theme: ITheme) => {
       marginTop: 10,
     },
     day: {
-      backgroundColor: theme.colors.surface200,
+      backgroundColor: theme.colors.onSurface,
       width: 24,
       height: 24,
-      borderRadius: theme.border.borderRadius,
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -62,7 +61,7 @@ const themedStyles = (theme: ITheme) => {
       alignItems: 'center',
     },
     titleIcon: {
-      color: theme.colors.text100,
+      color: theme.colors.onSurfaceDim,
     },
     title: {
       marginBottom: 5,

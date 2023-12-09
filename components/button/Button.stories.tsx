@@ -4,7 +4,7 @@ const ButtonStory = {
   title: 'Button',
   component: Button,
   argTypes: {
-    type: { options: ['primary', 'secondary'], control: { type: 'radio' } },
+    type: { options: ['primary', 'icon'], control: { type: 'radio' } },
   },
   args: {
     title: 'Hello world',
@@ -23,16 +23,16 @@ export const Primary = {
   },
 };
 
-export const Disabled = {
-  args: {
-    title: 'Disabled Button',
-    disabled: true,
-  },
-};
+// export const Disabled = {
+//   args: {
+//     title: 'Disabled Button',
+//     disabled: true,
+//   },
+// };
 
-export const Loading = {
-  args: {
-    title: 'Loading Button',
-    loading: true,
-  },
-};
+// export const Loading = {
+//   args: {
+//     title: 'Loading Button',
+//     loading: true,
+//   },
+// };

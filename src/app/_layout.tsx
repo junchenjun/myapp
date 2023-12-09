@@ -52,8 +52,8 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
 
   useEffect(() => {
     if (Platform.OS === 'android') {
-      NavigationBar.setBackgroundColorAsync(theme.colors.surface200);
-      NavigationBar.setBorderColorAsync(theme.colors.surface200);
+      NavigationBar.setBackgroundColorAsync(theme.colors.surfaceExtraDim);
+      NavigationBar.setBorderColorAsync(theme.colors.surfaceExtraDim);
     }
     if (theme.id === LIGHT_THEME_ID) {
       setStatusBarStyle('dark');

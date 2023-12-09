@@ -42,7 +42,7 @@ export const PageHeader = (props: IPageHeader) => {
       {leftIcon || leftComponent ? componentLeft : componentPlaceholder}
       {title && (
         <View style={styles.title}>
-          <Text size='heading3'>{title}</Text>
+          <Text>{title}</Text>
         </View>
       )}
       {rightIcon || rightComponent ? componentRight : componentPlaceholder}
@@ -64,7 +64,6 @@ const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
       height,
       overflow: 'hidden',
       position: 'relative',
-      backgroundColor: theme.colors.surface200,
       justifyContent: 'space-between',
     },
     title: {
@@ -74,7 +73,7 @@ const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
       justifyContent: 'flex-start',
     },
     icon: {
-      color: theme.colors.text300,
+      color: theme.colors.onSurfaceDim,
     },
     empty: {
       height: 30,

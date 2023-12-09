@@ -25,7 +25,7 @@ export const ModalHeader = (props: IProps) => {
         },
       ]}
     >
-      {title && <Text text={title} size='heading2' />}
+      {title && <Text text={title} />}
       <BorderlessButton onPress={() => (onClose ? onClose() : router.back())}>
         <IconClose width={30} height={30} stroke={styles.icon.color} />
       </BorderlessButton>
@@ -41,7 +41,7 @@ const themedStyles = (theme: ITheme) => {
       paddingTop: 20,
     },
     icon: {
-      color: theme.colors.text100,
+      color: theme.colors.onSurfaceDim,
     },
   });
 };

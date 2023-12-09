@@ -68,7 +68,7 @@ export const BottomTab = ({ isFocused, index, onPress, options, label, initializ
           <View style={[styles.tab]}>
             {options.tabBarIcon()}
             <Animated.View style={[styles.textView, animatedTextStyles]}>
-              <Text text={label} size='body2' weight='bold' color='textOnPrimary' />
+              <Text text={label} />
             </Animated.View>
           </View>
         )}

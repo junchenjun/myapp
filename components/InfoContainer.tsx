@@ -15,12 +15,8 @@ export const InfoConatiner = (props: IProps) => {
   return (
     <View style={[customStyles]}>
       <Card>
-        <Text size='body4' color='text100'>
-          {title}
-        </Text>
-        <Text size='body2' color='text300'>
-          {content || 'NA'}
-        </Text>
+        <Text>{title}</Text>
+        <Text>{content || 'NA'}</Text>
       </Card>
     </View>
   );

@@ -55,16 +55,16 @@ export default function SignIn() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text text='Sign In' size='heading1' />
+        <Text text='Sign In' />
       </View>
       <Button
-        leftComponent={<IconGoogle height={18} width={18} fill={styles.icon.color} />}
+        icon={<IconGoogle height={18} width={18} fill={styles.icon.color} />}
         loading={loading}
         title='Sign in with Google'
         onPress={googleSignIn}
       />
       <Button
-        leftComponent={<IconApple height={22} width={22} fill={styles.icon.color} />}
+        icon={<IconApple height={22} width={22} fill={styles.icon.color} />}
         loading={loading}
         title='Sign in with Apple'
         onPress={() => null}
@@ -81,14 +81,14 @@ const createStyles = (theme: ITheme, insets: EdgeInsets) => {
       alignItems: 'flex-start',
       padding: 24,
       gap: 15,
-      backgroundColor: theme.colors.surface200,
+      backgroundColor: theme.colors.surfaceExtraDim,
       paddingBottom: getFloatButtonDistance(insets) + 50,
     },
     header: {
       marginBottom: 10,
     },
     icon: {
-      color: theme.colors.textOnPrimary,
+      color: theme.colors.onSurfaceDim,
     },
     title: {
       fontSize: 64,
