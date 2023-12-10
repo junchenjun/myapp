@@ -1,23 +1,25 @@
-import { StyleProp, View, ViewStyle } from 'react-native';
+import React, { ReactElement } from 'react';
 
 import { Card } from '~components/card/Card';
 import { Text } from '~components/text/Text';
+import { useTheme } from '~utils/ThemeContext';
 
 interface IProps {
   title: string;
-  content?: string;
-  styles?: StyleProp<ViewStyle>;
+  content?: string | ReactElement;
 }
 
-export const InfoConatiner = (props: IProps) => {
-  const { content, title, styles: customStyles } = props;
+export const InfoContainer = (props: IProps) => {
+  const { content, title } = props;
+  const theme = useTheme();
 
   return (
-    <View style={[customStyles]}>
-      <Card>
-        <Text>{title}</Text>
-        <Text>{content || 'NA'}</Text>
-      </Card>
-    </View>
+    <Card style={{ gap: theme.spacing[2] }}>
+      <Text type='pSMRegular' color='onSurfaceDim'>
+        {title}
+      </Text>
+      {typeof content === 'string' ? <Text type='pMDRegular'>{content || 'NA'}</Text> : <></>}
+      {React.isValidElement(content) ? content : <></>}
+    </Card>
   );
 };

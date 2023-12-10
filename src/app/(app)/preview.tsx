@@ -5,7 +5,8 @@ import { EdgeInsets } from 'react-native-safe-area-context';
 import { IconZap } from '~assets/icons';
 import { Accordion } from '~components/accordion/Accordion';
 import { Button } from '~components/button/Button';
-import { InfoConatiner } from '~components/InfoContainer';
+import { InfoContainer } from '~components/InfoContainer';
+import { Label } from '~components/label/Label';
 import { Text } from '~components/text/Text';
 import { WorkoutContainer } from '~components/workoutContainer/WorkoutContainer';
 import { useAppDispatch, useAppSelector } from '~redux/store';
@@ -22,20 +23,26 @@ export default function Preview() {
 
   const workout = plans?.find(p => p.id === planId)?.workouts.find(w => w.id === workoutId);
 
+  const labels = ['Back', 'Triceps'];
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scroll}>
         {workout && (
           <View style={styles.content}>
             <Text text={workout?.name} style={styles.title} type='h2Medium' color='primary' />
-            <View style={styles.infoGroup}>
-              <InfoConatiner title='Last Perfomed' content={workout.lastPerformed} styles={{ flex: 2 }} />
-              <InfoConatiner title='Repete On' content='Mo, Tu, We, Th, Fr, Sa' styles={{ flex: 3 }} />
-            </View>
-            <InfoConatiner title='Traget Muscles' content='#Back #Biceps' />
-            <View>
-              <Text text={'Exercises (' + workout.exercises.length + ')'} />
-            </View>
+            <InfoContainer
+              title='Traget Muscles'
+              content={
+                <View style={styles.labels}>
+                  {labels.map(i => (
+                    <Label title='Back' key={i} />
+                  ))}
+                </View>
+              }
+            />
+            <InfoContainer title='Last Performed' content='4 days ago' />
+            <Text type='pSMRegular' color='onSurfaceDim' text={`Exercises(${workout.exercises.length}) `} />
             <Accordion style={styles.accordion}>
               {workout.exercises.map((i, index) => {
                 return (
@@ -97,15 +104,15 @@ const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
       gap: 10,
     },
     accordion: {
-      gap: 10,
+      gap: theme.spacing[3],
     },
     title: {
       textAlign: 'center',
       marginBottom: 20,
     },
-    infoGroup: {
+    labels: {
       flexDirection: 'row',
-      gap: 10,
+      gap: theme.spacing[1],
     },
     float: {
       position: 'absolute',

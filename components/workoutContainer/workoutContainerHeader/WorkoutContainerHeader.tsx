@@ -23,7 +23,7 @@ export const WorkoutContainerHeader = (props: IWorkoutContainerHeader) => {
         ))}
       </View>
       {onPress && (
-        <Pressable onPress={onPress}>
+        <Pressable onPress={onPress} rippleConfig={{ foreground: true, radius: 24 }}>
           <Icon icon={IconMore} color='onSurface' fill='onSurface' />
         </Pressable>
       )}

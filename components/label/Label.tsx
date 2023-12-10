@@ -29,6 +29,7 @@ const themedStyles = (theme: ITheme) => {
       flexDirection: 'column',
       paddingHorizontal: theme.spacing[2],
       paddingVertical: theme.spacing[1],
+      paddingBottom: theme.spacing[1] + 1,
       alignSelf: 'flex-start',
     },
   });

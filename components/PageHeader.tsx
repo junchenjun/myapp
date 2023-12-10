@@ -45,16 +45,22 @@ export const PageHeader = (props: IPageHeader) => {
 
   if (type === 'actionHeader') {
     const { left, right } = props;
+    const iconSize = 26;
+
     const componentLeft = left?.icon ? (
-      <Pressable onPress={left.onPress} style={{ width: 24 }} rippleStyle='light'>
-        <Icon icon={left.icon} color='onSurface' />
+      <Pressable onPress={left.onPress} style={{ width: iconSize }} rippleConfig={{ rippleStyle: 'light', radius: 24 }}>
+        <Icon icon={left.icon} color='onSurface' size={iconSize} />
       </Pressable>
     ) : (
       left?.component
     );
     const componentRight = right?.icon ? (
-      <Pressable onPress={right.onPress} style={{ width: 24 }} rippleStyle='light'>
-        <Icon icon={right.icon} color='onSurface' />
+      <Pressable
+        onPress={right.onPress}
+        style={{ width: iconSize }}
+        rippleConfig={{ rippleStyle: 'light', radius: iconSize }}
+      >
+        <Icon icon={right.icon} color='onSurface' size={iconSize} />
       </Pressable>
     ) : (
       right?.component
@@ -69,7 +75,7 @@ export const PageHeader = (props: IPageHeader) => {
     );
   } else if (type === 'default') {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, styles.short]}>
         {title && (
           <Text type='h4Medium' color='onSurface'>
             {title}
@@ -81,8 +87,7 @@ export const PageHeader = (props: IPageHeader) => {
 };
 
 const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
-  const paddingTop = insets.top < 40 ? 40 : insets.top;
-  // const height = paddingTop + 50;
+  const paddingTop = insets.top < 50 ? 50 : insets.top;
   return StyleSheet.create({
     container: {
       padding: theme.spacing[4],
@@ -91,11 +96,13 @@ const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
       alignItems: 'flex-end',
       flexDirection: 'row',
       gap: theme.spacing[1],
-      // height,
       overflow: 'hidden',
       position: 'relative',
       justifyContent: 'space-between',
       backgroundColor: theme.colors.surfaceExtraDim,
+    },
+    short: {
+      paddingBottom: theme.spacing[1],
     },
     left: {
       width: 60,

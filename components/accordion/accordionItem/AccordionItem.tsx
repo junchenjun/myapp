@@ -14,12 +14,15 @@ interface IProps {
   trigger?: (expandIcon: ReactElement) => ReactElement;
   title?: string;
   itemHeight?: number;
+  id?: string;
 }
 
 export const AccordionItem = (props: IProps) => {
-  const { trigger, title = '', children, itemHeight } = props;
+  const { trigger, title = '', children, itemHeight, id } = props;
 
-  const id = useId();
+  const autoId = useId();
+
+  const uniqueId = id || autoId;
 
   const { expandedIds, setExpandedIds, autoCollapse } = useContext(AccordionContext);
 
@@ -42,9 +45,9 @@ export const AccordionItem = (props: IProps) => {
   let expanded = false;
 
   if (!autoCollapse) {
-    expanded = !!expandedIds?.find(i => i === id);
+    expanded = !!expandedIds?.find(i => i === uniqueId);
   } else {
-    expanded = expandedIds[0] === id;
+    expanded = expandedIds[0] === uniqueId;
   }
 
   const animatedStyle = useAnimatedStyle(() => {
@@ -66,24 +69,24 @@ export const AccordionItem = (props: IProps) => {
 
   const onPress = useCallback(() => {
     if (autoCollapse) {
-      setExpandedIds(expanded ? [''] : [id]);
+      setExpandedIds(expanded ? [''] : [uniqueId]);
     } else {
       setExpandedIds(prev => {
         if (expanded) {
-          return prev.filter(i => i !== id);
+          return prev.filter(i => i !== uniqueId);
         } else {
-          return [...prev, id];
+          return [...prev, uniqueId];
         }
       });
     }
-  }, [autoCollapse, expanded, id]);
+  }, [autoCollapse, expanded, uniqueId]);
 
   const Icon = useMemo(
     () =>
       expanded ? (
-        <IconExpandUp width={30} height={30} stroke={styles.icon.color} />
+        <IconExpandUp width={24} height={24} stroke={styles.icon.color} />
       ) : (
-        <IconExpandDown width={30} height={30} stroke={styles.icon.color} />
+        <IconExpandDown width={24} height={24} stroke={styles.icon.color} />
       ),
     [expanded]
   );
@@ -91,11 +94,17 @@ export const AccordionItem = (props: IProps) => {
   return (
     <View>
       {trigger ? (
-        trigger(<Pressable onPress={onPress}>{Icon}</Pressable>)
+        trigger(
+          <Pressable rippleConfig={{ radius: 24 }} onPress={onPress}>
+            {Icon}
+          </Pressable>
+        )
       ) : (
         <View style={styles.header}>
           <Text style={styles.headerContent}>{title}</Text>
-          <Pressable onPress={onPress}>{Icon}</Pressable>
+          <Pressable onPress={onPress} rippleConfig={{ radius: 24 }}>
+            {Icon}
+          </Pressable>
         </View>
       )}
       <Animated.View style={[styles.collapsible, animatedStyle, { overflow: 'hidden' }]}>

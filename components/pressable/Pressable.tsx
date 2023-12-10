@@ -8,15 +8,21 @@ interface IProps {
   disabled?: boolean;
   children: ReactElement | ReactElement[];
   style?: StyleProp<ViewStyle>;
-  rippleStyle?: 'light' | 'dark' | 'none';
+  rippleConfig?: {
+    rippleStyle?: 'light' | 'dark' | 'none';
+    foreground?: boolean;
+    radius?: number;
+  };
 }
 
 export const Pressable = (props: IProps) => {
-  const { onPress, children, disabled, style, rippleStyle = 'dark' } = props;
+  const { onPress, children, disabled, style, rippleConfig } = props;
   const styles = useThemedStyles(themedStyles);
   const theme = useTheme();
 
   const isDisabled = disabled;
+
+  const rippleStyle = rippleConfig?.rippleStyle || 'dark';
 
   return (
     <RNPressable
@@ -27,6 +33,8 @@ export const Pressable = (props: IProps) => {
           ? {
               color: rippleStyle === 'dark' ? theme.colors.surfaceExtraDim : theme.colors.onSurfaceExtraDim,
               borderless: true,
+              foreground: rippleConfig?.foreground,
+              radius: rippleConfig?.radius,
             }
           : undefined
       }

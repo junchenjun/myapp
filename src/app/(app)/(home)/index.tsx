@@ -2,7 +2,6 @@ import { useRouter } from 'expo-router';
 import { Suspense } from 'react';
 import { ScrollView, SectionList, StyleSheet, View } from 'react-native';
 
-import { Text } from '~components/text/Text';
 import { WorkoutContainer } from '~components/workoutContainer/WorkoutContainer';
 import { useAppSelector } from '~redux/store';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
@@ -44,13 +43,13 @@ const Home = () => {
               descItems={[`${item.exercises.length} Exercises`, '5 days ago']}
             />
           )}
-          renderSectionHeader={({ section }) => {
-            return (
-              <View>
-                <Text text={section.title + ' (' + section.data.length + ')'} />
-              </View>
-            );
-          }}
+          // renderSectionHeader={({ section }) => {
+          //   return (
+          //     <View>
+          //       <Text text={section.title + ' (' + section.data.length + ')'} />
+          //     </View>
+          //   );
+          // }}
         />
       </Suspense>
     </ScrollView>
@@ -67,7 +66,7 @@ const createStyles = (theme: ITheme) => {
       paddingHorizontal: theme.spacing[4],
     },
     gap: {
-      gap: theme.spacing[4],
+      gap: theme.spacing[3],
     },
     list: {
       flex: 1,
