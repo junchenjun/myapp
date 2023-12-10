@@ -61,15 +61,17 @@ const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
     container: {
       borderRadius: theme.radius.round,
-      overflow: 'hidden',
       backgroundColor: theme.colors.surfaceExtraBright,
       alignSelf: 'center',
+      overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
     },
     elevated: {
       elevation: 2,
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.3,
+      shadowRadius: 2,
     },
     button: {
-      overflow: 'hidden',
       alignItems: 'center',
       justifyContent: 'center',
       height: 58,
