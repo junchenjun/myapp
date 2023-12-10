@@ -5,7 +5,6 @@ import { EdgeInsets } from 'react-native-safe-area-context';
 
 import { Button } from '~components/button/Button';
 import { ExerciseContainer } from '~components/ExerciseContainer';
-import { Text } from '~components/text/Text';
 import { useAppSelector } from '~redux/store';
 import { getFloatButtonDistance } from '~utils/styleHelper';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';

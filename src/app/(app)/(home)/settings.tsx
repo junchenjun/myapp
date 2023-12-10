@@ -1,11 +1,9 @@
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { useState } from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { EdgeInsets } from 'react-native-safe-area-context';
 
 import { Button } from '~components/button/Button';
-import { Text } from '~components/text/Text';
 import { firebaseAuth } from '~firebase/firebaseConfig';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 

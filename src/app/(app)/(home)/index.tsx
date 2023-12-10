@@ -1,12 +1,10 @@
 import { useRouter } from 'expo-router';
 import { Suspense } from 'react';
 import { ScrollView, SectionList, StyleSheet, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Text } from '~components/text/Text';
 import { WorkoutContainer } from '~components/WorkoutContainer';
 import { useAppSelector } from '~redux/store';
-import { getCurrentDateMDW } from '~utils/dateHelper';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
 const Home = () => {

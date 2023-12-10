@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { EdgeInsets } from 'react-native-safe-area-context';
 
-import { IconApple, IconGoogle } from '~assets/icons';
 import { Button } from '~components/button/Button';
 import { Text } from '~components/text/Text';
 import { firebaseAuth } from '~firebase/firebaseConfig';
