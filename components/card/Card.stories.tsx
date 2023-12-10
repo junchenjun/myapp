@@ -9,6 +9,13 @@ const CardStory: Meta<typeof Card> = {
   argTypes: {
     onPress: { control: null, action: 'onPress' },
   },
+};
+
+type IStory = StoryObj<typeof Text>;
+
+export default CardStory;
+
+export const Basic: IStory = {
   render: ({ ...args }) => (
     <Card {...args}>
       <Text>Some stuff</Text>
@@ -16,9 +23,3 @@ const CardStory: Meta<typeof Card> = {
     </Card>
   ),
 };
-
-type IStory = StoryObj<typeof Text>;
-
-export default CardStory;
-
-export const Default: IStory = {};

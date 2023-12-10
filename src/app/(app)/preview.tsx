@@ -4,10 +4,10 @@ import { EdgeInsets } from 'react-native-safe-area-context';
 
 import { IconZap } from '~assets/icons';
 import { Accordion } from '~components/accordion/Accordion';
-import { AccordionItem } from '~components/accordion/accordionItem/AccordionItem';
 import { Button } from '~components/button/Button';
 import { InfoConatiner } from '~components/InfoContainer';
 import { Text } from '~components/text/Text';
+import { WorkoutContainer } from '~components/workoutContainer/WorkoutContainer';
 import { useAppDispatch, useAppSelector } from '~redux/store';
 import { setWorkout } from '~redux/workoutSlice';
 import { getFloatButtonDistance } from '~utils/styleHelper';
@@ -39,35 +39,25 @@ export default function Preview() {
             <Accordion style={styles.accordion}>
               {workout.exercises.map((i, index) => {
                 return (
-                  <View key={index}>
-                    <AccordionItem
-                      itemHeight={28}
-                      id={index.toString()}
-                      renderTitle={expandIcon => (
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                          }}
-                        >
-                          <View style={{ flex: 1, overflow: 'hidden' }}>
-                            <Text>Push ups</Text>
-                            <Text>content content content content content content content</Text>
-                          </View>
-                          {expandIcon}
-                        </View>
-                      )}
-                    >
-                      <Text>content content content content content content content</Text>
-                      <Text>content content content content content content content</Text>
-                      <Text>content content content content content content content</Text>
-                      <Text>content content content content content content content</Text>
-                      <Text>content content content content content content content</Text>
-                      <Text>content content content content content content content</Text>
-                      <Text>content content content content content content content</Text>
-                    </AccordionItem>
-                  </View>
+                  <WorkoutContainer
+                    key={index}
+                    title={i.name}
+                    header={{
+                      labels: ['Shoulder', 'biceps'],
+                    }}
+                    descItems={['8 Exercises']}
+                    accordionItem={
+                      <>
+                        <Text>content content content content content content content</Text>
+                        <Text>content content content content content content content</Text>
+                        <Text>content content content content content content content</Text>
+                        <Text>content content content content content content content</Text>
+                        <Text>content content content content content content content</Text>
+                        <Text>content content content content content content content</Text>
+                        <Text>content content content content content content content</Text>
+                      </>
+                    }
+                  />
                 );
               })}
             </Accordion>

@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import { ScrollView, SectionList, StyleSheet, View } from 'react-native';
 
 import { Text } from '~components/text/Text';
-import { WorkoutContainer } from '~components/WorkoutContainer';
+import { WorkoutContainer } from '~components/workoutContainer/WorkoutContainer';
 import { useAppSelector } from '~redux/store';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
@@ -26,22 +26,27 @@ const Home = () => {
           stickySectionHeadersEnabled={false}
           keyExtractor={(item, index) => item.name + index}
           scrollEnabled={false}
+          contentContainerStyle={{ ...styles.gap }}
           renderItem={({ item, section, index }) => (
             <WorkoutContainer
               key={index}
+              title={item.name}
+              header={{
+                labels: ['Shoulder', 'biceps'],
+                onPress: () => null,
+              }}
               onPress={() => {
                 return router.push({
                   pathname: 'preview',
                   params: { planId: section.id, workoutId: item.id },
                 });
               }}
-              workouts={item}
-              index={index}
+              descItems={[`${item.exercises.length} Exercises`, '5 days ago']}
             />
           )}
           renderSectionHeader={({ section }) => {
             return (
-              <View style={styles.sectionTitle}>
+              <View>
                 <Text text={section.title + ' (' + section.data.length + ')'} />
               </View>
             );
@@ -59,33 +64,14 @@ const createStyles = (theme: ITheme) => {
     scroll: {
       flex: 1,
       backgroundColor: theme.colors.surfaceExtraDim,
+      paddingHorizontal: theme.spacing[4],
     },
-    calender: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      paddingHorizontal: 15,
-      paddingTop: 20,
-    },
-    day: {
-      alignItems: 'center',
-    },
-    listHeader: {
-      paddingHorizontal: 15,
-      paddingTop: 10,
-      marginBottom: 20,
-    },
-    header: {
-      width: '100%',
-      paddingLeft: 9,
+    gap: {
+      gap: theme.spacing[4],
     },
     list: {
       flex: 1,
       overflow: 'hidden',
-      marginHorizontal: 15,
-    },
-    sectionTitle: {
-      paddingHorizontal: 20,
-      marginBottom: 5,
     },
   });
 };

@@ -1,25 +1,25 @@
-import { ReactElement, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { ReactElement, useCallback, useContext, useEffect, useId, useMemo, useState } from 'react';
 import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 import { IconExpandDown } from '~assets/icons/IconExpandDown';
 import { IconExpandUp } from '~assets/icons/IconExpandUp';
 import { AccordionContext } from '~components/accordion/Accordion';
-import { Card } from '~components/card/Card';
 import { Pressable } from '~components/pressable/Pressable';
 import { Text } from '~components/text/Text';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
 interface IProps {
-  id: string;
   children?: ReactElement | ReactElement[];
-  renderTitle?: (expandIcon: ReactElement) => ReactElement;
+  trigger?: (expandIcon: ReactElement) => ReactElement;
   title?: string;
   itemHeight?: number;
 }
 
 export const AccordionItem = (props: IProps) => {
-  const { renderTitle, title = '', children, id, itemHeight } = props;
+  const { trigger, title = '', children, itemHeight } = props;
+
+  const id = useId();
 
   const { expandedIds, setExpandedIds, autoCollapse } = useContext(AccordionContext);
 
@@ -89,9 +89,9 @@ export const AccordionItem = (props: IProps) => {
   );
 
   return (
-    <Card>
-      {renderTitle ? (
-        renderTitle(<Pressable onPress={onPress}>{Icon}</Pressable>)
+    <View>
+      {trigger ? (
+        trigger(<Pressable onPress={onPress}>{Icon}</Pressable>)
       ) : (
         <View style={styles.header}>
           <Text style={styles.headerContent}>{title}</Text>
@@ -103,7 +103,7 @@ export const AccordionItem = (props: IProps) => {
           {children}
         </View>
       </Animated.View>
-    </Card>
+    </View>
   );
 };
 
@@ -119,7 +119,7 @@ const themedStyles = (theme: ITheme) => {
       overflow: 'hidden',
     },
     icon: {
-      color: theme.colors.onSurfaceDim,
+      color: theme.colors.onSurfaceExtraDim,
     },
     collapsible: {
       justifyContent: 'flex-end',

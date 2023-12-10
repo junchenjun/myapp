@@ -31,15 +31,14 @@ const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
     container: {
       backgroundColor: theme.colors.surfaceExtraBright,
-      borderColor: theme.colors.surfaceExtraBright,
       borderRadius: theme.radius.sm,
-      borderWidth: 1,
       height: 'auto',
       display: 'flex',
       flexDirection: 'column',
+      width: '100%',
     },
     padding: {
-      padding: 15,
+      padding: theme.spacing[5],
     },
     flex: {
       display: 'flex',
