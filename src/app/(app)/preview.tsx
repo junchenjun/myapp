@@ -53,7 +53,7 @@ export default function Preview() {
                       labels: ['Shoulder', 'biceps'],
                     }}
                     descItems={['8 Exercises']}
-                    accordionItem={
+                    accordionItems={
                       <>
                         <Text>content content content content content content content</Text>
                         <Text>content content content content content content content</Text>

@@ -1,5 +1,7 @@
 import { Dispatch, ReactElement, SetStateAction, createContext, useEffect, useState } from 'react';
-import { StyleProp, View, ViewStyle } from 'react-native';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+
+import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
 interface IAccordionContextContextType {
   expandedIds: string[];
@@ -24,6 +26,8 @@ export const Accordion = (props: IProps) => {
   const { children, autoCollapse, expandedIds: defaultIds, style } = props;
   const [expandedIds, setExpandedIds] = useState<string[]>([]);
 
+  const styles = useThemedStyles(themedStyles);
+
   useEffect(() => {
     defaultIds && setExpandedIds(defaultIds);
   }, [defaultIds]);
@@ -36,7 +40,16 @@ export const Accordion = (props: IProps) => {
         setExpandedIds,
       }}
     >
-      <View style={[{ width: '100%' }, style]}>{children}</View>
+      <View style={[styles.container, style]}>{children}</View>
     </AccordionContext.Provider>
   );
+};
+
+const themedStyles = (theme: ITheme) => {
+  return StyleSheet.create({
+    container: {
+      width: '100%',
+      gap: theme.spacing[3],
+    },
+  });
 };

@@ -14,12 +14,12 @@ interface IProps {
   title?: string;
   descItems?: string[];
   header?: IWorkoutContainerHeader;
-  accordionItem?: ReactElement;
+  accordionItems?: ReactElement;
   onPress?: () => void;
 }
 
 export const WorkoutContainer = (props: IProps) => {
-  const { title, header, descItems, accordionItem, onPress } = props;
+  const { title, header, descItems, accordionItems, onPress } = props;
   const styles = useThemedStyles(themedStyles);
 
   const mainContent = (
@@ -42,7 +42,7 @@ export const WorkoutContainer = (props: IProps) => {
     </>
   );
 
-  if (!accordionItem) {
+  if (!accordionItems) {
     return (
       <Card onPress={onPress}>
         <WorkoutContainerHeader {...header} />
@@ -63,7 +63,7 @@ export const WorkoutContainer = (props: IProps) => {
             </>
           )}
         >
-          {accordionItem}
+          {accordionItems}
         </AccordionItem>
       </Card>
     );

@@ -5,7 +5,7 @@ import { Text } from '~components/text/Text';
 import { WorkoutContainer } from '~components/workoutContainer/WorkoutContainer';
 
 const WorkoutContainerStory: Meta<typeof WorkoutContainer> = {
-  title: 'WorkoutContainer',
+  title: 'Workout Container',
   component: WorkoutContainer,
   argTypes: {
     title: { control: 'text' },
@@ -27,7 +27,7 @@ export const Default: IStory = {
   },
 };
 
-export const Complex = {
+export const WithAccordion = {
   render: () => (
     <Accordion>
       <WorkoutContainer
@@ -37,7 +37,26 @@ export const Complex = {
           onPress: () => null,
         }}
         descItems={['8 Exercises', '5 days ago']}
-        accordionItem={
+        accordionItems={
+          <>
+            <Text>content content content content content content content</Text>
+            <Text>content content content content content content content</Text>
+            <Text>content content content content content content content</Text>
+            <Text>content content content content content content content</Text>
+            <Text>content content content content content content content</Text>
+            <Text>content content content content content content content</Text>
+            <Text>content content content content content content content</Text>
+          </>
+        }
+      />
+      <WorkoutContainer
+        title='Back&Biceps'
+        header={{
+          labels: ['Shoulder', 'biceps'],
+          onPress: () => null,
+        }}
+        descItems={['8 Exercises', '5 days ago']}
+        accordionItems={
           <>
             <Text>content content content content content content content</Text>
             <Text>content content content content content content content</Text>
