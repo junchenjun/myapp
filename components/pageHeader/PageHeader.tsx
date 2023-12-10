@@ -8,15 +8,6 @@ import { Pressable } from '~components/pressable/Pressable';
 import { Text } from '~components/text/Text';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
-// interface IPageHeader {
-//   title?: string;
-//   rightIcon?: React.FC<SvgProps>;
-//   leftIcon?: React.FC<SvgProps>;
-//   leftComponent?: ReactElement;
-//   rightComponent?: ReactElement;
-//   onPress?: () => void;
-// }
-
 interface IHeader {
   type: 'default';
   title?: string;

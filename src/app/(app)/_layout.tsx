@@ -9,7 +9,7 @@ import { Stack, useRouter, withLayoutContext } from 'expo-router';
 import { Alert } from 'react-native';
 
 import { IconBack } from '~assets/icons';
-import { PageHeader } from '~components/PageHeader';
+import { PageHeader } from '~components/pageHeader/PageHeader';
 import { Pressable } from '~components/pressable/Pressable';
 import { Text } from '~components/text/Text';
 

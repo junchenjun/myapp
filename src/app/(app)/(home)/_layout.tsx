@@ -4,7 +4,7 @@ import React from 'react';
 import { IconActivity, IconLightning, IconSettings } from '~assets/icons';
 import { BottomTab } from '~components/BottomTab';
 import { Icon } from '~components/icon/Icon';
-import { PageHeader } from '~components/PageHeader';
+import { PageHeader } from '~components/pageHeader/PageHeader';
 import { IColorKeys } from '~utils/ThemeContext';
 
 export default function Layout() {
