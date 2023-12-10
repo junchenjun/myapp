@@ -41,36 +41,29 @@ const Settings = () => {
     );
 
   return (
-    <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scroll}>
-        <Text text='Settings' />
-        <Button
-          loading={loading}
-          title='Log Out'
-          onPress={() => {
-            setLoading(true);
-            createTwoButtonAlert();
-          }}
-        />
-        <Button title='Log Out' onPress={() => {}} />
-      </ScrollView>
-    </View>
+    <ScrollView contentContainerStyle={styles.scroll}>
+      <Button
+        loading={loading}
+        title='Log Out'
+        onPress={() => {
+          setLoading(true);
+          createTwoButtonAlert();
+        }}
+      />
+      <Button title='Log Out' onPress={() => {}} />
+    </ScrollView>
   );
 };
 
 export default Settings;
 
-const createStyles = (theme: ITheme, insets: EdgeInsets) => {
+const createStyles = (theme: ITheme) => {
   const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: theme.colors.surfaceExtraDim,
-      paddingTop: insets.top,
-    },
     scroll: {
       alignItems: 'flex-start',
       gap: 5,
       paddingHorizontal: 15,
+      backgroundColor: theme.colors.surfaceExtraDim,
     },
     icon: {
       color: theme.colors.primary,

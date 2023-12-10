@@ -1,7 +1,9 @@
 import IconApple from '~assets/icons/appleIcon.svg';
-import IconFire from '~assets/icons/fireIcon.svg';
-import IconGoBack from '~assets/icons/goBackIcon.svg';
 import IconGoogle from '~assets/icons/googleIcon.svg';
-import IconProfile from '~assets/icons/profileIcon.svg';
+import IconActivity from '~assets/icons/iconActivity.svg';
+import IconBack from '~assets/icons/iconBack.svg';
+import IconLightning from '~assets/icons/iconLightning.svg';
+import IconSettings from '~assets/icons/iconSettings.svg';
+import IconZap from '~assets/icons/iconZap.svg';
 
-export { IconFire, IconProfile, IconGoBack, IconGoogle, IconApple };
+export { IconLightning, IconZap, IconBack, IconActivity, IconSettings, IconGoogle, IconApple };

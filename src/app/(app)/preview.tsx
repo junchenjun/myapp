@@ -1,7 +1,8 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { Dimensions, ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { EdgeInsets } from 'react-native-safe-area-context';
 
+import { IconZap } from '~assets/icons';
 import { Accordion } from '~components/accordion/Accordion';
 import { AccordionItem } from '~components/accordion/accordionItem/AccordionItem';
 import { Button } from '~components/button/Button';
@@ -9,10 +10,10 @@ import { InfoConatiner } from '~components/InfoContainer';
 import { Text } from '~components/text/Text';
 import { useAppDispatch, useAppSelector } from '~redux/store';
 import { setWorkout } from '~redux/workoutSlice';
-import { getFloatButtonDistance, getPagePaddingTopWithHeader } from '~utils/styleHelper';
+import { getFloatButtonDistance } from '~utils/styleHelper';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
-export default function WorkoutPreview() {
+export default function Preview() {
   const plans = useAppSelector(state => state.plans.list);
   const { workoutId, planId } = useLocalSearchParams();
   const styles = useThemedStyles(themedStyles);
@@ -26,7 +27,7 @@ export default function WorkoutPreview() {
       <ScrollView contentContainerStyle={styles.scroll}>
         {workout && (
           <View style={styles.content}>
-            <Text text={workout?.name} style={styles.title} />
+            <Text text={workout?.name} style={styles.title} type='h2Medium' color='primary' />
             <View style={styles.infoGroup}>
               <InfoConatiner title='Last Perfomed' content={workout.lastPerformed} styles={{ flex: 2 }} />
               <InfoConatiner title='Repete On' content='Mo, Tu, We, Th, Fr, Sa' styles={{ flex: 3 }} />
@@ -75,7 +76,7 @@ export default function WorkoutPreview() {
       </ScrollView>
       <View style={styles.float}>
         <Button
-          title='Start'
+          title='Start Workout'
           onPress={() => {
             router.replace({
               pathname: 'workout',
@@ -83,6 +84,7 @@ export default function WorkoutPreview() {
             });
             dispatch(setWorkout(workout));
           }}
+          icon={IconZap}
         />
       </View>
     </View>
@@ -96,10 +98,8 @@ const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
       backgroundColor: theme.colors.surfaceExtraDim,
     },
     scroll: {
-      alignItems: 'center',
-      paddingHorizontal: 15,
+      paddingHorizontal: theme.spacing[4],
       paddingBottom: 120,
-      paddingTop: getPagePaddingTopWithHeader(insets),
     },
     content: {
       width: '100%',
@@ -119,8 +119,7 @@ const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
     },
     float: {
       position: 'absolute',
-      left: 15,
-      width: Dimensions.get('window').width - 15 * 2,
+      right: theme.spacing[4],
       bottom: getFloatButtonDistance(insets),
     },
   });

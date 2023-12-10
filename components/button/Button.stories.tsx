@@ -23,16 +23,9 @@ export const Primary = {
   },
 };
 
-// export const Disabled = {
-//   args: {
-//     title: 'Disabled Button',
-//     disabled: true,
-//   },
-// };
-
-// export const Loading = {
-//   args: {
-//     title: 'Loading Button',
-//     loading: true,
-//   },
-// };
+export const Disabled = {
+  args: {
+    title: 'Disabled Button',
+    disabled: true,
+  },
+};

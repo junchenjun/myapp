@@ -8,6 +8,7 @@ import {
 import { Stack, useRouter, withLayoutContext } from 'expo-router';
 import { Alert } from 'react-native';
 
+import { IconBack } from '~assets/icons';
 import { PageHeader } from '~components/PageHeader';
 import { Pressable } from '~components/pressable/Pressable';
 import { Text } from '~components/text/Text';
@@ -22,7 +23,7 @@ export const JsStack = withLayoutContext<
 >(Navigator);
 
 export default function Layout() {
-  const xx = true;
+  const useNativeRouter = false;
 
   const router = useRouter();
 
@@ -42,7 +43,7 @@ export default function Layout() {
       }
     );
 
-  return xx ? (
+  return !useNativeRouter ? (
     <JsStack>
       <JsStack.Screen
         name='(home)'
@@ -56,17 +57,21 @@ export default function Layout() {
         name='preview'
         options={{
           headerShown: true,
-          headerTransparent: true,
           header: () => {
             return (
               <PageHeader
-                rightComponent={
-                  <Pressable>
-                    <Text text='Edit' color='primary' />
-                  </Pressable>
-                }
-                leftIcon='goBack'
-                onPress={() => router.back()}
+                type='actionHeader'
+                right={{
+                  component: (
+                    <Pressable rippleStyle='light'>
+                      <Text text='Edit' color='primary' />
+                    </Pressable>
+                  ),
+                }}
+                left={{
+                  icon: IconBack,
+                  onPress: () => router.back(),
+                }}
               />
             );
           },
@@ -82,15 +87,15 @@ export default function Layout() {
             const title = (route?.params as { title: string }).title;
             return (
               <PageHeader
-                rightComponent={<Text color='primary'>00:13:22</Text>}
+                type='actionHeader'
                 title={title}
-                leftIcon='goBack'
-                titleAlign='left'
-                onPress={createAlert}
+                left={{
+                  icon: IconBack,
+                  onPress: createAlert,
+                }}
               />
             );
           },
-          headerTransparent: true,
           ...TransitionPresets.FadeFromBottomAndroid,
         }}
         key='workout'
@@ -99,28 +104,46 @@ export default function Layout() {
         name='auth'
         options={{
           headerShown: false,
-          headerTransparent: true,
           ...TransitionPresets.FadeFromBottomAndroid,
         }}
         key='auth'
       />
     </JsStack>
   ) : (
+    // native
     <Stack>
       <Stack.Screen
         name='(home)'
         options={{
           headerShown: false,
-          animation: 'fade',
+          // animation: 'fade',
         }}
         key='home'
       />
       <Stack.Screen
         name='preview'
         options={{
-          headerShown: false,
+          headerShown: true,
           // presentation: 'modal',
-          animation: 'slide_from_bottom',
+          animation: 'default',
+          header: () => {
+            return (
+              <PageHeader
+                type='actionHeader'
+                right={{
+                  component: (
+                    <Pressable rippleStyle='light'>
+                      <Text text='Edit' color='primary' />
+                    </Pressable>
+                  ),
+                }}
+                left={{
+                  icon: IconBack,
+                  onPress: () => router.back(),
+                }}
+              />
+            );
+          },
         }}
         key='preview'
       />
@@ -130,10 +153,17 @@ export default function Layout() {
           headerShown: true,
           header: ({ route }) => {
             const title = (route?.params as { title: string }).title;
-            return <PageHeader title={title} leftIcon='goBack' />;
+            return (
+              <PageHeader
+                type='actionHeader'
+                title={title}
+                left={{
+                  icon: IconBack,
+                  onPress: createAlert,
+                }}
+              />
+            );
           },
-          animation: 'fade',
-          headerTransparent: true,
         }}
         key='workout'
       />
@@ -141,8 +171,6 @@ export default function Layout() {
         name='auth'
         options={{
           headerShown: false,
-          headerTransparent: true,
-          animation: 'fade',
         }}
         key='auth'
       />

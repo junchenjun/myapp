@@ -51,7 +51,7 @@ const lightColors = {
   onError: colors.red[100],
 };
 
-const darkColors: IColors = {
+const darkColors: typeof lightColors = {
   // primary
   primary: colors.blue[80],
   onPrimary: colors.blue[20],
@@ -69,7 +69,7 @@ const darkColors: IColors = {
   onError: colors.red[20],
 };
 
-export type IColors = typeof lightColors;
+export type IColorKeys = keyof typeof lightColors;
 
 const spacing = {
   0: 0,
@@ -239,7 +239,7 @@ export type IThemedText = typeof text;
 
 export interface ITheme {
   id: string;
-  colors: IColors;
+  colors: typeof lightColors;
   text: typeof text;
   spacing: typeof spacing;
   radius: typeof radius;

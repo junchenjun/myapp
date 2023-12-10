@@ -1,108 +1,62 @@
-import { ReactNode } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
-import Animated, { useAnimatedStyle, useSharedValue, withDelay, withTiming } from 'react-native-reanimated';
+import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
+import { StyleSheet, View } from 'react-native';
+import { EdgeInsets } from 'react-native-safe-area-context';
 
-import { Text } from '~components/text/Text';
+import { Pressable } from '~components/pressable/Pressable';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
-interface ITab {
-  isFocused: boolean;
-  index: number;
-  onPress: () => void;
-  options: {
-    tabBarIcon: () => ReactNode;
-  };
-  label: string;
-  initializing: boolean;
-}
-
-const TAB_WIDTH = 76;
-
-export const BottomTab = ({ isFocused, index, onPress, options, label, initializing }: ITab) => {
+export const BottomTab = ({ state, descriptors, navigation }: BottomTabBarProps) => {
   const styles = useThemedStyles(themedStyles);
 
-  const defaultActiveTab = isFocused && initializing;
-
-  const tabWidth = useSharedValue(defaultActiveTab ? TAB_WIDTH * 2 : TAB_WIDTH);
-  const opacity = useSharedValue(defaultActiveTab ? 1 : 0);
-  const color = useSharedValue(1);
-  const textViewWidth = useSharedValue(defaultActiveTab ? 90 : 0);
-
-  const animatedStyles = useAnimatedStyle(() => {
-    return {
-      width: withTiming(tabWidth.value, {
-        duration: 200,
-      }),
-    };
-  });
-
-  const animatedTextStyles = useAnimatedStyle(() => {
-    return {
-      opacity: opacity.value,
-      width: withTiming(textViewWidth.value, {
-        duration: 200,
-      }),
-    };
-  });
-
-  if (!initializing) {
-    if (isFocused) {
-      tabWidth.value = TAB_WIDTH * 2;
-      opacity.value = withDelay(100, withTiming(1));
-      textViewWidth.value = 90;
-    } else {
-      tabWidth.value = TAB_WIDTH;
-      opacity.value = 0;
-      textViewWidth.value = 0;
-    }
-  }
-
   return (
-    <Animated.View style={[styles.container, index === 1 ? styles.left : {}, animatedStyles]}>
-      <Pressable
-        onPress={onPress}
-        onPressIn={() => (color.value = 0.9)}
-        onPressOut={() => (color.value = 1)}
-        style={styles.button}
-        children={() => (
-          <View style={[styles.tab]}>
-            {options.tabBarIcon()}
-            <Animated.View style={[styles.textView, animatedTextStyles]}>
-              <Text text={label} />
-            </Animated.View>
-          </View>
-        )}
-      />
-    </Animated.View>
+    <View style={[styles.tabs, { bottom: 0 }]}>
+      {state.routes.map((route, index) => {
+        const { options } = descriptors[route.key];
+        const isFocused = state.index === index;
+
+        const onPress = () => {
+          const event = navigation.emit({
+            type: 'tabPress',
+            target: route.key,
+            canPreventDefault: true,
+          });
+
+          if (!isFocused && !event.defaultPrevented) {
+            navigation.navigate({ params: {}, name: route.name, merge: true });
+          }
+        };
+
+        return (
+          <Pressable onPress={onPress} rippleStyle='none'>
+            <View style={styles.tab}>
+              {options.tabBarIcon?.({
+                focused: isFocused,
+                color: isFocused ? 'primary' : 'onSurfaceExtraDim',
+                size: 32,
+              })}
+            </View>
+          </Pressable>
+        );
+      })}
+    </View>
   );
 };
 
-const themedStyles = (theme: ITheme) => {
+const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
   return StyleSheet.create({
-    container: {
-      borderRadius: 28,
-      height: TAB_WIDTH,
-      overflow: 'hidden',
+    tabs: {
+      position: 'absolute',
+      width: '100%',
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      paddingBottom: insets.bottom || theme.spacing[4],
+      backgroundColor: theme.colors.surface,
+      paddingVertical: theme.spacing[4],
     },
     tab: {
-      flexDirection: 'row',
-      justifyContent: 'center',
+      flex: 1,
       alignItems: 'center',
-    },
-    button: {
-      backgroundColor: theme.colors.primary,
-      flexDirection: 'row',
-      width: '100%',
-      height: '100%',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    left: {
-      position: 'absolute',
-      right: 0,
-    },
-    textView: {
-      alignItems: 'center',
+      width: 40,
     },
   });
 };

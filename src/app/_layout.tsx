@@ -1,10 +1,11 @@
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { ThemeProvider as RNThemeProvider, DefaultTheme } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import * as NavigationBar from 'expo-navigation-bar';
 import { Slot, SplashScreen, useRouter } from 'expo-router';
 import { setStatusBarStyle } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { Platform, View, useColorScheme, Appearance } from 'react-native';
+import { Platform, View, useColorScheme } from 'react-native';
 import { Provider } from 'react-redux';
 
 import { firebaseAuth, getPlansCollection } from '~firebase/firebaseConfig';
@@ -43,24 +44,23 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
   useEffect(() => {
     if (colorScheme === 'light') {
       updateTheme(LIGHT_THEME_ID);
-      Appearance.setColorScheme('light');
     } else {
-      updateTheme(LIGHT_THEME_ID);
-      Appearance.setColorScheme('dark');
+      updateTheme(DARK_THEME_ID);
     }
   }, [colorScheme]);
 
   useEffect(() => {
-    if (Platform.OS === 'android') {
-      NavigationBar.setBackgroundColorAsync(theme.colors.surfaceExtraDim);
-      NavigationBar.setBorderColorAsync(theme.colors.surfaceExtraDim);
-    }
     if (theme.id === LIGHT_THEME_ID) {
       setStatusBarStyle('dark');
     } else if (theme.id === DARK_THEME_ID) {
       setStatusBarStyle('light');
     }
   }, [theme.id]);
+
+  if (Platform.OS === 'android') {
+    NavigationBar.setBackgroundColorAsync(theme.colors.surface);
+    NavigationBar.setBorderColorAsync(theme.colors.surface);
+  }
 
   useEffect(() => {
     if (!auth.authed && isAppReady) {
@@ -98,7 +98,19 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
     return null;
   }
 
-  return <Slot />;
+  const navTheme = {
+    dark: theme.id === DARK_THEME_ID,
+    colors: {
+      ...DefaultTheme.colors,
+      background: theme.colors.surfaceExtraDim,
+    },
+  };
+
+  return (
+    <RNThemeProvider value={navTheme}>
+      <Slot />
+    </RNThemeProvider>
+  );
 };
 
 export default function Root() {

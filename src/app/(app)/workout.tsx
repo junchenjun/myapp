@@ -5,11 +5,12 @@ import { EdgeInsets } from 'react-native-safe-area-context';
 
 import { Button } from '~components/button/Button';
 import { ExerciseContainer } from '~components/ExerciseContainer';
+import { Text } from '~components/text/Text';
 import { useAppSelector } from '~redux/store';
-import { getFloatButtonDistance, getPagePaddingTopWithHeader } from '~utils/styleHelper';
+import { getFloatButtonDistance } from '~utils/styleHelper';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
-const WorkoutInProgress = () => {
+const Workout = () => {
   const styles = useThemedStyles(themedStyles);
   const { workout } = useAppSelector(state => state.workout);
   const router = useRouter();
@@ -45,34 +46,26 @@ const WorkoutInProgress = () => {
         {workout?.exercises.map((i, index) => {
           return <ExerciseContainer key={index} item={workout?.exercises && workout?.exercises[0]} />;
         })}
-        <Button title='Complete' onPress={() => router.back()} />
+        <Button title='Complete Workout' onPress={() => router.back()} />
       </ScrollView>
     </View>
   );
 };
 
-export default WorkoutInProgress;
+export default Workout;
 
 const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
   return StyleSheet.create({
     container: {
       flex: 1,
       position: 'relative',
-      backgroundColor: theme.colors.onSurface,
+      backgroundColor: theme.colors.surfaceExtraDim,
     },
     scroll: {
-      padding: 15,
-      paddingTop: getPagePaddingTopWithHeader(insets),
+      padding: theme.spacing[4],
       paddingBottom: getFloatButtonDistance(insets),
-      gap: 10,
-    },
-    title: {
-      fontSize: 64,
-      fontWeight: 'bold',
-    },
-    subtitle: {
-      fontSize: 36,
-      color: '#38434D',
+      gap: theme.spacing[3],
+      // alignItems: 'center',
     },
   });
 };

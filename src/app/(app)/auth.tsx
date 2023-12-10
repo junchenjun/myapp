@@ -18,7 +18,7 @@ GoogleSignin.configure({
   scopes: ['profile', 'email'],
 });
 
-export default function SignIn() {
+export default function Auth() {
   const styles = useThemedStyles(createStyles);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -58,13 +58,13 @@ export default function SignIn() {
         <Text text='Sign In' />
       </View>
       <Button
-        icon={<IconGoogle height={18} width={18} fill={styles.icon.color} />}
+        // icon={<IconGoogle height={18} width={18} fill={styles.icon.color} />}
         loading={loading}
         title='Sign in with Google'
         onPress={googleSignIn}
       />
       <Button
-        icon={<IconApple height={22} width={22} fill={styles.icon.color} />}
+        // icon={<IconApple height={22} width={22} fill={styles.icon.color} />}
         loading={loading}
         title='Sign in with Apple'
         onPress={() => null}

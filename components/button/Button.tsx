@@ -1,6 +1,8 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { Platform, Pressable, StyleSheet, View } from 'react-native';
+import { SvgProps } from 'react-native-svg';
 
+import { Icon } from '~components/icon/Icon';
 import { Text } from '~components/text/Text';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
@@ -9,7 +11,7 @@ interface ICommonButtonProps {
   title?: string;
   disabled?: boolean;
   loading?: boolean;
-  icon?: ReactNode;
+  icon?: React.FC<SvgProps>;
 }
 
 interface IPrimaryButton extends ICommonButtonProps {
@@ -27,29 +29,26 @@ export const Button = (props: IButton) => {
   const styles = useThemedStyles(themedStyles);
   const isDisabled = disabled || loading;
 
-  let disabledStyle = styles.lowOpacity;
-
-  if (type === 'primary') {
-    disabledStyle = styles.highOpacity;
-  }
+  const disabledStyle = styles.lowOpacity;
 
   if (type === 'primary') {
     return (
-      <View style={[styles.container, isDisabled && disabledStyle]}>
+      <View style={[styles.container]}>
         <Pressable
           disabled={isDisabled}
           android_ripple={{
-            color: 'red',
+            color: '#7BACFF',
             borderless: false,
           }}
           style={({ pressed }) => [
             styles.button,
             styles[type],
+            isDisabled && disabledStyle,
             pressed && Platform.OS === 'ios' ? { ...disabledStyle } : {},
           ]}
           onPress={onPress}
         >
-          {icon}
+          {icon && <Icon icon={icon} color='onPrimary' />}
           <Text text={title} color='onPrimary' />
         </Pressable>
       </View>
@@ -62,7 +61,8 @@ const themedStyles = (theme: ITheme) => {
     container: {
       borderRadius: theme.radius.round,
       overflow: 'hidden',
-      backgroundColor: theme.colors.primary,
+      backgroundColor: theme.colors.surfaceExtraBright,
+      alignSelf: 'center',
     },
     button: {
       overflow: 'hidden',
@@ -80,9 +80,6 @@ const themedStyles = (theme: ITheme) => {
     },
     lowOpacity: {
       opacity: 0.5,
-    },
-    highOpacity: {
-      opacity: 0.8,
     },
   });
 };
