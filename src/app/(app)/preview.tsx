@@ -74,6 +74,7 @@ export default function Preview() {
       <View style={styles.float}>
         <Button
           title='Start Workout'
+          elevated
           onPress={() => {
             router.replace({
               pathname: 'workout',

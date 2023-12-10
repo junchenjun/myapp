@@ -68,7 +68,7 @@ export const PageHeader = (props: IPageHeader) => {
     return (
       <View style={[styles.container, styles.short]}>
         {title && (
-          <Text type='h4Medium' color='onSurface'>
+          <Text type='h3Regular' color='onSurface'>
             {title}
           </Text>
         )}

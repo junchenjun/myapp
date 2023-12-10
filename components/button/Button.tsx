@@ -12,6 +12,7 @@ interface ICommonButtonProps {
   disabled?: boolean;
   loading?: boolean;
   icon?: React.FC<SvgProps>;
+  elevated?: boolean;
 }
 
 interface IPrimaryButton extends ICommonButtonProps {
@@ -25,7 +26,7 @@ interface IIconButton extends ICommonButtonProps {
 type IButton = IPrimaryButton | IIconButton;
 
 export const Button = (props: IButton) => {
-  const { onPress, title, type = 'primary', disabled, loading, icon } = props;
+  const { onPress, title, type = 'primary', disabled, loading, icon, elevated } = props;
   const styles = useThemedStyles(themedStyles);
   const isDisabled = disabled || loading;
 
@@ -33,7 +34,7 @@ export const Button = (props: IButton) => {
 
   if (type === 'primary') {
     return (
-      <View style={[styles.container]}>
+      <View style={[styles.container, elevated && styles.elevated]}>
         <Pressable
           disabled={isDisabled}
           android_ripple={{
@@ -63,6 +64,9 @@ const themedStyles = (theme: ITheme) => {
       overflow: 'hidden',
       backgroundColor: theme.colors.surfaceExtraBright,
       alignSelf: 'center',
+    },
+    elevated: {
+      elevation: 2,
     },
     button: {
       overflow: 'hidden',

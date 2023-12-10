@@ -27,7 +27,7 @@ export const BottomTab = ({ state, descriptors, navigation }: BottomTabBarProps)
         };
 
         return (
-          <Pressable onPress={onPress} rippleConfig={{ rippleStyle: 'none' }} key={index}>
+          <Pressable onPress={onPress} rippleConfig={{ radius: 60 }} key={index}>
             <View style={styles.tab}>
               {options.tabBarIcon?.({
                 focused: isFocused,
