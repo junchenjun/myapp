@@ -27,7 +27,7 @@ export const BottomTab = ({ state, descriptors, navigation }: BottomTabBarProps)
         };
 
         return (
-          <Pressable onPress={onPress} rippleStyle='none'>
+          <Pressable onPress={onPress} rippleStyle='none' key={index}>
             <View style={styles.tab}>
               {options.tabBarIcon?.({
                 focused: isFocused,

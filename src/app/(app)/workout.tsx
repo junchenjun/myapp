@@ -65,7 +65,6 @@ const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
       padding: theme.spacing[4],
       paddingBottom: getFloatButtonDistance(insets),
       gap: theme.spacing[3],
-      // alignItems: 'center',
     },
   });
 };

@@ -1,14 +1,13 @@
+import { Meta, StoryObj } from '@storybook/react-native';
+
 import { Card } from '~components/card/Card';
 import { Text } from '~components/text/Text';
 
-const CardStory = {
+const CardStory: Meta<typeof Card> = {
   title: 'Card',
   component: Card,
-  args: {
-    onPress: () => null,
-  },
   argTypes: {
-    onPress: { action: 'pressed the button' },
+    onPress: { control: null, action: 'onPress' },
   },
   render: ({ ...args }) => (
     <Card {...args}>
@@ -18,6 +17,8 @@ const CardStory = {
   ),
 };
 
+type IStory = StoryObj<typeof Text>;
+
 export default CardStory;
 
-export const Default = {};
+export const Default: IStory = {};
