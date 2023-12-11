@@ -27,7 +27,7 @@ interface IHeaderWithActions {
     component?: ReactElement;
     onPress?: () => void;
   };
-  titleOpacity?: number;
+  showTitle?: boolean;
 }
 
 type IPageHeader = IHeader | IHeaderWithActions;
@@ -44,9 +44,9 @@ export const PageHeader = (props: IPageHeader) => {
   });
 
   if (type === 'actionHeader') {
-    const { left, right, titleOpacity = 1 } = props;
+    const { left, right, showTitle = true } = props;
 
-    opacity.value = withTiming(titleOpacity, { duration: 200 });
+    opacity.value = withTiming(showTitle ? 1 : 0, { duration: 200 });
 
     const iconSize = 26;
 

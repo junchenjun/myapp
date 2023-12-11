@@ -59,13 +59,13 @@ export default function Layout() {
           headerShown: true,
           header: props => {
             const title = (props.route?.params as { title: string }).title;
-            const titleOpacity = (props.options as { headerTitleOpacity: number }).headerTitleOpacity;
+            const showTitle = (props.options as { showTitle?: boolean }).showTitle;
 
             return (
               <PageHeader
                 type='actionHeader'
                 title={title}
-                titleOpacity={titleOpacity || 0}
+                showTitle={showTitle || false}
                 right={{
                   component: (
                     <Pressable rippleConfig={{ rippleStyle: 'light', radius: 24 }}>

@@ -75,9 +75,9 @@ export default function Preview() {
             onScroll={event => {
               const scrolling = event.nativeEvent.contentOffset.y;
               if (scrolling >= 80) {
-                navigation.setOptions({ headerTitleOpacity: 1 });
+                navigation.setOptions({ showTitle: true });
               } else {
-                navigation.setOptions({ headerTitleOpacity: 0 });
+                navigation.setOptions({ showTitle: false });
               }
             }}
             scrollEventThrottle={16}

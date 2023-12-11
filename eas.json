@@ -1,59 +1,58 @@
 {
-  "cli": {
-    "version": ">= 3.10.0"
-  },
   "build": {
     "dev": {
       "developmentClient": true,
       "distribution": "internal",
+      "env": {
+        "APP_VARIANT": "development",
+        "EXPO_PUBLIC_STORYBOOK_ENABLED": "false"
+      },
       "ios": {
         "simulator": true
-      },
-      "env": {
-        "EXPO_PUBLIC_STORYBOOK_ENABLED": "false",
-        "APP_VARIANT": "development"
       }
     },
-    "preview": {
+    "local-dev": {
+      "developmentClient": true,
       "distribution": "internal",
+      "env": {
+        "APP_VARIANT": "dev",
+        "EXPO_PUBLIC_STORYBOOK_ENABLED": "false",
+        "USE_LOCAL_FILES": "true"
+      },
+      "ios": {
+        "simulator": true
+      }
+    },
+    "local-pre": {
       "android": {
         "buildType": "apk"
       },
+      "distribution": "internal",
       "env": {
+        "APP_VARIANT": "preview",
         "EXPO_PUBLIC_STORYBOOK_ENABLED": "false",
-        "APP_VARIANT": "preview"
+        "USE_LOCAL_FILES": "true"
+      }
+    },
+    "preview": {
+      "android": {
+        "buildType": "apk"
+      },
+      "distribution": "internal",
+      "env": {
+        "APP_VARIANT": "preview",
+        "EXPO_PUBLIC_STORYBOOK_ENABLED": "false"
       }
     },
     "production": {
       "env": {
-        "EXPO_PUBLIC_STORYBOOK_ENABLED": "false",
-        "APP_VARIANT": "production"
-      }
-    },
-    // local builds
-    "local-dev": {
-      "developmentClient": true,
-      "distribution": "internal",
-      "ios": {
-        "simulator": true
-      },
-      "env": {
-        "EXPO_PUBLIC_STORYBOOK_ENABLED": "false",
-        "APP_VARIANT": "dev",
-        "USE_LOCAL_FILES": "true"
-      }
-    },
-    "local-pre": {
-      "distribution": "internal",
-      "android": {
-        "buildType": "apk"
-      },
-      "env": {
-        "EXPO_PUBLIC_STORYBOOK_ENABLED": "false",
-        "APP_VARIANT": "preview",
-        "USE_LOCAL_FILES": "true"
+        "APP_VARIANT": "production",
+        "EXPO_PUBLIC_STORYBOOK_ENABLED": "false"
       }
     }
+  },
+  "cli": {
+    "version": ">= 3.10.0"
   },
   "submit": {
     "production": {}
