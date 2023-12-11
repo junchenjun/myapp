@@ -63,7 +63,7 @@ export default function Layout() {
 
             return (
               <PageHeader
-                type='actionHeader'
+                variant='actionHeader'
                 title={title}
                 showTitle={showTitle || false}
                 right={{
@@ -92,7 +92,7 @@ export default function Layout() {
             const title = (route?.params as { title: string }).title;
             return (
               <PageHeader
-                type='actionHeader'
+                variant='actionHeader'
                 title={title}
                 left={{
                   icon: IconBack,
@@ -134,7 +134,7 @@ export default function Layout() {
           header: () => {
             return (
               <PageHeader
-                type='actionHeader'
+                variant='actionHeader'
                 right={{
                   component: (
                     <Pressable rippleConfig={{ rippleStyle: 'light', radius: 24 }}>
@@ -160,7 +160,7 @@ export default function Layout() {
             const title = (route?.params as { title: string }).title;
             return (
               <PageHeader
-                type='actionHeader'
+                variant='actionHeader'
                 title={title}
                 left={{
                   icon: IconBack,

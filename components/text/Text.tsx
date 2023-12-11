@@ -5,7 +5,7 @@ import { useTheme, IThemedText, IColorKeys } from '~utils/ThemeContext';
 
 interface IProps {
   text?: string;
-  type?: keyof IThemedText;
+  variant?: keyof IThemedText;
   color?: IColorKeys;
   animatedStyles?: StyleProp<Animated.AnimateStyle<StyleProp<TextStyle>>>;
   style?: TextStyle;
@@ -16,7 +16,7 @@ interface IProps {
 export const Text = (props: IProps) => {
   const {
     text,
-    type = 'pLGRegular',
+    variant = 'pLGRegular',
     color = 'onSurface',
     numberOfLines = 1,
     animatedStyles,
@@ -28,14 +28,14 @@ export const Text = (props: IProps) => {
   return animatedStyles ? (
     <Animated.Text
       numberOfLines={numberOfLines}
-      style={[{ color: theme.colors[color] }, { ...theme.text[type] }, animatedStyles, customStyles]}
+      style={[{ color: theme.colors[color] }, { ...theme.text[variant] }, animatedStyles, customStyles]}
     >
       {children || text}
     </Animated.Text>
   ) : (
     <RNText
       numberOfLines={numberOfLines}
-      style={[{ color: theme.colors[color] }, { ...theme.text[type] }, customStyles]}
+      style={[{ color: theme.colors[color] }, { ...theme.text[variant] }, customStyles]}
     >
       {children || text}
     </RNText>

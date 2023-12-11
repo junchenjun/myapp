@@ -10,12 +10,12 @@ import { Text } from '~components/text/Text';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
 interface IHeader {
-  type: 'default';
+  variant: 'default';
   title?: string;
 }
 
 interface IHeaderWithActions {
-  type: 'actionHeader';
+  variant: 'actionHeader';
   title?: string;
   left?: {
     icon?: React.FC<SvgProps>;
@@ -33,7 +33,7 @@ interface IHeaderWithActions {
 type IPageHeader = IHeader | IHeaderWithActions;
 
 export const PageHeader = (props: IPageHeader) => {
-  const { title, type } = props;
+  const { title, variant } = props;
   const styles = useThemedStyles(themedStyles);
   const opacity = useSharedValue(0);
 
@@ -43,7 +43,7 @@ export const PageHeader = (props: IPageHeader) => {
     };
   });
 
-  if (type === 'actionHeader') {
+  if (variant === 'actionHeader') {
     const { left, right, showTitle = true } = props;
 
     opacity.value = withTiming(showTitle ? 1 : 0, { duration: 200 });
@@ -76,11 +76,11 @@ export const PageHeader = (props: IPageHeader) => {
         <View style={styles.right}>{right?.icon || right?.component ? componentRight : null}</View>
       </View>
     );
-  } else if (type === 'default') {
+  } else if (variant === 'default') {
     return (
       <View style={[styles.container, styles.short]}>
         {title && (
-          <Text type='h3Regular' color='onSurface'>
+          <Text variant='h3Regular' color='onSurface'>
             {title}
           </Text>
         )}

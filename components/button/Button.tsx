@@ -1,8 +1,6 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Platform, Pressable, StyleSheet, View } from 'react-native';
-import { SvgProps } from 'react-native-svg';
 
-import { Icon } from '~components/icon/Icon';
 import { Text } from '~components/text/Text';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
@@ -11,28 +9,28 @@ interface ICommonButtonProps {
   title?: string;
   disabled?: boolean;
   loading?: boolean;
-  icon?: React.FC<SvgProps>;
+  icon?: ReactElement;
   elevated?: boolean;
 }
 
 interface IPrimaryButton extends ICommonButtonProps {
-  type?: 'primary';
+  variant?: 'primary';
 }
 
 interface IIconButton extends ICommonButtonProps {
-  type?: 'icon';
+  variant?: 'icon';
 }
 
 type IButton = IPrimaryButton | IIconButton;
 
 export const Button = (props: IButton) => {
-  const { onPress, title, type = 'primary', disabled, loading, icon, elevated } = props;
+  const { onPress, title, variant = 'primary', disabled, loading, icon, elevated } = props;
   const styles = useThemedStyles(themedStyles);
   const isDisabled = disabled || loading;
 
   const disabledStyle = styles.lowOpacity;
 
-  if (type === 'primary') {
+  if (variant === 'primary') {
     return (
       <View style={[styles.container, elevated && styles.elevated]}>
         <Pressable
@@ -43,13 +41,13 @@ export const Button = (props: IButton) => {
           }}
           style={({ pressed }) => [
             styles.button,
-            styles[type],
+            styles[variant],
             isDisabled && disabledStyle,
             pressed && Platform.OS === 'ios' ? { ...disabledStyle } : {},
           ]}
           onPress={onPress}
         >
-          {icon && <Icon icon={icon} color='onPrimary' />}
+          {icon}
           <Text text={title} color='onPrimary' />
         </Pressable>
       </View>

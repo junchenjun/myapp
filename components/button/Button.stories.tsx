@@ -1,10 +1,12 @@
+import { IconZap } from '~assets/icons';
 import { Button } from '~components/button/Button';
+import { Icon } from '~components/icon/Icon';
 
 const ButtonStory = {
   title: 'Button',
   component: Button,
   argTypes: {
-    type: { options: ['primary', 'icon'], control: { type: 'radio' } },
+    variant: { options: ['primary', 'icon'], control: { type: 'radio' } },
   },
   args: {
     title: 'Hello world',
@@ -21,6 +23,14 @@ export const Primary = {
     title: 'Primary Button',
     type: 'primary',
   },
+};
+
+export const PrimaryWithIcon = {
+  args: {
+    title: 'Primary Button',
+    type: 'primary',
+  },
+  render: ({ ...args }) => <Button {...args} icon={<Icon icon={IconZap} color='onPrimary' />} />,
 };
 
 export const Disabled = {

@@ -6,7 +6,7 @@ const TextStory: Meta<typeof Text> = {
   title: 'Text',
   component: Text,
   argTypes: {
-    type: {
+    variant: {
       options: ['h1Regular', 'h1Light', 'h1Medium', 'h2Light', 'h2Regular', 'h2Medium', 'h3Light', 'h3Regular'],
       control: { type: 'select' },
     },

@@ -5,6 +5,7 @@ import { EdgeInsets } from 'react-native-safe-area-context';
 import { IconZap } from '~assets/icons';
 import { Accordion } from '~components/accordion/Accordion';
 import { Button } from '~components/button/Button';
+import { Icon } from '~components/icon/Icon';
 import { InfoContainer } from '~components/InfoContainer';
 import { Label } from '~components/label/Label';
 import { Text } from '~components/text/Text';
@@ -35,7 +36,7 @@ export default function Preview() {
           labels: ['Shoulder', 'biceps'],
         }}
         descItems={['8 Exercises']}
-        accordionItems={
+        accordionContent={
           <>
             <Text>content content content content content content content</Text>
             <Text>content content content content content content content</Text>
@@ -88,7 +89,7 @@ export default function Preview() {
             keyExtractor={(item, index) => item.name + index}
             ListHeaderComponent={
               <View style={styles.gap}>
-                <Text text={workout?.name} style={styles.title} type='h2Medium' color='primary' />
+                <Text text={workout?.name} style={styles.title} variant='h2Medium' color='primary' />
                 <InfoContainer
                   title='Traget Muscles'
                   content={
@@ -100,7 +101,7 @@ export default function Preview() {
                   }
                 />
                 <InfoContainer title='Last Performed' content='4 days ago' />
-                <Text type='pSMRegular' color='onSurfaceDim' text={`Exercises(${workout.exercises.length}) `} />
+                <Text variant='pSMRegular' color='onSurfaceDim' text={`Exercises(${workout.exercises.length}) `} />
               </View>
             }
           />
@@ -117,7 +118,7 @@ export default function Preview() {
             });
             dispatch(setWorkout(workout));
           }}
-          icon={IconZap}
+          icon={<Icon icon={IconZap} color='onPrimary' />}
         />
       </View>
     </View>

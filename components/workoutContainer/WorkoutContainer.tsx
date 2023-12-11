@@ -14,36 +14,36 @@ interface IProps {
   title?: string;
   descItems?: string[];
   header?: IWorkoutContainerHeader;
-  accordionItems?: ReactElement;
+  accordionContent?: ReactElement;
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
 }
 
 export const WorkoutContainer = (props: IProps) => {
-  const { title, header, descItems, accordionItems, onPress, style } = props;
+  const { title, header, descItems, accordionContent, onPress, style } = props;
   const styles = useThemedStyles(themedStyles);
 
   const mainContent = (
     <>
-      <Text type='h5Regular' text={title} style={styles.title} />
+      <Text variant='h5Regular' text={title} style={styles.title} />
       <View style={styles.desc}>
         {descItems?.map((i, index) => {
           const showDivider = index !== descItems.length - 1;
           if (showDivider) {
             return (
               <View style={styles.showDivider} key={i}>
-                <Text type='pSMRegular' text={i} color='onSurfaceDim' />
+                <Text variant='pSMRegular' text={i} color='onSurfaceDim' />
                 <View style={styles.dot} />
               </View>
             );
           }
-          return <Text key={i} type='pSMRegular' text={i} color='onSurfaceDim' />;
+          return <Text key={i} variant='pSMRegular' text={i} color='onSurfaceDim' />;
         })}
       </View>
     </>
   );
 
-  if (!accordionItems) {
+  if (!accordionContent) {
     return (
       <Card onPress={onPress} style={style}>
         <WorkoutContainerHeader {...header} />
@@ -64,7 +64,7 @@ export const WorkoutContainer = (props: IProps) => {
             </>
           )}
         >
-          {accordionItems}
+          {accordionContent}
         </AccordionItem>
       </Card>
     );

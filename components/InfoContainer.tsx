@@ -15,10 +15,10 @@ export const InfoContainer = (props: IProps) => {
 
   return (
     <Card style={{ gap: theme.spacing[2] }}>
-      <Text type='pSMRegular' color='onSurfaceDim'>
+      <Text variant='pSMRegular' color='onSurfaceDim'>
         {title}
       </Text>
-      {typeof content === 'string' ? <Text type='pMDRegular'>{content || 'NA'}</Text> : <></>}
+      {typeof content === 'string' ? <Text variant='pMDRegular'>{content || 'NA'}</Text> : <></>}
       {React.isValidElement(content) ? content : <></>}
     </Card>
   );

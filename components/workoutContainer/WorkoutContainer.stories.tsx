@@ -37,7 +37,7 @@ export const WithAccordion = {
           onPress: () => null,
         }}
         descItems={['8 Exercises', '5 days ago']}
-        accordionItems={
+        accordionContent={
           <>
             <Text>content content content content content content content</Text>
             <Text>content content content content content content content</Text>
@@ -56,7 +56,7 @@ export const WithAccordion = {
           onPress: () => null,
         }}
         descItems={['8 Exercises', '5 days ago']}
-        accordionItems={
+        accordionContent={
           <>
             <Text>content content content content content content content</Text>
             <Text>content content content content content content content</Text>

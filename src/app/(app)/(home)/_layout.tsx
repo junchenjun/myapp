@@ -25,7 +25,7 @@ export default function Layout() {
           tabBarIcon: ({ color, size }) => <Icon icon={IconActivity} color={color as IColorKeys} size={size} />,
           headerShown: true,
           header: () => {
-            return <PageHeader type='default' title='Activity' />;
+            return <PageHeader variant='default' title='Activity' />;
           },
         }}
       />
@@ -44,7 +44,7 @@ export default function Layout() {
           ),
           headerShown: true,
           header: () => {
-            return <PageHeader type='default' title='Workouts' />;
+            return <PageHeader variant='default' title='Workouts' />;
           },
         }}
       />
@@ -56,7 +56,7 @@ export default function Layout() {
           tabBarIcon: ({ color, size }) => <Icon icon={IconSettings} color={color as IColorKeys} size={size} />,
           headerShown: true,
           header: () => {
-            return <PageHeader type='default' title='Settings' />;
+            return <PageHeader variant='default' title='Settings' />;
           },
         }}
       />
