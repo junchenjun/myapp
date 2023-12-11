@@ -14,6 +14,8 @@ export default function Layout() {
       screenOptions={{
         headerShown: false,
       }}
+      initialRouteName='index'
+      backBehavior='initialRoute'
     >
       <Tabs.Screen
         name='activity'

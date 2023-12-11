@@ -44,29 +44,23 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
   useEffect(() => {
     if (colorScheme === 'light') {
       updateTheme(LIGHT_THEME_ID);
+      setStatusBarStyle('dark');
     } else {
       updateTheme(DARK_THEME_ID);
-    }
-  }, [colorScheme]);
-
-  useEffect(() => {
-    if (theme.id === LIGHT_THEME_ID) {
-      setStatusBarStyle('dark');
-    } else if (theme.id === DARK_THEME_ID) {
       setStatusBarStyle('light');
     }
-  }, [theme.id]);
-
-  if (Platform.OS === 'android') {
-    NavigationBar.setBackgroundColorAsync(theme.colors.surface);
-    NavigationBar.setBorderColorAsync(theme.colors.surface);
-  }
+  }, [colorScheme]);
 
   useEffect(() => {
     if (!auth.authed && isAppReady) {
       router.replace('auth');
     }
   }, [auth.authed, isAppReady]);
+
+  if (Platform.OS === 'android') {
+    NavigationBar.setBackgroundColorAsync(theme.colors.surface);
+    NavigationBar.setBorderColorAsync(theme.colors.surface);
+  }
 
   const onAuthStateChanged = async (user: FirebaseAuthTypes.User | null) => {
     if (user) {
