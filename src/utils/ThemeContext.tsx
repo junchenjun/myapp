@@ -12,6 +12,7 @@ const colors = {
     70: '#AAABAE',
     60: '#8F9193',
     40: '#5D5E61',
+    30: '#454749',
     17: '#1D1F21',
     12: '#181A1C',
     10: '#141517',
@@ -49,6 +50,8 @@ const lightColors = {
   // error
   error: colors.red[40],
   onError: colors.red[100],
+  // android ripple
+  rippleSurface: colors.gray[80],
 };
 
 const darkColors: typeof lightColors = {
@@ -67,6 +70,8 @@ const darkColors: typeof lightColors = {
   // error
   error: colors.red[80],
   onError: colors.red[20],
+  // android ripple
+  rippleSurface: colors.gray[30],
 };
 
 export type IColorKeys = keyof typeof lightColors;

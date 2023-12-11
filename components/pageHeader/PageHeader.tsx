@@ -4,7 +4,6 @@ import { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reani
 import { EdgeInsets } from 'react-native-safe-area-context';
 
 import { IIconType, Icon } from '~components/icon/Icon';
-import { Pressable } from '~components/pressable/Pressable';
 import { Text } from '~components/text/Text';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
@@ -47,23 +46,13 @@ export const PageHeader = (props: IPageHeader) => {
 
     opacity.value = withTiming(showTitle ? 1 : 0, { duration: 200 });
 
-    const iconSize = 26;
-
     const componentLeft = left?.icon ? (
-      <Pressable onPress={left.onPress} style={{ width: iconSize }} rippleConfig={{ rippleStyle: 'light', radius: 24 }}>
-        <Icon icon={left.icon} color='onSurface' size={iconSize} />
-      </Pressable>
+      <Icon icon={left.icon} color='onSurface' onPress={left.onPress} />
     ) : (
       left?.component
     );
     const componentRight = right?.icon ? (
-      <Pressable
-        onPress={right.onPress}
-        style={{ width: iconSize }}
-        rippleConfig={{ rippleStyle: 'light', radius: iconSize }}
-      >
-        <Icon icon={right.icon} color='onSurface' size={iconSize} />
-      </Pressable>
+      <Icon icon={right.icon} onPress={right.onPress} color='onSurface' />
     ) : (
       right?.component
     );

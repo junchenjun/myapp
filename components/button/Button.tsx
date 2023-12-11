@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
-import { Platform, Pressable, StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 
+import { Pressable } from '~components/pressable/Pressable';
 import { Text } from '~components/text/Text';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
@@ -28,23 +29,15 @@ export const Button = (props: IButton) => {
   const styles = useThemedStyles(themedStyles);
   const isDisabled = disabled || loading;
 
-  const disabledStyle = styles.lowOpacity;
-
   if (variant === 'primary') {
     return (
       <View style={[styles.container, elevated && styles.elevated]}>
         <Pressable
           disabled={isDisabled}
-          android_ripple={{
-            color: '#7BACFF',
+          rippleConfig={{
             borderless: false,
           }}
-          style={({ pressed }) => [
-            styles.button,
-            styles[variant],
-            isDisabled && disabledStyle,
-            pressed && Platform.OS === 'ios' ? { ...disabledStyle } : {},
-          ]}
+          style={[styles.button, styles[variant]]}
           onPress={onPress}
         >
           {icon}

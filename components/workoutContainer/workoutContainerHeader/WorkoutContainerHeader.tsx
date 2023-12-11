@@ -3,7 +3,6 @@ import { StyleSheet, View } from 'react-native';
 import { icons } from '~assets/icons';
 import { Icon } from '~components/icon/Icon';
 import { Label } from '~components/label/Label';
-import { Pressable } from '~components/pressable/Pressable';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
 export interface IWorkoutContainerHeader {
@@ -22,11 +21,7 @@ export const WorkoutContainerHeader = (props: IWorkoutContainerHeader) => {
           <Label title={i} key={i} />
         ))}
       </View>
-      {onPress && (
-        <Pressable onPress={onPress} rippleConfig={{ foreground: true, radius: 24 }}>
-          <Icon icon={icons.more} color='onSurface' fill='onSurface' />
-        </Pressable>
-      )}
+      {onPress && <Icon icon={icons.more} onPress={onPress} color='onSurface' fill='onSurface' />}
     </View>
   );
 };

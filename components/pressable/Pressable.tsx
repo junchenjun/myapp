@@ -6,12 +6,13 @@ import { useTheme, useThemedStyles } from '~utils/ThemeContext';
 interface IProps {
   onPress?: () => void;
   disabled?: boolean;
-  children: ReactElement | ReactElement[];
+  children?: ReactElement | (ReactElement | undefined)[];
   style?: StyleProp<ViewStyle>;
   rippleConfig?: {
-    rippleStyle?: 'light' | 'dark' | 'none';
     foreground?: boolean;
     radius?: number;
+    borderless?: boolean;
+    disabled?: boolean;
   };
 }
 
@@ -22,18 +23,20 @@ export const Pressable = (props: IProps) => {
 
   const isDisabled = disabled;
 
-  const rippleStyle = rippleConfig?.rippleStyle || 'dark';
+  const rippleDisabled = rippleConfig?.disabled;
 
   return (
     <RNPressable
       hitSlop={20}
       disabled={isDisabled}
       android_ripple={
-        rippleStyle !== 'none'
+        !rippleDisabled
           ? {
-              color: rippleStyle === 'dark' ? theme.colors.surfaceExtraDim : theme.colors.onSurfaceExtraDim,
-              borderless: true,
-              foreground: rippleConfig?.foreground,
+              color: theme.colors.rippleSurface,
+              // default true
+              borderless: rippleConfig?.borderless !== false,
+              // default false
+              foreground: rippleConfig?.foreground === true,
               radius: rippleConfig?.radius,
             }
           : undefined
