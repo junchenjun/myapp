@@ -21,16 +21,28 @@ export const AccordionItem = (props: IProps) => {
   const { trigger, title = '', children, itemHeight, id } = props;
 
   const autoId = useId();
-
   const uniqueId = id || autoId;
 
-  const { expandedIds, setExpandedIds, autoCollapse } = useContext(AccordionContext);
-
   const [height, setHeight] = useState(0);
+  const { expandedIds, setExpandedIds, autoCollapse } = useContext(AccordionContext);
+  const styles = useThemedStyles(themedStyles);
+
   const animatedHeight = useSharedValue(0);
   const animatedOpacity = useSharedValue(0);
 
-  const styles = useThemedStyles(themedStyles);
+  let expanded = false;
+  if (!autoCollapse) {
+    expanded = !!expandedIds?.find(i => i === uniqueId);
+  } else {
+    expanded = expandedIds[0] === uniqueId;
+  }
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      height: animatedHeight.value,
+      opacity: animatedOpacity.value,
+    };
+  }, [expanded, height]);
 
   useEffect(() => {
     if (itemHeight) {
@@ -41,24 +53,6 @@ export const AccordionItem = (props: IProps) => {
       }
     }
   }, [itemHeight, children]);
-
-  let expanded = false;
-
-  if (!autoCollapse) {
-    expanded = !!expandedIds?.find(i => i === uniqueId);
-  } else {
-    expanded = expandedIds[0] === uniqueId;
-  }
-
-  const animatedStyle = useAnimatedStyle(() => {
-    animatedHeight.value = expanded ? withTiming(height, { duration: 200 }) : withTiming(0);
-    animatedOpacity.value = expanded ? withTiming(1, { duration: 500 }) : withTiming(0, { duration: 200 });
-
-    return {
-      height: animatedHeight.value,
-      opacity: animatedOpacity.value,
-    };
-  }, [expanded, height]);
 
   const onLayout = (event: LayoutChangeEvent) => {
     const onLayoutHeight = event.nativeEvent.layout.height;
@@ -90,6 +84,9 @@ export const AccordionItem = (props: IProps) => {
       ),
     [expanded]
   );
+
+  animatedHeight.value = expanded ? withTiming(height, { duration: 200 }) : withTiming(0);
+  animatedOpacity.value = expanded ? withTiming(1, { duration: 500 }) : withTiming(0, { duration: 200 });
 
   return (
     <View>

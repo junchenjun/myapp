@@ -1,5 +1,5 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { EdgeInsets } from 'react-native-safe-area-context';
 
 import { IconZap } from '~assets/icons';
@@ -10,7 +10,7 @@ import { Label } from '~components/label/Label';
 import { Text } from '~components/text/Text';
 import { WorkoutContainer } from '~components/workoutContainer/WorkoutContainer';
 import { useAppDispatch, useAppSelector } from '~redux/store';
-import { setWorkout } from '~redux/workoutSlice';
+import { IExercise, setWorkout } from '~redux/workoutSlice';
 import { getFloatButtonDistance } from '~utils/styleHelper';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
@@ -20,57 +20,92 @@ export default function Preview() {
   const styles = useThemedStyles(themedStyles);
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const navigation = useNavigation();
 
   const workout = plans?.find(p => p.id === planId)?.workouts.find(w => w.id === workoutId);
 
   const labels = ['Back', 'Triceps'];
 
+  const renderItem = ({ item }: { item: IExercise }) => {
+    return (
+      <WorkoutContainer
+        style={{ marginTop: styles.gap.marginTop }}
+        title={item.name}
+        header={{
+          labels: ['Shoulder', 'biceps'],
+        }}
+        descItems={['8 Exercises']}
+        accordionItems={
+          <>
+            <Text>content content content content content content content</Text>
+            <Text>content content content content content content content</Text>
+            <Text>content content content content content content content</Text>
+            <Text>content content content content content content content</Text>
+            <Text>content content content content content content content</Text>
+            <Text>content content content content content content content</Text>
+            <Text>content content content content content content content</Text>
+            <Text>content content content content content content content</Text>
+            <Text>content content content content content content content</Text>
+            <Text>content content content content content content content</Text>
+            <Text>content content content content content content content</Text>
+            <Text>content content content content content content content</Text>
+            <Text>content content content content content content content</Text>
+            <Text>content content content content content content content</Text>
+            <Text>content content content content content content content</Text>
+            <Text>content content content content content content content</Text>
+            <Text>content content content content content content content</Text>
+            <Text>content content content content content content content</Text>
+            <Text>content content content content content content content</Text>
+            <Text>content content content content content content content</Text>
+            <Button title='Log Out' onPress={() => {}} />
+            <Button title='Log Out' onPress={() => {}} />
+            <Button title='Log Out' onPress={() => {}} />
+            <Button title='Log Out' onPress={() => {}} />
+            <Button title='Log Out' onPress={() => {}} />
+          </>
+        }
+      />
+    );
+  };
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scroll}>
-        {workout && (
-          <View style={styles.content}>
-            <Text text={workout?.name} style={styles.title} type='h2Medium' color='primary' />
-            <InfoContainer
-              title='Traget Muscles'
-              content={
-                <View style={styles.labels}>
-                  {labels.map(i => (
-                    <Label title='Back' key={i} />
-                  ))}
-                </View>
+      {workout && (
+        <Accordion>
+          <FlatList
+            onScroll={event => {
+              const scrolling = event.nativeEvent.contentOffset.y;
+              if (scrolling >= 80) {
+                navigation.setOptions({ headerTitleOpacity: 1 });
+              } else {
+                navigation.setOptions({ headerTitleOpacity: 0 });
               }
-            />
-            <InfoContainer title='Last Performed' content='4 days ago' />
-            <Text type='pSMRegular' color='onSurfaceDim' text={`Exercises(${workout.exercises.length}) `} />
-            <Accordion style={styles.accordion}>
-              {workout.exercises.map((i, index) => {
-                return (
-                  <WorkoutContainer
-                    key={index}
-                    title={i.name}
-                    header={{
-                      labels: ['Shoulder', 'biceps'],
-                    }}
-                    descItems={['8 Exercises']}
-                    accordionItems={
-                      <>
-                        <Text>content content content content content content content</Text>
-                        <Text>content content content content content content content</Text>
-                        <Text>content content content content content content content</Text>
-                        <Text>content content content content content content content</Text>
-                        <Text>content content content content content content content</Text>
-                        <Text>content content content content content content content</Text>
-                        <Text>content content content content content content content</Text>
-                      </>
-                    }
-                  />
-                );
-              })}
-            </Accordion>
-          </View>
-        )}
-      </ScrollView>
+            }}
+            scrollEventThrottle={16}
+            initialNumToRender={7}
+            contentContainerStyle={styles.scroll}
+            data={workout?.exercises.concat(workout.exercises).concat(workout.exercises).concat(workout.exercises)}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => item.name + index}
+            ListHeaderComponent={
+              <View style={styles.gap}>
+                <Text text={workout?.name} style={styles.title} type='h2Medium' color='primary' />
+                <InfoContainer
+                  title='Traget Muscles'
+                  content={
+                    <View style={styles.labels}>
+                      {labels.map(i => (
+                        <Label title='Back' key={i} />
+                      ))}
+                    </View>
+                  }
+                />
+                <InfoContainer title='Last Performed' content='4 days ago' />
+                <Text type='pSMRegular' color='onSurfaceDim' text={`Exercises(${workout.exercises.length}) `} />
+              </View>
+            }
+          />
+        </Accordion>
+      )}
       <View style={styles.float}>
         <Button
           title='Start Workout'
@@ -99,13 +134,9 @@ const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
       paddingHorizontal: theme.spacing[4],
       paddingBottom: 120,
     },
-    content: {
-      width: '100%',
-      alignItems: 'stretch',
-      gap: 10,
-    },
-    accordion: {
+    gap: {
       gap: theme.spacing[3],
+      marginTop: theme.spacing[3],
     },
     title: {
       textAlign: 'center',

@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { EdgeInsets } from 'react-native-safe-area-context';
 import { SvgProps } from 'react-native-svg';
 
@@ -26,6 +27,7 @@ interface IHeaderWithActions {
     component?: ReactElement;
     onPress?: () => void;
   };
+  titleOpacity?: number;
 }
 
 type IPageHeader = IHeader | IHeaderWithActions;
@@ -33,9 +35,19 @@ type IPageHeader = IHeader | IHeaderWithActions;
 export const PageHeader = (props: IPageHeader) => {
   const { title, type } = props;
   const styles = useThemedStyles(themedStyles);
+  const opacity = useSharedValue(0);
+
+  const animatedStyles = useAnimatedStyle(() => {
+    return {
+      opacity: opacity.value,
+    };
+  });
 
   if (type === 'actionHeader') {
-    const { left, right } = props;
+    const { left, right, titleOpacity = 1 } = props;
+
+    opacity.value = withTiming(titleOpacity, { duration: 200 });
+
     const iconSize = 26;
 
     const componentLeft = left?.icon ? (
@@ -60,7 +72,7 @@ export const PageHeader = (props: IPageHeader) => {
     return (
       <View style={styles.container}>
         <View style={styles.left}>{left?.icon || left?.component ? componentLeft : null}</View>
-        {title && <Text color='onSurfaceDim'>{title}</Text>}
+        {title && <Text text={title} animatedStyles={animatedStyles} color='onSurfaceDim' />}
         <View style={styles.right}>{right?.icon || right?.component ? componentRight : null}</View>
       </View>
     );

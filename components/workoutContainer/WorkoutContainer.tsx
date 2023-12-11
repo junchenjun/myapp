@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 import { AccordionItem } from '~components/accordion/accordionItem/AccordionItem';
 import { Card } from '~components/card/Card';
@@ -16,10 +16,11 @@ interface IProps {
   header?: IWorkoutContainerHeader;
   accordionItems?: ReactElement;
   onPress?: () => void;
+  style?: StyleProp<ViewStyle>;
 }
 
 export const WorkoutContainer = (props: IProps) => {
-  const { title, header, descItems, accordionItems, onPress } = props;
+  const { title, header, descItems, accordionItems, onPress, style } = props;
   const styles = useThemedStyles(themedStyles);
 
   const mainContent = (
@@ -44,14 +45,14 @@ export const WorkoutContainer = (props: IProps) => {
 
   if (!accordionItems) {
     return (
-      <Card onPress={onPress}>
+      <Card onPress={onPress} style={style}>
         <WorkoutContainerHeader {...header} />
         {mainContent}
       </Card>
     );
   } else {
     return (
-      <Card onPress={onPress}>
+      <Card onPress={onPress} style={style}>
         <AccordionItem
           trigger={expandIcon => (
             <>

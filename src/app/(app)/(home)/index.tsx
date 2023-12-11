@@ -37,19 +37,12 @@ const Home = () => {
               onPress={() => {
                 return router.push({
                   pathname: 'preview',
-                  params: { planId: section.id, workoutId: item.id },
+                  params: { planId: section.id, workoutId: item.id, title: item?.name },
                 });
               }}
               descItems={[`${item.exercises.length} Exercises`, '5 days ago']}
             />
           )}
-          // renderSectionHeader={({ section }) => {
-          //   return (
-          //     <View>
-          //       <Text text={section.title + ' (' + section.data.length + ')'} />
-          //     </View>
-          //   );
-          // }}
         />
       </Suspense>
     </ScrollView>

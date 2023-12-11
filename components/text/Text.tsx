@@ -1,4 +1,4 @@
-import { Text as RNText, TextStyle } from 'react-native';
+import { Text as RNText, StyleProp, TextStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
 
 import { useTheme, IThemedText, IColorKeys } from '~utils/ThemeContext';
@@ -7,7 +7,7 @@ interface IProps {
   text?: string;
   type?: keyof IThemedText;
   color?: IColorKeys;
-  animatedStyles?: TextStyle;
+  animatedStyles?: StyleProp<Animated.AnimateStyle<StyleProp<TextStyle>>>;
   style?: TextStyle;
   children?: string | number;
   numberOfLines?: number;
