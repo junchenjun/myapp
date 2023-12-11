@@ -1,7 +1,7 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 
-import { IconActivity, IconLightning, IconSettings } from '~assets/icons';
+import { icons } from '~assets/icons';
 import { BottomTab } from '~components/BottomTab';
 import { Icon } from '~components/icon/Icon';
 import { PageHeader } from '~components/pageHeader/PageHeader';
@@ -22,7 +22,7 @@ export default function Layout() {
         key='activity'
         options={{
           title: 'Activity',
-          tabBarIcon: ({ color, size }) => <Icon icon={IconActivity} color={color as IColorKeys} size={size} />,
+          tabBarIcon: ({ color, size }) => <Icon icon={icons.activity} color={color as IColorKeys} size={size} />,
           headerShown: true,
           header: () => {
             return <PageHeader variant='default' title='Activity' />;
@@ -36,7 +36,7 @@ export default function Layout() {
           title: 'Workouts',
           tabBarIcon: ({ focused, color, size }) => (
             <Icon
-              icon={IconLightning}
+              icon={icons.lightning}
               fill={focused ? (color as IColorKeys) : 'none'}
               color={color as IColorKeys}
               size={size}
@@ -53,7 +53,7 @@ export default function Layout() {
         key='settings'
         options={{
           title: 'Settings',
-          tabBarIcon: ({ color, size }) => <Icon icon={IconSettings} color={color as IColorKeys} size={size} />,
+          tabBarIcon: ({ color, size }) => <Icon icon={icons.settings} color={color as IColorKeys} size={size} />,
           headerShown: true,
           header: () => {
             return <PageHeader variant='default' title='Settings' />;

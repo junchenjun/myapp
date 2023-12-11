@@ -8,7 +8,7 @@ import {
 import { Stack, useRouter, withLayoutContext } from 'expo-router';
 import { Alert } from 'react-native';
 
-import { IconBack } from '~assets/icons';
+import { icons } from '~assets/icons';
 import { PageHeader } from '~components/pageHeader/PageHeader';
 import { Pressable } from '~components/pressable/Pressable';
 import { Text } from '~components/text/Text';
@@ -74,7 +74,7 @@ export default function Layout() {
                   ),
                 }}
                 left={{
-                  icon: IconBack,
+                  icon: icons.back,
                   onPress: () => router.back(),
                 }}
               />
@@ -95,7 +95,7 @@ export default function Layout() {
                 variant='actionHeader'
                 title={title}
                 left={{
-                  icon: IconBack,
+                  icon: icons.back,
                   onPress: createAlert,
                 }}
               />
@@ -143,7 +143,7 @@ export default function Layout() {
                   ),
                 }}
                 left={{
-                  icon: IconBack,
+                  icon: icons.back,
                   onPress: () => router.back(),
                 }}
               />
@@ -163,7 +163,7 @@ export default function Layout() {
                 variant='actionHeader'
                 title={title}
                 left={{
-                  icon: IconBack,
+                  icon: icons.back,
                   onPress: createAlert,
                 }}
               />

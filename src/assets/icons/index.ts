@@ -7,4 +7,15 @@ import IconMore from '~assets/icons/iconMore.svg';
 import IconSettings from '~assets/icons/iconSettings.svg';
 import IconZap from '~assets/icons/iconZap.svg';
 
-export { IconLightning, IconZap, IconBack, IconMore, IconActivity, IconSettings, IconGoogle, IconApple };
+const icons = {
+  lightning: IconLightning,
+  zap: IconZap,
+  back: IconBack,
+  more: IconMore,
+  activity: IconActivity,
+  settings: IconSettings,
+  google: IconGoogle,
+  apple: IconApple,
+};
+
+export { icons };

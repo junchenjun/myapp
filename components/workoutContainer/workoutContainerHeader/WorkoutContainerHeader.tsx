@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 
-import { IconMore } from '~assets/icons';
+import { icons } from '~assets/icons';
 import { Icon } from '~components/icon/Icon';
 import { Label } from '~components/label/Label';
 import { Pressable } from '~components/pressable/Pressable';
@@ -24,7 +24,7 @@ export const WorkoutContainerHeader = (props: IWorkoutContainerHeader) => {
       </View>
       {onPress && (
         <Pressable onPress={onPress} rippleConfig={{ foreground: true, radius: 24 }}>
-          <Icon icon={IconMore} color='onSurface' fill='onSurface' />
+          <Icon icon={icons.more} color='onSurface' fill='onSurface' />
         </Pressable>
       )}
     </View>

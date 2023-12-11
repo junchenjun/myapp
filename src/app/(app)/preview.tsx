@@ -2,7 +2,7 @@ import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { EdgeInsets } from 'react-native-safe-area-context';
 
-import { IconZap } from '~assets/icons';
+import { icons } from '~assets/icons';
 import { Accordion } from '~components/accordion/Accordion';
 import { Button } from '~components/button/Button';
 import { Icon } from '~components/icon/Icon';
@@ -118,7 +118,7 @@ export default function Preview() {
             });
             dispatch(setWorkout(workout));
           }}
-          icon={<Icon icon={IconZap} color='onPrimary' />}
+          icon={<Icon icon={icons.zap} color='onPrimary' />}
         />
       </View>
     </View>

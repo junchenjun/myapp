@@ -1,6 +1,7 @@
-import { SvgProps } from 'react-native-svg';
-
+import { icons } from '~assets/icons';
 import { IColorKeys, useTheme } from '~utils/ThemeContext';
+
+export type IIconType = (typeof icons)[keyof typeof icons];
 
 export const Icon = ({
   icon,
@@ -8,7 +9,7 @@ export const Icon = ({
   color,
   fill = 'none',
 }: {
-  icon: React.FC<SvgProps>;
+  icon: IIconType;
   size?: number;
   color?: IColorKeys;
   fill?: 'none' | IColorKeys;

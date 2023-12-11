@@ -2,9 +2,8 @@ import { ReactElement } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { EdgeInsets } from 'react-native-safe-area-context';
-import { SvgProps } from 'react-native-svg';
 
-import { Icon } from '~components/icon/Icon';
+import { IIconType, Icon } from '~components/icon/Icon';
 import { Pressable } from '~components/pressable/Pressable';
 import { Text } from '~components/text/Text';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
@@ -18,12 +17,12 @@ interface IHeaderWithActions {
   variant: 'actionHeader';
   title?: string;
   left?: {
-    icon?: React.FC<SvgProps>;
+    icon?: IIconType;
     component?: ReactElement;
     onPress?: () => void;
   };
   right?: {
-    icon?: React.FC<SvgProps>;
+    icon?: IIconType;
     component?: ReactElement;
     onPress?: () => void;
   };
