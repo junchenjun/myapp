@@ -42,8 +42,8 @@ export const Pressable = (props: IProps) => {
           : undefined
       }
       style={({ pressed }) => [
-        disabled && styles.textDisabled,
-        pressed && Platform.OS === 'ios' ? { ...styles.textDisabled } : {},
+        disabled && styles.disabled,
+        pressed && Platform.OS === 'ios' ? { ...styles.disabled } : {},
         style && style,
       ]}
       onPress={onPress}
@@ -55,8 +55,8 @@ export const Pressable = (props: IProps) => {
 
 const themedStyles = () => {
   return StyleSheet.create({
-    textDisabled: {
-      opacity: 0.5,
+    disabled: {
+      opacity: 0.4,
     },
   });
 };
