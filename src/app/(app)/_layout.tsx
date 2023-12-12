@@ -68,7 +68,7 @@ export default function Layout() {
                 showTitle={showTitle || false}
                 right={{
                   component: (
-                    <Pressable rippleConfig={{ radius: 24 }}>
+                    <Pressable rippleConfig={{ radius: 24, color: 'rippleDim' }}>
                       <Text text='Edit' color='primary' />
                     </Pressable>
                   ),
@@ -137,7 +137,7 @@ export default function Layout() {
                 variant='actionHeader'
                 right={{
                   component: (
-                    <Pressable rippleConfig={{ radius: 24 }}>
+                    <Pressable rippleConfig={{ radius: 24, color: 'rippleDim' }}>
                       <Text text='Edit' color='primary' />
                     </Pressable>
                   ),

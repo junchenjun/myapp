@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { Platform, Pressable as RNPressable, StyleProp, StyleSheet, ViewStyle } from 'react-native';
 
-import { useTheme, useThemedStyles } from '~utils/ThemeContext';
+import { IColorKeys, useTheme, useThemedStyles } from '~utils/ThemeContext';
 
 interface IProps {
   onPress?: () => void;
@@ -13,6 +13,7 @@ interface IProps {
     radius?: number;
     borderless?: boolean;
     disabled?: boolean;
+    color?: IColorKeys;
   };
 }
 
@@ -32,7 +33,7 @@ export const Pressable = (props: IProps) => {
       android_ripple={
         !rippleDisabled
           ? {
-              color: theme.colors.rippleSurface,
+              color: rippleConfig?.color ? theme.colors[rippleConfig.color] : theme.colors.ripple,
               // default true
               borderless: rippleConfig?.borderless !== false,
               // default false

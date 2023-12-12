@@ -6,18 +6,24 @@ const colors = {
     100: '#ffffff',
     98: '#F7F8FA',
     96: '#F4F5F6',
+    95: '#F0F1F3',
     94: '#EBEDF0',
     92: '#E4E6EB',
+    90: '#E1E3E5',
+    87: '#D9DADD',
     80: '#C6C6C9',
     70: '#AAABAE',
     60: '#8F9193',
     40: '#5D5E61',
     30: '#454749',
+    25: '#393C3E',
+    20: '#2E3133',
     17: '#1D1F21',
     12: '#181A1C',
     10: '#141517',
     6: '#0E1012',
     5: '#0A0B0D',
+    0: '#000000',
   },
   blue: {
     100: '#FFFFFF',
@@ -50,8 +56,13 @@ const lightColors = {
   // error
   error: colors.red[40],
   onError: colors.red[100],
+  // outline
+  outline: colors.gray[70],
+  outlineDim: colors.gray[90],
+  outlineExtraDim: colors.gray[95],
   // android ripple
-  rippleSurface: colors.gray[80],
+  ripple: colors.gray[90],
+  rippleDim: colors.gray[70],
 };
 
 const darkColors: typeof lightColors = {
@@ -70,8 +81,13 @@ const darkColors: typeof lightColors = {
   // error
   error: colors.red[80],
   onError: colors.red[20],
+  // outline
+  outline: colors.gray[40],
+  outlineDim: colors.gray[20],
+  outlineExtraDim: colors.gray[5],
   // android ripple
-  rippleSurface: colors.gray[30],
+  ripple: colors.gray[30],
+  rippleDim: colors.gray[30],
 };
 
 export type IColorKeys = keyof typeof lightColors;

@@ -16,7 +16,7 @@ interface IProps {
 export const Text = (props: IProps) => {
   const {
     text,
-    variant = 'pLGRegular',
+    variant = 'pMDRegular',
     color = 'onSurface',
     numberOfLines = 1,
     animatedStyles,

@@ -10,12 +10,14 @@ export const Icon = ({
   color,
   fill = 'none',
   onPress,
+  rippleColor,
 }: {
   icon: IIconType;
   size?: number;
   color?: IColorKeys;
   fill?: 'none' | IColorKeys;
   onPress?: () => void;
+  rippleColor?: IColorKeys;
 }) => {
   const theme = useTheme();
 
@@ -31,7 +33,11 @@ export const Icon = ({
   );
 
   return onPress ? (
-    <Pressable style={{ width: size }} rippleConfig={{ radius: size, foreground: true }} onPress={onPress}>
+    <Pressable
+      style={{ width: size }}
+      rippleConfig={{ radius: size, foreground: true, color: rippleColor }}
+      onPress={onPress}
+    >
       {content}
     </Pressable>
   ) : (

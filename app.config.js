@@ -88,6 +88,7 @@ export default {
         },
       },
     ],
+    ['./withAppThemeStylesPlugin', 'custom'],
   ],
   experiments: {
     tsconfigPaths: true,
