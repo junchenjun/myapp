@@ -1,8 +1,6 @@
-import { icons } from '~assets/icons';
+import { IIcon } from '~assets/icons';
 import { Pressable } from '~components/pressable/Pressable';
 import { IColorKeys, useTheme } from '~utils/ThemeContext';
-
-export type IIconType = (typeof icons)[keyof typeof icons];
 
 export const Icon = ({
   icon,
@@ -12,7 +10,7 @@ export const Icon = ({
   onPress,
   rippleColor,
 }: {
-  icon: IIconType;
+  icon: IIcon;
   size?: number;
   color?: IColorKeys;
   fill?: 'none' | IColorKeys;

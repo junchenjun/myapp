@@ -74,7 +74,7 @@ export default function Layout() {
                   ),
                 }}
                 left={{
-                  icon: icons.back,
+                  icon: icons.Back,
                   onPress: () => router.back(),
                 }}
               />
@@ -95,7 +95,7 @@ export default function Layout() {
                 variant='actionHeader'
                 title={title}
                 left={{
-                  icon: icons.back,
+                  icon: icons.Back,
                   onPress: createAlert,
                 }}
               />
@@ -143,7 +143,7 @@ export default function Layout() {
                   ),
                 }}
                 left={{
-                  icon: icons.back,
+                  icon: icons.Back,
                   onPress: () => router.back(),
                 }}
               />
@@ -163,7 +163,7 @@ export default function Layout() {
                 variant='actionHeader'
                 title={title}
                 left={{
-                  icon: icons.back,
+                  icon: icons.Back,
                   onPress: createAlert,
                 }}
               />

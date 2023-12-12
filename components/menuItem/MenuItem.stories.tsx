@@ -19,7 +19,7 @@ export const Basic: IStory = {
   args: {
     title: 'Appearance',
     desc: 'System Default',
-    iconLeft: icons.lightning,
+    iconLeft: icons.Lightning,
     roundedBottomCorners: true,
     roundedTopCorners: true,
     withBorder: true,

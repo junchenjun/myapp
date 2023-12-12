@@ -1,6 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 
-import { IIconType, Icon } from '~components/icon/Icon';
+import { IIcon } from '~assets/icons';
+import { Icon } from '~components/icon/Icon';
 import { Pressable } from '~components/pressable/Pressable';
 import { Text } from '~components/text/Text';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
@@ -8,7 +9,7 @@ import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 interface IProps {
   title: string;
   desc?: string;
-  iconLeft?: IIconType;
+  iconLeft?: IIcon;
   danger?: boolean;
   roundedTopCorners?: boolean;
   roundedBottomCorners?: boolean;

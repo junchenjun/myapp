@@ -30,7 +30,7 @@ export const PrimaryWithIcon = {
     title: 'Primary Button',
     type: 'primary',
   },
-  render: ({ ...args }) => <Button {...args} icon={<Icon icon={icons.zap} color='onPrimary' />} />,
+  render: ({ ...args }) => <Button {...args} icon={<Icon icon={icons.Zap} color='onPrimary' />} />,
 };
 
 export const Disabled = {

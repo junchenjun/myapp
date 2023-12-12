@@ -3,7 +3,8 @@ import { StyleSheet, View } from 'react-native';
 import { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { EdgeInsets } from 'react-native-safe-area-context';
 
-import { IIconType, Icon } from '~components/icon/Icon';
+import { IIcon } from '~assets/icons';
+import { Icon } from '~components/icon/Icon';
 import { Text } from '~components/text/Text';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
@@ -16,12 +17,12 @@ interface IHeaderWithActions {
   variant: 'actionHeader';
   title?: string;
   left?: {
-    icon?: IIconType;
+    icon?: IIcon;
     component?: ReactElement;
     onPress?: () => void;
   };
   right?: {
-    icon?: IIconType;
+    icon?: IIcon;
     component?: ReactElement;
     onPress?: () => void;
   };

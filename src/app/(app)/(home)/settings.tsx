@@ -44,39 +44,39 @@ const Settings = () => {
     <ScrollView contentContainerStyle={styles.scroll}>
       <Text text='Account' color='onSurfaceDim' style={styles.label} />
       <View style={styles.menu}>
-        <MenuItem iconLeft={icons.zap} withBorder roundedTopCorners title='Jun Chen' desc='junchen.cq@gmail.com' />
+        <MenuItem iconLeft={icons.Zap} withBorder roundedTopCorners title='Jun Chen' desc='junchen.cq@gmail.com' />
         <MenuItem
           danger
           onPress={() => {
             setLoading(true);
             createTwoButtonAlert();
           }}
-          iconLeft={icons.zap}
+          iconLeft={icons.Zap}
           roundedBottomCorners
           title='Sign Out'
         />
       </View>
       <Text text='Preferences' color='onSurfaceDim' style={styles.label} />
       <View style={styles.menu}>
-        <MenuItem iconLeft={icons.zap} withBorder roundedTopCorners title='Appearance' desc='System Default' />
-        <MenuItem iconLeft={icons.zap} withBorder title='Rest Timer' desc='Default' />
-        <MenuItem iconLeft={icons.zap} withBorder title='Units' desc='kg' />
-        <MenuItem iconLeft={icons.zap} withBorder title='First Day of the week' desc='Monday' />
-        <MenuItem iconLeft={icons.zap} roundedBottomCorners title='Keep screen on during workout' desc='ON' />
+        <MenuItem iconLeft={icons.Zap} withBorder roundedTopCorners title='Appearance' desc='System Default' />
+        <MenuItem iconLeft={icons.Zap} withBorder title='Rest Timer' desc='Default' />
+        <MenuItem iconLeft={icons.Zap} withBorder title='Units' desc='kg' />
+        <MenuItem iconLeft={icons.Zap} withBorder title='First Day of the week' desc='Monday' />
+        <MenuItem iconLeft={icons.Zap} roundedBottomCorners title='Keep screen on during workout' desc='ON' />
       </View>
       <Text text='Help' color='onSurfaceDim' style={styles.label} />
       <View style={styles.menu}>
-        <MenuItem iconLeft={icons.zap} withBorder roundedTopCorners title='Contact Us' />
-        <MenuItem iconLeft={icons.zap} withBorder title='License' />
-        <MenuItem iconLeft={icons.zap} withBorder title='Privacy Policy' />
-        <MenuItem iconLeft={icons.zap} withBorder title='Terms of Service' />
+        <MenuItem iconLeft={icons.Zap} withBorder roundedTopCorners title='Contact Us' />
+        <MenuItem iconLeft={icons.Zap} withBorder title='License' />
+        <MenuItem iconLeft={icons.Zap} withBorder title='Privacy Policy' />
+        <MenuItem iconLeft={icons.Zap} withBorder title='Terms of Service' />
         <MenuItem
           danger
           onPress={() => {
             setLoading(true);
             createTwoButtonAlert();
           }}
-          iconLeft={icons.zap}
+          iconLeft={icons.Zap}
           roundedBottomCorners
           title='Delete Account'
         />

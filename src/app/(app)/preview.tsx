@@ -118,7 +118,7 @@ export default function Preview() {
             });
             dispatch(setWorkout(workout));
           }}
-          icon={<Icon icon={icons.zap} color='onPrimary' />}
+          icon={<Icon icon={icons.Zap} color='onPrimary' />}
         />
       </View>
     </View>

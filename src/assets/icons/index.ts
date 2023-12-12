@@ -1,21 +1,23 @@
-import IconApple from '~assets/icons/appleIcon.svg';
-import IconGoogle from '~assets/icons/googleIcon.svg';
-import IconActivity from '~assets/icons/iconActivity.svg';
-import IconBack from '~assets/icons/iconBack.svg';
-import IconLightning from '~assets/icons/iconLightning.svg';
-import IconMore from '~assets/icons/iconMore.svg';
-import IconSettings from '~assets/icons/iconSettings.svg';
-import IconZap from '~assets/icons/iconZap.svg';
+import Apple from '~assets/icons/appleIcon.svg';
+import Google from '~assets/icons/googleIcon.svg';
+import Activity from '~assets/icons/iconActivity.svg';
+import Back from '~assets/icons/iconBack.svg';
+import Lightning from '~assets/icons/iconLightning.svg';
+import More from '~assets/icons/iconMore.svg';
+import Settings from '~assets/icons/iconSettings.svg';
+import Zap from '~assets/icons/iconZap.svg';
 
 const icons = {
-  lightning: IconLightning,
-  zap: IconZap,
-  back: IconBack,
-  more: IconMore,
-  activity: IconActivity,
-  settings: IconSettings,
-  google: IconGoogle,
-  apple: IconApple,
+  Lightning,
+  Zap,
+  Back,
+  More,
+  Activity,
+  Settings,
+  Google,
+  Apple,
 };
 
-export { icons };
+type IIcon = (typeof icons)[keyof typeof icons];
+
+export { icons, IIcon };

@@ -22,7 +22,7 @@ export default function Layout() {
         key='activity'
         options={{
           title: 'Activity',
-          tabBarIcon: ({ color, size }) => <Icon icon={icons.activity} color={color as IColorKeys} size={size} />,
+          tabBarIcon: ({ color, size }) => <Icon icon={icons.Activity} color={color as IColorKeys} size={size} />,
           headerShown: true,
           header: () => {
             return <PageHeader variant='default' title='Activity' />;
@@ -36,7 +36,7 @@ export default function Layout() {
           title: 'Workouts',
           tabBarIcon: ({ focused, color, size }) => (
             <Icon
-              icon={icons.lightning}
+              icon={icons.Lightning}
               fill={focused ? (color as IColorKeys) : 'none'}
               color={color as IColorKeys}
               size={size}
@@ -53,7 +53,7 @@ export default function Layout() {
         key='settings'
         options={{
           title: 'Settings',
-          tabBarIcon: ({ color, size }) => <Icon icon={icons.settings} color={color as IColorKeys} size={size} />,
+          tabBarIcon: ({ color, size }) => <Icon icon={icons.Settings} color={color as IColorKeys} size={size} />,
           headerShown: true,
           header: () => {
             return <PageHeader variant='default' title='Settings' />;

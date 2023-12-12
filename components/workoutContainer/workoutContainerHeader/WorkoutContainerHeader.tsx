@@ -21,7 +21,7 @@ export const WorkoutContainerHeader = (props: IWorkoutContainerHeader) => {
           <Label title={i} key={i} />
         ))}
       </View>
-      {onPress && <Icon icon={icons.more} onPress={onPress} color='onSurface' fill='onSurface' />}
+      {onPress && <Icon icon={icons.More} onPress={onPress} color='onSurface' fill='onSurface' />}
     </View>
   );
 };
