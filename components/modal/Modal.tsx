@@ -17,7 +17,13 @@ export const Modal = (props: IProps) => {
   }, [isActive]);
 
   return (
-    <RNModal transparent animationType='none' statusBarTranslucent visible={isActive}>
+    <RNModal
+      transparent
+      animationType='none'
+      statusBarTranslucent
+      visible={isActive}
+      onRequestClose={() => setIsModalVisible(false)}
+    >
       {isModalVisible && (
         <>
           <Animated.View style={styles.backdrop} entering={FadeIn.duration(300)} exiting={FadeOut.duration(300)} />
