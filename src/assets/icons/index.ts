@@ -1,21 +1,53 @@
-import Apple from '~assets/icons/appleIcon.svg';
-import Google from '~assets/icons/googleIcon.svg';
-import Activity from '~assets/icons/iconActivity.svg';
-import Back from '~assets/icons/iconBack.svg';
-import Lightning from '~assets/icons/iconLightning.svg';
-import More from '~assets/icons/iconMore.svg';
-import Settings from '~assets/icons/iconSettings.svg';
-import Zap from '~assets/icons/iconZap.svg';
+import { IconActivity } from '~assets/icons/IconActivity';
+import { IconAppearance } from '~assets/icons/IconAppearance';
+import { IconApple } from '~assets/icons/IconApple';
+import { IconBack } from '~assets/icons/IconBack';
+import { IconCalendar } from '~assets/icons/IconCalendar';
+import { IconEdit } from '~assets/icons/IconEdit';
+import { IconExpandDown } from '~assets/icons/IconExpandDown';
+import { IconExpandRight } from '~assets/icons/IconExpandRight';
+import { IconExpandUp } from '~assets/icons/IconExpandUp';
+import { IconExternal } from '~assets/icons/IconExternal';
+import { IconFile } from '~assets/icons/IconFile';
+import { IconGoogle } from '~assets/icons/IconGoogle';
+import { IconHourglass } from '~assets/icons/IconHourglass';
+import { IconLightbulb } from '~assets/icons/IconLightbulb';
+import { IconLightning } from '~assets/icons/IconLightning';
+import { IconMail } from '~assets/icons/IconMail';
+import { IconMore } from '~assets/icons/IconMore';
+import { IconRuler } from '~assets/icons/IconRuler';
+import { IconSettings } from '~assets/icons/IconSettings';
+import { IconSignOut } from '~assets/icons/IconSignOut';
+import { IconSwitch } from '~assets/icons/IconSwitch';
+import { IconTrash } from '~assets/icons/IconTrash';
+import { IconUser } from '~assets/icons/IconUser';
+import { IconZap } from '~assets/icons/IconZap';
 
 const icons = {
-  Lightning,
-  Zap,
-  Back,
-  More,
-  Activity,
-  Settings,
-  Google,
-  Apple,
+  Lightning: IconLightning,
+  Zap: IconZap,
+  Back: IconBack,
+  More: IconMore,
+  Activity: IconActivity,
+  Settings: IconSettings,
+  Google: IconGoogle,
+  Apple: IconApple,
+  Appearance: IconAppearance,
+  Ruler: IconRuler,
+  Hourglass: IconHourglass,
+  Calender: IconCalendar,
+  SignOut: IconSignOut,
+  User: IconUser,
+  LightBulb: IconLightbulb,
+  Trash: IconTrash,
+  Mail: IconMail,
+  ExpandRight: IconExpandRight,
+  ExpandDown: IconExpandDown,
+  ExpandUp: IconExpandUp,
+  File: IconFile,
+  Edit: IconEdit,
+  Switch: IconSwitch,
+  External: IconExternal,
 };
 
 type IIcon = (typeof icons)[keyof typeof icons];

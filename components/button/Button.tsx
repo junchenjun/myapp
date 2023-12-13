@@ -1,6 +1,8 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 
+import { IIcon } from '~assets/icons';
+import { Icon } from '~components/icon/Icon';
 import { Pressable } from '~components/pressable/Pressable';
 import { Text } from '~components/text/Text';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
@@ -10,7 +12,7 @@ interface ICommonButtonProps {
   title?: string;
   disabled?: boolean;
   loading?: boolean;
-  icon?: ReactElement;
+  icon?: IIcon;
   elevated?: boolean;
 }
 
@@ -40,7 +42,7 @@ export const Button = (props: IButton) => {
           style={[styles.button, styles[variant]]}
           onPress={onPress}
         >
-          {icon}
+          {icon && <Icon icon={icon} color='onPrimary' />}
           <Text text={title} color='onPrimary' />
         </Pressable>
       </View>

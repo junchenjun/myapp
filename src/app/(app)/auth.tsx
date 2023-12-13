@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { EdgeInsets } from 'react-native-safe-area-context';
 
+import { icons } from '~assets/icons';
 import { Button } from '~components/button/Button';
 import { Text } from '~components/text/Text';
 import { firebaseAuth } from '~firebase/firebaseConfig';
@@ -56,18 +57,8 @@ export default function Auth() {
       <View style={styles.header}>
         <Text text='Sign In' />
       </View>
-      <Button
-        // icon={<IconGoogle height={18} width={18} fill={styles.icon.color} />}
-        loading={loading}
-        title='Sign in with Google'
-        onPress={googleSignIn}
-      />
-      <Button
-        // icon={<IconApple height={22} width={22} fill={styles.icon.color} />}
-        loading={loading}
-        title='Sign in with Apple'
-        onPress={() => null}
-      />
+      <Button icon={icons.Google} loading={loading} title='Sign in with Google' onPress={googleSignIn} />
+      <Button icon={icons.Apple} loading={loading} title='Sign in with Apple' onPress={() => null} />
     </View>
   );
 }

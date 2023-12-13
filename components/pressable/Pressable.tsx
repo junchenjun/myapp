@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import { Platform, Pressable as RNPressable, StyleProp, StyleSheet, ViewStyle } from 'react-native';
 
 import { IColorKeys, useTheme, useThemedStyles } from '~utils/ThemeContext';
@@ -6,7 +6,7 @@ import { IColorKeys, useTheme, useThemedStyles } from '~utils/ThemeContext';
 interface IProps {
   onPress?: () => void;
   disabled?: boolean;
-  children?: ReactElement | (ReactElement | undefined)[];
+  children?: ReactElement | (ReactElement | undefined)[] | ReactNode;
   style?: StyleProp<ViewStyle>;
   rippleConfig?: {
     foreground?: boolean;

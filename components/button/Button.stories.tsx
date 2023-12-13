@@ -1,6 +1,5 @@
 import { icons } from '~assets/icons';
 import { Button } from '~components/button/Button';
-import { Icon } from '~components/icon/Icon';
 
 const ButtonStory = {
   title: 'Button',
@@ -30,7 +29,7 @@ export const PrimaryWithIcon = {
     title: 'Primary Button',
     type: 'primary',
   },
-  render: ({ ...args }) => <Button {...args} icon={<Icon icon={icons.Zap} color='onPrimary' />} />,
+  render: ({ ...args }) => <Button {...args} icon={icons.Lightning} />,
 };
 
 export const Disabled = {

@@ -28,13 +28,11 @@ export const BottomTab = ({ state, descriptors, navigation }: BottomTabBarProps)
 
         return (
           <Pressable onPress={onPress} rippleConfig={{ radius: 60 }} key={index}>
-            <View style={styles.tab}>
-              {options.tabBarIcon?.({
-                focused: isFocused,
-                color: isFocused ? 'primary' : 'onSurfaceExtraDim',
-                size: 32,
-              })}
-            </View>
+            {options.tabBarIcon?.({
+              focused: isFocused,
+              color: isFocused ? 'primary' : 'onSurfaceExtraDim',
+              size: 28,
+            })}
           </Pressable>
         );
       })}

@@ -42,41 +42,75 @@ const Settings = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.scroll}>
+      {/* Account */}
       <Text text='Account' color='onSurfaceDim' style={styles.label} />
       <View style={styles.menu}>
-        <MenuItem iconLeft={icons.Zap} withBorder roundedTopCorners title='Jun Chen' desc='junchen.cq@gmail.com' />
         <MenuItem
-          danger
+          iconLeft={icons.User}
+          iconRight={icons.ExpandRight}
+          withBorder
+          roundedTopCorners
+          title='Jun Chen'
+          desc='junchen.cq@gmail.com'
+        />
+        <MenuItem
           onPress={() => {
             setLoading(true);
             createTwoButtonAlert();
           }}
-          iconLeft={icons.Zap}
+          iconLeft={icons.SignOut}
           roundedBottomCorners
           title='Sign Out'
         />
       </View>
+      {/* Preferences */}
       <Text text='Preferences' color='onSurfaceDim' style={styles.label} />
       <View style={styles.menu}>
-        <MenuItem iconLeft={icons.Zap} withBorder roundedTopCorners title='Appearance' desc='System Default' />
-        <MenuItem iconLeft={icons.Zap} withBorder title='Rest Timer' desc='Default' />
-        <MenuItem iconLeft={icons.Zap} withBorder title='Units' desc='kg' />
-        <MenuItem iconLeft={icons.Zap} withBorder title='First Day of the week' desc='Monday' />
-        <MenuItem iconLeft={icons.Zap} roundedBottomCorners title='Keep screen on during workout' desc='ON' />
+        <MenuItem
+          iconRight={icons.ExpandRight}
+          iconLeft={icons.Appearance}
+          withBorder
+          roundedTopCorners
+          title='Appearance'
+          desc='System Default'
+        />
+        <MenuItem
+          iconRight={icons.ExpandRight}
+          iconLeft={icons.Hourglass}
+          withBorder
+          title='Rest Timer'
+          desc='Default'
+        />
+        <MenuItem iconRight={icons.ExpandRight} iconLeft={icons.Ruler} withBorder title='Units' desc='kg' />
+        <MenuItem
+          iconRight={icons.ExpandRight}
+          iconLeft={icons.Calender}
+          withBorder
+          title='First Day of the week'
+          desc='Monday'
+        />
+        <MenuItem
+          iconRight={icons.ExpandRight}
+          iconLeft={icons.LightBulb}
+          roundedBottomCorners
+          title='Keep screen on during workout'
+          desc='ON'
+        />
       </View>
+      {/* Help */}
       <Text text='Help' color='onSurfaceDim' style={styles.label} />
       <View style={styles.menu}>
-        <MenuItem iconLeft={icons.Zap} withBorder roundedTopCorners title='Contact Us' />
-        <MenuItem iconLeft={icons.Zap} withBorder title='License' />
-        <MenuItem iconLeft={icons.Zap} withBorder title='Privacy Policy' />
-        <MenuItem iconLeft={icons.Zap} withBorder title='Terms of Service' />
+        <MenuItem iconRight={icons.ExpandRight} iconLeft={icons.Mail} withBorder roundedTopCorners title='Contact Us' />
+        <MenuItem iconRight={icons.External} iconLeft={icons.File} withBorder title='License' />
+        <MenuItem iconRight={icons.External} iconLeft={icons.File} withBorder title='Privacy Policy' />
+        <MenuItem iconRight={icons.External} iconLeft={icons.File} withBorder title='Terms of Service' />
         <MenuItem
           danger
           onPress={() => {
             setLoading(true);
             createTwoButtonAlert();
           }}
-          iconLeft={icons.Zap}
+          iconLeft={icons.Trash}
           roundedBottomCorners
           title='Delete Account'
         />

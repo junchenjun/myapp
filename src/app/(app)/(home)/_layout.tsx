@@ -39,7 +39,7 @@ export default function Layout() {
               icon={icons.Lightning}
               fill={focused ? (color as IColorKeys) : 'none'}
               color={color as IColorKeys}
-              size={size}
+              size={size + 4}
             />
           ),
           headerShown: true,

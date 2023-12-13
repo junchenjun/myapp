@@ -5,7 +5,6 @@ import { EdgeInsets } from 'react-native-safe-area-context';
 import { icons } from '~assets/icons';
 import { Accordion } from '~components/accordion/Accordion';
 import { Button } from '~components/button/Button';
-import { Icon } from '~components/icon/Icon';
 import { InfoContainer } from '~components/InfoContainer';
 import { Label } from '~components/label/Label';
 import { Text } from '~components/text/Text';
@@ -118,7 +117,7 @@ export default function Preview() {
             });
             dispatch(setWorkout(workout));
           }}
-          icon={<Icon icon={icons.Zap} color='onPrimary' />}
+          icon={icons.Zap}
         />
       </View>
     </View>

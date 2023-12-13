@@ -24,9 +24,9 @@ const Home = () => {
     <>
       <Modal isActive={isModalActive} setIsActive={setIsModalActive}>
         <View style={styles.content}>
-          <MenuItem iconLeft={icons.Zap} roundedBottomCorners roundedTopCorners title='New Workout Plan' />
-          <MenuItem iconLeft={icons.Zap} roundedBottomCorners roundedTopCorners title='New Workout Plan' />
-          <MenuItem danger iconLeft={icons.Zap} roundedBottomCorners roundedTopCorners title='Delete Current Plan' />
+          <MenuItem iconLeft={icons.Edit} roundedBottomCorners roundedTopCorners title='New Workout Plan' />
+          <MenuItem iconLeft={icons.Switch} roundedBottomCorners roundedTopCorners title='New Workout Plan' />
+          <MenuItem danger iconLeft={icons.Trash} roundedBottomCorners roundedTopCorners title='Delete Current Plan' />
         </View>
       </Modal>
       <ScrollView contentContainerStyle={styles.scroll}>

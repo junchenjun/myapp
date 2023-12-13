@@ -10,6 +10,7 @@ interface IProps {
   title: string;
   desc?: string;
   iconLeft?: IIcon;
+  iconRight?: IIcon;
   danger?: boolean;
   roundedTopCorners?: boolean;
   roundedBottomCorners?: boolean;
@@ -18,25 +19,29 @@ interface IProps {
 }
 
 export const MenuItem = (props: IProps) => {
-  const { title, desc, onPress, iconLeft, danger, roundedTopCorners, roundedBottomCorners, withBorder } = props;
+  const { title, desc, onPress, iconLeft, iconRight, danger, roundedTopCorners, roundedBottomCorners, withBorder } =
+    props;
 
   const styles = useThemedStyles(themedStyles);
 
   return (
     <View
       style={[
-        styles.itemContainer,
+        styles.container,
         roundedTopCorners && styles.roundedTopCorners,
         roundedBottomCorners && styles.roundedBottomCorners,
         withBorder && styles.withBorder,
       ]}
     >
-      <Pressable onPress={onPress} style={styles.item} rippleConfig={{ borderless: false }}>
-        {iconLeft && <Icon icon={iconLeft} color={danger ? 'error' : 'onSurfaceDim'} />}
-        <View>
-          <Text text={title} color={danger ? 'error' : 'onSurface'} />
-          {desc && <Text text={desc} variant='pXSRegular' color={danger ? 'error' : 'onSurfaceExtraDim'} />}
+      <Pressable onPress={onPress} style={styles.pressable} rippleConfig={{ borderless: false }}>
+        <View style={styles.left}>
+          {iconLeft && <Icon icon={iconLeft} color={danger ? 'error' : 'onSurfaceDim'} />}
+          <View>
+            <Text text={title} color={danger ? 'error' : 'onSurface'} />
+            {desc && <Text text={desc} variant='pXSRegular' color={danger ? 'error' : 'onSurfaceExtraDim'} />}
+          </View>
         </View>
+        {iconRight && <Icon icon={iconRight} color={danger ? 'error' : 'onSurfaceExtraDim'} />}
       </Pressable>
     </View>
   );
@@ -44,11 +49,22 @@ export const MenuItem = (props: IProps) => {
 
 const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
-    item: {
+    container: {
+      width: '100%',
+      overflow: 'hidden',
+      backgroundColor: theme.colors.surfaceExtraBright,
+    },
+    pressable: {
       flexDirection: 'row',
       gap: theme.spacing[3],
       padding: theme.spacing[4],
       alignItems: 'center',
+    },
+    left: {
+      flexDirection: 'row',
+      flex: 1,
+      alignItems: 'center',
+      gap: theme.spacing[3],
     },
     withBorder: {
       borderColor: theme.colors.outlineExtraDim,
@@ -62,11 +78,6 @@ const themedStyles = (theme: ITheme) => {
     roundedTopCorners: {
       borderTopLeftRadius: theme.radius.sm,
       borderTopRightRadius: theme.radius.sm,
-    },
-    itemContainer: {
-      width: '100%',
-      overflow: 'hidden',
-      backgroundColor: theme.colors.surfaceExtraBright,
     },
   });
 };

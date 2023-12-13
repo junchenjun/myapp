@@ -2,16 +2,15 @@ import { ReactElement, useCallback, useContext, useEffect, useId, useMemo, useSt
 import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
-import { IconExpandDown } from '~assets/icons/IconExpandDown';
-import { IconExpandUp } from '~assets/icons/IconExpandUp';
+import { icons } from '~assets/icons';
 import { AccordionContext } from '~components/accordion/Accordion';
-import { Pressable } from '~components/pressable/Pressable';
+import { Icon } from '~components/icon/Icon';
 import { Text } from '~components/text/Text';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
 interface IProps {
   children?: ReactElement | ReactElement[];
-  trigger?: (expandIcon: ReactElement) => ReactElement;
+  trigger?: (triggerButton: ReactElement) => ReactElement;
   title?: string;
   itemHeight?: number;
   id?: string;
@@ -75,12 +74,12 @@ export const AccordionItem = (props: IProps) => {
     }
   }, [autoCollapse, expanded, uniqueId]);
 
-  const Icon = useMemo(
+  const icon = useMemo(
     () =>
       expanded ? (
-        <IconExpandUp width={24} height={24} stroke={styles.icon.color} />
+        <Icon icon={icons.ExpandUp} onPress={onPress} color='onSurfaceExtraDim' />
       ) : (
-        <IconExpandDown width={24} height={24} stroke={styles.icon.color} />
+        <Icon icon={icons.ExpandDown} onPress={onPress} color='onSurfaceExtraDim' />
       ),
     [expanded]
   );
@@ -91,17 +90,11 @@ export const AccordionItem = (props: IProps) => {
   return (
     <View>
       {trigger ? (
-        trigger(
-          <Pressable rippleConfig={{ radius: 24 }} onPress={onPress}>
-            {Icon}
-          </Pressable>
-        )
+        trigger(icon)
       ) : (
         <View style={styles.header}>
           <Text style={styles.headerContent}>{title}</Text>
-          <Pressable onPress={onPress} rippleConfig={{ radius: 24 }}>
-            {Icon}
-          </Pressable>
+          {icon}
         </View>
       )}
       <Animated.View style={[styles.collapsible, animatedStyle, { overflow: 'hidden' }]}>

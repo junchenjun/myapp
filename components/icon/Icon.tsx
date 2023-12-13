@@ -26,6 +26,7 @@ export const Icon = ({
       width={size}
       height={size}
       stroke={color ? theme.colors?.[color] : theme.colors.onSurfaceDim}
+      color={color ? theme.colors?.[color] : theme.colors.onSurfaceDim}
       fill={fill !== 'none' ? theme.colors?.[fill] : 'none'}
     />
   );

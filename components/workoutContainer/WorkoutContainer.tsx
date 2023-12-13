@@ -54,12 +54,12 @@ export const WorkoutContainer = (props: IProps) => {
     return (
       <Card onPress={onPress} style={style}>
         <AccordionItem
-          trigger={expandIcon => (
+          trigger={triggerButton => (
             <>
               <WorkoutContainerHeader {...header} />
               <View style={styles.main}>
                 <View>{mainContent}</View>
-                {expandIcon}
+                {triggerButton}
               </View>
             </>
           )}
