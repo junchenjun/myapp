@@ -67,7 +67,7 @@ export const PageHeader = (props: IPageHeader) => {
     );
   } else if (variant === 'default') {
     return (
-      <View style={[styles.container, styles.short]}>
+      <View style={[styles.container, styles.default]}>
         {title && (
           <Text variant='h3Regular' color='onSurface'>
             {title}
@@ -79,7 +79,7 @@ export const PageHeader = (props: IPageHeader) => {
 };
 
 const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
-  const paddingTop = insets.top < 50 ? 50 : insets.top;
+  const paddingTop = insets.top < 40 ? 40 : insets.top;
   return StyleSheet.create({
     container: {
       padding: theme.spacing[4],
@@ -93,7 +93,7 @@ const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
       justifyContent: 'space-between',
       backgroundColor: theme.colors.surfaceExtraDim,
     },
-    short: {
+    default: {
       paddingBottom: theme.spacing[1],
     },
     left: {

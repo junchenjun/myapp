@@ -16,8 +16,8 @@ const colors = {
     60: '#8F9193',
     40: '#5D5E61',
     30: '#454749',
-    25: '#393C3E',
-    20: '#2E3133',
+    22: '#2C3033',
+    20: '#26292B',
     17: '#1D1F21',
     12: '#181A1C',
     10: '#141517',
@@ -63,6 +63,8 @@ const lightColors = {
   // android ripple
   ripple: colors.gray[90],
   rippleDim: colors.gray[70],
+  // transparent
+  modalBackdrop: 'rgba(0,0,0,0.5)',
 };
 
 const darkColors: typeof lightColors = {
@@ -83,11 +85,13 @@ const darkColors: typeof lightColors = {
   onError: colors.red[20],
   // outline
   outline: colors.gray[40],
-  outlineDim: colors.gray[20],
-  outlineExtraDim: colors.gray[5],
+  outlineDim: colors.gray[22],
+  outlineExtraDim: colors.gray[20],
   // android ripple
   ripple: colors.gray[30],
   rippleDim: colors.gray[30],
+  // transparent
+  modalBackdrop: 'rgba(0,0,0,0.5)',
 };
 
 export type IColorKeys = keyof typeof lightColors;

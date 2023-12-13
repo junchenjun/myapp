@@ -1,10 +1,17 @@
-import { ReactElement, ReactNode } from 'react';
-import { Platform, Pressable as RNPressable, StyleProp, StyleSheet, ViewStyle } from 'react-native';
+import { MouseEvent, ReactElement, ReactNode } from 'react';
+import {
+  GestureResponderEvent,
+  Platform,
+  Pressable as RNPressable,
+  StyleProp,
+  StyleSheet,
+  ViewStyle,
+} from 'react-native';
 
 import { IColorKeys, useTheme, useThemedStyles } from '~utils/ThemeContext';
 
 interface IProps {
-  onPress?: () => void;
+  onPress?: (e: MouseEvent<HTMLAnchorElement> | GestureResponderEvent) => void;
   disabled?: boolean;
   children?: ReactElement | (ReactElement | undefined)[] | ReactNode;
   style?: StyleProp<ViewStyle>;
@@ -15,10 +22,11 @@ interface IProps {
     disabled?: boolean;
     color?: IColorKeys;
   };
+  hitSlop?: number;
 }
 
 export const Pressable = (props: IProps) => {
-  const { onPress, children, disabled, style, rippleConfig } = props;
+  const { onPress, children, disabled, style, rippleConfig, hitSlop } = props;
   const styles = useThemedStyles(themedStyles);
   const theme = useTheme();
 
@@ -28,7 +36,7 @@ export const Pressable = (props: IProps) => {
 
   return (
     <RNPressable
-      hitSlop={20}
+      hitSlop={hitSlop ?? 20}
       disabled={isDisabled}
       android_ripple={
         !rippleDisabled

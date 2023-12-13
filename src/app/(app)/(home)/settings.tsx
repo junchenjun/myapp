@@ -41,7 +41,7 @@ const Settings = () => {
     );
 
   return (
-    <ScrollView contentContainerStyle={styles.scroll}>
+    <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
       {/* Account */}
       <Text text='Account' color='onSurfaceDim' style={styles.label} />
       <View style={styles.menu}>
@@ -126,7 +126,7 @@ const createStyles = (theme: ITheme) => {
     scroll: {
       paddingHorizontal: theme.spacing[4],
       backgroundColor: theme.colors.surfaceExtraDim,
-      paddingBottom: 100,
+      paddingBottom: theme.spacing[4],
     },
     label: {
       marginTop: theme.spacing[3],

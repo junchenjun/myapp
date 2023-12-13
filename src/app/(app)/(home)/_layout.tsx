@@ -1,18 +1,32 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
+import { Platform } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { icons } from '~assets/icons';
-import { BottomTab } from '~components/BottomTab';
 import { Icon } from '~components/icon/Icon';
 import { PageHeader } from '~components/pageHeader/PageHeader';
-import { IColorKeys } from '~utils/ThemeContext';
+import { Pressable } from '~components/pressable/Pressable';
+import { useTheme } from '~utils/ThemeContext';
 
 export default function Layout() {
+  const theme = useTheme();
+  const insets = useSafeAreaInsets();
+
+  const tabHeight = Platform.OS === 'android' ? 60 : 55 + insets.bottom;
+  const iconSize = 26;
   return (
     <Tabs
-      tabBar={props => <BottomTab key={props.state.index} {...props} />}
       screenOptions={{
         headerShown: false,
+        tabBarStyle: {
+          backgroundColor: theme.colors.surface,
+          height: tabHeight,
+          borderTopWidth: 0,
+          elevation: 0,
+          shadowOffset: { width: 0, height: 0 },
+          shadowRadius: 0,
+        },
       }}
       initialRouteName='index'
       backBehavior='initialRoute'
@@ -21,8 +35,12 @@ export default function Layout() {
         name='activity'
         key='activity'
         options={{
+          tabBarShowLabel: false,
           title: 'Activity',
-          tabBarIcon: ({ color, size }) => <Icon icon={icons.Activity} color={color as IColorKeys} size={size} />,
+          tabBarButton: props => <Pressable {...props} onPress={props.onPress} hitSlop={10} />,
+          tabBarIcon: ({ focused }) => (
+            <Icon icon={icons.Activity} color={focused ? 'primary' : 'onSurfaceExtraDim'} size={iconSize - 1} />
+          ),
           headerShown: true,
           header: () => {
             return <PageHeader variant='default' title='Activity' />;
@@ -33,13 +51,15 @@ export default function Layout() {
         name='index'
         key='home'
         options={{
+          tabBarShowLabel: false,
           title: 'Workouts',
-          tabBarIcon: ({ focused, color, size }) => (
+          tabBarButton: props => <Pressable {...props} onPress={props.onPress} hitSlop={0} />,
+          tabBarIcon: ({ focused }) => (
             <Icon
               icon={icons.Lightning}
-              fill={focused ? (color as IColorKeys) : 'none'}
-              color={color as IColorKeys}
-              size={size + 4}
+              fill={focused ? 'primary' : 'none'}
+              color={focused ? 'primary' : 'onSurfaceExtraDim'}
+              size={iconSize + 1}
             />
           ),
           headerShown: true,
@@ -52,8 +72,12 @@ export default function Layout() {
         name='settings'
         key='settings'
         options={{
+          tabBarShowLabel: false,
           title: 'Settings',
-          tabBarIcon: ({ color, size }) => <Icon icon={icons.Settings} color={color as IColorKeys} size={size} />,
+          tabBarButton: props => <Pressable {...props} onPress={props.onPress} hitSlop={0} />,
+          tabBarIcon: ({ focused }) => (
+            <Icon icon={icons.Settings} color={focused ? 'primary' : 'onSurfaceExtraDim'} size={iconSize} />
+          ),
           headerShown: true,
           header: () => {
             return <PageHeader variant='default' title='Settings' />;

@@ -23,11 +23,11 @@ const Home = () => {
   return (
     <>
       <Modal isActive={isModalActive} setIsActive={setIsModalActive}>
-        <View style={styles.content}>
+        <ScrollView contentContainerStyle={styles.content} bounces={false}>
           <MenuItem iconLeft={icons.Edit} roundedBottomCorners roundedTopCorners title='New Workout Plan' />
           <MenuItem iconLeft={icons.Switch} roundedBottomCorners roundedTopCorners title='New Workout Plan' />
           <MenuItem danger iconLeft={icons.Trash} roundedBottomCorners roundedTopCorners title='Delete Current Plan' />
-        </View>
+        </ScrollView>
       </Modal>
       <ScrollView contentContainerStyle={styles.scroll}>
         <Suspense fallback={<View />}>
@@ -79,11 +79,8 @@ const createStyles = (theme: ITheme) => {
       overflow: 'hidden',
     },
     content: {
-      backgroundColor: theme.colors.surface,
       paddingHorizontal: theme.spacing[4],
       paddingVertical: theme.spacing[5],
-      borderTopLeftRadius: theme.radius.xl,
-      borderTopRightRadius: theme.radius.xl,
       paddingBottom: theme.spacing[6],
       gap: theme.spacing[2],
     },

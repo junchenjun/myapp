@@ -1,6 +1,9 @@
 import { ReactElement, useEffect, useState } from 'react';
 import { StyleSheet, Modal as RNModal, View, Dimensions } from 'react-native';
-import Animated, { FadeIn, FadeOut, SlideInDown, SlideOutDown, runOnJS } from 'react-native-reanimated';
+import Animated, { runOnJS, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import { EdgeInsets } from 'react-native-safe-area-context';
+
+import { ITheme, useTheme, useThemedStyles } from '~utils/ThemeContext';
 
 interface IProps {
   isActive: boolean;
@@ -11,10 +14,41 @@ interface IProps {
 export const Modal = (props: IProps) => {
   const { isActive, setIsActive, children } = props;
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const theme = useTheme();
+  const styles = useThemedStyles(themedStyles);
 
   useEffect(() => {
     isActive && setIsModalVisible(isActive);
   }, [isActive]);
+
+  const animationStartPosition = -50;
+  const duration = 200;
+  const contentOpacity = useSharedValue(0);
+  const contentPosition = useSharedValue(animationStartPosition);
+  const backdropColor = useSharedValue('transparent');
+
+  const animatedContentStyle = useAnimatedStyle(() => {
+    contentOpacity.value = isModalVisible ? 1 : 0;
+    contentPosition.value = isModalVisible
+      ? withTiming(0, { duration })
+      : withTiming(animationStartPosition, { duration }, finished => {
+          'worklet';
+          if (finished) {
+            runOnJS(setIsActive)(false);
+          }
+        });
+    return {
+      opacity: withTiming(contentOpacity.value, { duration }),
+      bottom: contentPosition.value,
+    };
+  });
+
+  const animatedBackdropStyle = useAnimatedStyle(() => {
+    backdropColor.value = isModalVisible ? theme.colors.modalBackdrop : 'transparent';
+    return {
+      backgroundColor: withTiming(backdropColor.value, { duration }),
+    };
+  });
 
   return (
     <RNModal
@@ -24,44 +58,30 @@ export const Modal = (props: IProps) => {
       visible={isActive}
       onRequestClose={() => setIsModalVisible(false)}
     >
-      {isModalVisible && (
-        <>
-          <Animated.View style={styles.backdrop} entering={FadeIn.duration(300)} exiting={FadeOut.duration(300)} />
-          <Animated.View
-            style={styles.modal}
-            entering={SlideInDown.duration(300)}
-            exiting={SlideOutDown.duration(300).withCallback(() => {
-              'worklet';
-              runOnJS(setIsActive)(false);
-            })}
-          >
-            <View style={styles.empty} onTouchEnd={() => setIsModalVisible(false)} />
-            {children}
-          </Animated.View>
-        </>
-      )}
+      <Animated.View style={[styles.modal, animatedBackdropStyle]}>
+        <View style={styles.empty} onTouchEnd={() => setIsModalVisible(false)} />
+        <Animated.View style={[styles.content, animatedContentStyle]}>{children}</Animated.View>
+      </Animated.View>
     </RNModal>
   );
 };
 
-const styles = StyleSheet.create({
-  backdrop: {
-    width: '100%',
-    position: 'absolute',
-    flex: 1,
-    height: Dimensions.get('screen').height,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    backgroundColor: 'rgba(0,0,0,0.6)',
-  },
-  modal: {
-    width: '100%',
-    flex: 1,
-    alignItems: 'stretch',
-    justifyContent: 'flex-end',
-  },
-  empty: {
-    flex: 1,
-    width: '100%',
-  },
-});
+const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
+  return StyleSheet.create({
+    modal: {
+      width: '100%',
+      flex: 1,
+    },
+    empty: {
+      flex: 1,
+      width: '100%',
+    },
+    content: {
+      backgroundColor: theme.colors.surface,
+      maxHeight: Dimensions.get('window').height - insets.top,
+      borderTopLeftRadius: theme.radius.xl,
+      borderTopRightRadius: theme.radius.xl,
+      overflow: 'hidden',
+    },
+  });
+};
