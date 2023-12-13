@@ -56,7 +56,7 @@ export const AccordionItem = (props: IProps) => {
   const onLayout = (event: LayoutChangeEvent) => {
     const onLayoutHeight = event.nativeEvent.layout.height;
     if (onLayoutHeight > 0 && height !== onLayoutHeight) {
-      setHeight(Math.round(onLayoutHeight + 8));
+      setHeight(Math.round(onLayoutHeight));
     }
   };
 
@@ -98,7 +98,7 @@ export const AccordionItem = (props: IProps) => {
         </View>
       )}
       <Animated.View style={[styles.collapsible, animatedStyle, { overflow: 'hidden' }]}>
-        <View style={{ position: 'absolute' }} onLayout={itemHeight ? undefined : onLayout}>
+        <View style={{ position: 'absolute', width: '100%' }} onLayout={itemHeight ? undefined : onLayout}>
           {children}
         </View>
       </Animated.View>

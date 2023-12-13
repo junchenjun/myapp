@@ -45,22 +45,6 @@ export default function Preview() {
             <Text>content content content content content content content</Text>
             <Text>content content content content content content content</Text>
             <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Button title='Log Out' onPress={() => {}} />
-            <Button title='Log Out' onPress={() => {}} />
-            <Button title='Log Out' onPress={() => {}} />
-            <Button title='Log Out' onPress={() => {}} />
             <Button title='Log Out' onPress={() => {}} />
           </>
         }
