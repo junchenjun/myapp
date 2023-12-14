@@ -5,7 +5,7 @@ import {
   createStackNavigator,
   TransitionPresets,
 } from '@react-navigation/stack';
-import { Stack, useRouter, withLayoutContext } from 'expo-router';
+import { Stack, router, withLayoutContext } from 'expo-router';
 import { Alert } from 'react-native';
 
 import { icons } from '~assets/icons';
@@ -25,8 +25,6 @@ export const JsStack = withLayoutContext<
 export default function Layout() {
   const useNativeRouter = false;
 
-  const router = useRouter();
-
   const createAlert = () =>
     Alert.alert(
       'Leave workout?',
@@ -36,7 +34,7 @@ export default function Layout() {
           text: 'Cancel',
           style: 'cancel',
         },
-        { text: 'Confirm', onPress: () => router.replace('(home)') },
+        { text: 'Confirm', onPress: () => router.back() },
       ],
       {
         cancelable: true,

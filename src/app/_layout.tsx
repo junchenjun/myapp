@@ -19,6 +19,7 @@ const storybookEnabled = process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true';
 
 const RootLayout = ({ loaded }: { loaded: boolean }) => {
   const [initializing, setInitializing] = useState(true);
+  const [splashHidden, setSplashHidden] = useState(false);
 
   const theme = useTheme();
   const auth = useAppSelector(state => state.auth);
@@ -33,6 +34,7 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
     if (isAppReady) {
       const hide = async () => {
         await SplashScreen.hideAsync();
+        setSplashHidden(true);
       };
       const timer = setTimeout(() => hide(), 1 * 1000);
       return () => {
@@ -57,7 +59,7 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
     }
   }, [auth.authed, isAppReady]);
 
-  if (Platform.OS === 'android') {
+  if (Platform.OS === 'android' && splashHidden) {
     NavigationBar.setBackgroundColorAsync(theme.colors.surface);
     NavigationBar.setBorderColorAsync(theme.colors.surface);
   }

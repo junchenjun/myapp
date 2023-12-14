@@ -1,5 +1,5 @@
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { useRouter } from 'expo-router';
+import { router } from 'expo-router';
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { EdgeInsets } from 'react-native-safe-area-context';
@@ -20,7 +20,6 @@ GoogleSignin.configure({
 
 export default function Auth() {
   const styles = useThemedStyles(createStyles);
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const googleSignIn = async () => {

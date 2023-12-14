@@ -1,4 +1,4 @@
-import { useRouter } from 'expo-router';
+import { router } from 'expo-router';
 import { Suspense, useState } from 'react';
 import { ScrollView, SectionList, StyleSheet, View } from 'react-native';
 
@@ -11,7 +11,6 @@ import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
 const Home = () => {
   const styles = useThemedStyles(createStyles);
-  const router = useRouter();
   const planList = useAppSelector(state => state.plans.list);
   const [isModalActive, setIsModalActive] = useState(false);
 

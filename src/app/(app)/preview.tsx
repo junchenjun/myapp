@@ -1,4 +1,4 @@
-import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router';
+import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { EdgeInsets } from 'react-native-safe-area-context';
 
@@ -18,7 +18,6 @@ export default function Preview() {
   const plans = useAppSelector(state => state.plans.list);
   const { workoutId, planId } = useLocalSearchParams();
   const styles = useThemedStyles(themedStyles);
-  const router = useRouter();
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
 

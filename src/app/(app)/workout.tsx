@@ -1,4 +1,4 @@
-import { useRouter } from 'expo-router';
+import { router } from 'expo-router';
 import { useEffect } from 'react';
 import { Alert, BackHandler, ScrollView, StyleSheet, View } from 'react-native';
 import { EdgeInsets } from 'react-native-safe-area-context';
@@ -12,7 +12,6 @@ import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 const Workout = () => {
   const styles = useThemedStyles(themedStyles);
   const { workout } = useAppSelector(state => state.workout);
-  const router = useRouter();
 
   const createAlert = () =>
     Alert.alert(
@@ -23,7 +22,7 @@ const Workout = () => {
           text: 'Cancel',
           style: 'cancel',
         },
-        { text: 'Confirm', onPress: () => router.replace('(home)') },
+        { text: 'Confirm', onPress: () => router.back() },
       ],
       {
         cancelable: true,

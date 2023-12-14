@@ -40,7 +40,7 @@ const colors = {
   },
 };
 
-const lightColors = {
+export const themeColorsLight = {
   // primary
   primary: colors.blue[50],
   onPrimary: colors.blue[100],
@@ -67,7 +67,7 @@ const lightColors = {
   modalBackdrop: 'rgba(0,0,0,0.5)',
 };
 
-const darkColors: typeof lightColors = {
+export const themeColorsDark: typeof themeColorsLight = {
   // primary
   primary: colors.blue[80],
   onPrimary: colors.blue[20],
@@ -94,7 +94,7 @@ const darkColors: typeof lightColors = {
   modalBackdrop: 'rgba(0,0,0,0.5)',
 };
 
-export type IColorKeys = keyof typeof lightColors;
+export type IColorKeys = keyof typeof themeColorsLight;
 
 const spacing = {
   0: 0,
@@ -264,7 +264,7 @@ export type IThemedText = typeof text;
 
 export interface ITheme {
   id: string;
-  colors: typeof lightColors;
+  colors: typeof themeColorsLight;
   text: typeof text;
   spacing: typeof spacing;
   radius: typeof radius;
@@ -283,7 +283,7 @@ const initialTheme = {
   radius,
   text,
   id: LIGHT_THEME_ID,
-  colors: lightColors,
+  colors: themeColorsLight,
 };
 
 const ThemeContext = createContext<ITheme>(initialTheme);
@@ -294,9 +294,9 @@ function themeReducer(theme: ITheme, action: IAction<string>) {
   switch (action.type) {
     case 'update': {
       if (action.payload === LIGHT_THEME_ID) {
-        return { ...initialTheme, id: LIGHT_THEME_ID, colors: lightColors };
+        return { ...initialTheme, id: LIGHT_THEME_ID, colors: themeColorsLight };
       } else if (action.payload === DARK_THEME_ID) {
-        return { ...initialTheme, id: DARK_THEME_ID, colors: darkColors };
+        return { ...initialTheme, id: DARK_THEME_ID, colors: themeColorsDark };
       }
       return theme;
     }

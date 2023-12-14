@@ -1,30 +1,26 @@
 {
-    "compilerOptions": {
-        /* Linting */
-        "strict": true,
-        // "noUnusedLocals": true,
-        // "noUnusedParameters": true,
-        // "noFallthroughCasesInSwitch": true,
+  "compilerOptions": {
+    /* Linting */
+    "strict": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "noFallthroughCasesInSwitch": true,
 
-        /* Alias support */
-        "baseUrl": "./", 
-        "paths": {
-            "~components/*": ["./components/*"],
-            "~assets/*": ["./src/assets/*"],
-            "~utils/*": ["./src/utils/*"],
-            "~redux/*": ["./src/redux/*"],
-            "~app/*": ["./src/app/*"],
-            "~firebase/*": ["./src/firebase/*"],
+    /* Alias support */
+    "baseUrl": "./",
+    "paths": {
+      "~components/*": ["./components/*"],
+      "~assets/*": ["./src/assets/*"],
+      "~utils/*": ["./src/utils/*"],
+      "~redux/*": ["./src/redux/*"],
+      "~app/*": ["./src/app/*"],
+      "~firebase/*": ["./src/firebase/*"],
 
-            "@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"]
-        },
-    },
+      "@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"]
+    }
+  },
 
-    "include": [
-        "src/**/*",
-        "components/**/*",
-        ".storybook/**/*",
-    ],
+  "include": ["src/**/*", "components/**/*", ".storybook/**/*", "*.ts/*.tsx"],
 
-    "extends": "expo/tsconfig.base",
+  "extends": "expo/tsconfig.base"
 }
