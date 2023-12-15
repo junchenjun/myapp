@@ -1,6 +1,6 @@
 import { router } from 'expo-router';
 import { Suspense, useState } from 'react';
-import { ScrollView, SectionList, StyleSheet, View } from 'react-native';
+import { Alert, ScrollView, SectionList, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
 import { MenuItem } from '~components/menuItem/MenuItem';
@@ -19,13 +19,36 @@ const Home = () => {
       return { title: p.name, data: p.workouts, id: p.id };
     }) || [];
 
+  const createAlert = () =>
+    Alert.alert(
+      'Leave workout?',
+      'You will be able to resume later',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        { text: 'Confirm', onPress: () => null },
+      ],
+      {
+        cancelable: true,
+      }
+    );
+
   return (
     <>
       <Modal isActive={isModalActive} setIsActive={setIsModalActive}>
         <ScrollView contentContainerStyle={styles.content} bounces={false}>
           <MenuItem iconLeft={icons.Edit} roundedBottomCorners roundedTopCorners title='New Workout Plan' />
           <MenuItem iconLeft={icons.Switch} roundedBottomCorners roundedTopCorners title='New Workout Plan' />
-          <MenuItem danger iconLeft={icons.Trash} roundedBottomCorners roundedTopCorners title='Delete Current Plan' />
+          <MenuItem
+            danger
+            iconLeft={icons.Trash}
+            onPress={createAlert}
+            roundedBottomCorners
+            roundedTopCorners
+            title='Delete Current Plan'
+          />
         </ScrollView>
       </Modal>
       <ScrollView contentContainerStyle={styles.scroll}>

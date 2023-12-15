@@ -1,7 +1,5 @@
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { useState } from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
 import { MenuItem } from '~components/menuItem/MenuItem';
@@ -11,15 +9,12 @@ import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
 const Settings = () => {
   const styles = useThemedStyles(createStyles);
-  const [loading, setLoading] = useState(false);
 
   const logout = async () => {
     try {
       await firebaseAuth().signOut();
       await GoogleSignin.signOut();
-    } catch (e) {
-      setLoading(false);
-    }
+    } catch (e) {}
   };
 
   const createTwoButtonAlert = () =>
@@ -30,13 +25,11 @@ const Settings = () => {
         {
           text: 'Cancel',
           style: 'cancel',
-          onPress: () => setLoading(false),
         },
         { text: 'Confirm', onPress: logout },
       ],
       {
         cancelable: true,
-        onDismiss: () => setLoading(false),
       }
     );
 
@@ -53,15 +46,7 @@ const Settings = () => {
           title='Jun Chen'
           desc='junchen.cq@gmail.com'
         />
-        <MenuItem
-          onPress={() => {
-            setLoading(true);
-            createTwoButtonAlert();
-          }}
-          iconLeft={icons.SignOut}
-          roundedBottomCorners
-          title='Sign Out'
-        />
+        <MenuItem onPress={createTwoButtonAlert} iconLeft={icons.SignOut} roundedBottomCorners title='Sign Out' />
       </View>
       {/* Preferences */}
       <Text text='Preferences' color='onSurfaceDim' style={styles.label} />
@@ -104,16 +89,7 @@ const Settings = () => {
         <MenuItem iconRight={icons.External} iconLeft={icons.File} withBorder title='License' />
         <MenuItem iconRight={icons.External} iconLeft={icons.File} withBorder title='Privacy Policy' />
         <MenuItem iconRight={icons.External} iconLeft={icons.File} withBorder title='Terms of Service' />
-        <MenuItem
-          danger
-          onPress={() => {
-            setLoading(true);
-            createTwoButtonAlert();
-          }}
-          iconLeft={icons.Trash}
-          roundedBottomCorners
-          title='Delete Account'
-        />
+        <MenuItem danger iconLeft={icons.Trash} roundedBottomCorners title='Delete Account' />
       </View>
     </ScrollView>
   );

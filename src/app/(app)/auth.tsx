@@ -2,13 +2,11 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { EdgeInsets } from 'react-native-safe-area-context';
 
 import { icons } from '~assets/icons';
 import { Button } from '~components/button/Button';
 import { Text } from '~components/text/Text';
 import { firebaseAuth } from '~firebase/firebaseConfig';
-import { getFloatButtonDistance } from '~utils/styleHelper';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
 GoogleSignin.configure({
@@ -62,7 +60,7 @@ export default function Auth() {
   );
 }
 
-const createStyles = (theme: ITheme, insets: EdgeInsets) => {
+const createStyles = (theme: ITheme) => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -71,7 +69,7 @@ const createStyles = (theme: ITheme, insets: EdgeInsets) => {
       padding: 24,
       gap: 15,
       backgroundColor: theme.colors.surfaceExtraDim,
-      paddingBottom: getFloatButtonDistance(insets) + 50,
+      paddingBottom: 100,
     },
     header: {
       marginBottom: 10,

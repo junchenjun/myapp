@@ -7,7 +7,7 @@ import {
   withAndroidStyles,
 } from '@expo/config-plugins';
 
-const withColors: ConfigPlugin = config => {
+const withAndroidStylesPlugin: ConfigPlugin = config => {
   withAndroidStyles(config, async config => {
     config.modResults = await configureFullScreenDialog(config.modResults);
     return config;
@@ -22,6 +22,23 @@ const withColors: ConfigPlugin = config => {
   });
 };
 
+const colors = {
+  dark: {
+    navigationBarColor: '#141517',
+    alertBackground: '#1D1F21',
+    alertText: '#F7F8FA',
+    alertTextDim: '#C6C6C9',
+    primary: '#AAC7FF',
+  },
+  light: {
+    navigationBarColor: '#F4F5F6',
+    alertBackground: '#F4F5F6',
+    alertText: '#001B3E',
+    alertTextDim: '#5D5E61',
+    primary: '#1275E3',
+  },
+};
+
 // dark colors
 async function configureDarkColors(
   styles: AndroidConfig.Resources.ResourceXML
@@ -33,7 +50,6 @@ async function configureDarkColors(
           color.$.name !== 'alertBackground' &&
           color.$.name !== 'alertText' &&
           color.$.name !== 'alertTextDim' &&
-          color.$.name !== 'splashscreen_background' &&
           color.$.name !== 'navigationBarColor' &&
           color.$.name !== 'primary'
       )
@@ -41,38 +57,34 @@ async function configureDarkColors(
 
   const alertBackground = AndroidConfig.Resources.buildResourceItem({
     name: 'alertBackground',
-    value: '#1D1F21',
+    value: colors.dark.alertBackground,
   });
 
+  // message
   const alertTextDim = AndroidConfig.Resources.buildResourceItem({
     name: 'alertTextDim',
-    value: '#C6C6C9',
+    value: colors.dark.alertTextDim,
   });
 
+  // title
   const alertText = AndroidConfig.Resources.buildResourceItem({
     name: 'alertText',
-    value: '#F7F8FA',
-  });
-
-  const splashscreenBackground = AndroidConfig.Resources.buildResourceItem({
-    name: 'splashscreen_background',
-    value: '#141517',
+    value: colors.dark.alertText,
   });
 
   const primary = AndroidConfig.Resources.buildResourceItem({
     name: 'primary',
-    value: '#AAC7FF',
+    value: colors.dark.primary,
   });
 
   const navigationBarColor = AndroidConfig.Resources.buildResourceItem({
     name: 'navigationBarColor',
-    value: '#141517',
+    value: colors.dark.navigationBarColor,
   });
 
   styles.resources.color.push(alertBackground);
   styles.resources.color.push(alertText);
   styles.resources.color.push(alertTextDim);
-  styles.resources.color.push(splashscreenBackground);
   styles.resources.color.push(primary);
   styles.resources.color.push(navigationBarColor);
 
@@ -89,7 +101,6 @@ async function configureLightColors(
           color.$.name !== 'alertBackground' &&
           color.$.name !== 'alertTextDim' &&
           color.$.name !== 'alertText' &&
-          color.$.name !== 'splashscreen_background' &&
           color.$.name !== 'navigationBarColor' &&
           color.$.name !== 'primary'
       )
@@ -97,38 +108,32 @@ async function configureLightColors(
 
   const alertBackground = AndroidConfig.Resources.buildResourceItem({
     name: 'alertBackground',
-    value: '#F4F5F6',
+    value: colors.light.alertBackground,
   });
 
   const alertTextDim = AndroidConfig.Resources.buildResourceItem({
     name: 'alertTextDim',
-    value: '#5D5E61',
+    value: colors.light.alertTextDim,
   });
 
   const alertText = AndroidConfig.Resources.buildResourceItem({
     name: 'alertText',
-    value: '#001B3E',
-  });
-
-  const splashscreenBackground = AndroidConfig.Resources.buildResourceItem({
-    name: 'splashscreen_background',
-    value: '#F4F5F6',
+    value: colors.light.alertText,
   });
 
   const navigationBarColor = AndroidConfig.Resources.buildResourceItem({
     name: 'navigationBarColor',
-    value: '#F4F5F6',
+    value: colors.light.navigationBarColor,
   });
 
   const primary = AndroidConfig.Resources.buildResourceItem({
     name: 'primary',
-    value: '#1275E3',
+    value: colors.light.primary,
   });
 
   styles.resources.color.push(alertBackground);
   styles.resources.color.push(alertTextDim);
   styles.resources.color.push(alertText);
-  styles.resources.color.push(splashscreenBackground);
   styles.resources.color.push(primary);
   styles.resources.color.push(navigationBarColor);
 
@@ -142,49 +147,48 @@ async function configureFullScreenDialog(
   styles.resources.style = styles.resources.style!.filter(
     style =>
       style.$.name !== 'AppTheme' &&
-      style.$.name !== 'Theme.App.SplashScreen' &&
       style.$.name !== 'AlertDialogTheme' &&
       style.$.name !== 'NegativeButtonStyle' &&
       style.$.name !== 'PositiveButtonStyle'
   );
 
-  // Add theme
+  // AppTheme
   const appTheme = (
-    await XML.parseXMLAsync(`<style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
-    <item name="android:editTextStyle">@style/ResetEditText</item>
-    <item name="android:editTextBackground">@drawable/rn_edit_text_material</item>
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="android:enforceNavigationBarContrast">false</item>
-    <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
-    <item name="android:windowSplashScreenBackground">@color/splashscreen_background</item>
-    <item name="android:windowLightNavigationBar">true</item>
-    <item name="android:navigationBarColor">@color/navigationBarColor</item>
-  </style>
-`)
-  ).style as AndroidConfig.Resources.ResourceGroupXML;
-
-  const alertDialogTheme = (
     await XML.parseXMLAsync(`
-  <style name="AlertDialogTheme" parent="Theme.AppCompat.DayNight.Dialog.Alert">
-    <item name="android:background">@color/alertBackground</item>
-    <item name="android:textColor">@color/alertText</item>
-    <item name="android:textColorPrimary">@color/alertTextDim</item>
-    <item name="android:buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
-    <item name="android:buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
-  </style>
-`)
-  ).style as AndroidConfig.Resources.ResourceGroupXML;
-
-  const negativeButtonStyle = (
-    await XML.parseXMLAsync(`
-    <style name="NegativeButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
-      <item name="android:textColor">@color/alertTextDim</item>
-      <item name="android:textAllCaps">false</item>
-    </style>
+      <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:editTextStyle">@style/ResetEditText</item>
+        <item name="android:editTextBackground">@drawable/rn_edit_text_material</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:enforceNavigationBarContrast">false</item>
+        <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="android:windowSplashScreenBackground">@color/splashscreen_background</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:navigationBarColor">@color/navigationBarColor</item>
+      </style>
     `)
   ).style as AndroidConfig.Resources.ResourceGroupXML;
 
+  // AlertDialogTheme
+  const alertDialogTheme = (
+    await XML.parseXMLAsync(`
+      <style name="AlertDialogTheme" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="android:background">@color/alertBackground</item>
+        <item name="android:textColor">@color/alertText</item>
+        <item name="android:textColorPrimary">@color/alertTextDim</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+      </style>
+    `)
+  ).style as AndroidConfig.Resources.ResourceGroupXML;
+  const negativeButtonStyle = (
+    await XML.parseXMLAsync(`
+      <style name="NegativeButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">@color/alertTextDim</item>
+        <item name="android:textAllCaps">false</item>
+      </style>
+    `)
+  ).style as AndroidConfig.Resources.ResourceGroupXML;
   const positiveButtonStyle = (
     await XML.parseXMLAsync(`
       <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
@@ -194,26 +198,14 @@ async function configureFullScreenDialog(
     `)
   ).style as AndroidConfig.Resources.ResourceGroupXML;
 
-  // 1A. You can build the XML object using the JS API
-  const SplashScreen = AndroidConfig.Resources.buildResourceGroup({
-    parent: 'AppTheme',
-    name: 'Theme.App.SplashScreen',
-    items: [
-      AndroidConfig.Resources.buildResourceItem({
-        name: 'android:windowBackground',
-        value: '@drawable/splashscreen',
-      }),
-    ],
-  });
-
-  // Add the resource object to the styles to be written
   styles.resources.style.push(appTheme);
   styles.resources.style.push(alertDialogTheme);
   styles.resources.style.push(negativeButtonStyle);
   styles.resources.style.push(positiveButtonStyle);
-  styles.resources.style.push(SplashScreen);
 
   return styles;
 }
 
-module.exports = withColors;
+module.exports = withAndroidStylesPlugin;
+
+// https://github.com/expo/expo/issues/7799#issuecomment-1009425322

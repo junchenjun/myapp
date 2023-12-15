@@ -1,6 +1,5 @@
 import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { EdgeInsets } from 'react-native-safe-area-context';
 
 import { icons } from '~assets/icons';
 import { Accordion } from '~components/accordion/Accordion';
@@ -11,7 +10,6 @@ import { Text } from '~components/text/Text';
 import { WorkoutContainer } from '~components/workoutContainer/WorkoutContainer';
 import { useAppDispatch, useAppSelector } from '~redux/store';
 import { IExercise, setWorkout } from '~redux/workoutSlice';
-import { getFloatButtonDistance } from '~utils/styleHelper';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
 export default function Preview() {
@@ -106,7 +104,7 @@ export default function Preview() {
     </View>
   );
 }
-const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
+const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
     container: {
       flex: 1,
@@ -132,7 +130,7 @@ const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
     float: {
       position: 'absolute',
       right: theme.spacing[4],
-      bottom: getFloatButtonDistance(insets),
+      bottom: 25,
     },
   });
 };

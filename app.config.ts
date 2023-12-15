@@ -118,7 +118,7 @@ const appConfig: ExpoConfig = {
     //     ],
     //   },
     // ],
-    ['./withColorsPlugin', 'withColorsPlugin'],
+    ['./withAndroidStylesPlugin', 'withAndroidStylesPlugin'],
   ],
   experiments: {
     tsconfigPaths: true,

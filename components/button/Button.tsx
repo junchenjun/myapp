@@ -59,7 +59,7 @@ const themedStyles = (theme: ITheme) => {
       overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
     },
     elevated: {
-      elevation: 2,
+      elevation: 4,
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.3,
       shadowRadius: 2,

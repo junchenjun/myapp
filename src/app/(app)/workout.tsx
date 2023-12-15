@@ -1,12 +1,10 @@
 import { router } from 'expo-router';
 import { useEffect } from 'react';
 import { Alert, BackHandler, ScrollView, StyleSheet, View } from 'react-native';
-import { EdgeInsets } from 'react-native-safe-area-context';
 
 import { Button } from '~components/button/Button';
 import { ExerciseContainer } from '~components/ExerciseContainer';
 import { useAppSelector } from '~redux/store';
-import { getFloatButtonDistance } from '~utils/styleHelper';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
 const Workout = () => {
@@ -52,7 +50,7 @@ const Workout = () => {
 
 export default Workout;
 
-const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
+const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
     container: {
       flex: 1,
@@ -61,7 +59,7 @@ const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
     },
     scroll: {
       padding: theme.spacing[4],
-      paddingBottom: getFloatButtonDistance(insets),
+      paddingBottom: 20,
       gap: theme.spacing[3],
     },
   });
