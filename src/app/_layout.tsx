@@ -1,3 +1,4 @@
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { ThemeProvider as RNThemeProvider, DefaultTheme } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
@@ -103,9 +104,11 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
   };
 
   return (
-    <RNThemeProvider value={navTheme}>
-      <Slot />
-    </RNThemeProvider>
+    <BottomSheetModalProvider>
+      <RNThemeProvider value={navTheme}>
+        <Slot />
+      </RNThemeProvider>
+    </BottomSheetModalProvider>
   );
 };
 

@@ -1,87 +1,108 @@
-import { ReactElement, useEffect, useState } from 'react';
-import { StyleSheet, Modal as RNModal, View, Dimensions } from 'react-native';
-import Animated, { runOnJS, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
-import { EdgeInsets } from 'react-native-safe-area-context';
+import {
+  BottomSheetBackdrop,
+  BottomSheetBackdropProps,
+  BottomSheetModal,
+  BottomSheetModalProps,
+  BottomSheetView,
+} from '@gorhom/bottom-sheet';
+import { ReactElement, RefObject, useCallback, useRef } from 'react';
+import { BackHandler, NativeEventSubscription, StyleSheet } from 'react-native';
+import { EdgeInsets, useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { ITheme, useTheme, useThemedStyles } from '~utils/ThemeContext';
+import { Text } from '~components/text/Text';
+import { ITheme, useThemedStyles } from '~utils/ThemeContext';
+
+/**
+ * hook that dismisses the bottom sheet on the hardware back button press if it is visible
+ * @param bottomSheetRef ref to the bottom sheet which is going to be closed/dismissed on the back press
+ */
+const useBottomSheetBackHandler = (bottomSheetRef: React.RefObject<BottomSheetModal | null>) => {
+  const backHandlerSubscriptionRef = useRef<NativeEventSubscription | null>(null);
+  const handleSheetPositionChange = useCallback<NonNullable<BottomSheetModalProps['onChange']>>(
+    (index: number) => {
+      const isBottomSheetVisible = index >= 0;
+      if (isBottomSheetVisible && !backHandlerSubscriptionRef.current) {
+        // setup the back handler if the bottom sheet is right in front of the user
+        backHandlerSubscriptionRef.current = BackHandler.addEventListener('hardwareBackPress', () => {
+          bottomSheetRef.current?.dismiss();
+          return true;
+        });
+      } else if (!isBottomSheetVisible) {
+        backHandlerSubscriptionRef.current?.remove();
+        backHandlerSubscriptionRef.current = null;
+      }
+    },
+    [bottomSheetRef, backHandlerSubscriptionRef]
+  );
+  return { handleSheetPositionChange };
+};
 
 interface IProps {
-  isActive: boolean;
-  setIsActive: React.Dispatch<React.SetStateAction<boolean>>;
+  bottomSheetModalRef: RefObject<BottomSheetModal>;
   children?: ReactElement | ReactElement[];
+  title?: string;
 }
 
 export const Modal = (props: IProps) => {
-  const { isActive, setIsActive, children } = props;
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const theme = useTheme();
+  const { bottomSheetModalRef, children, title } = props;
   const styles = useThemedStyles(themedStyles);
+  const insets = useSafeAreaInsets();
+  const { handleSheetPositionChange } = useBottomSheetBackHandler(bottomSheetModalRef);
 
-  useEffect(() => {
-    isActive && setIsModalVisible(isActive);
-  }, [isActive]);
-
-  const animationStartPosition = -50;
-  const duration = 200;
-  const contentOpacity = useSharedValue(0);
-  const contentPosition = useSharedValue(animationStartPosition);
-  const backdropColor = useSharedValue('transparent');
-
-  const animatedContentStyle = useAnimatedStyle(() => {
-    contentOpacity.value = isModalVisible ? 1 : 0;
-    contentPosition.value = isModalVisible
-      ? withTiming(0, { duration })
-      : withTiming(animationStartPosition, { duration }, finished => {
-          'worklet';
-          if (finished) {
-            runOnJS(setIsActive)(false);
-          }
-        });
-    return {
-      opacity: withTiming(contentOpacity.value, { duration }),
-      bottom: contentPosition.value,
-    };
-  });
-
-  const animatedBackdropStyle = useAnimatedStyle(() => {
-    backdropColor.value = isModalVisible ? theme.colors.modalBackdrop : 'transparent';
-    return {
-      backgroundColor: withTiming(backdropColor.value, { duration }),
-    };
-  });
+  const renderBackdrop = useCallback(
+    (props: BottomSheetBackdropProps) => <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} />,
+    []
+  );
 
   return (
-    <RNModal
-      transparent
-      animationType='none'
-      statusBarTranslucent
-      visible={isActive}
-      onRequestClose={() => setIsModalVisible(false)}
+    <BottomSheetModal
+      enableDismissOnClose
+      index={0}
+      enableDynamicSizing
+      enablePanDownToClose
+      ref={bottomSheetModalRef}
+      topInset={insets.top}
+      backdropComponent={renderBackdrop}
+      backgroundStyle={styles.backgroundStyle}
+      handleIndicatorStyle={styles.handle}
+      onChange={handleSheetPositionChange}
     >
-      <Animated.View style={[styles.modal, animatedBackdropStyle]}>
-        <View style={styles.empty} onTouchEnd={() => setIsModalVisible(false)} />
-        <Animated.View style={[styles.content, animatedContentStyle]}>{children}</Animated.View>
-      </Animated.View>
-    </RNModal>
+      <BottomSheetView style={[styles.view, !!title && styles.withTitle]}>
+        {title && (
+          <Text variant='h6Regular' style={styles.title}>
+            {title}
+          </Text>
+        )}
+        {children}
+      </BottomSheetView>
+    </BottomSheetModal>
   );
 };
 
 const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
   return StyleSheet.create({
-    modal: {
-      width: '100%',
-      flex: 1,
-    },
-    empty: {
-      flex: 1,
-      width: '100%',
-    },
-    content: {
+    backgroundStyle: {
       backgroundColor: theme.colors.surface,
-      maxHeight: Dimensions.get('window').height - insets.top,
       borderTopLeftRadius: theme.radius.xl,
       borderTopRightRadius: theme.radius.xl,
-      overflow: 'hidden',
+      borderRadius: 0,
+    },
+    title: {
+      paddingVertical: theme.spacing[7],
+      paddingTop: 0,
+      textAlign: 'center',
+    },
+    withTitle: {
+      paddingTop: 0,
+      paddingBottom: insets.bottom + theme.spacing[10],
+    },
+    view: {
+      paddingHorizontal: theme.spacing[4],
+      paddingVertical: theme.spacing[2],
+      paddingBottom: insets.bottom + theme.spacing[4],
+    },
+    handle: {
+      backgroundColor: theme.colors.outlineDim,
     },
   });
 };

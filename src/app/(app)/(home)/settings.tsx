@@ -1,14 +1,23 @@
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { useCallback, useRef } from 'react';
 import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
+import { AppearanceSwitcher } from '~components/appearanceSwitcher/AppearanceSwitcher';
 import { MenuItem } from '~components/menuItem/MenuItem';
+import { Modal } from '~components/modal/Modal';
 import { Text } from '~components/text/Text';
 import { firebaseAuth } from '~firebase/firebaseConfig';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
 const Settings = () => {
   const styles = useThemedStyles(createStyles);
+
+  const appearanceModalRef = useRef<BottomSheetModal>(null);
+  const appearanceModalPress = useCallback(() => {
+    appearanceModalRef.current?.present();
+  }, []);
 
   const logout = async () => {
     try {
@@ -35,6 +44,9 @@ const Settings = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
+      <Modal bottomSheetModalRef={appearanceModalRef} title='Appearance'>
+        <AppearanceSwitcher />
+      </Modal>
       {/* Account */}
       <Text text='Account' color='onSurfaceDim' style={styles.label} />
       <View style={styles.menu}>
@@ -58,6 +70,7 @@ const Settings = () => {
           roundedTopCorners
           title='Appearance'
           desc='System Default'
+          onPress={appearanceModalPress}
         />
         <MenuItem
           iconRight={icons.ExpandRight}

@@ -1,5 +1,6 @@
 import { router, useLocalSearchParams, useNavigation } from 'expo-router';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { useCallback } from 'react';
+import { FlatList, Platform, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
 import { Accordion } from '~components/accordion/Accordion';
@@ -20,11 +21,11 @@ export default function Preview() {
   const navigation = useNavigation();
 
   const workout = plans?.find(p => p.id === planId)?.workouts.find(w => w.id === workoutId);
-
   const labels = ['Back', 'Triceps'];
+  const ITEM_HEIGHT = 126;
 
-  const renderItem = ({ item }: { item: IExercise }) => {
-    return (
+  const renderItem = useCallback(
+    ({ item }: { item: IExercise }) => (
       <WorkoutContainer
         style={{ marginTop: styles.gap.marginTop }}
         title={item.name}
@@ -46,13 +47,15 @@ export default function Preview() {
           </>
         }
       />
-    );
-  };
+    ),
+    []
+  );
   return (
     <View style={styles.container}>
       {workout && (
         <Accordion>
           <FlatList
+            removeClippedSubviews={Platform.OS === 'android'}
             onScroll={event => {
               const scrolling = event.nativeEvent.contentOffset.y;
               if (scrolling >= 80) {
@@ -62,7 +65,8 @@ export default function Preview() {
               }
             }}
             scrollEventThrottle={16}
-            initialNumToRender={7}
+            initialNumToRender={8}
+            getItemLayout={(data, index) => ({ length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index })}
             contentContainerStyle={styles.scroll}
             data={workout?.exercises.concat(workout.exercises).concat(workout.exercises).concat(workout.exercises)}
             renderItem={renderItem}

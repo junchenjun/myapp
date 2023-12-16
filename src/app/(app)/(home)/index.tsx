@@ -1,5 +1,6 @@
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { router } from 'expo-router';
-import { Suspense, useState } from 'react';
+import { Suspense, useCallback, useRef } from 'react';
 import { Alert, ScrollView, SectionList, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
@@ -12,7 +13,12 @@ import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 const Home = () => {
   const styles = useThemedStyles(createStyles);
   const planList = useAppSelector(state => state.plans.list);
-  const [isModalActive, setIsModalActive] = useState(false);
+
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
 
   const sectionData =
     planList?.map(p => {
@@ -37,8 +43,8 @@ const Home = () => {
 
   return (
     <>
-      <Modal isActive={isModalActive} setIsActive={setIsModalActive}>
-        <ScrollView contentContainerStyle={styles.content} bounces={false}>
+      <Modal bottomSheetModalRef={bottomSheetModalRef}>
+        <View style={styles.content}>
           <MenuItem iconLeft={icons.Edit} roundedBottomCorners roundedTopCorners title='New Workout Plan' />
           <MenuItem iconLeft={icons.Switch} roundedBottomCorners roundedTopCorners title='New Workout Plan' />
           <MenuItem
@@ -49,7 +55,7 @@ const Home = () => {
             roundedTopCorners
             title='Delete Current Plan'
           />
-        </ScrollView>
+        </View>
       </Modal>
       <ScrollView contentContainerStyle={styles.scroll}>
         <Suspense fallback={<View />}>
@@ -66,7 +72,7 @@ const Home = () => {
                 title={item.name}
                 header={{
                   labels: ['Shoulder', 'biceps'],
-                  onPress: () => setIsModalActive(true),
+                  onPress: handlePresentModalPress,
                 }}
                 onPress={() => {
                   return router.push({
@@ -101,9 +107,6 @@ const createStyles = (theme: ITheme) => {
       overflow: 'hidden',
     },
     content: {
-      paddingHorizontal: theme.spacing[4],
-      paddingVertical: theme.spacing[5],
-      paddingBottom: theme.spacing[6],
       gap: theme.spacing[2],
     },
   });

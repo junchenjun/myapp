@@ -44,6 +44,7 @@ export const themeColorsLight = {
   // primary
   primary: colors.blue[50],
   onPrimary: colors.blue[100],
+  primaryContainer: '#F2F8FF',
   // surface
   surfaceExtraBright: colors.gray[100],
   surfaceBright: colors.gray[98],
@@ -71,6 +72,7 @@ export const themeColorsDark: typeof themeColorsLight = {
   // primary
   primary: colors.blue[80],
   onPrimary: colors.blue[20],
+  primaryContainer: '#051A33',
   // surface
   surfaceExtraBright: colors.gray[17],
   surfaceBright: colors.gray[12],
@@ -183,15 +185,15 @@ const text = {
   },
   h6Light: {
     fontFamily: 'Kanit-Light',
-    fontSize: 16,
+    fontSize: 18,
   },
   h6Regular: {
     fontFamily: 'Kanit-Regular',
-    fontSize: 16,
+    fontSize: 18,
   },
   h6Medium: {
     fontFamily: 'Kanit-Medium',
-    fontSize: 16,
+    fontSize: 18,
   },
   // paragraphs
   pLGItalic: {
