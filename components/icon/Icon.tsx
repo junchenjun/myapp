@@ -1,6 +1,6 @@
 import { IIcon } from '~assets/icons';
 import { Pressable } from '~components/pressable/Pressable';
-import { IColorKeys, useTheme } from '~utils/ThemeContext';
+import { ITheme, useTheme } from '~utils/ThemeContext';
 
 export const Icon = ({
   icon,
@@ -12,10 +12,10 @@ export const Icon = ({
 }: {
   icon: IIcon;
   size?: number;
-  color?: IColorKeys;
-  fill?: 'none' | IColorKeys;
+  color?: keyof ITheme['colors'];
+  fill?: 'none' | keyof ITheme['colors'];
   onPress?: () => void;
-  rippleColor?: IColorKeys;
+  rippleColor?: keyof ITheme['colors'];
 }) => {
   const theme = useTheme();
 

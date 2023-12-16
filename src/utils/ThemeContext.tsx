@@ -1,5 +1,4 @@
 import { Dispatch, ReactElement, createContext, useContext, useMemo, useReducer } from 'react';
-import { EdgeInsets, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const colors = {
   gray: {
@@ -38,9 +37,9 @@ const colors = {
     40: '#BA1A1A',
     20: '#690005',
   },
-};
+} as const;
 
-export const themeColorsLight = {
+const themeColorsLight = {
   // primary
   primary: colors.blue[50],
   onPrimary: colors.blue[100],
@@ -66,9 +65,9 @@ export const themeColorsLight = {
   rippleDim: colors.gray[70],
   // transparent
   modalBackdrop: 'rgba(0,0,0,0.5)',
-};
+} as const;
 
-export const themeColorsDark: typeof themeColorsLight = {
+const themeColorsDark = {
   // primary
   primary: colors.blue[80],
   onPrimary: colors.blue[20],
@@ -94,9 +93,7 @@ export const themeColorsDark: typeof themeColorsLight = {
   rippleDim: colors.gray[30],
   // transparent
   modalBackdrop: 'rgba(0,0,0,0.5)',
-};
-
-export type IColorKeys = keyof typeof themeColorsLight;
+} as const;
 
 const spacing = {
   0: 0,
@@ -110,7 +107,7 @@ const spacing = {
   8: 32,
   9: 36,
   10: 40,
-};
+} as const;
 
 const radius = {
   xs: 4,
@@ -119,7 +116,7 @@ const radius = {
   lg: 16,
   xl: 20,
   round: 100,
-};
+} as const;
 
 const text = {
   // heading
@@ -260,13 +257,13 @@ const text = {
     fontFamily: 'Kanit-Medium',
     fontSize: 12,
   },
-};
+} as const;
 
 export type IThemedText = typeof text;
 
 export interface ITheme {
   id: string;
-  colors: typeof themeColorsLight;
+  colors: typeof themeColorsLight | typeof themeColorsDark;
   text: typeof text;
   spacing: typeof spacing;
   radius: typeof radius;
@@ -334,13 +331,12 @@ function useUpdateTheme() {
     });
 }
 
-type Generator<T extends object> = (theme: ITheme, insets: EdgeInsets) => T;
+type Generator<T extends object> = (theme: ITheme) => T;
 
 const useThemedStyles = <T extends object>(fn: Generator<T>) => {
   const theme = useTheme();
-  const insets = useSafeAreaInsets();
 
-  const ThemeAwareObject = useMemo(() => fn(theme, insets), [fn, theme, insets]);
+  const ThemeAwareObject = useMemo(() => fn(theme), [fn, theme]);
   return ThemeAwareObject;
 };
 

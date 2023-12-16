@@ -8,7 +8,7 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import { IColorKeys, useTheme, useThemedStyles } from '~utils/ThemeContext';
+import { ITheme, useTheme } from '~utils/ThemeContext';
 
 interface IProps {
   onPress?: (e: MouseEvent<HTMLAnchorElement> | GestureResponderEvent) => void;
@@ -20,14 +20,13 @@ interface IProps {
     radius?: number;
     borderless?: boolean;
     disabled?: boolean;
-    color?: IColorKeys;
+    color?: keyof ITheme['colors'];
   };
   hitSlop?: number;
 }
 
 export const Pressable = (props: IProps) => {
   const { onPress, children, disabled, style, rippleConfig, hitSlop } = props;
-  const styles = useThemedStyles(themedStyles);
   const theme = useTheme();
 
   const isDisabled = disabled;
@@ -62,10 +61,8 @@ export const Pressable = (props: IProps) => {
   );
 };
 
-const themedStyles = () => {
-  return StyleSheet.create({
-    disabled: {
-      opacity: 0.4,
-    },
-  });
-};
+const styles = StyleSheet.create({
+  disabled: {
+    opacity: 0.4,
+  },
+});

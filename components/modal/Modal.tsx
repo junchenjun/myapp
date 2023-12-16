@@ -41,12 +41,13 @@ interface IProps {
   bottomSheetModalRef: RefObject<BottomSheetModal>;
   children?: ReactElement | ReactElement[];
   title?: string;
+  backgroundColor?: keyof Pick<ITheme['colors'], 'surface' | 'surfaceExtraBright'>;
 }
 
 export const Modal = (props: IProps) => {
-  const { bottomSheetModalRef, children, title } = props;
-  const styles = useThemedStyles(themedStyles);
+  const { bottomSheetModalRef, children, title, backgroundColor = 'surfaceExtraBright' } = props;
   const insets = useSafeAreaInsets();
+  const styles = useThemedStyles(themedStyles({ insets, backgroundColor }));
   const { handleSheetPositionChange } = useBottomSheetBackHandler(bottomSheetModalRef);
 
   const renderBackdrop = useCallback(
@@ -78,31 +79,36 @@ export const Modal = (props: IProps) => {
     </BottomSheetModal>
   );
 };
-
-const themedStyles = (theme: ITheme, insets: EdgeInsets) => {
-  return StyleSheet.create({
-    backgroundStyle: {
-      backgroundColor: theme.colors.surface,
-      borderTopLeftRadius: theme.radius.xl,
-      borderTopRightRadius: theme.radius.xl,
-      borderRadius: 0,
-    },
-    title: {
-      paddingVertical: theme.spacing[7],
-      paddingTop: 0,
-      textAlign: 'center',
-    },
-    withTitle: {
-      paddingTop: 0,
-      paddingBottom: insets.bottom + theme.spacing[10],
-    },
-    view: {
-      paddingHorizontal: theme.spacing[4],
-      paddingVertical: theme.spacing[2],
-      paddingBottom: insets.bottom + theme.spacing[4],
-    },
-    handle: {
-      backgroundColor: theme.colors.outlineDim,
-    },
-  });
+const themedStyles = (extra: {
+  insets: EdgeInsets;
+  backgroundColor: keyof Pick<ITheme['colors'], 'surface' | 'surfaceExtraBright'>;
+}) => {
+  const styles = (theme: ITheme) => {
+    return StyleSheet.create({
+      backgroundStyle: {
+        backgroundColor: theme.colors[extra.backgroundColor],
+        borderTopLeftRadius: theme.radius.xl,
+        borderTopRightRadius: theme.radius.xl,
+        borderRadius: 0,
+      },
+      title: {
+        paddingVertical: theme.spacing[7],
+        paddingTop: 0,
+        textAlign: 'center',
+      },
+      withTitle: {
+        paddingTop: 0,
+        paddingBottom: extra.insets.bottom + theme.spacing[10],
+      },
+      view: {
+        paddingHorizontal: theme.spacing[4],
+        paddingVertical: theme.spacing[2],
+        paddingBottom: extra.insets.bottom + theme.spacing[4],
+      },
+      handle: {
+        backgroundColor: theme.colors.outlineDim,
+      },
+    });
+  };
+  return styles;
 };

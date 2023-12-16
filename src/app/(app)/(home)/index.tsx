@@ -43,7 +43,7 @@ const Home = () => {
 
   return (
     <>
-      <Modal bottomSheetModalRef={bottomSheetModalRef}>
+      <Modal bottomSheetModalRef={bottomSheetModalRef} backgroundColor='surface'>
         <View style={styles.content}>
           <MenuItem iconLeft={icons.Edit} roundedBottomCorners roundedTopCorners title='New Workout Plan' />
           <MenuItem iconLeft={icons.Switch} roundedBottomCorners roundedTopCorners title='New Workout Plan' />

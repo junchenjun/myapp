@@ -1,12 +1,12 @@
 import { Text as RNText, StyleProp, TextStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
 
-import { useTheme, IThemedText, IColorKeys } from '~utils/ThemeContext';
+import { useTheme, IThemedText, ITheme } from '~utils/ThemeContext';
 
 interface IProps {
   text?: string;
   variant?: keyof IThemedText;
-  color?: IColorKeys;
+  color?: keyof ITheme['colors'];
   animatedStyles?: StyleProp<Animated.AnimateStyle<StyleProp<TextStyle>>>;
   style?: TextStyle;
   children?: string | number;
