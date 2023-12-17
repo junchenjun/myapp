@@ -1,13 +1,13 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { RefObject } from 'react';
-import { Appearance, StyleSheet, View, useColorScheme } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
 import { Modal } from '~components/modal/Modal';
 import { SelectButton } from '~components/selectButton/SelectButton';
-import { ITheme, useThemedStyles } from '~theme/ThemeContext';
-
-type IColorMode = 'light' | 'dark' | null;
+import { ITheme, appColorScheme, useTheme, useThemedStyles } from '~theme/ThemeContext';
+import { useUpdateAppColorScheme } from '~utils/hooks/useUpdateAppColorScheme';
+import { saveToSecureStore, secureStoreKeys } from '~utils/secureStore';
 
 interface IProps {
   bottomSheetModalRef: RefObject<BottomSheetModal>;
@@ -15,12 +15,15 @@ interface IProps {
 
 export const AppearanceModal = (props: IProps) => {
   const { bottomSheetModalRef } = props;
+  const theme = useTheme();
+  const updateAppColorScheme = useUpdateAppColorScheme();
 
   const styles = useThemedStyles(themedStyles);
-  const colorScheme = useColorScheme();
 
-  const setTheme = (v: IColorMode) => {
-    Appearance.setColorScheme(v);
+  const setTheme = (v: (typeof appColorScheme)[keyof typeof appColorScheme]) => {
+    saveToSecureStore(secureStoreKeys.colorscheme, v).then(() => {
+      updateAppColorScheme(v);
+    });
   };
 
   return (
@@ -29,20 +32,20 @@ export const AppearanceModal = (props: IProps) => {
         <SelectButton
           icon={icons.Appearance}
           title='Light Mode'
-          onPress={() => setTheme('light')}
-          selected={colorScheme === 'light'}
+          onPress={() => setTheme(appColorScheme.light)}
+          selected={!theme.systemDefault && theme.id === appColorScheme.light}
         />
         <SelectButton
           icon={icons.Appearance}
           title='Dark Mode'
-          onPress={() => setTheme('dark')}
-          selected={colorScheme === 'dark'}
+          onPress={() => setTheme(appColorScheme.dark)}
+          selected={!theme.systemDefault && theme.id === appColorScheme.dark}
         />
         <SelectButton
           icon={icons.Appearance}
           title='System Default'
-          onPress={() => setTheme(null)}
-          selected={colorScheme === null}
+          onPress={() => setTheme(appColorScheme.system)}
+          selected={theme.systemDefault}
         />
       </View>
     </Modal>

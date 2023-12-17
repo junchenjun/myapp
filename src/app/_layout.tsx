@@ -4,16 +4,17 @@ import { ThemeProvider as RNThemeProvider, DefaultTheme } from '@react-navigatio
 import { useFonts } from 'expo-font';
 import * as NavigationBar from 'expo-navigation-bar';
 import { Slot, SplashScreen, useRouter } from 'expo-router';
-import { setStatusBarStyle } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
-import { Platform, View, useColorScheme } from 'react-native';
+import { useCallback, useEffect, useState } from 'react';
+import { Platform, View } from 'react-native';
 import { Provider } from 'react-redux';
 
 import { firebaseAuth, getPlansCollection } from '~firebase/firebaseConfig';
 import { setAuth } from '~redux/authSlice';
 import { setPlans } from '~redux/planSlice';
 import { store, useAppDispatch, useAppSelector } from '~redux/store';
-import { ThemeProvider, appThemes, useTheme, useUpdateTheme } from '~theme/ThemeContext';
+import { IAppColorScheme, ThemeProvider, appColorScheme, useTheme } from '~theme/ThemeContext';
+import { useUpdateAppColorScheme } from '~utils/hooks/useUpdateAppColorScheme';
+import { getSecureStoreValue, secureStoreKeys } from '~utils/secureStore';
 
 SplashScreen.preventAutoHideAsync();
 const storybookEnabled = process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true';
@@ -25,9 +26,8 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
   const theme = useTheme();
   const auth = useAppSelector(state => state.auth);
   const router = useRouter();
-  const colorScheme = useColorScheme();
   const dispatch = useAppDispatch();
-  const updateTheme = useUpdateTheme();
+  const updateAppColorScheme = useUpdateAppColorScheme();
 
   const isAppReady = loaded && !initializing;
 
@@ -45,58 +45,59 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
   }, [isAppReady]);
 
   useEffect(() => {
-    if (colorScheme === 'light') {
-      updateTheme(appThemes.light);
-      setStatusBarStyle('dark');
-    } else {
-      updateTheme(appThemes.dark);
-      setStatusBarStyle('light');
-    }
-  }, [colorScheme]);
+    const getSavedColorscheme = async () => {
+      const result = await getSecureStoreValue<IAppColorScheme>(secureStoreKeys.colorscheme);
+      updateAppColorScheme(result);
+    };
+    getSavedColorscheme();
+  }, [updateAppColorScheme]);
 
   useEffect(() => {
     if (!auth.authed && isAppReady) {
       router.replace('auth');
     }
-  }, [auth.authed, isAppReady]);
+  }, [auth.authed, isAppReady, router]);
 
   if (Platform.OS === 'android' && splashHidden) {
     NavigationBar.setBackgroundColorAsync(theme.colors.surface);
     NavigationBar.setBorderColorAsync(theme.colors.surface);
   }
 
-  const onAuthStateChanged = async (user: FirebaseAuthTypes.User | null) => {
-    if (user) {
-      const userInfo = {
-        displayName: user.displayName,
-        email: user.email,
-        phoneNumber: user.phoneNumber,
-        photoURL: user.photoURL,
-        providerId: user.providerId,
-        uid: user.uid,
-      };
-      const plans = (await getPlansCollection(user.uid)).docs.map(doc => doc.data());
-      dispatch(setPlans(plans));
-      dispatch(setAuth(userInfo));
-    } else {
-      dispatch(setAuth());
-    }
-    if (initializing) {
-      setInitializing(false);
-    }
-  };
+  const onAuthStateChanged = useCallback(
+    async (user: FirebaseAuthTypes.User | null) => {
+      if (user) {
+        const userInfo = {
+          displayName: user.displayName,
+          email: user.email,
+          phoneNumber: user.phoneNumber,
+          photoURL: user.photoURL,
+          providerId: user.providerId,
+          uid: user.uid,
+        };
+        const plans = (await getPlansCollection(user.uid)).docs.map(doc => doc.data());
+        dispatch(setPlans(plans));
+        dispatch(setAuth(userInfo));
+      } else {
+        dispatch(setAuth());
+      }
+      if (initializing) {
+        setInitializing(false);
+      }
+    },
+    [dispatch, initializing]
+  );
 
   useEffect(() => {
     const subscriber = firebaseAuth().onAuthStateChanged(onAuthStateChanged);
     return subscriber;
-  }, []);
+  }, [onAuthStateChanged]);
 
   if (!loaded) {
     return null;
   }
 
   const navTheme = {
-    dark: theme.id === appThemes.dark,
+    dark: theme.id === appColorScheme.dark,
     colors: {
       ...DefaultTheme.colors,
       background: theme.colors.surfaceExtraDim,

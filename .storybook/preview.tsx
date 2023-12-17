@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, useColorScheme } from 'react-native';
-import { ThemeProvider, appThemes, useTheme, useUpdateTheme } from '../src/theme/ThemeContext';
+import { ThemeProvider, appColorScheme, useTheme, useUpdateTheme } from '../src/theme/ThemeContext';
 import { Story } from '@storybook/react-native';
 
 export const parameters = {
@@ -19,9 +19,9 @@ const Root = ({ Story }: { Story: Story }) => {
 
   useEffect(() => {
     if (colorScheme === 'light') {
-      updateTheme(appThemes.light);
+      updateTheme(appColorScheme.light, false);
     } else {
-      updateTheme(appThemes.dark);
+      updateTheme(appColorScheme.dark, false);
     }
   }, [colorScheme]);
   return (

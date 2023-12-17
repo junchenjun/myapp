@@ -1,21 +1,24 @@
-import { Dispatch, ReactElement, createContext, useContext, useMemo, useReducer } from 'react';
+import { Dispatch, ReactElement, createContext, useCallback, useContext, useMemo, useReducer } from 'react';
 
 import { themeColorsDark, themeColorsLight, themeFonts, themeRadius, themeSpacing } from '~theme/themeValues';
 
 export type IThemedText = typeof themeFonts;
 
-export const appThemes = {
+export const appColorScheme = {
   light: 'light',
   dark: 'dark',
   system: 'system',
 } as const;
 
+export type IAppColorScheme = (typeof appColorScheme)[keyof typeof appColorScheme];
+
 export interface ITheme {
-  id: (typeof appThemes)[keyof typeof appThemes];
+  id: IAppColorScheme;
   colors: typeof themeColorsLight | typeof themeColorsDark;
   fonts: typeof themeFonts;
   spacing: typeof themeSpacing;
   radius: typeof themeRadius;
+  systemDefault: boolean;
 }
 
 interface IAction<T> {
@@ -27,7 +30,8 @@ const initialTheme = {
   spacing: themeSpacing,
   radius: themeRadius,
   fonts: themeFonts,
-  id: appThemes.light,
+  id: appColorScheme.light,
+  systemDefault: true,
   colors: themeColorsLight,
 };
 
@@ -35,13 +39,23 @@ const ThemeContext = createContext<ITheme>(initialTheme);
 
 const ThemeDispatchContext = createContext({});
 
-function themeReducer(theme: ITheme, action: IAction<(typeof appThemes)[keyof typeof appThemes]>) {
+function themeReducer(theme: ITheme, action: IAction<{ id: IAppColorScheme; systemDefault: boolean }>) {
   switch (action.type) {
     case 'update': {
-      if (action.payload === appThemes.light) {
-        return { ...initialTheme, id: appThemes.light, colors: themeColorsLight };
-      } else if (action.payload === appThemes.dark) {
-        return { ...initialTheme, id: appThemes.dark, colors: themeColorsDark };
+      if (action.payload.id === appColorScheme.light) {
+        return {
+          ...initialTheme,
+          id: appColorScheme.light,
+          colors: themeColorsLight,
+          systemDefault: action.payload.systemDefault,
+        };
+      } else if (action.payload.id === appColorScheme.dark) {
+        return {
+          ...initialTheme,
+          id: appColorScheme.dark,
+          colors: themeColorsDark,
+          systemDefault: action.payload.systemDefault,
+        };
       }
       return theme;
     }
@@ -69,14 +83,18 @@ function useTheme() {
 
 function useUpdateTheme() {
   const themeDispatch = useContext(ThemeDispatchContext) as Dispatch<
-    IAction<(typeof appThemes)[keyof typeof appThemes]>
+    IAction<{ id: IAppColorScheme; systemDefault: boolean }>
   >;
 
-  return (id: (typeof appThemes)[keyof typeof appThemes]) =>
-    themeDispatch({
-      type: 'update',
-      payload: id,
-    });
+  return useCallback(
+    (id: IAppColorScheme, systemDefault: boolean) => {
+      themeDispatch({
+        type: 'update',
+        payload: { id, systemDefault },
+      });
+    },
+    [themeDispatch]
+  );
 }
 
 type Generator<T extends object> = (theme: ITheme) => T;

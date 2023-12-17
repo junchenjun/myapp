@@ -48,7 +48,7 @@ export default function Preview() {
         }
       />
     ),
-    []
+    [styles.gap.marginTop]
   );
   return (
     <View style={styles.container}>

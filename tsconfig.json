@@ -4,23 +4,26 @@
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "noFallthroughCasesInSwitch": true,
 
     /* Alias support */
     "baseUrl": "./",
     "paths": {
       "~components/*": ["./src/components/*"],
+      "~theme/*": ["./src/theme/*"],
       "~assets/*": ["./src/assets/*"],
       "~utils/*": ["./src/utils/*"],
       "~redux/*": ["./src/redux/*"],
       "~app/*": ["./src/app/*"],
       "~firebase/*": ["./src/firebase/*"],
-      "~theme/*": ["./src/theme/*"],
       "~modals/*": ["./src/modals/*"],
       "@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"]
     }
   },
 
-  "include": ["src/**/*", "src/components/**/*", ".storybook/**/*", "*.ts/*.tsx"],
+  "include": ["src/**/*", "components/**/*", ".storybook/**/*", "*.ts/*.tsx"],
 
   "extends": "expo/tsconfig.base"
 }

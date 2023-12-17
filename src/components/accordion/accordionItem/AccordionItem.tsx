@@ -72,7 +72,7 @@ export const AccordionItem = (props: IProps) => {
         }
       });
     }
-  }, [autoCollapse, expanded, uniqueId]);
+  }, [autoCollapse, expanded, setExpandedIds, uniqueId]);
 
   const icon = useMemo(
     () =>
@@ -81,7 +81,7 @@ export const AccordionItem = (props: IProps) => {
       ) : (
         <Icon icon={icons.ExpandDown} onPress={onPress} color='onSurfaceExtraDim' />
       ),
-    [expanded]
+    [expanded, onPress]
   );
 
   animatedHeight.value = expanded ? withTiming(height, { duration: 200 }) : withTiming(0);
