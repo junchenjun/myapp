@@ -7,7 +7,7 @@ import { Modal } from '~components/modal/Modal';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 interface IProps {
-  items: React.ComponentProps<typeof MenuItem>[];
+  items: Pick<React.ComponentProps<typeof MenuItem>, 'danger' | 'iconLeft' | 'onPress' | 'title'>[];
   bottomSheetModalRef: RefObject<BottomSheetModal>;
 }
 
@@ -19,7 +19,7 @@ export const BottomMenu = (props: IProps) => {
     <Modal bottomSheetModalRef={bottomSheetModalRef} backgroundColor='surface'>
       <View style={styles.content}>
         {items.map((i, index) => {
-          return <MenuItem key={i.title + index} {...i} />;
+          return <MenuItem key={i.title + index} {...i} roundedBottomCorners roundedTopCorners />;
         })}
       </View>
     </Modal>

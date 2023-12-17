@@ -6,7 +6,7 @@ import { Pressable } from '~components/pressable/Pressable';
 import { Text } from '~components/text/Text';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
-interface IProps {
+interface IMenuItemProps {
   title: string;
   desc?: string;
   iconLeft?: IIcon;
@@ -18,7 +18,7 @@ interface IProps {
   onPress?: () => void;
 }
 
-export const MenuItem = (props: IProps) => {
+export const MenuItem = (props: IMenuItemProps) => {
   const { title, desc, onPress, iconLeft, iconRight, danger, roundedTopCorners, roundedBottomCorners, withBorder } =
     props;
 

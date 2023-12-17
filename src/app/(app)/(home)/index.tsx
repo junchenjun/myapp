@@ -45,12 +45,10 @@ const Home = () => {
       <BottomMenu
         bottomSheetModalRef={bottomSheetModalRef}
         items={[
-          { iconLeft: icons.Edit, roundedBottomCorners: true, roundedTopCorners: true, title: 'New Workout Plan' },
-          { iconLeft: icons.Switch, roundedBottomCorners: true, roundedTopCorners: true, title: 'New Workout Plan' },
+          { iconLeft: icons.Edit, title: 'New Workout Plan' },
+          { iconLeft: icons.Switch, title: 'New Workout Plan' },
           {
             iconLeft: icons.Trash,
-            roundedBottomCorners: true,
-            roundedTopCorners: true,
             danger: true,
             title: 'Delete Current Plan',
             onPress: createAlert,

@@ -61,8 +61,6 @@ export const themeColorsLight = {
   // android ripple
   ripple: colors.gray[90],
   rippleDim: colors.gray[70],
-  // transparent
-  modalBackdrop: 'rgba(0,0,0,0.5)',
 } as const;
 
 export const themeColorsDark = {
@@ -89,8 +87,6 @@ export const themeColorsDark = {
   // android ripple
   ripple: colors.gray[30],
   rippleDim: colors.gray[30],
-  // transparent
-  modalBackdrop: 'rgba(0,0,0,0.5)',
 } as const;
 
 export const themeSpacing = {
