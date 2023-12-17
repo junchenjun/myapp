@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   root: true,
   extends: ['universe/native', 'plugin:import/recommended'],
   plugins: ['unused-imports'],
@@ -16,8 +16,8 @@ module.exports = {
       {
         'newlines-between': 'always',
         alphabetize: {
-          order: 'asc' /* sort in ascending order. Options: ['ignore', 'asc', 'desc'] */,
-          caseInsensitive: true /* ignore case. Options: [true, false] */,
+          order: 'asc',
+          caseInsensitive: true,
         },
       },
     ],
