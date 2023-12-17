@@ -4,11 +4,10 @@ import { useCallback, useRef } from 'react';
 import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
-import { AppearanceSwitcher } from '~components/appearanceSwitcher/AppearanceSwitcher';
 import { MenuItem } from '~components/menuItem/MenuItem';
-import { Modal } from '~components/modal/Modal';
 import { Text } from '~components/text/Text';
 import { firebaseAuth } from '~firebase/firebaseConfig';
+import { AppearanceModal } from '~modals/appearanceModal/AppearanceModal';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 const Settings = () => {
@@ -44,9 +43,7 @@ const Settings = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-      <Modal bottomSheetModalRef={appearanceModalRef} title='Appearance'>
-        <AppearanceSwitcher />
-      </Modal>
+      <AppearanceModal bottomSheetModalRef={appearanceModalRef} />
       {/* Account */}
       <Text text='Account' color='onSurfaceDim' style={styles.label} />
       <View style={styles.menu}>

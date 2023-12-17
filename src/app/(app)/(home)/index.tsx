@@ -4,9 +4,8 @@ import { Suspense, useCallback, useRef } from 'react';
 import { Alert, ScrollView, SectionList, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
-import { MenuItem } from '~components/menuItem/MenuItem';
-import { Modal } from '~components/modal/Modal';
 import { WorkoutContainer } from '~components/workoutContainer/WorkoutContainer';
+import { BottomMenu } from '~modals/bottomMenu/BottomMenu';
 import { useAppSelector } from '~redux/store';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
@@ -43,20 +42,21 @@ const Home = () => {
 
   return (
     <>
-      <Modal bottomSheetModalRef={bottomSheetModalRef} backgroundColor='surface'>
-        <View style={styles.content}>
-          <MenuItem iconLeft={icons.Edit} roundedBottomCorners roundedTopCorners title='New Workout Plan' />
-          <MenuItem iconLeft={icons.Switch} roundedBottomCorners roundedTopCorners title='New Workout Plan' />
-          <MenuItem
-            danger
-            iconLeft={icons.Trash}
-            onPress={createAlert}
-            roundedBottomCorners
-            roundedTopCorners
-            title='Delete Current Plan'
-          />
-        </View>
-      </Modal>
+      <BottomMenu
+        bottomSheetModalRef={bottomSheetModalRef}
+        items={[
+          { iconLeft: icons.Edit, roundedBottomCorners: true, roundedTopCorners: true, title: 'New Workout Plan' },
+          { iconLeft: icons.Switch, roundedBottomCorners: true, roundedTopCorners: true, title: 'New Workout Plan' },
+          {
+            iconLeft: icons.Trash,
+            roundedBottomCorners: true,
+            roundedTopCorners: true,
+            danger: true,
+            title: 'Delete Current Plan',
+            onPress: createAlert,
+          },
+        ]}
+      />
       <ScrollView contentContainerStyle={styles.scroll}>
         <Suspense fallback={<View />}>
           <SectionList
@@ -105,9 +105,6 @@ const createStyles = (theme: ITheme) => {
     list: {
       flex: 1,
       overflow: 'hidden',
-    },
-    content: {
-      gap: theme.spacing[2],
     },
   });
 };

@@ -15,6 +15,7 @@
       "~app/*": ["./src/app/*"],
       "~firebase/*": ["./src/firebase/*"],
       "~theme/*": ["./src/theme/*"],
+      "~modals/*": ["./src/modals/*"],
       "@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"]
     }
   },
