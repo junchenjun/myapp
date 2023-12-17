@@ -19,7 +19,7 @@ export const BottomMenu = (props: IProps) => {
     <Modal bottomSheetModalRef={bottomSheetModalRef} backgroundColor='surface'>
       <View style={styles.content}>
         {items.map((i, index) => {
-          return <MenuItem key={i.title + index} {...i} roundedBottomCorners roundedTopCorners />;
+          return <MenuItem iosScaleDownAnimation key={i.title + index} {...i} roundedBottomCorners roundedTopCorners />;
         })}
       </View>
     </Modal>

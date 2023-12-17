@@ -41,7 +41,7 @@ export const AccordionItem = (props: IProps) => {
       height: animatedHeight.value,
       opacity: animatedOpacity.value,
     };
-  }, [expanded, height]);
+  });
 
   useEffect(() => {
     if (itemHeight) {

@@ -35,6 +35,7 @@ export const Button = (props: IButton) => {
     return (
       <View style={[styles.container, elevated && styles.elevated]}>
         <Pressable
+          iosScaleDownAnimation
           disabled={isDisabled}
           rippleConfig={{
             borderless: false,

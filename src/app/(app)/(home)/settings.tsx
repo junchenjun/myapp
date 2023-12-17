@@ -1,6 +1,6 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
@@ -11,6 +11,8 @@ import { AppearanceModal } from '~modals/appearanceModal/AppearanceModal';
 import { ITheme, appColorScheme, useTheme, useThemedStyles } from '~theme/ThemeContext';
 
 const Settings = () => {
+  const [loading, setLoading] = useState(false);
+
   const appearanceModalRef = useRef<BottomSheetModal>(null);
   const appearanceModalPress = useCallback(() => {
     appearanceModalRef.current?.present();
@@ -31,7 +33,7 @@ const Settings = () => {
     } catch (e) {}
   };
 
-  const createTwoButtonAlert = () =>
+  const logoutAlert = () =>
     Alert.alert(
       'Log out of App',
       '',
@@ -39,11 +41,13 @@ const Settings = () => {
         {
           text: 'Cancel',
           style: 'cancel',
+          onPress: () => setLoading(false),
         },
         { text: 'Confirm', onPress: logout },
       ],
       {
         cancelable: true,
+        onDismiss: () => setLoading(false),
       }
     );
 
@@ -61,7 +65,17 @@ const Settings = () => {
           title='Jun Chen'
           desc='junchen.cq@gmail.com'
         />
-        <MenuItem onPress={createTwoButtonAlert} iconLeft={icons.SignOut} roundedBottomCorners title='Sign Out' />
+        <MenuItem
+          disabled={loading}
+          disabledOnPress
+          onPress={() => {
+            setLoading(true);
+            logoutAlert();
+          }}
+          iconLeft={icons.SignOut}
+          roundedBottomCorners
+          title='Sign Out'
+        />
       </View>
       {/* Preferences */}
       <Text text='Preferences' color='onSurfaceDim' style={styles.label} />

@@ -16,13 +16,28 @@ interface IMenuItemProps {
   roundedBottomCorners?: boolean;
   withBorder?: boolean;
   onPress?: () => void;
+  disabled?: boolean;
+  disabledOnPress?: boolean;
+  iosScaleDownAnimation?: boolean;
 }
 
 export const MenuItem = (props: IMenuItemProps) => {
-  const { title, desc, onPress, iconLeft, iconRight, danger, roundedTopCorners, roundedBottomCorners, withBorder } =
-    props;
+  const {
+    title,
+    desc,
+    disabled,
+    onPress,
+    iconLeft,
+    iconRight,
+    danger,
+    roundedTopCorners,
+    roundedBottomCorners,
+    withBorder,
+    disabledOnPress,
+    iosScaleDownAnimation,
+  } = props;
 
-  const styles = useThemedStyles(themedStyles);
+  const styles = useThemedStyles(themedStyles({ iosScaleDownAnimation }));
 
   return (
     <View
@@ -33,7 +48,14 @@ export const MenuItem = (props: IMenuItemProps) => {
         withBorder && styles.withBorder,
       ]}
     >
-      <Pressable onPress={onPress} style={styles.pressable} rippleConfig={{ borderless: false }}>
+      <Pressable
+        iosScaleDownAnimation={iosScaleDownAnimation}
+        disabled={disabled}
+        disabledOnPress={disabledOnPress}
+        onPress={onPress}
+        style={[styles.pressable]}
+        rippleConfig={{ borderless: false }}
+      >
         <View style={styles.left}>
           {iconLeft && <Icon icon={iconLeft} color={danger ? 'error' : 'onSurfaceDim'} />}
           <View>
@@ -47,37 +69,41 @@ export const MenuItem = (props: IMenuItemProps) => {
   );
 };
 
-const themedStyles = (theme: ITheme) => {
-  return StyleSheet.create({
-    container: {
-      width: '100%',
-      overflow: 'hidden',
-      backgroundColor: theme.colors.surfaceExtraBright,
-    },
-    pressable: {
-      flexDirection: 'row',
-      gap: theme.spacing[3],
-      padding: theme.spacing[4],
-      alignItems: 'center',
-    },
-    left: {
-      flexDirection: 'row',
-      flex: 1,
-      alignItems: 'center',
-      gap: theme.spacing[3],
-    },
-    withBorder: {
-      borderColor: theme.colors.outlineExtraDim,
-      borderBottomWidth: 1,
-      borderStyle: 'solid',
-    },
-    roundedBottomCorners: {
-      borderBottomLeftRadius: theme.radius.sm,
-      borderBottomRightRadius: theme.radius.sm,
-    },
-    roundedTopCorners: {
-      borderTopLeftRadius: theme.radius.sm,
-      borderTopRightRadius: theme.radius.sm,
-    },
-  });
+const themedStyles = ({ iosScaleDownAnimation }: { iosScaleDownAnimation?: boolean }) => {
+  const styles = (theme: ITheme) => {
+    return StyleSheet.create({
+      container: {
+        width: '100%',
+        overflow: 'hidden',
+        backgroundColor: iosScaleDownAnimation ? '' : theme.colors.surfaceExtraBright,
+      },
+      pressable: {
+        backgroundColor: theme.colors.surfaceExtraBright,
+        flexDirection: 'row',
+        gap: theme.spacing[3],
+        padding: theme.spacing[4],
+        alignItems: 'center',
+      },
+      left: {
+        flexDirection: 'row',
+        flex: 1,
+        alignItems: 'center',
+        gap: theme.spacing[3],
+      },
+      withBorder: {
+        borderColor: theme.colors.outlineExtraDim,
+        borderBottomWidth: 1,
+        borderStyle: 'solid',
+      },
+      roundedBottomCorners: {
+        borderBottomLeftRadius: theme.radius.sm,
+        borderBottomRightRadius: theme.radius.sm,
+      },
+      roundedTopCorners: {
+        borderTopLeftRadius: theme.radius.sm,
+        borderTopRightRadius: theme.radius.sm,
+      },
+    });
+  };
+  return styles;
 };

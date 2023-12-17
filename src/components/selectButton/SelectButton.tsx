@@ -30,14 +30,14 @@ export const SelectButton = (props: IButton) => {
 
   if (variant === 'large') {
     return (
-      <View style={[styles.largeButton, selected && styles.selected]}>
+      <View style={styles.largeButton}>
         <Pressable
+          iosScaleDownAnimation
           rippleConfig={{
             borderless: false,
-            // disabled: true,
           }}
           onPress={onPress}
-          style={[styles.pressable]}
+          style={[styles.pressable, selected && styles.selected]}
         >
           <View style={styles.left}>
             {(props as ILargeSelectButton).icon && (
@@ -63,18 +63,19 @@ const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
     largeButton: {
       borderRadius: theme.radius.lg,
-      backgroundColor: theme.colors.surfaceBright,
       alignSelf: 'center',
       overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
-      borderWidth: 1,
-      borderStyle: 'solid',
-      borderColor: theme.colors.outlineDim,
       width: '100%',
     },
     pressable: {
       flexDirection: 'row',
       padding: theme.spacing[4],
       gap: theme.spacing[2],
+      borderWidth: 1,
+      borderStyle: 'solid',
+      borderRadius: theme.radius.lg,
+      borderColor: theme.colors.outlineDim,
+      backgroundColor: theme.colors.surfaceBright,
     },
     selected: {
       borderColor: theme.colors.primary,

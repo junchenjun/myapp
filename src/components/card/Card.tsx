@@ -16,19 +16,28 @@ export const Card = (props: IProps) => {
 
   if (onPress) {
     return (
-      <View style={[styles.container, style && style]}>
-        <Pressable onPress={onPress} style={styles.padding}>
+      <View style={[styles.wrapper, style && style]}>
+        <Pressable
+          onPress={onPress}
+          rippleConfig={{ borderless: false }}
+          style={styles.container}
+          iosScaleDownAnimation
+        >
           <View style={[styles.flex, style && style]}>{children}</View>
         </Pressable>
       </View>
     );
   } else {
-    return <View style={[styles.container, styles.padding, style && style]}>{children}</View>;
+    return <View style={[styles.container, style && style]}>{children}</View>;
   }
 };
 
 const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
+    wrapper: {
+      overflow: 'hidden',
+      borderRadius: theme.radius.sm,
+    },
     container: {
       backgroundColor: theme.colors.surfaceExtraBright,
       borderRadius: theme.radius.sm,
@@ -36,8 +45,6 @@ const themedStyles = (theme: ITheme) => {
       display: 'flex',
       flexDirection: 'column',
       width: '100%',
-    },
-    padding: {
       padding: theme.spacing[5],
     },
     flex: {
