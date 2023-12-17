@@ -6,7 +6,7 @@ const SelectButtonStory = {
   title: 'Select Button',
   component: Button,
   argTypes: {
-    variant: { options: ['primary', 'icon'], control: { type: 'radio' } },
+    variant: { options: ['large', 'small'], control: { type: 'radio' } },
   },
   args: {
     title: 'Hello world',

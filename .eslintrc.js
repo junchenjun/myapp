@@ -30,7 +30,7 @@ module.exports = {
       },
       alias: {
         map: [
-          ['~components', './components'],
+          ['~components', './src/components'],
           ['~assets', './src/assets'],
           ['~redux', './src/redux'],
           ['~utils', './src/utils'],

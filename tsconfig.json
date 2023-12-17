@@ -13,18 +13,17 @@
     /* Alias support */
     "baseUrl": "./",
     "paths": {
-      "~components/*": ["./components/*"],
+      "~components/*": ["./src/components/*"],
       "~assets/*": ["./src/assets/*"],
       "~utils/*": ["./src/utils/*"],
       "~redux/*": ["./src/redux/*"],
       "~app/*": ["./src/app/*"],
       "~firebase/*": ["./src/firebase/*"],
-
       "@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"]
     }
   },
 
-  "include": ["src/**/*", "components/**/*", ".storybook/**/*", "*.ts/*.tsx"],
+  "include": ["src/**/*", "src/components/**/*", ".storybook/**/*", "*.ts/*.tsx"],
 
   "extends": "expo/tsconfig.base"
 }
