@@ -7,7 +7,6 @@ export type IThemedText = typeof themeFonts;
 export const appColorScheme = {
   light: 'light',
   dark: 'dark',
-  system: 'system',
 } as const;
 
 export type IAppColorScheme = (typeof appColorScheme)[keyof typeof appColorScheme];

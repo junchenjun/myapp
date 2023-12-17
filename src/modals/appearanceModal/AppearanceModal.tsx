@@ -5,7 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import { icons } from '~assets/icons';
 import { Modal } from '~components/modal/Modal';
 import { SelectButton } from '~components/selectButton/SelectButton';
-import { ITheme, appColorScheme, useTheme, useThemedStyles } from '~theme/ThemeContext';
+import { IAppColorScheme, ITheme, appColorScheme, useTheme, useThemedStyles } from '~theme/ThemeContext';
 import { useUpdateAppColorScheme } from '~utils/hooks/useUpdateAppColorScheme';
 import { saveToSecureStore, secureStoreKeys } from '~utils/secureStore';
 
@@ -20,8 +20,8 @@ export const AppearanceModal = (props: IProps) => {
 
   const styles = useThemedStyles(themedStyles);
 
-  const setTheme = (v: (typeof appColorScheme)[keyof typeof appColorScheme]) => {
-    saveToSecureStore(secureStoreKeys.colorscheme, v).then(() => {
+  const setTheme = (v: IAppColorScheme | null) => {
+    saveToSecureStore(secureStoreKeys.colorscheme, v || '').then(() => {
       updateAppColorScheme(v);
     });
   };
@@ -44,7 +44,7 @@ export const AppearanceModal = (props: IProps) => {
         <SelectButton
           icon={icons.Appearance}
           title='System Default'
-          onPress={() => setTheme(appColorScheme.system)}
+          onPress={() => setTheme(null)}
           selected={theme.systemDefault}
         />
       </View>

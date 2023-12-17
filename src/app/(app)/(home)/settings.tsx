@@ -8,15 +8,21 @@ import { MenuItem } from '~components/menuItem/MenuItem';
 import { Text } from '~components/text/Text';
 import { firebaseAuth } from '~firebase/firebaseConfig';
 import { AppearanceModal } from '~modals/appearanceModal/AppearanceModal';
-import { ITheme, useThemedStyles } from '~theme/ThemeContext';
+import { ITheme, appColorScheme, useTheme, useThemedStyles } from '~theme/ThemeContext';
 
 const Settings = () => {
-  const styles = useThemedStyles(createStyles);
-
   const appearanceModalRef = useRef<BottomSheetModal>(null);
   const appearanceModalPress = useCallback(() => {
     appearanceModalRef.current?.present();
   }, []);
+  const theme = useTheme();
+  const styles = useThemedStyles(createStyles);
+
+  const colorschemeName = theme.systemDefault
+    ? 'System Default'
+    : theme.id === appColorScheme.dark
+    ? 'Dark Mode'
+    : 'Light Mode';
 
   const logout = async () => {
     try {
@@ -66,7 +72,7 @@ const Settings = () => {
           withBorder
           roundedTopCorners
           title='Appearance'
-          desc='System Default'
+          desc={colorschemeName}
           onPress={appearanceModalPress}
         />
         <MenuItem

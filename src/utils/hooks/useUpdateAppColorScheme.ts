@@ -10,7 +10,7 @@ export function useUpdateAppColorScheme() {
 
   const updateAppColorScheme = useCallback(
     (v: IAppColorScheme | null) => {
-      if (!v || v === appColorScheme.system) {
+      if (!v) {
         if (colorScheme === 'light') {
           updateTheme(appColorScheme.light, true);
           setStatusBarStyle('dark');
