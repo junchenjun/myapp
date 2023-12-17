@@ -8,7 +8,7 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import { ITheme, useTheme } from '~utils/ThemeContext';
+import { ITheme, useTheme } from '~theme/ThemeContext';
 
 interface IProps {
   onPress?: (e: MouseEvent<HTMLAnchorElement> | GestureResponderEvent) => void;

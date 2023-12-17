@@ -13,7 +13,7 @@ import { firebaseAuth, getPlansCollection } from '~firebase/firebaseConfig';
 import { setAuth } from '~redux/authSlice';
 import { setPlans } from '~redux/planSlice';
 import { store, useAppDispatch, useAppSelector } from '~redux/store';
-import { DARK_THEME_ID, LIGHT_THEME_ID, ThemeProvider, useTheme, useUpdateTheme } from '~utils/ThemeContext';
+import { DARK_THEME_ID, LIGHT_THEME_ID, ThemeProvider, useTheme, useUpdateTheme } from '~theme/ThemeContext';
 
 SplashScreen.preventAutoHideAsync();
 const storybookEnabled = process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true';

@@ -1,5 +1,3 @@
-import { Dispatch, ReactElement, createContext, useContext, useMemo, useReducer } from 'react';
-
 const colors = {
   gray: {
     100: '#ffffff',
@@ -39,7 +37,7 @@ const colors = {
   },
 } as const;
 
-const themeColorsLight = {
+export const themeColorsLight = {
   // primary
   primary: colors.blue[50],
   onPrimary: colors.blue[100],
@@ -67,7 +65,7 @@ const themeColorsLight = {
   modalBackdrop: 'rgba(0,0,0,0.5)',
 } as const;
 
-const themeColorsDark = {
+export const themeColorsDark = {
   // primary
   primary: colors.blue[80],
   onPrimary: colors.blue[20],
@@ -95,7 +93,7 @@ const themeColorsDark = {
   modalBackdrop: 'rgba(0,0,0,0.5)',
 } as const;
 
-const spacing = {
+export const themeSpacing = {
   0: 0,
   1: 4,
   2: 8,
@@ -109,7 +107,7 @@ const spacing = {
   10: 40,
 } as const;
 
-const radius = {
+export const themeRadius = {
   xs: 4,
   sm: 8,
   md: 12,
@@ -118,7 +116,7 @@ const radius = {
   round: 100,
 } as const;
 
-const text = {
+export const themeFonts = {
   // heading
   h1Light: {
     fontFamily: 'Kanit-Light',
@@ -258,86 +256,3 @@ const text = {
     fontSize: 12,
   },
 } as const;
-
-export type IThemedText = typeof text;
-
-export interface ITheme {
-  id: string;
-  colors: typeof themeColorsLight | typeof themeColorsDark;
-  text: typeof text;
-  spacing: typeof spacing;
-  radius: typeof radius;
-}
-
-export const DARK_THEME_ID = 'DARK_THEME';
-export const LIGHT_THEME_ID = 'LIGHT_THEME';
-
-interface IAction<T> {
-  type: string;
-  payload: T;
-}
-
-const initialTheme = {
-  spacing,
-  radius,
-  text,
-  id: LIGHT_THEME_ID,
-  colors: themeColorsLight,
-};
-
-const ThemeContext = createContext<ITheme>(initialTheme);
-
-const ThemeDispatchContext = createContext({});
-
-function themeReducer(theme: ITheme, action: IAction<string>) {
-  switch (action.type) {
-    case 'update': {
-      if (action.payload === LIGHT_THEME_ID) {
-        return { ...initialTheme, id: LIGHT_THEME_ID, colors: themeColorsLight };
-      } else if (action.payload === DARK_THEME_ID) {
-        return { ...initialTheme, id: DARK_THEME_ID, colors: themeColorsDark };
-      }
-      return theme;
-    }
-    default: {
-      throw Error('Unknown action: ' + action.type);
-    }
-  }
-}
-
-function ThemeProvider({ children }: { children: ReactElement }) {
-  const [theme, dispatch] = useReducer(themeReducer, initialTheme);
-
-  const themeMemoed = useMemo(() => theme, [theme]);
-
-  return (
-    <ThemeContext.Provider value={themeMemoed}>
-      <ThemeDispatchContext.Provider value={dispatch}>{children}</ThemeDispatchContext.Provider>
-    </ThemeContext.Provider>
-  );
-}
-
-function useTheme() {
-  return useContext(ThemeContext);
-}
-
-function useUpdateTheme() {
-  const themeDispatch = useContext(ThemeDispatchContext) as Dispatch<IAction<string>>;
-
-  return (id: typeof DARK_THEME_ID | typeof LIGHT_THEME_ID) =>
-    themeDispatch({
-      type: 'update',
-      payload: id,
-    });
-}
-
-type Generator<T extends object> = (theme: ITheme) => T;
-
-const useThemedStyles = <T extends object>(fn: Generator<T>) => {
-  const theme = useTheme();
-
-  const ThemeAwareObject = useMemo(() => fn(theme), [fn, theme]);
-  return ThemeAwareObject;
-};
-
-export { useThemedStyles, useUpdateTheme, useTheme, ThemeProvider };

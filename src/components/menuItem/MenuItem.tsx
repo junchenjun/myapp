@@ -4,7 +4,7 @@ import { IIcon } from '~assets/icons';
 import { Icon } from '~components/icon/Icon';
 import { Pressable } from '~components/pressable/Pressable';
 import { Text } from '~components/text/Text';
-import { ITheme, useThemedStyles } from '~utils/ThemeContext';
+import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 interface IProps {
   title: string;

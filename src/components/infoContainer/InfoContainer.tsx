@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 
 import { Card } from '~components/card/Card';
 import { Text } from '~components/text/Text';
-import { useTheme } from '~utils/ThemeContext';
+import { useTheme } from '~theme/ThemeContext';
 
 interface IProps {
   title: string;

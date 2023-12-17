@@ -34,6 +34,7 @@ module.exports = {
           ['~assets', './src/assets'],
           ['~redux', './src/redux'],
           ['~utils', './src/utils'],
+          ['~theme', './src/theme'],
           ['~app', './src/app'],
           ['~firebase', './src/firebase'],
         ],

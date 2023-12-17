@@ -1,7 +1,7 @@
 import { Dispatch, ReactElement, SetStateAction, createContext, useEffect, useState } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
-import { ITheme, useThemedStyles } from '~utils/ThemeContext';
+import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 interface IAccordionContextContextType {
   expandedIds: string[];

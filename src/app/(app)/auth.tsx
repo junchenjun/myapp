@@ -7,7 +7,7 @@ import { icons } from '~assets/icons';
 import { Button } from '~components/button/Button';
 import { Text } from '~components/text/Text';
 import { firebaseAuth } from '~firebase/firebaseConfig';
-import { ITheme, useThemedStyles } from '~utils/ThemeContext';
+import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 GoogleSignin.configure({
   offlineAccess: true,

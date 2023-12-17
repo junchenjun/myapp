@@ -6,7 +6,7 @@ import { EdgeInsets, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { IIcon } from '~assets/icons';
 import { Icon } from '~components/icon/Icon';
 import { Text } from '~components/text/Text';
-import { ITheme, useThemedStyles } from '~utils/ThemeContext';
+import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 interface IHeader {
   variant: 'default';

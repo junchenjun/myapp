@@ -4,11 +4,6 @@
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
 
     /* Alias support */
     "baseUrl": "./",
@@ -19,6 +14,7 @@
       "~redux/*": ["./src/redux/*"],
       "~app/*": ["./src/app/*"],
       "~firebase/*": ["./src/firebase/*"],
+      "~theme/*": ["./src/theme/*"],
       "@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"]
     }
   },

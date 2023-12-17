@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 import { Pressable } from '~components/pressable/Pressable';
-import { ITheme, useThemedStyles } from '~utils/ThemeContext';
+import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 interface IProps {
   onPress?: () => void;

@@ -11,7 +11,7 @@ import { Text } from '~components/text/Text';
 import { WorkoutContainer } from '~components/workoutContainer/WorkoutContainer';
 import { useAppDispatch, useAppSelector } from '~redux/store';
 import { IExercise, setWorkout } from '~redux/workoutSlice';
-import { ITheme, useThemedStyles } from '~utils/ThemeContext';
+import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 export default function Preview() {
   const plans = useAppSelector(state => state.plans.list);
@@ -66,7 +66,7 @@ export default function Preview() {
             }}
             scrollEventThrottle={16}
             initialNumToRender={8}
-            getItemLayout={(data, index) => ({ length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index })}
+            getItemLayout={(_data, index) => ({ length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index })}
             contentContainerStyle={styles.scroll}
             data={workout?.exercises.concat(workout.exercises).concat(workout.exercises).concat(workout.exercises)}
             renderItem={renderItem}

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, useColorScheme } from 'react-native';
-import { DARK_THEME_ID, LIGHT_THEME_ID, ThemeProvider, useTheme, useUpdateTheme } from './../src/utils/ThemeContext';
+import { DARK_THEME_ID, LIGHT_THEME_ID, ThemeProvider, useTheme, useUpdateTheme } from '../src/theme/ThemeContext';
 import { Story } from '@storybook/react-native';
 
 export const parameters = {

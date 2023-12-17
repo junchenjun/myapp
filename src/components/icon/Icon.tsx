@@ -1,6 +1,6 @@
 import { IIcon } from '~assets/icons';
 import { Pressable } from '~components/pressable/Pressable';
-import { ITheme, useTheme } from '~utils/ThemeContext';
+import { ITheme, useTheme } from '~theme/ThemeContext';
 
 export const Icon = ({
   icon,

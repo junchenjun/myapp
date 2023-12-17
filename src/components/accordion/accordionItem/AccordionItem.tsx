@@ -6,7 +6,7 @@ import { icons } from '~assets/icons';
 import { AccordionContext } from '~components/accordion/Accordion';
 import { Icon } from '~components/icon/Icon';
 import { Text } from '~components/text/Text';
-import { ITheme, useThemedStyles } from '~utils/ThemeContext';
+import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 interface IProps {
   children?: ReactElement | ReactElement[];

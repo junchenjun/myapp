@@ -8,7 +8,7 @@ import { MenuItem } from '~components/menuItem/MenuItem';
 import { Modal } from '~components/modal/Modal';
 import { WorkoutContainer } from '~components/workoutContainer/WorkoutContainer';
 import { useAppSelector } from '~redux/store';
-import { ITheme, useThemedStyles } from '~utils/ThemeContext';
+import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 const Home = () => {
   const styles = useThemedStyles(createStyles);

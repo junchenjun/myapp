@@ -7,7 +7,7 @@ import { Button } from '~components/button/Button';
 import { Text } from '~components/text/Text';
 import { WorkoutContainer } from '~components/workoutContainer/WorkoutContainer';
 import { useAppSelector } from '~redux/store';
-import { ITheme, useThemedStyles } from '~utils/ThemeContext';
+import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 const Workout = () => {
   const styles = useThemedStyles(themedStyles);

@@ -9,7 +9,7 @@ import { MenuItem } from '~components/menuItem/MenuItem';
 import { Modal } from '~components/modal/Modal';
 import { Text } from '~components/text/Text';
 import { firebaseAuth } from '~firebase/firebaseConfig';
-import { ITheme, useThemedStyles } from '~utils/ThemeContext';
+import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 const Settings = () => {
   const styles = useThemedStyles(createStyles);

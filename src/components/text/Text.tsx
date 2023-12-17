@@ -1,7 +1,7 @@
 import { Text as RNText, StyleProp, TextStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
 
-import { useTheme, IThemedText, ITheme } from '~utils/ThemeContext';
+import { useTheme, IThemedText, ITheme } from '~theme/ThemeContext';
 
 interface IProps {
   text?: string;
@@ -28,14 +28,14 @@ export const Text = (props: IProps) => {
   return animatedStyles ? (
     <Animated.Text
       numberOfLines={numberOfLines}
-      style={[{ color: theme.colors[color] }, { ...theme.text[variant] }, animatedStyles, customStyles]}
+      style={[{ color: theme.colors[color] }, { ...theme.fonts[variant] }, animatedStyles, customStyles]}
     >
       {children || text}
     </Animated.Text>
   ) : (
     <RNText
       numberOfLines={numberOfLines}
-      style={[{ color: theme.colors[color] }, { ...theme.text[variant] }, customStyles]}
+      style={[{ color: theme.colors[color] }, { ...theme.fonts[variant] }, customStyles]}
     >
       {children || text}
     </RNText>

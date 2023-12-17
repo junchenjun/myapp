@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { icons } from '~assets/icons';
 import { Icon } from '~components/icon/Icon';
 import { Label } from '~components/label/Label';
-import { ITheme, useThemedStyles } from '~utils/ThemeContext';
+import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 export interface IWorkoutContainerHeader {
   onPress?: () => void;

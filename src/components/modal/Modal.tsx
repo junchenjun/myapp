@@ -10,7 +10,7 @@ import { BackHandler, NativeEventSubscription, StyleSheet } from 'react-native';
 import { EdgeInsets, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Text } from '~components/text/Text';
-import { ITheme, useThemedStyles } from '~utils/ThemeContext';
+import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 /**
  * hook that dismisses the bottom sheet on the hardware back button press if it is visible

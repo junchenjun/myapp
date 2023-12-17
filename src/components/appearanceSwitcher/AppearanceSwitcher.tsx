@@ -2,7 +2,7 @@ import { Appearance, StyleSheet, View, useColorScheme } from 'react-native';
 
 import { icons } from '~assets/icons';
 import { SelectButton } from '~components/selectButton/SelectButton';
-import { ITheme, useThemedStyles } from '~utils/ThemeContext';
+import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 type IColorMode = 'light' | 'dark' | null;
 

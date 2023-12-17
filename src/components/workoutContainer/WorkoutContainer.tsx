@@ -8,7 +8,7 @@ import {
   IWorkoutContainerHeader,
   WorkoutContainerHeader,
 } from '~components/workoutContainer/workoutContainerHeader/WorkoutContainerHeader';
-import { ITheme, useThemedStyles } from '~utils/ThemeContext';
+import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 interface IProps {
   title?: string;
