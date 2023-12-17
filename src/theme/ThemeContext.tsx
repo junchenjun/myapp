@@ -12,8 +12,11 @@ export interface ITheme {
   radius: typeof themeRadius;
 }
 
-export const DARK_THEME_ID = 'DARK_THEME';
-export const LIGHT_THEME_ID = 'LIGHT_THEME';
+export const appThemes = {
+  light: 'light',
+  dark: 'dark',
+  system: 'system',
+} as const;
 
 interface IAction<T> {
   type: string;
@@ -24,7 +27,7 @@ const initialTheme = {
   spacing: themeSpacing,
   radius: themeRadius,
   fonts: themeFonts,
-  id: LIGHT_THEME_ID,
+  id: appThemes.light,
   colors: themeColorsLight,
 };
 
@@ -35,10 +38,10 @@ const ThemeDispatchContext = createContext({});
 function themeReducer(theme: ITheme, action: IAction<string>) {
   switch (action.type) {
     case 'update': {
-      if (action.payload === LIGHT_THEME_ID) {
-        return { ...initialTheme, id: LIGHT_THEME_ID, colors: themeColorsLight };
-      } else if (action.payload === DARK_THEME_ID) {
-        return { ...initialTheme, id: DARK_THEME_ID, colors: themeColorsDark };
+      if (action.payload === appThemes.light) {
+        return { ...initialTheme, id: appThemes.light, colors: themeColorsLight };
+      } else if (action.payload === appThemes.dark) {
+        return { ...initialTheme, id: appThemes.dark, colors: themeColorsDark };
       }
       return theme;
     }
@@ -65,9 +68,11 @@ function useTheme() {
 }
 
 function useUpdateTheme() {
-  const themeDispatch = useContext(ThemeDispatchContext) as Dispatch<IAction<string>>;
+  const themeDispatch = useContext(ThemeDispatchContext) as Dispatch<
+    IAction<(typeof appThemes)[keyof typeof appThemes]>
+  >;
 
-  return (id: typeof DARK_THEME_ID | typeof LIGHT_THEME_ID) =>
+  return (id: (typeof appThemes)[keyof typeof appThemes]) =>
     themeDispatch({
       type: 'update',
       payload: id,

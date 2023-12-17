@@ -13,7 +13,7 @@ import { firebaseAuth, getPlansCollection } from '~firebase/firebaseConfig';
 import { setAuth } from '~redux/authSlice';
 import { setPlans } from '~redux/planSlice';
 import { store, useAppDispatch, useAppSelector } from '~redux/store';
-import { DARK_THEME_ID, LIGHT_THEME_ID, ThemeProvider, useTheme, useUpdateTheme } from '~theme/ThemeContext';
+import { ThemeProvider, appThemes, useTheme, useUpdateTheme } from '~theme/ThemeContext';
 
 SplashScreen.preventAutoHideAsync();
 const storybookEnabled = process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true';
@@ -46,10 +46,10 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
 
   useEffect(() => {
     if (colorScheme === 'light') {
-      updateTheme(LIGHT_THEME_ID);
+      updateTheme(appThemes.light);
       setStatusBarStyle('dark');
     } else {
-      updateTheme(DARK_THEME_ID);
+      updateTheme(appThemes.dark);
       setStatusBarStyle('light');
     }
   }, [colorScheme]);
@@ -96,7 +96,7 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
   }
 
   const navTheme = {
-    dark: theme.id === DARK_THEME_ID,
+    dark: theme.id === appThemes.dark,
     colors: {
       ...DefaultTheme.colors,
       background: theme.colors.surfaceExtraDim,
