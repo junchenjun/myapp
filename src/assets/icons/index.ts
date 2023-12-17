@@ -3,6 +3,7 @@ import { IconAppearance } from '~assets/icons/IconAppearance';
 import { IconApple } from '~assets/icons/IconApple';
 import { IconBack } from '~assets/icons/IconBack';
 import { IconCalendar } from '~assets/icons/IconCalendar';
+import { IconChecked } from '~assets/icons/IconChecked';
 import { IconEdit } from '~assets/icons/IconEdit';
 import { IconExpandDown } from '~assets/icons/IconExpandDown';
 import { IconExpandRight } from '~assets/icons/IconExpandRight';
@@ -14,12 +15,15 @@ import { IconHourglass } from '~assets/icons/IconHourglass';
 import { IconLightbulb } from '~assets/icons/IconLightbulb';
 import { IconLightning } from '~assets/icons/IconLightning';
 import { IconMail } from '~assets/icons/IconMail';
+import { IconMoon } from '~assets/icons/IconMoon';
 import { IconMore } from '~assets/icons/IconMore';
 import { IconRuler } from '~assets/icons/IconRuler';
 import { IconSettings } from '~assets/icons/IconSettings';
 import { IconSignOut } from '~assets/icons/IconSignOut';
+import { IconSun } from '~assets/icons/IconSun';
 import { IconSwitch } from '~assets/icons/IconSwitch';
 import { IconTrash } from '~assets/icons/IconTrash';
+import { IconUnchecked } from '~assets/icons/IconUnchecked';
 import { IconUser } from '~assets/icons/IconUser';
 import { IconZap } from '~assets/icons/IconZap';
 
@@ -48,6 +52,10 @@ const icons = {
   Edit: IconEdit,
   Switch: IconSwitch,
   External: IconExternal,
+  Checked: IconChecked,
+  Unchecked: IconUnchecked,
+  Sun: IconSun,
+  Moon: IconMoon,
 };
 
 type IIcon = (typeof icons)[keyof typeof icons];

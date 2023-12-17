@@ -45,7 +45,12 @@ export const SelectButton = (props: IButton) => {
             )}
             <Text text={title} color={selected ? 'primary' : 'onSurfaceDim'} />
           </View>
-          <Icon icon={icons.Activity} color={selected ? 'primary' : 'outline'} />
+          <Icon
+            size={22}
+            icon={selected ? icons.Checked : icons.Unchecked}
+            color='outline'
+            fill={selected ? 'primary' : 'surfaceBright'}
+          />
         </Pressable>
       </View>
     );
