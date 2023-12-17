@@ -4,19 +4,19 @@ import { themeColorsDark, themeColorsLight, themeFonts, themeRadius, themeSpacin
 
 export type IThemedText = typeof themeFonts;
 
-export interface ITheme {
-  id: string;
-  colors: typeof themeColorsLight | typeof themeColorsDark;
-  fonts: typeof themeFonts;
-  spacing: typeof themeSpacing;
-  radius: typeof themeRadius;
-}
-
 export const appThemes = {
   light: 'light',
   dark: 'dark',
   system: 'system',
 } as const;
+
+export interface ITheme {
+  id: (typeof appThemes)[keyof typeof appThemes];
+  colors: typeof themeColorsLight | typeof themeColorsDark;
+  fonts: typeof themeFonts;
+  spacing: typeof themeSpacing;
+  radius: typeof themeRadius;
+}
 
 interface IAction<T> {
   type: string;
@@ -35,7 +35,7 @@ const ThemeContext = createContext<ITheme>(initialTheme);
 
 const ThemeDispatchContext = createContext({});
 
-function themeReducer(theme: ITheme, action: IAction<string>) {
+function themeReducer(theme: ITheme, action: IAction<(typeof appThemes)[keyof typeof appThemes]>) {
   switch (action.type) {
     case 'update': {
       if (action.payload === appThemes.light) {
