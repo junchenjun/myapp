@@ -5,7 +5,7 @@ import { FlatList, Platform, StyleSheet, View } from 'react-native';
 import { icons } from '~assets/icons';
 import { Accordion } from '~components/accordion/Accordion';
 import { Button } from '~components/button/Button';
-import { InfoContainer } from '~components/InfoContainer';
+import { InfoContainer } from '~components/infoContainer/InfoContainer';
 import { Label } from '~components/label/Label';
 import { Text } from '~components/text/Text';
 import { WorkoutContainer } from '~components/workoutContainer/WorkoutContainer';

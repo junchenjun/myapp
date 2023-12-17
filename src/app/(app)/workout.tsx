@@ -2,8 +2,10 @@ import { router } from 'expo-router';
 import { useEffect } from 'react';
 import { Alert, BackHandler, ScrollView, StyleSheet, View } from 'react-native';
 
+import { Accordion } from '~components/accordion/Accordion';
 import { Button } from '~components/button/Button';
-import { ExerciseContainer } from '~components/ExerciseContainer';
+import { Text } from '~components/text/Text';
+import { WorkoutContainer } from '~components/workoutContainer/WorkoutContainer';
 import { useAppSelector } from '~redux/store';
 import { ITheme, useThemedStyles } from '~utils/ThemeContext';
 
@@ -38,12 +40,36 @@ const Workout = () => {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scroll}>
-        {workout?.exercises.map((i, index) => {
-          return <ExerciseContainer key={index} item={workout?.exercises && workout?.exercises[0]} />;
-        })}
-        <Button title='Complete Workout' onPress={() => router.back()} />
-      </ScrollView>
+      <Accordion>
+        <ScrollView contentContainerStyle={styles.scroll}>
+          {workout?.exercises.map((i, index) => {
+            return (
+              <WorkoutContainer
+                key={index}
+                title={i.name}
+                header={{
+                  labels: ['Shoulder', 'biceps'],
+                }}
+                descItems={['8 Exercises']}
+                accordionContent={
+                  <>
+                    <Text>content content content content content content content</Text>
+                    <Text>content content content content content content content</Text>
+                    <Text>content content content content content content content</Text>
+                    <Text>content content content content content content content</Text>
+                    <Text>content content content content content content content</Text>
+                    <Text>content content content content content content content</Text>
+                    <Text>content content content content content content content</Text>
+                    <Text>content content content content content content content</Text>
+                    <Button title='Log Out' onPress={() => {}} />
+                  </>
+                }
+              />
+            );
+          })}
+          <Button title='Complete Workout' onPress={() => router.back()} />
+        </ScrollView>
+      </Accordion>
     </View>
   );
 };
