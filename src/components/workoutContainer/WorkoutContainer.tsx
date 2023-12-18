@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 import { AccordionItem } from '~components/accordion/accordionItem/AccordionItem';
@@ -8,6 +8,7 @@ import {
   IWorkoutContainerHeader,
   WorkoutContainerHeader,
 } from '~components/workoutContainer/workoutContainerHeader/WorkoutContainerHeader';
+import { IBottomMenuItems } from '~modals/bottomMenu/BottomMenu';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 interface IProps {
@@ -17,10 +18,12 @@ interface IProps {
   accordionContent?: ReactElement;
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
+  children?: ReactNode | ReactNode[];
+  menu?: IBottomMenuItems;
 }
 
 export const WorkoutContainer = (props: IProps) => {
-  const { title, header, descItems, accordionContent, onPress, style } = props;
+  const { title, header, descItems, accordionContent, onPress, style, children, menu } = props;
   const styles = useThemedStyles(themedStyles);
 
   const mainContent = (
@@ -46,8 +49,9 @@ export const WorkoutContainer = (props: IProps) => {
   if (!accordionContent) {
     return (
       <Card onPress={onPress} style={style}>
-        <WorkoutContainerHeader {...header} />
+        <WorkoutContainerHeader {...header} menu={menu} />
         {mainContent}
+        {children}
       </Card>
     );
   } else {
@@ -56,7 +60,7 @@ export const WorkoutContainer = (props: IProps) => {
         <AccordionItem
           trigger={triggerButton => (
             <>
-              <WorkoutContainerHeader {...header} />
+              <WorkoutContainerHeader {...header} menu={menu} />
               <View style={styles.main}>
                 <View>{mainContent}</View>
                 {triggerButton}
@@ -65,6 +69,7 @@ export const WorkoutContainer = (props: IProps) => {
           )}
         >
           {accordionContent}
+          {children}
         </AccordionItem>
       </Card>
     );

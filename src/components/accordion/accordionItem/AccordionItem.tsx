@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useContext, useEffect, useId, useMemo, useState } from 'react';
+import { ReactElement, ReactNode, useCallback, useContext, useEffect, useId, useMemo, useState } from 'react';
 import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
@@ -9,7 +9,7 @@ import { Text } from '~components/text/Text';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 interface IProps {
-  children?: ReactElement | ReactElement[];
+  children?: ReactNode | ReactNode[];
   trigger?: (triggerButton: ReactElement) => ReactElement;
   title?: string;
   itemHeight?: number;

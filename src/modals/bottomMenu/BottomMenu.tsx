@@ -6,20 +6,25 @@ import { MenuItem } from '~components/menuItem/MenuItem';
 import { Modal } from '~components/modal/Modal';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
+export type IBottomMenuItems = Pick<
+  React.ComponentProps<typeof MenuItem>,
+  'danger' | 'iconLeft' | 'onPress' | 'title'
+>[];
+
 interface IProps {
-  items: Pick<React.ComponentProps<typeof MenuItem>, 'danger' | 'iconLeft' | 'onPress' | 'title'>[];
-  bottomSheetModalRef: RefObject<BottomSheetModal>;
+  items: IBottomMenuItems;
+  modalRef: RefObject<BottomSheetModal>;
 }
 
 export const BottomMenu = (props: IProps) => {
-  const { items, bottomSheetModalRef } = props;
+  const { items, modalRef } = props;
   const styles = useThemedStyles(themedStyles);
 
   return (
-    <Modal bottomSheetModalRef={bottomSheetModalRef} backgroundColor='surface'>
+    <Modal modalRef={modalRef} backgroundColor='surface'>
       <View style={styles.content}>
         {items.map((i, index) => {
-          return <MenuItem iosScaleDownAnimation key={i.title + index} {...i} roundedBottomCorners roundedTopCorners />;
+          return <MenuItem iosScaleDownAnimation key={index} {...i} roundedBottomCorners roundedTopCorners />;
         })}
       </View>
     </Modal>

@@ -55,6 +55,7 @@ const getStories = () => {
     "./src/components/pressable/Pressable.stories.tsx": require("../src/components/pressable/Pressable.stories.tsx"),
     "./src/components/selectButton/SelectButton.stories.tsx": require("../src/components/selectButton/SelectButton.stories.tsx"),
     "./src/components/text/Text.stories.tsx": require("../src/components/text/Text.stories.tsx"),
+    "./src/components/weeklyActivity/WeeklyActivity.stories.tsx": require("../src/components/weeklyActivity/WeeklyActivity.stories.tsx"),
     "./src/components/workoutContainer/WorkoutContainer.stories.tsx": require("../src/components/workoutContainer/WorkoutContainer.stories.tsx"),
   };
 };

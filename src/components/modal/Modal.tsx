@@ -38,17 +38,17 @@ const useBottomSheetBackHandler = (bottomSheetRef: React.RefObject<BottomSheetMo
 };
 
 interface IProps {
-  bottomSheetModalRef: RefObject<BottomSheetModal>;
+  modalRef: RefObject<BottomSheetModal>;
   children?: ReactElement | ReactElement[];
   title?: string;
   backgroundColor?: keyof Pick<ITheme['colors'], 'surface' | 'surfaceExtraBright'>;
 }
 
 export const Modal = (props: IProps) => {
-  const { bottomSheetModalRef, children, title, backgroundColor = 'surfaceExtraBright' } = props;
+  const { modalRef, children, title, backgroundColor = 'surfaceExtraBright' } = props;
   const insets = useSafeAreaInsets();
   const styles = useThemedStyles(themedStyles({ insets, backgroundColor }));
-  const { handleSheetPositionChange } = useBottomSheetBackHandler(bottomSheetModalRef);
+  const { handleSheetPositionChange } = useBottomSheetBackHandler(modalRef);
 
   const renderBackdrop = useCallback(
     (props: BottomSheetBackdropProps) => <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} />,
@@ -61,7 +61,7 @@ export const Modal = (props: IProps) => {
       index={0}
       enableDynamicSizing
       enablePanDownToClose
-      ref={bottomSheetModalRef}
+      ref={modalRef}
       topInset={insets.top}
       backdropComponent={renderBackdrop}
       backgroundStyle={styles.backgroundStyle}

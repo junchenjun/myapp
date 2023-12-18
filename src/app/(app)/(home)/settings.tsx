@@ -53,7 +53,7 @@ const Settings = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-      <AppearanceModal bottomSheetModalRef={appearanceModalRef} />
+      <AppearanceModal modalRef={appearanceModalRef} />
       {/* Account */}
       <Text text='Account' color='onSurfaceDim' style={styles.label} />
       <View style={styles.menu}>

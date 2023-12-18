@@ -6,8 +6,8 @@ import { Pressable } from '~components/pressable/Pressable';
 import { Text } from '~components/text/Text';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
-interface IMenuItemProps {
-  title: string;
+interface IDefaultMenuItem {
+  title?: string;
   desc?: string;
   iconLeft?: IIcon;
   iconRight?: IIcon;
@@ -16,17 +16,23 @@ interface IMenuItemProps {
   roundedBottomCorners?: boolean;
   withBorder?: boolean;
   onPress?: () => void;
+  onRightIconPress?: () => void;
   disabled?: boolean;
   disabledOnPress?: boolean;
   iosScaleDownAnimation?: boolean;
+  color?: 'default' | 'primaryInverse' | 'primary';
+  size?: 'lg' | 'sm';
 }
 
-export const MenuItem = (props: IMenuItemProps) => {
+type IMenuItem = IDefaultMenuItem;
+
+export const MenuItem = (props: IMenuItem) => {
   const {
     title,
     desc,
     disabled,
     onPress,
+    onRightIconPress,
     iconLeft,
     iconRight,
     danger,
@@ -35,9 +41,29 @@ export const MenuItem = (props: IMenuItemProps) => {
     withBorder,
     disabledOnPress,
     iosScaleDownAnimation,
+    color = 'default',
+    size = 'lg',
   } = props;
 
-  const styles = useThemedStyles(themedStyles({ iosScaleDownAnimation }));
+  const styles = useThemedStyles(themedStyles({ iosScaleDownAnimation, color, size }));
+
+  let titleColor: keyof ITheme['colors'] = danger ? 'error' : 'onSurface';
+  let descColor: keyof ITheme['colors'] = danger ? 'error' : 'onSurfaceExtraDim';
+  let iconLeftColor: keyof ITheme['colors'] = danger ? 'error' : 'onSurfaceDim';
+  let iconRightColor: keyof ITheme['colors'] = danger ? 'error' : 'onSurfaceExtraDim';
+
+  if (color === 'primaryInverse') {
+    titleColor = 'primary';
+    descColor = 'primary';
+    iconLeftColor = 'primary';
+    iconRightColor = 'primary';
+  }
+  if (color === 'primary') {
+    titleColor = 'onPrimary';
+    descColor = 'onPrimary';
+    iconLeftColor = 'onPrimary';
+    iconRightColor = 'onPrimary';
+  }
 
   return (
     <View
@@ -53,35 +79,48 @@ export const MenuItem = (props: IMenuItemProps) => {
         disabled={disabled}
         disabledOnPress={disabledOnPress}
         onPress={onPress}
-        style={[styles.pressable]}
-        rippleConfig={{ borderless: false }}
+        style={styles.pressable}
+        rippleConfig={{ borderless: false, disabled: false }}
       >
-        <View style={styles.left}>
-          {iconLeft && <Icon icon={iconLeft} color={danger ? 'error' : 'onSurfaceDim'} />}
-          <View>
-            <Text text={title} color={danger ? 'error' : 'onSurface'} />
-            {desc && <Text text={desc} variant='pXSRegular' color={danger ? 'error' : 'onSurfaceExtraDim'} />}
+        {(iconLeft || title) && (
+          <View style={styles.left}>
+            {iconLeft && <Icon icon={iconLeft} color={iconLeftColor} />}
+            {title && (
+              <View>
+                <Text text={title} color={titleColor} />
+                {desc && <Text text={desc} variant='pXSRegular' color={descColor} />}
+              </View>
+            )}
           </View>
-        </View>
-        {iconRight && <Icon icon={iconRight} color={danger ? 'error' : 'onSurfaceExtraDim'} />}
+        )}
+        {iconRight && <Icon onPress={onRightIconPress} icon={iconRight} color={iconRightColor} />}
       </Pressable>
     </View>
   );
 };
 
-const themedStyles = ({ iosScaleDownAnimation }: { iosScaleDownAnimation?: boolean }) => {
+const themedStyles = ({
+  iosScaleDownAnimation,
+  color,
+  size,
+}: {
+  iosScaleDownAnimation?: IDefaultMenuItem['iosScaleDownAnimation'];
+  color: IDefaultMenuItem['color'];
+  size: IDefaultMenuItem['size'];
+}) => {
   const styles = (theme: ITheme) => {
+    const backgroundColor = color === 'primary' ? theme.colors['primary'] : theme.colors.surfaceExtraBright;
+
     return StyleSheet.create({
       container: {
-        width: '100%',
         overflow: 'hidden',
-        backgroundColor: iosScaleDownAnimation ? '' : theme.colors.surfaceExtraBright,
+        backgroundColor: iosScaleDownAnimation ? '' : backgroundColor,
       },
       pressable: {
-        backgroundColor: theme.colors.surfaceExtraBright,
+        backgroundColor,
         flexDirection: 'row',
         gap: theme.spacing[3],
-        padding: theme.spacing[4],
+        padding: size === 'lg' ? theme.spacing[4] : theme.spacing[3],
         alignItems: 'center',
       },
       left: {

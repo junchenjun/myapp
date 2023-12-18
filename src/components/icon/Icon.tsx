@@ -32,11 +32,7 @@ export const Icon = ({
   );
 
   return onPress ? (
-    <Pressable
-      style={{ width: size }}
-      rippleConfig={{ radius: size, foreground: true, color: rippleColor }}
-      onPress={onPress}
-    >
+    <Pressable style={{ width: size }} rippleConfig={{ radius: size, color: rippleColor }} onPress={onPress}>
       {content}
     </Pressable>
   ) : (

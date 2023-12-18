@@ -10,11 +10,11 @@ import { useUpdateAppColorScheme } from '~utils/hooks/useUpdateAppColorScheme';
 import { saveToSecureStore, secureStoreKeys } from '~utils/secureStore';
 
 interface IProps {
-  bottomSheetModalRef: RefObject<BottomSheetModal>;
+  modalRef: RefObject<BottomSheetModal>;
 }
 
 export const AppearanceModal = (props: IProps) => {
-  const { bottomSheetModalRef } = props;
+  const { modalRef } = props;
   const theme = useTheme();
   const updateAppColorScheme = useUpdateAppColorScheme();
 
@@ -27,7 +27,7 @@ export const AppearanceModal = (props: IProps) => {
   };
 
   return (
-    <Modal bottomSheetModalRef={bottomSheetModalRef} title='Appearance'>
+    <Modal modalRef={modalRef} title='Appearance'>
       <View style={styles.modal}>
         <SelectButton
           icon={icons.Sun}

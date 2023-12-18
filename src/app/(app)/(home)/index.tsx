@@ -1,11 +1,14 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { router } from 'expo-router';
 import { Suspense, useCallback, useRef } from 'react';
-import { Alert, ScrollView, SectionList, StyleSheet, View } from 'react-native';
+import { ScrollView, SectionList, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
+import { MenuItem } from '~components/menuItem/MenuItem';
+import { WeeklyActivity } from '~components/weeklyActivity/WeeklyActivity';
 import { WorkoutContainer } from '~components/workoutContainer/WorkoutContainer';
 import { BottomMenu } from '~modals/bottomMenu/BottomMenu';
+import { SelectPlanModal } from '~modals/selectPlanModal/SelectPlanModal';
 import { useAppSelector } from '~redux/store';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
@@ -13,10 +16,14 @@ const Home = () => {
   const styles = useThemedStyles(createStyles);
   const planList = useAppSelector(state => state.plans.list);
 
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const selectPlanModalRef = useRef<BottomSheetModal>(null);
+  const editPlanModalRef = useRef<BottomSheetModal>(null);
 
-  const handlePresentModalPress = useCallback(() => {
-    bottomSheetModalRef.current?.present();
+  const handleEditPlanModalPress = useCallback(() => {
+    editPlanModalRef.current?.present();
+  }, []);
+  const handleSelectPlanModalPress = useCallback(() => {
+    selectPlanModalRef.current?.present();
   }, []);
 
   const sectionData =
@@ -24,54 +31,73 @@ const Home = () => {
       return { title: p.name, data: p.workouts, id: p.id };
     }) || [];
 
-  const createAlert = () =>
-    Alert.alert(
-      'Leave workout?',
-      'You will be able to resume later',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        { text: 'Confirm', onPress: () => null },
-      ],
-      {
-        cancelable: true,
-      }
-    );
-
   return (
     <>
       <BottomMenu
-        bottomSheetModalRef={bottomSheetModalRef}
+        modalRef={editPlanModalRef}
         items={[
-          { iconLeft: icons.Edit, title: 'New Workout Plan' },
-          { iconLeft: icons.Switch, title: 'New Workout Plan' },
+          { iconLeft: icons.Plus, title: 'New Workout Plan' },
+          { iconLeft: icons.Edit, title: 'Edit Plan' },
           {
             iconLeft: icons.Trash,
             danger: true,
-            title: 'Delete Current Plan',
-            onPress: createAlert,
+            title: 'Delete Plan',
           },
         ]}
       />
+      <SelectPlanModal modalRef={selectPlanModalRef} />
       <ScrollView contentContainerStyle={styles.scroll}>
         <Suspense fallback={<View />}>
+          <WeeklyActivity
+            config={{
+              mo: { value: 'Mo', variant: 'completed' },
+              tu: { value: 'Tu', variant: 'completed' },
+              we: { value: 'We', variant: 'completed' },
+              th: { value: 'Tu', variant: 'active', onPress: () => null },
+              fr: { value: 'Fr', variant: 'inactive' },
+              sa: { value: 'Sa', variant: 'inactive' },
+              su: { value: 'Su', variant: 'inactive' },
+            }}
+          />
+          <View style={styles.buttonGroup}>
+            <View style={styles.selectPlan}>
+              <MenuItem
+                color='primaryInverse'
+                iconLeft={icons.Collections}
+                iconRight={icons.More}
+                roundedTopCorners
+                roundedBottomCorners
+                title='Plan B'
+                onPress={handleSelectPlanModalPress}
+                size='sm'
+                onRightIconPress={handleEditPlanModalPress}
+              />
+            </View>
+            <MenuItem color='primary' size='sm' iconRight={icons.Plus} roundedTopCorners roundedBottomCorners />
+          </View>
           <SectionList
             style={styles.list}
             sections={sectionData}
             stickySectionHeadersEnabled={false}
             keyExtractor={(item, index) => item.name + index}
             scrollEnabled={false}
-            contentContainerStyle={{ ...styles.gap }}
             renderItem={({ item, section, index }) => (
               <WorkoutContainer
                 key={index}
                 title={item.name}
+                style={styles.gap}
                 header={{
                   labels: ['Shoulder', 'biceps'],
-                  onPress: handlePresentModalPress,
                 }}
+                menu={[
+                  { iconLeft: icons.Edit, title: item.name + index },
+                  { iconLeft: icons.Switch, title: 'New Workout Plan' },
+                  {
+                    iconLeft: icons.Trash,
+                    danger: true,
+                    title: 'Delete Current Plan',
+                  },
+                ]}
                 onPress={() => {
                   return router.push({
                     pathname: 'preview',
@@ -96,13 +122,16 @@ const createStyles = (theme: ITheme) => {
       flex: 1,
       backgroundColor: theme.colors.surfaceExtraDim,
       paddingHorizontal: theme.spacing[4],
+      gap: theme.spacing[3],
     },
     gap: {
-      gap: theme.spacing[3],
+      marginBottom: theme.spacing[3],
     },
     list: {
       flex: 1,
       overflow: 'hidden',
     },
+    buttonGroup: { flexDirection: 'row', gap: 8 },
+    selectPlan: { flex: 1 },
   });
 };

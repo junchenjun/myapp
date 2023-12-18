@@ -4,6 +4,7 @@ import { IconApple } from '~assets/icons/IconApple';
 import { IconBack } from '~assets/icons/IconBack';
 import { IconCalendar } from '~assets/icons/IconCalendar';
 import { IconChecked } from '~assets/icons/IconChecked';
+import { IconCollections } from '~assets/icons/IconCollections';
 import { IconEdit } from '~assets/icons/IconEdit';
 import { IconExpandDown } from '~assets/icons/IconExpandDown';
 import { IconExpandRight } from '~assets/icons/IconExpandRight';
@@ -17,6 +18,7 @@ import { IconLightning } from '~assets/icons/IconLightning';
 import { IconMail } from '~assets/icons/IconMail';
 import { IconMoon } from '~assets/icons/IconMoon';
 import { IconMore } from '~assets/icons/IconMore';
+import { IconPlus } from '~assets/icons/IconPlus';
 import { IconRuler } from '~assets/icons/IconRuler';
 import { IconSettings } from '~assets/icons/IconSettings';
 import { IconSignOut } from '~assets/icons/IconSignOut';
@@ -56,6 +58,8 @@ const icons = {
   Unchecked: IconUnchecked,
   Sun: IconSun,
   Moon: IconMoon,
+  Plus: IconPlus,
+  Collections: IconCollections,
 };
 
 type IIcon = (typeof icons)[keyof typeof icons];
