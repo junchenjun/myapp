@@ -47,7 +47,7 @@ export const SelectButton = (props: IButton) => {
           <Icon
             size={22}
             icon={selected ? icons.Checked : icons.Unchecked}
-            color='outline'
+            color={selected ? 'primary' : 'outline'}
             fill={selected ? 'primary' : 'surfaceBright'}
           />
         </Pressable>

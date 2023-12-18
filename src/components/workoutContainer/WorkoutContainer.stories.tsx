@@ -5,7 +5,7 @@ import { Text } from '~components/text/Text';
 import { WorkoutContainer } from '~components/workoutContainer/WorkoutContainer';
 
 const WorkoutContainerStory: Meta<typeof WorkoutContainer> = {
-  title: 'Workout Container',
+  title: 'WorkoutContainer',
   component: WorkoutContainer,
   argTypes: {
     title: { control: 'text' },

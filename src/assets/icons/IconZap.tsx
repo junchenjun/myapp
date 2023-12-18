@@ -2,7 +2,7 @@ import * as React from 'react';
 import Svg, { SvgProps, Path } from 'react-native-svg';
 
 export const IconZap = (props: SvgProps) => (
-  <Svg width={24} height={24} {...props} fill={props.color} stroke='none'>
+  <Svg width={24} height={24} {...props} viewBox='0 0 24 24' fill={props.color} stroke='none'>
     <Path
       fillRule='evenodd'
       d='M2.5 17.5a1 1 0 0 1 1-1H9a1 1 0 1 1 0 2H3.5a1 1 0 0 1-1-1ZM1 12a1 1 0 0 1 1-1h4.5a1 1 0 1 1 0 2H2a1 1 0 0 1-1-1ZM3 6.5a1 1 0 0 1 1-1h5a1 1 0 0 1 0 2H4a1 1 0 0 1-1-1ZM17.368 2.07a1 1 0 0 1 .623 1.062L17.142 9.5h3.838c.22 0 .45 0 .639.017.185.017.524.062.826.296a1.5 1.5 0 0 1 .582 1.131c.014.382-.145.683-.24.845a7.47 7.47 0 0 1-.357.53l-.02.027-6.596 9.235a1 1 0 0 1-1.805-.713l.849-6.368H11.02c-.22 0-.45 0-.638-.017-.186-.017-.525-.062-.827-.296a1.5 1.5 0 0 1-.582-1.131c-.015-.382.145-.683.24-.845.095-.163.228-.35.357-.53l.02-.027 6.596-9.235a1 1 0 0 1 1.182-.349Z'

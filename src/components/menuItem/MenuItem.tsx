@@ -113,6 +113,7 @@ const themedStyles = ({
 
     return StyleSheet.create({
       container: {
+        width: '100%',
         overflow: 'hidden',
         backgroundColor: iosScaleDownAnimation ? '' : backgroundColor,
       },

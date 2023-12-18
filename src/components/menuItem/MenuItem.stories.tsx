@@ -4,10 +4,12 @@ import { icons } from '~assets/icons';
 import { MenuItem } from '~components/menuItem/MenuItem';
 
 const CardStory: Meta<typeof MenuItem> = {
-  title: 'Menu Item',
+  title: 'MenuItem',
   component: MenuItem,
   argTypes: {
     onPress: { control: null, action: 'onPress' },
+    size: { options: ['lg', 'sm'], control: { type: 'select' } },
+    color: { options: ['default', 'primaryInverse', 'primary'], control: { type: 'select' } },
   },
 };
 
@@ -15,7 +17,7 @@ type IStory = StoryObj<typeof MenuItem>;
 
 export default CardStory;
 
-export const Basic: IStory = {
+export const Default: IStory = {
   args: {
     title: 'Appearance',
     desc: 'System Default',
@@ -24,5 +26,7 @@ export const Basic: IStory = {
     roundedTopCorners: true,
     withBorder: true,
     danger: false,
+    size: 'lg',
+    color: 'default',
   },
 };

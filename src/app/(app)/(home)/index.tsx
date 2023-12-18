@@ -74,7 +74,9 @@ const Home = () => {
               onRightIconPress={handleEditPlanModalPress}
             />
           </View>
-          <MenuItem color='primary' size='sm' iconRight={icons.Plus} roundedTopCorners roundedBottomCorners />
+          <View>
+            <MenuItem color='primary' size='sm' iconRight={icons.Plus} roundedTopCorners roundedBottomCorners />
+          </View>
         </View>
         {/* List */}
         <SectionList

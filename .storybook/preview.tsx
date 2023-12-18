@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, useColorScheme } from 'react-native';
+import { ScrollView, View, useColorScheme } from 'react-native';
 import { ThemeProvider, appColorScheme, useTheme, useUpdateTheme } from '../src/theme/ThemeContext';
 import { Story } from '@storybook/react-native';
 
@@ -25,17 +25,20 @@ const Root = ({ Story }: { Story: Story }) => {
     }
   }, [colorScheme]);
   return (
-    <View
-      style={{
+    <ScrollView
+      contentContainerStyle={{
         alignItems: 'center',
+        alignContent: 'center',
         justifyContent: 'center',
-        paddingHorizontal: 15,
-        flex: 1,
+        padding: 15,
+        minHeight: '100%',
+        width: '100%',
         backgroundColor: theme.colors.surfaceExtraDim,
+        overflow: 'hidden',
       }}
     >
       <Story />
-    </View>
+    </ScrollView>
   );
 };
 

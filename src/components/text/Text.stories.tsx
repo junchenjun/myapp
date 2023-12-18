@@ -16,7 +16,7 @@ const TextStory: Meta<typeof Text> = {
     },
   },
   args: {
-    type: 'h1Regular',
+    variant: 'h1Regular',
     color: 'primary',
   },
 };
@@ -25,7 +25,7 @@ export default TextStory;
 
 type IStory = StoryObj<typeof Text>;
 
-export const PrimaryText: IStory = {
+export const Default: IStory = {
   args: {
     text: 'primary',
   },

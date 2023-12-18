@@ -35,10 +35,10 @@ export const Card = (props: IProps) => {
 const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
     wrapper: {
-      overflow: 'hidden',
       borderRadius: theme.radius.sm,
     },
     container: {
+      overflow: 'hidden',
       backgroundColor: theme.colors.surfaceExtraBright,
       borderRadius: theme.radius.sm,
       height: 'auto',

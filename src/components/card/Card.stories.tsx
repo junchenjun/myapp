@@ -15,7 +15,7 @@ type IStory = StoryObj<typeof Text>;
 
 export default CardStory;
 
-export const Basic: IStory = {
+export const Default: IStory = {
   render: ({ ...args }) => (
     <Card {...args}>
       <Text>Some stuff</Text>
