@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "skipLibCheck": true,
+
     /* Linting */
     "strict": true,
     "noImplicitAny": true,

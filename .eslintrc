@@ -45,5 +45,5 @@
       }
     }
   },
-  "ignorePatterns": ["android", "ios", "!.storybook"]
+  "ignorePatterns": ["android", "ios", "!.storybook", "/.storybook/storybook.requires.js"]
 }

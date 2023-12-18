@@ -1,9 +1,10 @@
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { ThemeProvider as RNThemeProvider, DefaultTheme } from '@react-navigation/native';
+import { ThemeProvider as RNThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import * as NavigationBar from 'expo-navigation-bar';
 import { Slot, SplashScreen, useRouter } from 'expo-router';
+import * as SystemUI from 'expo-system-ui';
 import { useCallback, useEffect, useState } from 'react';
 import { Platform, View } from 'react-native';
 import { Provider } from 'react-redux';
@@ -30,6 +31,11 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
   const updateAppColorScheme = useUpdateAppColorScheme();
 
   const isAppReady = loaded && !initializing;
+  const systemBackgroundColor = theme.colors.surfaceExtraDim;
+
+  useEffect(() => {
+    SystemUI.setBackgroundColorAsync(systemBackgroundColor);
+  }, [systemBackgroundColor]);
 
   useEffect(() => {
     if (isAppReady) {
@@ -99,7 +105,11 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
   const navTheme = {
     dark: theme.id === appColorScheme.dark,
     colors: {
-      ...DefaultTheme.colors,
+      primary: theme.colors.primary,
+      card: theme.colors.surfaceExtraDim,
+      text: theme.colors.onPrimary,
+      border: theme.colors.outlineDim,
+      notification: theme.colors.primary,
       background: theme.colors.surfaceExtraDim,
     },
   };

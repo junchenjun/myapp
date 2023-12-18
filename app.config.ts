@@ -64,12 +64,12 @@ const appConfig: ExpoConfig = {
   slug: 'my-app',
   orientation: 'portrait',
   icon: config.icon,
-  backgroundColor: '#000000',
+  backgroundColor: '#E4E6EB',
   android: {
     userInterfaceStyle: 'automatic',
     googleServicesFile: config.file.android,
     package: config.package,
-    backgroundColor: '#000000',
+    backgroundColor: '#E4E6EB',
     adaptiveIcon:
       IS_PROD || IS_PREVIEW
         ? {
