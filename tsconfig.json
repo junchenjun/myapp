@@ -4,9 +4,9 @@
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
-    // "noUnusedLocals": true,
-    // "noUnusedParameters": true,
-    // "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
 
     /* Alias support */
     "baseUrl": "./",

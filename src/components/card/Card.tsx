@@ -23,7 +23,7 @@ export const Card = (props: IProps) => {
           style={styles.container}
           iosScaleDownAnimation
         >
-          <View style={[styles.flex, style && style]}>{children}</View>
+          <View style={[styles.flex]}>{children}</View>
         </Pressable>
       </View>
     );
@@ -36,6 +36,7 @@ const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
     wrapper: {
       borderRadius: theme.radius.sm,
+      overflow: 'hidden',
     },
     container: {
       overflow: 'hidden',

@@ -23,7 +23,7 @@ export const JsStack = withLayoutContext<
 >(Navigator);
 
 export default function Layout() {
-  const useNativeRouter = false;
+  const useNativeRouter = true;
 
   const createAlert = () =>
     Alert.alert(
@@ -47,7 +47,7 @@ export default function Layout() {
         name='(home)'
         options={{
           headerShown: false,
-          ...TransitionPresets.FadeFromBottomAndroid,
+          ...TransitionPresets.ScaleFromCenterAndroid,
         }}
         key='home'
       />
@@ -78,7 +78,7 @@ export default function Layout() {
               />
             );
           },
-          ...TransitionPresets.FadeFromBottomAndroid,
+          ...TransitionPresets.ScaleFromCenterAndroid,
         }}
         key='preview'
       />
@@ -99,7 +99,7 @@ export default function Layout() {
               />
             );
           },
-          ...TransitionPresets.FadeFromBottomAndroid,
+          ...TransitionPresets.ScaleFromCenterAndroid,
         }}
         key='workout'
       />
@@ -107,7 +107,7 @@ export default function Layout() {
         name='auth'
         options={{
           headerShown: false,
-          ...TransitionPresets.FadeFromBottomAndroid,
+          ...TransitionPresets.ScaleFromCenterAndroid,
         }}
         key='auth'
       />
@@ -127,7 +127,6 @@ export default function Layout() {
         name='preview'
         options={{
           headerShown: true,
-          // presentation: 'modal',
           animation: 'default',
           header: () => {
             return (

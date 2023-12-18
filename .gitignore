@@ -13,8 +13,8 @@ npm-debug.*
 *.apk
 *.gz
 web-build/
-GoogleService-Info.plist
-google-services.json
+# GoogleService-Info.plist
+# google-services.json
 
 # macOS
 .DS_Store

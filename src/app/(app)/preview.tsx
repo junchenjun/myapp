@@ -68,7 +68,7 @@ export default function Preview() {
             initialNumToRender={8}
             getItemLayout={(_data, index) => ({ length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index })}
             contentContainerStyle={styles.scroll}
-            data={workout?.exercises.concat(workout.exercises).concat(workout.exercises).concat(workout.exercises)}
+            data={workout?.exercises}
             renderItem={renderItem}
             keyExtractor={(item, index) => item.name + index}
             ListHeaderComponent={
