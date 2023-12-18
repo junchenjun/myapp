@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
-import { ScrollView, View, useColorScheme } from 'react-native';
-import { ThemeProvider, appColorScheme, useTheme, useUpdateTheme } from '../src/theme/ThemeContext';
 import { Story } from '@storybook/react-native';
+import React, { useEffect } from 'react';
+import { ScrollView, useColorScheme } from 'react-native';
+
+import { ThemeProvider, appColorScheme, useTheme, useUpdateTheme } from '../src/theme/ThemeContext';
 
 export const parameters = {
   controls: {
@@ -23,7 +24,8 @@ const Root = ({ Story }: { Story: Story }) => {
     } else {
       updateTheme(appColorScheme.dark, false);
     }
-  }, [colorScheme]);
+  }, [colorScheme, updateTheme]);
+
   return (
     <ScrollView
       contentContainerStyle={{
