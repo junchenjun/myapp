@@ -29,6 +29,7 @@ export const SelectButton = (props: IButton) => {
   const styles = useThemedStyles(themedStyles);
 
   if (variant === 'large') {
+    const { icon } = props as ILargeSelectButton;
     return (
       <View style={styles.largeButton}>
         <Pressable
@@ -40,9 +41,7 @@ export const SelectButton = (props: IButton) => {
           style={[styles.pressable, selected && styles.selected]}
         >
           <View style={styles.left}>
-            {(props as ILargeSelectButton).icon && (
-              <Icon icon={(props as ILargeSelectButton).icon} color={selected ? 'primary' : 'onSurfaceExtraDim'} />
-            )}
+            {icon && <Icon icon={icon} color={selected ? 'primary' : 'onSurfaceExtraDim'} />}
             <Text text={title} color={selected ? 'primary' : 'onSurfaceDim'} />
           </View>
           <Icon

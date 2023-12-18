@@ -5,36 +5,18 @@ const ButtonStory = {
   title: 'Button',
   component: Button,
   argTypes: {
-    variant: { options: ['primary', 'icon'], control: { type: 'radio' } },
+    variant: { options: ['primary', 'ghost'], control: { type: 'radio' } },
   },
   args: {
-    title: 'Hello world',
+    title: 'Hello World',
     loading: false,
     disabled: false,
-    type: 'primary',
+    variant: 'primary',
   },
 };
 
 export default ButtonStory;
 
-export const Primary = {
-  args: {
-    title: 'Primary Button',
-    type: 'primary',
-  },
-};
-
-export const PrimaryWithIcon = {
-  args: {
-    title: 'Primary Button',
-    type: 'primary',
-  },
+export const Default = {
   render: ({ ...args }) => <Button {...args} icon={icons.Lightning} />,
-};
-
-export const Disabled = {
-  args: {
-    title: 'Disabled Button',
-    disabled: true,
-  },
 };

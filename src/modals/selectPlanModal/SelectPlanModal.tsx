@@ -2,6 +2,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { RefObject } from 'react';
 import { StyleSheet, View } from 'react-native';
 
+import { icons } from '~assets/icons';
 import { Button } from '~components/button/Button';
 import { Modal } from '~components/modal/Modal';
 import { SelectButton } from '~components/selectButton/SelectButton';
@@ -21,8 +22,7 @@ export const SelectPlanModal = (props: IProps) => {
       <View style={styles.modal}>
         <SelectButton title='Plan A' onPress={() => null} selected={false} />
         <SelectButton title='Plan B' onPress={() => null} selected />
-        <SelectButton title='Plan C' onPress={() => null} selected={false} />
-        <Button title='Create New Plan' />
+        <Button icon={icons.Plus} title='New Workout Plan' variant='ghost' />
       </View>
     </Modal>
   );

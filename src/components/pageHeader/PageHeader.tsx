@@ -34,7 +34,7 @@ type IPageHeader = IHeader | IHeaderWithActions;
 export const PageHeader = (props: IPageHeader) => {
   const { title, variant } = props;
   const insets = useSafeAreaInsets();
-  const styles = useThemedStyles(themedStyles({ insets }));
+  const styles = useThemedStyles(themedStyles(insets));
   const opacity = useSharedValue(0);
 
   const animatedStyles = useAnimatedStyle(() => {
@@ -79,9 +79,9 @@ export const PageHeader = (props: IPageHeader) => {
   }
 };
 
-const themedStyles = (extra: { insets: EdgeInsets }) => {
-  const styles = (theme: ITheme) => {
-    const paddingTop = extra.insets.top < 40 ? 40 : extra.insets.top;
+const themedStyles = (insets: EdgeInsets) => {
+  return (theme: ITheme) => {
+    const paddingTop = insets.top < 40 ? 40 : insets.top;
     return StyleSheet.create({
       container: {
         padding: theme.spacing[4],
@@ -109,5 +109,4 @@ const themedStyles = (extra: { insets: EdgeInsets }) => {
       },
     });
   };
-  return styles;
 };

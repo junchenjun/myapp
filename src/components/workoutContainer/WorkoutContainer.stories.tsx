@@ -34,7 +34,6 @@ export const WithAccordion = {
         title='Chest&Triceps'
         header={{
           labels: ['Shoulder', 'biceps'],
-          onPress: () => null,
         }}
         descItems={['8 Exercises', '5 days ago']}
         accordionContent={
@@ -53,7 +52,6 @@ export const WithAccordion = {
         title='Back&Biceps'
         header={{
           labels: ['Shoulder', 'biceps'],
-          onPress: () => null,
         }}
         descItems={['8 Exercises', '5 days ago']}
         accordionContent={

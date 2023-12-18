@@ -1,6 +1,6 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { router } from 'expo-router';
-import { Suspense, useCallback, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import { ScrollView, SectionList, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
@@ -33,82 +33,82 @@ const Home = () => {
 
   return (
     <>
-      <BottomMenu
-        modalRef={editPlanModalRef}
-        items={[
-          { iconLeft: icons.Plus, title: 'New Workout Plan' },
-          { iconLeft: icons.Edit, title: 'Edit Plan' },
-          {
-            iconLeft: icons.Trash,
-            danger: true,
-            title: 'Delete Plan',
-          },
-        ]}
-      />
-      <SelectPlanModal modalRef={selectPlanModalRef} />
       <ScrollView contentContainerStyle={styles.scroll}>
-        <Suspense fallback={<View />}>
-          <WeeklyActivity
-            config={{
-              mo: { value: 'Mo', variant: 'completed' },
-              tu: { value: 'Tu', variant: 'completed' },
-              we: { value: 'We', variant: 'completed' },
-              th: { value: 'Tu', variant: 'active', onPress: () => null },
-              fr: { value: 'Fr', variant: 'inactive' },
-              sa: { value: 'Sa', variant: 'inactive' },
-              su: { value: 'Su', variant: 'inactive' },
-            }}
-          />
-          <View style={styles.buttonGroup}>
-            <View style={styles.selectPlan}>
-              <MenuItem
-                color='primaryInverse'
-                iconLeft={icons.Collections}
-                iconRight={icons.More}
-                roundedTopCorners
-                roundedBottomCorners
-                title='Plan B'
-                onPress={handleSelectPlanModalPress}
-                size='sm'
-                onRightIconPress={handleEditPlanModalPress}
-              />
-            </View>
-            <MenuItem color='primary' size='sm' iconRight={icons.Plus} roundedTopCorners roundedBottomCorners />
+        {/* WeeklyActivity */}
+        <WeeklyActivity
+          config={{
+            mo: { value: 'Mo', variant: 'completed' },
+            tu: { value: 'Tu', variant: 'completed' },
+            we: { value: 'We', variant: 'completed' },
+            th: { value: 'Tu', variant: 'active', onPress: () => null },
+            fr: { value: 'Fr', variant: 'inactive' },
+            sa: { value: 'Sa', variant: 'inactive' },
+            su: { value: 'Su', variant: 'inactive' },
+          }}
+        />
+        {/* Plan Buttons */}
+        <BottomMenu
+          modalRef={editPlanModalRef}
+          items={[
+            { iconLeft: icons.Plus, title: 'New Workout Plan' },
+            { iconLeft: icons.Edit, title: 'Edit Plan' },
+            {
+              iconLeft: icons.Trash,
+              danger: true,
+              title: 'Delete Plan',
+            },
+          ]}
+        />
+        <SelectPlanModal modalRef={selectPlanModalRef} />
+        <View style={styles.buttonGroup}>
+          <View style={styles.selectPlan}>
+            <MenuItem
+              color='primaryInverse'
+              iconLeft={icons.Collections}
+              iconRight={icons.More}
+              roundedTopCorners
+              roundedBottomCorners
+              title='Plan B'
+              onPress={handleSelectPlanModalPress}
+              size='sm'
+              onRightIconPress={handleEditPlanModalPress}
+            />
           </View>
-          <SectionList
-            style={styles.list}
-            sections={sectionData}
-            stickySectionHeadersEnabled={false}
-            keyExtractor={(item, index) => item.name + index}
-            scrollEnabled={false}
-            renderItem={({ item, section, index }) => (
-              <WorkoutContainer
-                key={index}
-                title={item.name}
-                style={styles.gap}
-                header={{
-                  labels: ['Shoulder', 'biceps'],
-                }}
-                menu={[
-                  { iconLeft: icons.Edit, title: item.name + index },
-                  { iconLeft: icons.Switch, title: 'New Workout Plan' },
-                  {
-                    iconLeft: icons.Trash,
-                    danger: true,
-                    title: 'Delete Current Plan',
-                  },
-                ]}
-                onPress={() => {
-                  return router.push({
-                    pathname: 'preview',
-                    params: { planId: section.id, workoutId: item.id, title: item?.name },
-                  });
-                }}
-                descItems={[`${item.exercises.length} Exercises`, '5 days ago']}
-              />
-            )}
-          />
-        </Suspense>
+          <MenuItem color='primary' size='sm' iconRight={icons.Plus} roundedTopCorners roundedBottomCorners />
+        </View>
+        {/* List */}
+        <SectionList
+          style={styles.list}
+          sections={sectionData}
+          stickySectionHeadersEnabled={false}
+          keyExtractor={(item, index) => item.name + index}
+          scrollEnabled={false}
+          renderItem={({ item, section, index }) => (
+            <WorkoutContainer
+              key={index}
+              title={item.name}
+              style={styles.gap}
+              header={{
+                labels: ['Shoulder', 'biceps'],
+              }}
+              menu={[
+                { iconLeft: icons.Edit, title: 'Edit Workout' },
+                {
+                  iconLeft: icons.Trash,
+                  danger: true,
+                  title: 'Delete Workout',
+                },
+              ]}
+              onPress={() => {
+                return router.push({
+                  pathname: 'preview',
+                  params: { planId: section.id, workoutId: item.id, title: item?.name },
+                });
+              }}
+              descItems={[`${item.exercises.length} Exercises`, '5 days ago']}
+            />
+          )}
+        />
       </ScrollView>
     </>
   );
