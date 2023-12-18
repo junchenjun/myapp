@@ -33,19 +33,6 @@ export default function Preview() {
           labels: ['Shoulder', 'biceps'],
         }}
         descItems={['8 Exercises']}
-        accordionContent={
-          <>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Button title='Log Out' onPress={() => {}} />
-          </>
-        }
       />
     ),
     [styles.gap.marginTop]
