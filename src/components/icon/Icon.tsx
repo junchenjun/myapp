@@ -1,19 +1,19 @@
 import { IIcon, icons } from '~assets/icons';
 import { Pressable } from '~components/pressable/Pressable';
-import { ITheme, useTheme } from '~theme/ThemeContext';
+import { ITheme, IThemeColorKeys, useTheme } from '~theme/ThemeContext';
 
 export const Icon = ({
   icon = icons.Zap,
   size = 24,
-  color,
+  colorKey,
   fill = 'none',
   onPress,
   rippleColor,
 }: {
   icon?: IIcon;
   size?: number;
-  color?: keyof ITheme['colors'];
-  fill?: 'none' | keyof ITheme['colors'];
+  colorKey?: IThemeColorKeys;
+  fill?: 'none' | IThemeColorKeys;
   onPress?: () => void;
   rippleColor?: keyof Pick<ITheme['colors'], 'ripple' | 'rippleDim'>;
 }) => {
@@ -25,14 +25,14 @@ export const Icon = ({
     <IconComponent
       width={size}
       height={size}
-      stroke={color ? theme.colors?.[color] : theme.colors.onSurfaceDim}
-      color={color ? theme.colors?.[color] : theme.colors.onSurfaceDim}
+      stroke={colorKey ? theme.colors?.[colorKey] : theme.colors.onSurfaceDim}
+      color={colorKey ? theme.colors?.[colorKey] : theme.colors.onSurfaceDim}
       fill={fill !== 'none' ? theme.colors?.[fill] : 'none'}
     />
   );
 
   return onPress ? (
-    <Pressable style={{ width: size }} rippleConfig={{ radius: size, color: rippleColor }} onPress={onPress}>
+    <Pressable style={{ width: size }} rippleConfig={{ radius: size, colorKey: rippleColor }} onPress={onPress}>
       {content}
     </Pressable>
   ) : (

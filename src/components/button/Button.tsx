@@ -44,8 +44,8 @@ export const Button = (props: IButton) => {
           style={styles.button}
           onPress={onPress}
         >
-          {icon && <Icon icon={icon} color='onPrimary' />}
-          <Text text={title} variant='pLGRegular' color='onPrimary' />
+          {icon && <Icon icon={icon} colorKey='onPrimary' />}
+          <Text text={title} variant='pLGRegular' colorKey='onPrimary' />
         </Pressable>
       </View>
     );
@@ -61,8 +61,8 @@ export const Button = (props: IButton) => {
           style={styles.button}
           onPress={onPress}
         >
-          {icon && <Icon icon={icon} color='primary' />}
-          <Text text={title} color='primary' variant='pLGRegular' />
+          {icon && <Icon icon={icon} colorKey='primary' />}
+          <Text text={title} colorKey='primary' variant='pLGRegular' />
         </Pressable>
       </View>
     );

@@ -18,14 +18,16 @@ export const WeeklyActivity = ({ config }: { config: IWeeklyActivityConfig }) =>
       <>
         <Text
           variant='pMDRegular'
-          color={i.variant === 'inactive' ? 'onSurfaceExtraDim' : i.variant === 'active' ? 'primary' : 'onSurfaceDim'}
+          colorKey={
+            i.variant === 'inactive' ? 'onSurfaceExtraDim' : i.variant === 'active' ? 'primary' : 'onSurfaceDim'
+          }
         >
           {i.value}
         </Text>
         <Icon
           icon={icons.Unchecked}
           size={16}
-          color={i.variant === 'inactive' ? 'outline' : i.variant === 'active' ? 'primary' : 'onSurfaceDim'}
+          colorKey={i.variant === 'inactive' ? 'outline' : i.variant === 'active' ? 'primary' : 'onSurfaceDim'}
         />
       </>
     );
@@ -39,7 +41,7 @@ export const WeeklyActivity = ({ config }: { config: IWeeklyActivityConfig }) =>
             style={styles.item}
             key={index}
             onPress={i.onPress}
-            rippleConfig={{ color: 'rippleDim' }}
+            rippleConfig={{ colorKey: 'rippleDim' }}
             hitSlop={5}
           >
             {getItem(i)}

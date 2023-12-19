@@ -60,7 +60,7 @@ export default function Preview() {
             keyExtractor={(item, index) => item.name + index}
             ListHeaderComponent={
               <View style={styles.gap}>
-                <Text text={workout?.name} style={styles.title} variant='h2Medium' color='primary' />
+                <Text text={workout?.name} style={styles.title} variant='h2Medium' colorKey='primary' />
                 <InfoContainer
                   title='Traget Muscles'
                   content={
@@ -72,7 +72,7 @@ export default function Preview() {
                   }
                 />
                 <InfoContainer title='Last Performed' content='4 days ago' />
-                <Text variant='pSMRegular' color='onSurfaceDim' text={`Exercises(${workout.exercises.length}) `} />
+                <Text variant='pSMRegular' colorKey='onSurfaceDim' text={`Exercises(${workout.exercises.length}) `} />
               </View>
             }
           />

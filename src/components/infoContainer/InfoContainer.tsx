@@ -15,7 +15,7 @@ export const InfoContainer = (props: IProps) => {
 
   return (
     <Card style={{ gap: theme.spacing[2] }}>
-      <Text variant='pSMRegular' color='onSurfaceDim'>
+      <Text variant='pSMRegular' colorKey='onSurfaceDim'>
         {title}
       </Text>
       {typeof content === 'string' ? <Text variant='pMDRegular'>{content || 'NA'}</Text> : <></>}

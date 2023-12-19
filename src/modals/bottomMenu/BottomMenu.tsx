@@ -21,7 +21,7 @@ export const BottomMenu = (props: IProps) => {
   const styles = useThemedStyles(themedStyles);
 
   return (
-    <Modal modalRef={modalRef} backgroundColor='surface'>
+    <Modal modalRef={modalRef} backgroundColorKey='surface'>
       <View style={styles.content}>
         {items.map((i, index) => {
           return <MenuItem iosScaleDownAnimation key={index} {...i} roundedBottomCorners roundedTopCorners />;

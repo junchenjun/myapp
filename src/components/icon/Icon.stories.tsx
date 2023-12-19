@@ -11,7 +11,7 @@ const IconStory: Meta<typeof Icon> = {
   component: Icon,
   argTypes: {
     onPress: { action: 'clicked' },
-    color: { options: ['primary', 'onSurface'], control: { type: 'select' } },
+    colorKey: { options: ['primary', 'onSurface'], control: { type: 'select' } },
   },
 };
 
@@ -22,7 +22,7 @@ export default IconStory;
 export const AllIcons: IStory = {
   args: {
     size: 24,
-    color: 'primary',
+    colorKey: 'primary',
   },
   render: ({ ...args }) => (
     <View
@@ -35,7 +35,7 @@ export const AllIcons: IStory = {
       {Object.keys(icons).map(key => (
         <Card key={key} style={{ marginVertical: 5, width: '31%', padding: 4, paddingVertical: 10 }}>
           <View key={key} style={{ alignItems: 'center', gap: 12 }}>
-            <Text variant='pSMRegular' color='onSurfaceDim'>
+            <Text variant='pSMRegular' colorKey='onSurfaceDim'>
               {key}
             </Text>
             <Icon {...args} icon={icons[key as keyof typeof icons]} />

@@ -41,13 +41,13 @@ export const SelectButton = (props: IButton) => {
           style={[styles.pressable, selected && styles.selected]}
         >
           <View style={styles.left}>
-            {icon && <Icon icon={icon} color={selected ? 'primary' : 'onSurfaceExtraDim'} />}
-            <Text text={title} color={selected ? 'primary' : 'onSurfaceDim'} />
+            {icon && <Icon icon={icon} colorKey={selected ? 'primary' : 'onSurfaceExtraDim'} />}
+            <Text text={title} colorKey={selected ? 'primary' : 'onSurfaceDim'} />
           </View>
           <Icon
             size={22}
             icon={selected ? icons.Checked : icons.Unchecked}
-            color={selected ? 'primary' : 'outline'}
+            colorKey={selected ? 'primary' : 'outline'}
             fill={selected ? 'primary' : 'surfaceBright'}
           />
         </Pressable>

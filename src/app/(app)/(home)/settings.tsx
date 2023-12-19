@@ -55,7 +55,7 @@ const Settings = () => {
     <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
       <AppearanceModal modalRef={appearanceModalRef} />
       {/* Account */}
-      <Text text='Account' color='onSurfaceDim' style={styles.label} />
+      <Text text='Account' colorKey='onSurfaceDim' style={styles.label} />
       <View style={styles.menu}>
         <MenuItem
           iconLeft={icons.User}
@@ -78,7 +78,7 @@ const Settings = () => {
         />
       </View>
       {/* Preferences */}
-      <Text text='Preferences' color='onSurfaceDim' style={styles.label} />
+      <Text text='Preferences' colorKey='onSurfaceDim' style={styles.label} />
       <View style={styles.menu}>
         <MenuItem
           iconRight={icons.ExpandRight}
@@ -113,7 +113,7 @@ const Settings = () => {
         />
       </View>
       {/* Help */}
-      <Text text='Help' color='onSurfaceDim' style={styles.label} />
+      <Text text='Help' colorKey='onSurfaceDim' style={styles.label} />
       <View style={styles.menu}>
         <MenuItem iconRight={icons.ExpandRight} iconLeft={icons.Mail} withBorder roundedTopCorners title='Contact Us' />
         <MenuItem iconRight={icons.External} iconLeft={icons.File} withBorder title='License' />

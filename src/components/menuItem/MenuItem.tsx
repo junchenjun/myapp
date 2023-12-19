@@ -4,7 +4,7 @@ import { IIcon } from '~assets/icons';
 import { Icon } from '~components/icon/Icon';
 import { Pressable } from '~components/pressable/Pressable';
 import { Text } from '~components/text/Text';
-import { ITheme, useThemedStyles } from '~theme/ThemeContext';
+import { ITheme, IThemeColorKeys, useThemedStyles } from '~theme/ThemeContext';
 
 interface IDefaultMenuItem {
   title?: string;
@@ -47,10 +47,10 @@ export const MenuItem = (props: IMenuItem) => {
 
   const styles = useThemedStyles(themedStyles({ iosScaleDownAnimation, color, size }));
 
-  let titleColor: keyof ITheme['colors'] = danger ? 'error' : 'onSurface';
-  let descColor: keyof ITheme['colors'] = danger ? 'error' : 'onSurfaceExtraDim';
-  let iconLeftColor: keyof ITheme['colors'] = danger ? 'error' : 'onSurfaceDim';
-  let iconRightColor: keyof ITheme['colors'] = danger ? 'error' : 'onSurfaceExtraDim';
+  let titleColor: IThemeColorKeys = danger ? 'error' : 'onSurface';
+  let descColor: IThemeColorKeys = danger ? 'error' : 'onSurfaceExtraDim';
+  let iconLeftColor: IThemeColorKeys = danger ? 'error' : 'onSurfaceDim';
+  let iconRightColor: IThemeColorKeys = danger ? 'error' : 'onSurfaceExtraDim';
 
   if (color === 'primaryInverse') {
     titleColor = 'primary';
@@ -84,16 +84,16 @@ export const MenuItem = (props: IMenuItem) => {
       >
         {(iconLeft || title) && (
           <View style={styles.left}>
-            {iconLeft && <Icon icon={iconLeft} color={iconLeftColor} />}
+            {iconLeft && <Icon icon={iconLeft} colorKey={iconLeftColor} />}
             {title && (
               <View>
-                <Text text={title} color={titleColor} />
-                {desc && <Text text={desc} variant='pXSRegular' color={descColor} />}
+                <Text text={title} colorKey={titleColor} />
+                {desc && <Text text={desc} variant='pXSRegular' colorKey={descColor} />}
               </View>
             )}
           </View>
         )}
-        {iconRight && <Icon onPress={onRightIconPress} icon={iconRight} color={iconRightColor} />}
+        {iconRight && <Icon onPress={onRightIconPress} icon={iconRight} colorKey={iconRightColor} />}
       </Pressable>
     </View>
   );

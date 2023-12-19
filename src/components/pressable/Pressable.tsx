@@ -15,7 +15,7 @@ interface IProps {
     radius?: number;
     borderless?: boolean;
     disabled?: boolean;
-    color?: keyof ITheme['colors'];
+    colorKey?: keyof Pick<ITheme['colors'], 'ripple' | 'rippleDim'>;
   };
   hitSlop?: number;
   tabBarButton?: boolean;
@@ -75,7 +75,7 @@ export const Pressable = (props: IProps) => {
         android_ripple={
           !rippleDisabled
             ? {
-                color: rippleConfig?.color ? theme.colors[rippleConfig.color] : theme.colors.ripple,
+                color: rippleConfig?.colorKey ? theme.colors[rippleConfig.colorKey] : theme.colors.ripple,
                 // default true
                 borderless: rippleConfig?.borderless !== false,
                 // default false

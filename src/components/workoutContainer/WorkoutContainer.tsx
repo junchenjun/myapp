@@ -35,12 +35,12 @@ export const WorkoutContainer = (props: IProps) => {
           if (showDivider) {
             return (
               <View style={styles.showDivider} key={i}>
-                <Text variant='pSMRegular' text={i} color='onSurfaceDim' />
+                <Text variant='pSMRegular' text={i} colorKey='onSurfaceDim' />
                 <View style={styles.dot} />
               </View>
             );
           }
-          return <Text key={i} variant='pSMRegular' text={i} color='onSurfaceDim' />;
+          return <Text key={i} variant='pSMRegular' text={i} colorKey='onSurfaceDim' />;
         })}
       </View>
     </>

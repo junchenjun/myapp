@@ -54,7 +54,7 @@ export default function Layout() {
           title: 'Activity',
           tabBarButton,
           tabBarIcon: ({ focused }) => (
-            <Icon icon={icons.Activity} color={focused ? 'primary' : 'onSurfaceExtraDim'} size={iconSize - 1} />
+            <Icon icon={icons.Activity} colorKey={focused ? 'primary' : 'onSurfaceExtraDim'} size={iconSize - 1} />
           ),
           headerShown: false,
         }}
@@ -70,7 +70,7 @@ export default function Layout() {
             <Icon
               icon={icons.Lightning}
               fill={focused ? 'primary' : 'none'}
-              color={focused ? 'primary' : 'onSurfaceExtraDim'}
+              colorKey={focused ? 'primary' : 'onSurfaceExtraDim'}
               size={iconSize + 1}
             />
           ),
@@ -88,7 +88,7 @@ export default function Layout() {
           title: 'Settings',
           tabBarButton,
           tabBarIcon: ({ focused }) => (
-            <Icon icon={icons.Settings} color={focused ? 'primary' : 'onSurfaceExtraDim'} size={iconSize} />
+            <Icon icon={icons.Settings} colorKey={focused ? 'primary' : 'onSurfaceExtraDim'} size={iconSize} />
           ),
           headerShown: true,
           header: () => {

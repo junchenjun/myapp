@@ -20,6 +20,8 @@ export interface ITheme {
   systemDefault: boolean;
 }
 
+export type IThemeColorKeys = keyof ITheme['colors'];
+
 interface IAction<T> {
   type: string;
   payload: T;

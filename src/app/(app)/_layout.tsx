@@ -51,8 +51,8 @@ export default function Layout() {
                 showTitle={showTitle || false}
                 right={{
                   component: (
-                    <Pressable rippleConfig={{ radius: 24, color: 'rippleDim' }}>
-                      <Text text='Edit' color='primary' />
+                    <Pressable rippleConfig={{ radius: 24, colorKey: 'rippleDim' }}>
+                      <Text text='Edit' colorKey='primary' />
                     </Pressable>
                   ),
                 }}

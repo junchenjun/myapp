@@ -77,9 +77,9 @@ export const AccordionItem = (props: IProps) => {
   const icon = useMemo(
     () =>
       expanded ? (
-        <Icon icon={icons.ExpandUp} onPress={onPress} color='onSurfaceExtraDim' />
+        <Icon icon={icons.ExpandUp} onPress={onPress} colorKey='onSurfaceExtraDim' />
       ) : (
-        <Icon icon={icons.ExpandDown} onPress={onPress} color='onSurfaceExtraDim' />
+        <Icon icon={icons.ExpandDown} onPress={onPress} colorKey='onSurfaceExtraDim' />
       ),
     [expanded, onPress]
   );

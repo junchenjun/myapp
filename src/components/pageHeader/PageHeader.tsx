@@ -54,12 +54,12 @@ export const PageHeader = (props: IPageHeader) => {
     opacity.value = withTiming(showTitle ? 1 : 0, { duration: 200 });
 
     const componentLeft = left?.icon ? (
-      <Icon icon={left.icon} color='onSurface' onPress={left.onPress} rippleColor='rippleDim' />
+      <Icon icon={left.icon} colorKey='onSurface' onPress={left.onPress} rippleColor='rippleDim' />
     ) : (
       left?.component
     );
     const componentRight = right?.icon ? (
-      <Icon icon={right.icon} onPress={right.onPress} color='onSurface' rippleColor='rippleDim' />
+      <Icon icon={right.icon} onPress={right.onPress} colorKey='onSurface' rippleColor='rippleDim' />
     ) : (
       right?.component
     );
@@ -67,7 +67,7 @@ export const PageHeader = (props: IPageHeader) => {
     return (
       <View style={styles.container}>
         <View style={styles.left}>{left?.icon || left?.component ? componentLeft : null}</View>
-        {title && <Text text={title} animatedStyles={animatedStyles} color='onSurfaceDim' />}
+        {title && <Text text={title} animatedStyles={animatedStyles} colorKey='onSurfaceDim' />}
         <View style={styles.right}>{right?.icon || right?.component ? componentRight : null}</View>
       </View>
     );
@@ -75,7 +75,7 @@ export const PageHeader = (props: IPageHeader) => {
     return (
       <View style={[styles.container, styles.default]}>
         {title && (
-          <Text variant='h3Regular' color='onSurface'>
+          <Text variant='h3Regular' colorKey='onSurface'>
             {title}
           </Text>
         )}

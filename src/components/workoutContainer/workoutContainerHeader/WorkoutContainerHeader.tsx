@@ -30,7 +30,7 @@ export const WorkoutContainerHeader = (props: IWorkoutContainerHeader) => {
           <Label title={i} key={i} />
         ))}
       </View>
-      {menu && <Icon icon={icons.More} onPress={handlePresentModalPress} color='onSurface' fill='onSurface' />}
+      {menu && <Icon icon={icons.More} onPress={handlePresentModalPress} colorKey='onSurface' fill='onSurface' />}
     </View>
   );
 };

@@ -41,13 +41,13 @@ interface IProps {
   modalRef: RefObject<BottomSheetModal>;
   children?: ReactElement | ReactElement[];
   title?: string;
-  backgroundColor?: keyof Pick<ITheme['colors'], 'surface' | 'surfaceExtraBright'>;
+  backgroundColorKey?: keyof Pick<ITheme['colors'], 'surface' | 'surfaceExtraBright'>;
 }
 
 export const Modal = (props: IProps) => {
-  const { modalRef, children, title, backgroundColor = 'surfaceExtraBright' } = props;
+  const { modalRef, children, title, backgroundColorKey = 'surfaceExtraBright' } = props;
   const insets = useSafeAreaInsets();
-  const styles = useThemedStyles(themedStyles({ insets, backgroundColor }));
+  const styles = useThemedStyles(themedStyles({ insets, backgroundColorKey }));
   const { handleSheetPositionChange } = useBottomSheetBackHandler(modalRef);
 
   const renderBackdrop = useCallback(
@@ -81,12 +81,12 @@ export const Modal = (props: IProps) => {
 };
 const themedStyles = (extra: {
   insets: EdgeInsets;
-  backgroundColor: keyof Pick<ITheme['colors'], 'surface' | 'surfaceExtraBright'>;
+  backgroundColorKey: keyof Pick<ITheme['colors'], 'surface' | 'surfaceExtraBright'>;
 }) => {
   const styles = (theme: ITheme) => {
     return StyleSheet.create({
       backgroundStyle: {
-        backgroundColor: theme.colors[extra.backgroundColor],
+        backgroundColor: theme.colors[extra.backgroundColorKey],
         borderTopLeftRadius: theme.radius.xl,
         borderTopRightRadius: theme.radius.xl,
         borderRadius: 0,
