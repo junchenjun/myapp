@@ -5,7 +5,7 @@ import { Alert, BackHandler, ScrollView, StyleSheet, View } from 'react-native';
 import { Button } from '~components/atoms/button/Button';
 import { Text } from '~components/atoms/text/Text';
 import { Accordion } from '~components/molecules/accordion/Accordion';
-import { WorkoutContainer } from '~components/organisms/workoutContainer/WorkoutContainer';
+import { WorkoutItem } from '~components/organisms/workoutItem/WorkoutItem';
 import { useAppSelector } from '~redux/store';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
@@ -44,7 +44,7 @@ const Workout = () => {
         <ScrollView contentContainerStyle={styles.scroll}>
           {workout?.exercises.map((i, index) => {
             return (
-              <WorkoutContainer
+              <WorkoutItem
                 key={index}
                 title={i.name}
                 header={{

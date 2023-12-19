@@ -6,15 +6,15 @@ import { Text } from '~components/atoms/text/Text';
 import { AccordionItem } from '~components/molecules/accordion/accordionItem/AccordionItem';
 import { IBottomMenuItems } from '~components/organisms/bottomMenu/BottomMenu';
 import {
-  IWorkoutContainerHeader,
-  WorkoutContainerHeader,
-} from '~components/organisms/workoutContainer/workoutContainerHeader/WorkoutContainerHeader';
+  IWorkoutItemHeader,
+  WorkoutItemHeader,
+} from '~components/organisms/workoutItem/workoutItemHeader/WorkoutContainerHeader';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
-export interface IWorkoutContainerProps {
+export interface IWorkoutItemProps {
   title?: string;
   descItems?: string[];
-  header?: IWorkoutContainerHeader;
+  header?: IWorkoutItemHeader;
   accordionContent?: ReactElement;
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
@@ -22,7 +22,7 @@ export interface IWorkoutContainerProps {
   menu?: IBottomMenuItems;
 }
 
-export const WorkoutContainer = (props: IWorkoutContainerProps) => {
+export const WorkoutItem = (props: IWorkoutItemProps) => {
   const { title, header, descItems, accordionContent, onPress, style, children, menu } = props;
   const styles = useThemedStyles(themedStyles);
 
@@ -49,7 +49,7 @@ export const WorkoutContainer = (props: IWorkoutContainerProps) => {
   if (!accordionContent) {
     return (
       <Card onPress={onPress} style={style}>
-        <WorkoutContainerHeader {...header} menu={menu} />
+        <WorkoutItemHeader {...header} menu={menu} />
         {mainContent}
         {children}
       </Card>
@@ -60,7 +60,7 @@ export const WorkoutContainer = (props: IWorkoutContainerProps) => {
         <AccordionItem
           trigger={triggerButton => (
             <>
-              <WorkoutContainerHeader {...header} menu={menu} />
+              <WorkoutItemHeader {...header} menu={menu} />
               <View style={styles.main}>
                 <View>{mainContent}</View>
                 {triggerButton}

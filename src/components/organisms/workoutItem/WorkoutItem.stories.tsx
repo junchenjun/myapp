@@ -2,19 +2,19 @@ import { Meta, StoryObj } from '@storybook/react-native';
 
 import { Text } from '~components/atoms/text/Text';
 import { Accordion } from '~components/molecules/accordion/Accordion';
-import { IWorkoutContainerProps, WorkoutContainer } from '~components/organisms/workoutContainer/WorkoutContainer';
+import { IWorkoutItemProps, WorkoutItem } from '~components/organisms/workoutItem/WorkoutItem';
 
-const WorkoutContainerStory: Meta<IWorkoutContainerProps> = {
-  title: 'WorkoutContainer',
-  component: WorkoutContainer,
+const WorkoutItemStory: Meta<IWorkoutItemProps> = {
+  title: 'WorkoutItem',
+  component: WorkoutItem,
   argTypes: {
     title: { control: 'text' },
   },
 };
 
-type IStory = StoryObj<IWorkoutContainerProps>;
+type IStory = StoryObj<IWorkoutItemProps>;
 
-export default WorkoutContainerStory;
+export default WorkoutItemStory;
 
 export const Default: IStory = {
   args: {
@@ -29,7 +29,7 @@ export const Default: IStory = {
 export const WithAccordion = {
   render: () => (
     <Accordion>
-      <WorkoutContainer
+      <WorkoutItem
         title='Chest&Triceps'
         header={{
           labels: ['Shoulder', 'biceps'],
@@ -47,7 +47,7 @@ export const WithAccordion = {
           </>
         }
       />
-      <WorkoutContainer
+      <WorkoutItem
         title='Back&Biceps'
         header={{
           labels: ['Shoulder', 'biceps'],

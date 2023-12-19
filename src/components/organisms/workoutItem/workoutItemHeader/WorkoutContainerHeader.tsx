@@ -8,12 +8,12 @@ import { Label } from '~components/atoms/label/Label';
 import { BottomMenu, IBottomMenuItems } from '~components/organisms/bottomMenu/BottomMenu';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
-export interface IWorkoutContainerHeader {
+export interface IWorkoutItemHeader {
   menu?: IBottomMenuItems;
   labels?: string[];
 }
 
-export const WorkoutContainerHeader = (props: IWorkoutContainerHeader) => {
+export const WorkoutItemHeader = (props: IWorkoutItemHeader) => {
   const { menu, labels } = props;
   const styles = useThemedStyles(themedStyles);
   const modalRef = useRef<BottomSheetModal>(null);

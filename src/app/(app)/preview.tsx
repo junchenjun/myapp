@@ -8,7 +8,7 @@ import { Label } from '~components/atoms/label/Label';
 import { Text } from '~components/atoms/text/Text';
 import { Accordion } from '~components/molecules/accordion/Accordion';
 import { InfoContainer } from '~components/molecules/infoContainer/InfoContainer';
-import { WorkoutContainer } from '~components/organisms/workoutContainer/WorkoutContainer';
+import { WorkoutItem } from '~components/organisms/workoutItem/WorkoutItem';
 import { useAppDispatch, useAppSelector } from '~redux/store';
 import { IExercise, setWorkout } from '~redux/workoutSlice';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
@@ -26,7 +26,7 @@ export default function Preview() {
 
   const renderItem = useCallback(
     ({ item }: { item: IExercise }) => (
-      <WorkoutContainer
+      <WorkoutItem
         style={{ marginTop: styles.gap.marginTop }}
         title={item.name}
         header={{

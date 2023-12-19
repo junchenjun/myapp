@@ -6,9 +6,9 @@ import { ScrollView, SectionList, StyleSheet, View } from 'react-native';
 import { icons } from '~assets/icons';
 import { MenuItem } from '~components/atoms/menuItem/MenuItem';
 import { WeeklyActivity } from '~components/molecules/weeklyActivity/WeeklyActivity';
-import { WorkoutContainer } from '~components/organisms/workoutContainer/WorkoutContainer';
 import { BottomMenu } from '~components/organisms/bottomMenu/BottomMenu';
 import { SelectPlanModal } from '~components/organisms/selectPlanModal/SelectPlanModal';
+import { WorkoutItem } from '~components/organisms/workoutItem/WorkoutItem';
 import { useAppSelector } from '~redux/store';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
@@ -94,7 +94,7 @@ const Home = () => {
           keyExtractor={(item, index) => item.name + index}
           scrollEnabled={false}
           renderItem={({ item, section, index }) => (
-            <WorkoutContainer
+            <WorkoutItem
               key={index}
               title={item.name}
               style={styles.gap}
