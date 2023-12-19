@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react-native';
 import { ILabelProps, Label } from '~components/atoms/label/Label';
 
 const LabelStory: Meta<ILabelProps> = {
-  title: 'Label',
+  title: 'Atoms/Label',
   component: Label,
   argTypes: {
     title: { control: 'text' },

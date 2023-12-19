@@ -7,7 +7,7 @@ import { IIconProps, Icon } from '~components/atoms/icon/Icon';
 import { Text } from '~components/atoms/text/Text';
 
 const IconStory: Meta<IIconProps> = {
-  title: 'Icon',
+  title: 'Atoms/Icon',
   component: Icon,
   argTypes: {
     onPress: { action: 'clicked' },

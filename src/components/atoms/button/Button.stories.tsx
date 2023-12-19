@@ -6,7 +6,7 @@ import { Button, IButtonProps } from '~components/atoms/button/Button';
 type IStory = StoryObj<IButtonProps>;
 
 const ButtonStory: Meta<IButtonProps> = {
-  title: 'Button',
+  title: 'Atoms/Button',
   component: Button,
   argTypes: {
     variant: { options: ['primary', 'ghost'], control: { type: 'radio' } },

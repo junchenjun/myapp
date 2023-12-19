@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react-native';
 import { ITextProps, Text } from '~components/atoms/text/Text';
 
 const TextStory: Meta<ITextProps> = {
-  title: 'Text',
+  title: 'Atoms/Text',
   component: Text,
   argTypes: {
     variant: {

@@ -5,7 +5,7 @@ import { Accordion } from '~components/molecules/accordion/Accordion';
 import { IWorkoutItemProps, WorkoutItem } from '~components/organisms/workoutItem/WorkoutItem';
 
 const WorkoutItemStory: Meta<IWorkoutItemProps> = {
-  title: 'WorkoutItem',
+  title: 'Organisms/WorkoutItem',
   component: WorkoutItem,
   argTypes: {
     title: { control: 'text' },

@@ -4,7 +4,7 @@ import { icons } from '~assets/icons';
 import { IMenuItemProps, MenuItem } from '~components/atoms/menuItem/MenuItem';
 
 const CardStory: Meta<IMenuItemProps> = {
-  title: 'MenuItem',
+  title: 'Atoms/MenuItem',
   component: MenuItem,
   argTypes: {
     onPress: { control: null, action: 'onPress' },

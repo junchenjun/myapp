@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react-native';
 import { IWeeklyActivityProps, WeeklyActivity } from '~components/molecules/weeklyActivity/WeeklyActivity';
 
 const WeeklyActivityStory: Meta<IWeeklyActivityProps> = {
-  title: 'WeeklyActivity',
+  title: 'Molecules/WeeklyActivity',
   component: WeeklyActivity,
 };
 

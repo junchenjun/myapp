@@ -4,7 +4,7 @@ import { Card, ICardProps } from '~components/atoms/card/Card';
 import { Text } from '~components/atoms/text/Text';
 
 const CardStory: Meta<ICardProps> = {
-  title: 'Card',
+  title: 'Atoms/Card',
   component: Card,
   argTypes: {
     onPress: { control: null, action: 'onPress' },

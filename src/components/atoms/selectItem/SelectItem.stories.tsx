@@ -7,7 +7,7 @@ import { ISelectItemProps, SelectItem } from '~components/atoms/selectItem/Selec
 type IStory = StoryObj<ISelectItemProps>;
 
 const SelectButtonStory: Meta<ISelectItemProps> = {
-  title: 'SelectItem',
+  title: 'Atoms/SelectItem',
   component: Button,
   argTypes: {
     variant: { options: ['large', 'small'], control: { type: 'radio' } },

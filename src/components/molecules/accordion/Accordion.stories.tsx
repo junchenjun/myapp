@@ -7,7 +7,7 @@ import { AccordionItem } from '~components/molecules/accordion/accordionItem/Acc
 type IStory = StoryObj<IAccordionProps>;
 
 const AccordionStory: Meta<IAccordionProps> = {
-  title: 'Accordion',
+  title: 'Molecules/Accordion',
   component: Accordion,
   args: {
     autoCollapse: true,
