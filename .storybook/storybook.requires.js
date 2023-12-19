@@ -47,16 +47,16 @@ try {
 
 const getStories = () => {
   return {
-    "./src/components/accordion/Accordion.stories.tsx": require("../src/components/accordion/Accordion.stories.tsx"),
-    "./src/components/button/Button.stories.tsx": require("../src/components/button/Button.stories.tsx"),
-    "./src/components/card/Card.stories.tsx": require("../src/components/card/Card.stories.tsx"),
-    "./src/components/icon/Icon.stories.tsx": require("../src/components/icon/Icon.stories.tsx"),
-    "./src/components/label/Label.stories.tsx": require("../src/components/label/Label.stories.tsx"),
-    "./src/components/menuItem/MenuItem.stories.tsx": require("../src/components/menuItem/MenuItem.stories.tsx"),
-    "./src/components/selectButton/SelectButton.stories.tsx": require("../src/components/selectButton/SelectButton.stories.tsx"),
-    "./src/components/text/Text.stories.tsx": require("../src/components/text/Text.stories.tsx"),
-    "./src/components/weeklyActivity/WeeklyActivity.stories.tsx": require("../src/components/weeklyActivity/WeeklyActivity.stories.tsx"),
-    "./src/components/workoutContainer/WorkoutContainer.stories.tsx": require("../src/components/workoutContainer/WorkoutContainer.stories.tsx"),
+    "./src/components/atoms/button/Button.stories.tsx": require("../src/components/atoms/button/Button.stories.tsx"),
+    "./src/components/atoms/card/Card.stories.tsx": require("../src/components/atoms/card/Card.stories.tsx"),
+    "./src/components/atoms/icon/Icon.stories.tsx": require("../src/components/atoms/icon/Icon.stories.tsx"),
+    "./src/components/atoms/label/Label.stories.tsx": require("../src/components/atoms/label/Label.stories.tsx"),
+    "./src/components/atoms/menuItem/MenuItem.stories.tsx": require("../src/components/atoms/menuItem/MenuItem.stories.tsx"),
+    "./src/components/atoms/selectItem/SelectItem.stories.tsx": require("../src/components/atoms/selectItem/SelectItem.stories.tsx"),
+    "./src/components/atoms/text/Text.stories.tsx": require("../src/components/atoms/text/Text.stories.tsx"),
+    "./src/components/molecules/accordion/Accordion.stories.tsx": require("../src/components/molecules/accordion/Accordion.stories.tsx"),
+    "./src/components/molecules/weeklyActivity/WeeklyActivity.stories.tsx": require("../src/components/molecules/weeklyActivity/WeeklyActivity.stories.tsx"),
+    "./src/components/molecules/workoutContainer/WorkoutContainer.stories.tsx": require("../src/components/molecules/workoutContainer/WorkoutContainer.stories.tsx"),
   };
 };
 

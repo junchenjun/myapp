@@ -38,8 +38,7 @@
           ["~redux", "./src/redux"],
           ["~utils", "./src/utils"],
           ["~app", "./src/app"],
-          ["~firebase", "./src/firebase"],
-          ["~modals", "./src/modals"]
+          ["~firebase", "./src/firebase"]
         ],
         "extensions": [".ts", ".js", ".tsx", ".json", ".stories.tsx"]
       }

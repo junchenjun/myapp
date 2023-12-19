@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
-import { Button } from '~components/button/Button';
-import { Text } from '~components/text/Text';
+import { Button } from '~components/atoms/button/Button';
+import { Text } from '~components/atoms/text/Text';
 import { firebaseAuth } from '~firebase/firebaseConfig';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 

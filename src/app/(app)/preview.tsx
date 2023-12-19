@@ -3,12 +3,12 @@ import { useCallback } from 'react';
 import { FlatList, Platform, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
-import { Accordion } from '~components/accordion/Accordion';
-import { Button } from '~components/button/Button';
-import { InfoContainer } from '~components/infoContainer/InfoContainer';
-import { Label } from '~components/label/Label';
-import { Text } from '~components/text/Text';
-import { WorkoutContainer } from '~components/workoutContainer/WorkoutContainer';
+import { Button } from '~components/atoms/button/Button';
+import { Label } from '~components/atoms/label/Label';
+import { Text } from '~components/atoms/text/Text';
+import { Accordion } from '~components/molecules/accordion/Accordion';
+import { InfoContainer } from '~components/molecules/infoContainer/InfoContainer';
+import { WorkoutContainer } from '~components/molecules/workoutContainer/WorkoutContainer';
 import { useAppDispatch, useAppSelector } from '~redux/store';
 import { IExercise, setWorkout } from '~redux/workoutSlice';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';

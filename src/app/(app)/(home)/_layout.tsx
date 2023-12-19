@@ -5,9 +5,9 @@ import { Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { icons } from '~assets/icons';
-import { Icon } from '~components/icon/Icon';
-import { PageHeader } from '~components/pageHeader/PageHeader';
-import { Pressable } from '~components/pressable/Pressable';
+import { Icon } from '~components/atoms/icon/Icon';
+import { Pressable } from '~components/atoms/pressable/Pressable';
+import { PageHeader } from '~components/molecules/pageHeader/PageHeader';
 import { useTheme } from '~theme/ThemeContext';
 
 export default function Layout() {

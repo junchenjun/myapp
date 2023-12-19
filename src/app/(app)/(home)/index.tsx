@@ -4,11 +4,11 @@ import { useCallback, useRef } from 'react';
 import { ScrollView, SectionList, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
-import { MenuItem } from '~components/menuItem/MenuItem';
-import { WeeklyActivity } from '~components/weeklyActivity/WeeklyActivity';
-import { WorkoutContainer } from '~components/workoutContainer/WorkoutContainer';
-import { BottomMenu } from '~modals/bottomMenu/BottomMenu';
-import { SelectPlanModal } from '~modals/selectPlanModal/SelectPlanModal';
+import { MenuItem } from '~components/atoms/menuItem/MenuItem';
+import { WeeklyActivity } from '~components/molecules/weeklyActivity/WeeklyActivity';
+import { WorkoutContainer } from '~components/molecules/workoutContainer/WorkoutContainer';
+import { BottomMenu } from '~components/organisms/bottomMenu/BottomMenu';
+import { SelectPlanModal } from '~components/organisms/selectPlanModal/SelectPlanModal';
 import { useAppSelector } from '~redux/store';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
@@ -63,6 +63,7 @@ const Home = () => {
         <View style={styles.buttonGroup}>
           <View style={styles.selectPlan}>
             <MenuItem
+              iosScaleDownAnimation
               color='primaryInverse'
               iconLeft={icons.Collections}
               iconRight={icons.More}
@@ -75,7 +76,14 @@ const Home = () => {
             />
           </View>
           <View>
-            <MenuItem color='primary' size='sm' iconRight={icons.Plus} roundedTopCorners roundedBottomCorners />
+            <MenuItem
+              iosScaleDownAnimation
+              color='primary'
+              size='sm'
+              iconRight={icons.Plus}
+              roundedTopCorners
+              roundedBottomCorners
+            />
           </View>
         </View>
         {/* List */}

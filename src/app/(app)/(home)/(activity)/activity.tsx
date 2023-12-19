@@ -5,10 +5,10 @@ import { useCallback, useRef, useState } from 'react';
 import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
-import { MenuItem } from '~components/menuItem/MenuItem';
-import { Text } from '~components/text/Text';
+import { MenuItem } from '~components/atoms/menuItem/MenuItem';
+import { Text } from '~components/atoms/text/Text';
+import { AppearanceModal } from '~components/organisms/appearanceModal/AppearanceModal';
 import { firebaseAuth } from '~firebase/firebaseConfig';
-import { AppearanceModal } from '~modals/appearanceModal/AppearanceModal';
 import { ITheme, appColorScheme, useTheme, useThemedStyles } from '~theme/ThemeContext';
 
 const Settings = () => {

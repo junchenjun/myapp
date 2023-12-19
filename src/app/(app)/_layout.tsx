@@ -2,9 +2,9 @@ import { Stack, router } from 'expo-router';
 import { Alert } from 'react-native';
 
 import { icons } from '~assets/icons';
-import { PageHeader } from '~components/pageHeader/PageHeader';
-import { Pressable } from '~components/pressable/Pressable';
-import { Text } from '~components/text/Text';
+import { Pressable } from '~components/atoms/pressable/Pressable';
+import { Text } from '~components/atoms/text/Text';
+import { PageHeader } from '~components/molecules/pageHeader/PageHeader';
 
 export default function Layout() {
   const createAlert = () =>

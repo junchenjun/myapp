@@ -20,7 +20,6 @@
       "~redux/*": ["./src/redux/*"],
       "~app/*": ["./src/app/*"],
       "~firebase/*": ["./src/firebase/*"],
-      "~modals/*": ["./src/modals/*"],
       "@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"]
     }
   },

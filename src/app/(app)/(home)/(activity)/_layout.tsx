@@ -7,8 +7,8 @@ import { EventMapBase, NavigationState } from '@react-navigation/native';
 import { withLayoutContext } from 'expo-router';
 import Animated from 'react-native-reanimated';
 
-import { PageHeader } from '~components/pageHeader/PageHeader';
-import { Pressable } from '~components/pressable/Pressable';
+import { Pressable } from '~components/atoms/pressable/Pressable';
+import { PageHeader } from '~components/molecules/pageHeader/PageHeader';
 import { useTheme } from '~theme/ThemeContext';
 
 const { Navigator } = createMaterialTopTabNavigator();
