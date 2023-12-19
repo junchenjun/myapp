@@ -2,21 +2,16 @@ import { IIcon, icons } from '~assets/icons';
 import { Pressable } from '~components/pressable/Pressable';
 import { IThemeColorKeys, useTheme } from '~theme/ThemeContext';
 
-export const Icon = ({
-  icon = icons.Zap,
-  size = 24,
-  colorKey,
-  fill = 'none',
-  onPress,
-  rippleColor,
-}: {
+export type IIconProps = {
   icon?: IIcon;
   size?: number;
   colorKey?: IThemeColorKeys;
   fill?: 'none' | IThemeColorKeys;
   onPress?: () => void;
   rippleColor?: Extract<IThemeColorKeys, 'rippleDim' | 'ripple'>;
-}) => {
+};
+
+export const Icon = ({ icon = icons.Zap, size = 24, colorKey, fill = 'none', onPress, rippleColor }: IIconProps) => {
   const theme = useTheme();
 
   const IconComponent = icon;

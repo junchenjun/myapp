@@ -14,18 +14,18 @@ interface ICommonProps {
 }
 
 interface ISmallSelectButton extends ICommonProps {
-  variant?: 'small';
+  variant: 'small';
 }
 
 interface ILargeSelectButton extends ICommonProps {
-  variant?: 'large';
-  icon: IIcon;
+  variant: 'large';
+  icon?: IIcon;
 }
 
-type IButton = ILargeSelectButton | ISmallSelectButton;
+export type ISelectButtonProps = ILargeSelectButton | ISmallSelectButton;
 
-export const SelectButton = (props: IButton) => {
-  const { onPress, title, selected, variant = 'large' } = props;
+export const SelectButton = (props: ISelectButtonProps) => {
+  const { onPress, title, selected, variant } = props;
   const styles = useThemedStyles(themedStyles);
 
   if (variant === 'large') {

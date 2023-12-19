@@ -3,7 +3,7 @@ import Animated, { AnimatedStyle } from 'react-native-reanimated';
 
 import { useTheme, IThemedText, IThemeColorKeys } from '~theme/ThemeContext';
 
-interface IProps {
+export interface ITextProps {
   text?: string;
   variant?: keyof IThemedText;
   colorKey?: IThemeColorKeys;
@@ -13,7 +13,7 @@ interface IProps {
   numberOfLines?: number;
 }
 
-export const Text = (props: IProps) => {
+export const Text = (props: ITextProps) => {
   const {
     text,
     variant = 'pMDRegular',

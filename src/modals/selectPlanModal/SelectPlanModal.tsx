@@ -20,8 +20,8 @@ export const SelectPlanModal = (props: IProps) => {
   return (
     <Modal modalRef={modalRef} title='Select Workout Plan'>
       <View style={styles.modal}>
-        <SelectButton title='Plan A' onPress={() => null} selected={false} />
-        <SelectButton title='Plan B' onPress={() => null} selected />
+        <SelectButton title='Plan A' onPress={() => null} selected={false} variant='large' />
+        <SelectButton title='Plan B' onPress={() => null} selected variant='large' />
         <Button icon={icons.Plus} title='New Workout Plan' variant='ghost' />
       </View>
     </Modal>

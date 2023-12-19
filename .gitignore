@@ -11,6 +11,7 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 *.apk
+*.app
 *.gz
 web-build/
 # GoogleService-Info.plist

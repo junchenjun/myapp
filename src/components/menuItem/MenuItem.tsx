@@ -24,9 +24,9 @@ interface IDefaultMenuItem {
   size?: 'lg' | 'sm';
 }
 
-type IMenuItem = IDefaultMenuItem;
+export type IMenuItemProps = IDefaultMenuItem;
 
-export const MenuItem = (props: IMenuItem) => {
+export const MenuItem = (props: IMenuItemProps) => {
   const {
     title,
     desc,

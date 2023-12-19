@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react-native';
 
-import { Text } from '~components/text/Text';
+import { ITextProps, Text } from '~components/text/Text';
 
-const TextStory: Meta<typeof Text> = {
+const TextStory: Meta<ITextProps> = {
   title: 'Text',
   component: Text,
   argTypes: {
@@ -10,20 +10,20 @@ const TextStory: Meta<typeof Text> = {
       options: ['h1Regular', 'h1Light', 'h1Medium', 'h2Light', 'h2Regular', 'h2Medium', 'h3Light', 'h3Regular'],
       control: { type: 'select' },
     },
-    color: {
+    colorKey: {
       options: ['primary', 'onSurface', 'onPrimary', 'onSurfaceDim', 'onSurfaceExtraDim', 'error', 'onError'],
       control: { type: 'select' },
     },
   },
   args: {
     variant: 'h1Regular',
-    color: 'primary',
+    colorKey: 'primary',
   },
 };
 
 export default TextStory;
 
-type IStory = StoryObj<typeof Text>;
+type IStory = StoryObj<ITextProps>;
 
 export const Default: IStory = {
   args: {

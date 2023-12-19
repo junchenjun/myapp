@@ -10,7 +10,11 @@ type IWeeklyActivityItem = { value: string; variant: 'inactive' | 'completed' | 
 
 type IWeeklyActivityConfig = Record<'mo' | 'tu' | 'we' | 'th' | 'fr' | 'sa' | 'su', IWeeklyActivityItem>;
 
-export const WeeklyActivity = ({ config }: { config: IWeeklyActivityConfig }) => {
+export type IWeeklyActivityProps = {
+  config: IWeeklyActivityConfig;
+};
+
+export const WeeklyActivity = ({ config }: IWeeklyActivityProps) => {
   const styles = useThemedStyles(themedStyles);
 
   const getItem = (i: IWeeklyActivityItem) => {

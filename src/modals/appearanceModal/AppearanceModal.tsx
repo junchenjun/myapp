@@ -30,18 +30,21 @@ export const AppearanceModal = (props: IProps) => {
     <Modal modalRef={modalRef} title='Appearance'>
       <View style={styles.modal}>
         <SelectButton
+          variant='large'
           icon={icons.Sun}
           title='Light Mode'
           onPress={() => setTheme(appColorScheme.light)}
           selected={!theme.systemDefault && theme.id === appColorScheme.light}
         />
         <SelectButton
+          variant='large'
           icon={icons.Moon}
           title='Dark Mode'
           onPress={() => setTheme(appColorScheme.dark)}
           selected={!theme.systemDefault && theme.id === appColorScheme.dark}
         />
         <SelectButton
+          variant='large'
           icon={icons.Appearance}
           title='System Default'
           onPress={() => setTheme(null)}

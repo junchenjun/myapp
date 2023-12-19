@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react-native';
 
 import { icons } from '~assets/icons';
-import { MenuItem } from '~components/menuItem/MenuItem';
+import { IMenuItemProps, MenuItem } from '~components/menuItem/MenuItem';
 
-const CardStory: Meta<typeof MenuItem> = {
+const CardStory: Meta<IMenuItemProps> = {
   title: 'MenuItem',
   component: MenuItem,
   argTypes: {
@@ -13,7 +13,7 @@ const CardStory: Meta<typeof MenuItem> = {
   },
 };
 
-type IStory = StoryObj<typeof MenuItem>;
+type IStory = StoryObj<IMenuItemProps>;
 
 export default CardStory;
 

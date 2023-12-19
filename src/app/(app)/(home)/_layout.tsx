@@ -76,7 +76,7 @@ export default function Layout() {
           ),
           headerShown: true,
           header: () => {
-            return <PageHeader title='Workouts' />;
+            return <PageHeader variant='tabHeader' title='Workouts' />;
           },
         }}
       />
@@ -92,7 +92,7 @@ export default function Layout() {
           ),
           headerShown: true,
           header: () => {
-            return <PageHeader title='Settings' />;
+            return <PageHeader variant='tabHeader' title='Settings' />;
           },
         }}
       />

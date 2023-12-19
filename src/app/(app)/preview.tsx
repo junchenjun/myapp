@@ -80,6 +80,7 @@ export default function Preview() {
       )}
       <View style={styles.float}>
         <Button
+          variant='primary'
           title='Start Workout'
           elevated
           onPress={() => {

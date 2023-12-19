@@ -11,7 +11,7 @@ import {
 import { IBottomMenuItems } from '~modals/bottomMenu/BottomMenu';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
-interface IProps {
+export interface IWorkoutContainerProps {
   title?: string;
   descItems?: string[];
   header?: IWorkoutContainerHeader;
@@ -22,7 +22,7 @@ interface IProps {
   menu?: IBottomMenuItems;
 }
 
-export const WorkoutContainer = (props: IProps) => {
+export const WorkoutContainer = (props: IWorkoutContainerProps) => {
   const { title, header, descItems, accordionContent, onPress, style, children, menu } = props;
   const styles = useThemedStyles(themedStyles);
 

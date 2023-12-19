@@ -61,13 +61,13 @@ const Workout = () => {
                     <Text>content content content content content content content</Text>
                     <Text>content content content content content content content</Text>
                     <Text>content content content content content content content</Text>
-                    <Button title='Log Out' onPress={() => {}} />
+                    <Button title='Log Out' variant='primary' onPress={() => {}} />
                   </>
                 }
               />
             );
           })}
-          <Button title='Complete Workout' onPress={() => router.back()} />
+          <Button title='Complete Workout' variant='primary' onPress={() => router.back()} />
         </ScrollView>
       </Accordion>
     </View>

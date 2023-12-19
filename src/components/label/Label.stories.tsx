@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react-native';
 
-import { Label } from '~components/label/Label';
+import { ILabelProps, Label } from '~components/label/Label';
 
-const LabelStory: Meta<typeof Label> = {
+const LabelStory: Meta<ILabelProps> = {
   title: 'Label',
   component: Label,
   argTypes: {
@@ -10,7 +10,7 @@ const LabelStory: Meta<typeof Label> = {
   },
 };
 
-type IStory = StoryObj<typeof Label>;
+type IStory = StoryObj<ILabelProps>;
 
 export default LabelStory;
 

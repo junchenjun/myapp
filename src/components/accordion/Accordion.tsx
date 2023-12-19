@@ -15,14 +15,14 @@ export const AccordionContext = createContext<IAccordionContextContextType>({
   autoCollapse: false,
 });
 
-interface IProps {
+export interface IAccordionProps {
   children?: ReactElement | ReactElement[];
   style?: StyleProp<ViewStyle>;
   autoCollapse?: boolean;
   expandedIds?: string[];
 }
 
-export const Accordion = (props: IProps) => {
+export const Accordion = (props: IAccordionProps) => {
   const { children, autoCollapse, expandedIds: defaultIds, style } = props;
   const [expandedIds, setExpandedIds] = useState<string[]>([]);
 

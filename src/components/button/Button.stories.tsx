@@ -1,7 +1,11 @@
-import { icons } from '~assets/icons';
-import { Button } from '~components/button/Button';
+import { Meta, StoryObj } from '@storybook/react-native';
 
-const ButtonStory = {
+import { icons } from '~assets/icons';
+import { Button, IButtonProps } from '~components/button/Button';
+
+type IStory = StoryObj<IButtonProps>;
+
+const ButtonStory: Meta<IButtonProps> = {
   title: 'Button',
   component: Button,
   argTypes: {
@@ -14,9 +18,8 @@ const ButtonStory = {
     variant: 'primary',
   },
 };
-
 export default ButtonStory;
 
-export const Default = {
+export const Default: IStory = {
   render: ({ ...args }) => <Button {...args} icon={icons.Lightning} />,
 };

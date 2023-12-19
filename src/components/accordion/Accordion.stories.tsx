@@ -1,8 +1,12 @@
-import { Accordion } from '~components/accordion/Accordion';
+import { Meta, StoryObj } from '@storybook/react-native';
+
+import { Accordion, IAccordionProps } from '~components/accordion/Accordion';
 import { AccordionItem } from '~components/accordion/accordionItem/AccordionItem';
 import { Text } from '~components/text/Text';
 
-const AccordionStory = {
+type IStory = StoryObj<IAccordionProps>;
+
+const AccordionStory: Meta<IAccordionProps> = {
   title: 'Accordion',
   component: Accordion,
   args: {
@@ -12,7 +16,7 @@ const AccordionStory = {
 
 export default AccordionStory;
 
-export const Default = {
+export const Default: IStory = {
   render: ({ ...args }) => (
     <Accordion {...args}>
       <AccordionItem title='1'>

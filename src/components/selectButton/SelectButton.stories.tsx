@@ -1,8 +1,12 @@
+import { Meta, StoryObj } from '@storybook/react-native';
+
 import { icons } from '~assets/icons';
 import { Button } from '~components/button/Button';
-import { SelectButton } from '~components/selectButton/SelectButton';
+import { ISelectButtonProps, SelectButton } from '~components/selectButton/SelectButton';
 
-const SelectButtonStory = {
+type IStory = StoryObj<ISelectButtonProps>;
+
+const SelectButtonStory: Meta<ISelectButtonProps> = {
   title: 'SelectButton',
   component: Button,
   argTypes: {
@@ -15,11 +19,13 @@ const SelectButtonStory = {
 
 export default SelectButtonStory;
 
-export const Default = {
+export const Default: IStory = {
   args: {
     title: 'Selected Item',
     variant: 'large',
     selected: true,
   },
-  render: ({ ...args }) => <SelectButton {...args} icon={icons.Lightning} />,
+  render: ({ ...args }) => {
+    return args.variant === 'large' ? <SelectButton {...args} icon={icons.Lightning} /> : <SelectButton {...args} />;
+  },
 };

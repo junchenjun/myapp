@@ -3,11 +3,11 @@ import { StyleSheet, View } from 'react-native';
 import { Text } from '~components/text/Text';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
-interface IProps {
+export type ILabelProps = {
   title: string;
-}
+};
 
-export const Label = (props: IProps) => {
+export const Label = (props: ILabelProps) => {
   const { title } = props;
   const styles = useThemedStyles(themedStyles);
 

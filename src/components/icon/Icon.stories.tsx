@@ -3,10 +3,10 @@ import { View } from 'react-native';
 
 import { icons } from '~assets/icons';
 import { Card } from '~components/card/Card';
-import { Icon } from '~components/icon/Icon';
+import { IIconProps, Icon } from '~components/icon/Icon';
 import { Text } from '~components/text/Text';
 
-const IconStory: Meta<typeof Icon> = {
+const IconStory: Meta<IIconProps> = {
   title: 'Icon',
   component: Icon,
   argTypes: {
@@ -15,7 +15,7 @@ const IconStory: Meta<typeof Icon> = {
   },
 };
 
-type IStory = StoryObj<typeof Icon>;
+type IStory = StoryObj<IIconProps>;
 
 export default IconStory;
 

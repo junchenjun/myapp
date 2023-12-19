@@ -2,9 +2,9 @@ import { Meta, StoryObj } from '@storybook/react-native';
 
 import { Accordion } from '~components/accordion/Accordion';
 import { Text } from '~components/text/Text';
-import { WorkoutContainer } from '~components/workoutContainer/WorkoutContainer';
+import { IWorkoutContainerProps, WorkoutContainer } from '~components/workoutContainer/WorkoutContainer';
 
-const WorkoutContainerStory: Meta<typeof WorkoutContainer> = {
+const WorkoutContainerStory: Meta<IWorkoutContainerProps> = {
   title: 'WorkoutContainer',
   component: WorkoutContainer,
   argTypes: {
@@ -12,7 +12,7 @@ const WorkoutContainerStory: Meta<typeof WorkoutContainer> = {
   },
 };
 
-type IStory = StoryObj<typeof WorkoutContainer>;
+type IStory = StoryObj<IWorkoutContainerProps>;
 
 export default WorkoutContainerStory;
 
@@ -22,7 +22,6 @@ export const Default: IStory = {
     descItems: ['8 Exercises', '5 days ago'],
     header: {
       labels: ['Shoulder', 'biceps'],
-      onPress: () => null,
     },
   },
 };

@@ -1,13 +1,13 @@
 import { Meta, StoryObj } from '@storybook/react-native';
 
-import { WeeklyActivity } from '~components/weeklyActivity/WeeklyActivity';
+import { IWeeklyActivityProps, WeeklyActivity } from '~components/weeklyActivity/WeeklyActivity';
 
-const WeeklyActivityStory: Meta<typeof WeeklyActivity> = {
+const WeeklyActivityStory: Meta<IWeeklyActivityProps> = {
   title: 'WeeklyActivity',
   component: WeeklyActivity,
 };
 
-type IStory = StoryObj<typeof WeeklyActivity>;
+type IStory = StoryObj<IWeeklyActivityProps>;
 
 export default WeeklyActivityStory;
 

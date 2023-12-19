@@ -54,8 +54,14 @@ export default function Auth() {
       <View style={styles.header}>
         <Text text='Sign In' />
       </View>
-      <Button icon={icons.Google} loading={loading} title='Sign in with Google' onPress={googleSignIn} />
-      <Button icon={icons.Apple} loading={loading} title='Sign in with Apple' onPress={() => null} />
+      <Button
+        variant='primary'
+        icon={icons.Google}
+        loading={loading}
+        title='Sign in with Google'
+        onPress={googleSignIn}
+      />
+      <Button variant='primary' icon={icons.Apple} loading={loading} title='Sign in with Apple' onPress={() => null} />
     </View>
   );
 }

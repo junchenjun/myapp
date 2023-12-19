@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react-native';
 
-import { Card } from '~components/card/Card';
+import { Card, ICardProps } from '~components/card/Card';
 import { Text } from '~components/text/Text';
 
-const CardStory: Meta<typeof Card> = {
+const CardStory: Meta<ICardProps> = {
   title: 'Card',
   component: Card,
   argTypes: {
@@ -11,7 +11,7 @@ const CardStory: Meta<typeof Card> = {
   },
 };
 
-type IStory = StoryObj<typeof Text>;
+type IStory = StoryObj<ICardProps>;
 
 export default CardStory;
 

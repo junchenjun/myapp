@@ -9,17 +9,17 @@ import { Text } from '~components/text/Text';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 interface IHeader {
-  variant?: 'default';
+  variant: 'tabHeader';
   title?: string;
 }
 
 interface ITopBarHeader {
-  variant?: 'topBarHeader';
+  variant: 'topBarHeader';
   title?: string;
 }
 
 interface IHeaderWithActions {
-  variant?: 'actionHeader';
+  variant: 'actionHeader';
   title?: string;
   left?: {
     icon?: IIcon;
@@ -71,7 +71,7 @@ export const PageHeader = (props: IPageHeader) => {
         <View style={styles.right}>{right?.icon || right?.component ? componentRight : null}</View>
       </View>
     );
-  } else if (variant === 'default' || variant === 'topBarHeader' || variant === undefined) {
+  } else if (variant === 'tabHeader' || variant === 'topBarHeader') {
     return (
       <View style={[styles.container, styles.default]}>
         {title && (

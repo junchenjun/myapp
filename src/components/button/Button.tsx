@@ -16,22 +16,22 @@ interface ICommonButtonProps {
 }
 
 interface IPrimaryButton extends ICommonButtonProps {
-  variant?: 'primary';
+  variant: 'primary';
   loading?: boolean;
 }
 
 interface IIconButton extends ICommonButtonProps {
-  variant?: 'ghost';
+  variant: 'ghost';
 }
 
-type IButton = IPrimaryButton | IIconButton;
+export type IButtonProps = IPrimaryButton | IIconButton;
 
-export const Button = (props: IButton) => {
-  const { onPress, title, variant = 'primary', disabled, icon, elevated } = props;
+export const Button = (props: IButtonProps) => {
+  const { onPress, title, variant, disabled, icon, elevated } = props;
   const styles = useThemedStyles(themedStyles(variant));
 
   if (variant === 'primary') {
-    const { loading } = props as IPrimaryButton;
+    const { loading } = props;
     const isDisabled = disabled || loading;
     return (
       <View style={[styles.container, elevated && styles.elevated]}>
@@ -69,7 +69,7 @@ export const Button = (props: IButton) => {
   }
 };
 
-const themedStyles = (variant: IButton['variant']) => {
+const themedStyles = (variant: IButtonProps['variant']) => {
   return (theme: ITheme) => {
     return StyleSheet.create({
       container: {

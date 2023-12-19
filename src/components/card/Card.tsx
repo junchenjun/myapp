@@ -4,13 +4,13 @@ import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { Pressable } from '~components/pressable/Pressable';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
-interface IProps {
+export interface ICardProps {
   onPress?: () => void;
   children?: ReactNode | ReactNode[];
   style?: StyleProp<ViewStyle>;
 }
 
-export const Card = (props: IProps) => {
+export const Card = (props: ICardProps) => {
   const { onPress, children, style } = props;
   const styles = useThemedStyles(themedStyles);
 
