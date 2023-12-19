@@ -5,7 +5,7 @@ import { Alert, BackHandler, ScrollView, StyleSheet, View } from 'react-native';
 import { Button } from '~components/atoms/button/Button';
 import { Text } from '~components/atoms/text/Text';
 import { Accordion } from '~components/molecules/accordion/Accordion';
-import { WorkoutContainer } from '~components/molecules/workoutContainer/WorkoutContainer';
+import { WorkoutContainer } from '~components/organisms/workoutContainer/WorkoutContainer';
 import { useAppSelector } from '~redux/store';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 

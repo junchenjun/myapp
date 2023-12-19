@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react-native';
 
 import { Text } from '~components/atoms/text/Text';
 import { Accordion } from '~components/molecules/accordion/Accordion';
-import { IWorkoutContainerProps, WorkoutContainer } from '~components/molecules/workoutContainer/WorkoutContainer';
+import { IWorkoutContainerProps, WorkoutContainer } from '~components/organisms/workoutContainer/WorkoutContainer';
 
 const WorkoutContainerStory: Meta<IWorkoutContainerProps> = {
   title: 'WorkoutContainer',

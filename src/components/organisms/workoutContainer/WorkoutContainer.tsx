@@ -4,11 +4,11 @@ import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { Card } from '~components/atoms/card/Card';
 import { Text } from '~components/atoms/text/Text';
 import { AccordionItem } from '~components/molecules/accordion/accordionItem/AccordionItem';
+import { IBottomMenuItems } from '~components/organisms/bottomMenu/BottomMenu';
 import {
   IWorkoutContainerHeader,
   WorkoutContainerHeader,
-} from '~components/molecules/workoutContainer/workoutContainerHeader/WorkoutContainerHeader';
-import { IBottomMenuItems } from '~components/organisms/bottomMenu/BottomMenu';
+} from '~components/organisms/workoutContainer/workoutContainerHeader/WorkoutContainerHeader';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 export interface IWorkoutContainerProps {

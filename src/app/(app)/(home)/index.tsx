@@ -6,7 +6,7 @@ import { ScrollView, SectionList, StyleSheet, View } from 'react-native';
 import { icons } from '~assets/icons';
 import { MenuItem } from '~components/atoms/menuItem/MenuItem';
 import { WeeklyActivity } from '~components/molecules/weeklyActivity/WeeklyActivity';
-import { WorkoutContainer } from '~components/molecules/workoutContainer/WorkoutContainer';
+import { WorkoutContainer } from '~components/organisms/workoutContainer/WorkoutContainer';
 import { BottomMenu } from '~components/organisms/bottomMenu/BottomMenu';
 import { SelectPlanModal } from '~components/organisms/selectPlanModal/SelectPlanModal';
 import { useAppSelector } from '~redux/store';

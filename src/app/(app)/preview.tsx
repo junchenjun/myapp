@@ -8,7 +8,7 @@ import { Label } from '~components/atoms/label/Label';
 import { Text } from '~components/atoms/text/Text';
 import { Accordion } from '~components/molecules/accordion/Accordion';
 import { InfoContainer } from '~components/molecules/infoContainer/InfoContainer';
-import { WorkoutContainer } from '~components/molecules/workoutContainer/WorkoutContainer';
+import { WorkoutContainer } from '~components/organisms/workoutContainer/WorkoutContainer';
 import { useAppDispatch, useAppSelector } from '~redux/store';
 import { IExercise, setWorkout } from '~redux/workoutSlice';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
