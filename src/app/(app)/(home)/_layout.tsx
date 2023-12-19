@@ -47,7 +47,7 @@ export default function Layout() {
       backBehavior='initialRoute'
     >
       <Tabs.Screen
-        name='activity'
+        name='(activity)'
         key='activity'
         options={{
           tabBarShowLabel: false,
@@ -56,10 +56,7 @@ export default function Layout() {
           tabBarIcon: ({ focused }) => (
             <Icon icon={icons.Activity} color={focused ? 'primary' : 'onSurfaceExtraDim'} size={iconSize - 1} />
           ),
-          headerShown: true,
-          header: () => {
-            return <PageHeader variant='default' title='Activity' />;
-          },
+          headerShown: false,
         }}
       />
       <Tabs.Screen
@@ -79,7 +76,7 @@ export default function Layout() {
           ),
           headerShown: true,
           header: () => {
-            return <PageHeader variant='default' title='Workouts' />;
+            return <PageHeader title='Workouts' />;
           },
         }}
       />
@@ -95,7 +92,7 @@ export default function Layout() {
           ),
           headerShown: true,
           header: () => {
-            return <PageHeader variant='default' title='Settings' />;
+            return <PageHeader title='Settings' />;
           },
         }}
       />

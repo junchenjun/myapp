@@ -9,12 +9,17 @@ import { Text } from '~components/text/Text';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 interface IHeader {
-  variant: 'default';
+  variant?: 'default';
+  title?: string;
+}
+
+interface ITopBarHeader {
+  variant?: 'topBarHeader';
   title?: string;
 }
 
 interface IHeaderWithActions {
-  variant: 'actionHeader';
+  variant?: 'actionHeader';
   title?: string;
   left?: {
     icon?: IIcon;
@@ -29,12 +34,12 @@ interface IHeaderWithActions {
   showTitle?: boolean;
 }
 
-type IPageHeader = IHeader | IHeaderWithActions;
+type IPageHeader = IHeader | IHeaderWithActions | ITopBarHeader;
 
 export const PageHeader = (props: IPageHeader) => {
   const { title, variant } = props;
   const insets = useSafeAreaInsets();
-  const styles = useThemedStyles(themedStyles(insets));
+  const styles = useThemedStyles(themedStyles(insets, variant));
   const opacity = useSharedValue(0);
 
   const animatedStyles = useAnimatedStyle(() => {
@@ -66,7 +71,7 @@ export const PageHeader = (props: IPageHeader) => {
         <View style={styles.right}>{right?.icon || right?.component ? componentRight : null}</View>
       </View>
     );
-  } else if (variant === 'default') {
+  } else if (variant === 'default' || variant === 'topBarHeader' || variant === undefined) {
     return (
       <View style={[styles.container, styles.default]}>
         {title && (
@@ -79,12 +84,13 @@ export const PageHeader = (props: IPageHeader) => {
   }
 };
 
-const themedStyles = (insets: EdgeInsets) => {
+const themedStyles = (insets: EdgeInsets, variant: IPageHeader['variant']) => {
   return (theme: ITheme) => {
     const paddingTop = insets.top < 40 ? 40 : insets.top;
     return StyleSheet.create({
       container: {
-        padding: theme.spacing[4],
+        paddingLeft: variant !== 'topBarHeader' ? theme.spacing[4] : 0,
+        paddingRight: variant !== 'topBarHeader' ? theme.spacing[4] : 0,
         paddingBottom: theme.spacing[3],
         paddingTop,
         alignItems: 'flex-end',
