@@ -1,5 +1,6 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { useScrollToTop } from '@react-navigation/native';
 import { useCallback, useRef, useState } from 'react';
 import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 
@@ -12,13 +13,15 @@ import { ITheme, appColorScheme, useTheme, useThemedStyles } from '~theme/ThemeC
 
 const Settings = () => {
   const [loading, setLoading] = useState(false);
-
+  const scrollViewRef = useRef(null);
   const appearanceModalRef = useRef<BottomSheetModal>(null);
   const appearanceModalPress = useCallback(() => {
     appearanceModalRef.current?.present();
   }, []);
   const theme = useTheme();
   const styles = useThemedStyles(createStyles);
+
+  useScrollToTop(scrollViewRef);
 
   const colorschemeName = theme.systemDefault
     ? 'System Default'
@@ -52,7 +55,7 @@ const Settings = () => {
     );
 
   return (
-    <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
+    <ScrollView ref={scrollViewRef} contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
       <AppearanceModal modalRef={appearanceModalRef} />
       {/* Help */}
       <Text text='Help' colorKey='onSurfaceDim' style={styles.label} />

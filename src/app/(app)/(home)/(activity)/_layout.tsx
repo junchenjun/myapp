@@ -5,7 +5,7 @@ import {
 } from '@react-navigation/material-top-tabs';
 import { EventMapBase, NavigationState } from '@react-navigation/native';
 import { withLayoutContext } from 'expo-router';
-import { Animated, View } from 'react-native';
+import Animated from 'react-native-reanimated';
 
 import { PageHeader } from '~components/pageHeader/PageHeader';
 import { Pressable } from '~components/pressable/Pressable';
@@ -24,10 +24,10 @@ function MyTabBar({ state, descriptors, navigation, position }: MaterialTopTabBa
   const theme = useTheme();
 
   return (
-    <View style={{ flexDirection: 'row' }}>
+    <Animated.View style={{ flexDirection: 'row' }}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
-        const label = options.title;
+        const label = options.title || '';
 
         const isFocused = state.index === index;
 
@@ -44,7 +44,7 @@ function MyTabBar({ state, descriptors, navigation, position }: MaterialTopTabBa
         };
 
         const inputRange = state.routes.map((_, i) => i);
-        const opacity = position.interpolate({
+        const labelOpacity = position.interpolate({
           inputRange,
           outputRange: inputRange.map(i => (i === index ? 1 : 0.4)),
         });
@@ -53,15 +53,20 @@ function MyTabBar({ state, descriptors, navigation, position }: MaterialTopTabBa
           <Pressable
             key={label}
             onPress={onPress}
+            rippleConfig={{ disabled: true }}
             style={{ marginLeft: index === 0 ? theme.spacing[4] : theme.spacing[2] }}
           >
-            <Animated.View style={{ opacity }}>
-              <PageHeader title={label} variant='topBarHeader' />
-            </Animated.View>
+            <PageHeader
+              topBarHeaderAnimatedStyle={{
+                opacity: labelOpacity,
+              }}
+              title={label}
+              variant='topBarHeader'
+            />
           </Pressable>
         );
       })}
-    </View>
+    </Animated.View>
   );
 }
 
@@ -73,6 +78,8 @@ export default function Layout() {
       tabBar={props => <MyTabBar {...props} />}
       screenOptions={{
         tabBarShowIcon: false,
+        tabBarPressColor: 'transparent',
+        // swipeEnabled: false,
         // lazy: true,
       }}
     >

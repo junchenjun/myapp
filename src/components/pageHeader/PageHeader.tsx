@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Animated, StyleSheet, TextStyle, View } from 'react-native';
 import { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { EdgeInsets, useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -10,17 +10,20 @@ import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 interface IHeader {
   variant: 'tabHeader';
-  title?: string;
+  title: string;
 }
 
+// @react-navigation/material-top-tabs
 interface ITopBarHeader {
   variant: 'topBarHeader';
-  title?: string;
+  title: string;
+  // Animated from 'react-native';
+  topBarHeaderAnimatedStyle: Animated.WithAnimatedObject<TextStyle>;
 }
 
 interface IHeaderWithActions {
   variant: 'actionHeader';
-  title?: string;
+  title: string;
   left?: {
     icon?: IIcon;
     component?: ReactElement;
@@ -39,7 +42,7 @@ type IPageHeader = IHeader | IHeaderWithActions | ITopBarHeader;
 export const PageHeader = (props: IPageHeader) => {
   const { title, variant } = props;
   const insets = useSafeAreaInsets();
-  const styles = useThemedStyles(themedStyles(insets, variant));
+  const styles = useThemedStyles(themedStyles(insets));
   const opacity = useSharedValue(0);
 
   const animatedStyles = useAnimatedStyle(() => {
@@ -67,31 +70,35 @@ export const PageHeader = (props: IPageHeader) => {
     return (
       <View style={styles.container}>
         <View style={styles.left}>{left?.icon || left?.component ? componentLeft : null}</View>
-        {title && <Text text={title} animatedStyles={animatedStyles} colorKey='onSurfaceDim' />}
+        <Text text={title} animatedStyles={animatedStyles} colorKey='onSurfaceDim' />
         <View style={styles.right}>{right?.icon || right?.component ? componentRight : null}</View>
       </View>
     );
-  } else if (variant === 'tabHeader' || variant === 'topBarHeader') {
+  } else if (variant === 'tabHeader') {
     return (
-      <View style={[styles.container, styles.default]}>
-        {title && (
-          <Text variant='h3Regular' colorKey='onSurface'>
-            {title}
-          </Text>
-        )}
+      <View style={styles.container}>
+        <Text variant='h3Regular' colorKey='onSurface'>
+          {title}
+        </Text>
+      </View>
+    );
+  } else if (variant === 'topBarHeader') {
+    return (
+      <View style={[styles.container, styles.topBarHeader]}>
+        <Animated.Text style={[styles.topBarHeaderLabel, props.topBarHeaderAnimatedStyle]}>{title}</Animated.Text>
       </View>
     );
   }
 };
 
-const themedStyles = (insets: EdgeInsets, variant: IPageHeader['variant']) => {
+const themedStyles = (insets: EdgeInsets) => {
   return (theme: ITheme) => {
     const paddingTop = insets.top < 40 ? 40 : insets.top;
     return StyleSheet.create({
       container: {
-        paddingLeft: variant !== 'topBarHeader' ? theme.spacing[4] : 0,
-        paddingRight: variant !== 'topBarHeader' ? theme.spacing[4] : 0,
-        paddingBottom: theme.spacing[3],
+        paddingLeft: theme.spacing[4],
+        paddingRight: theme.spacing[4],
+        paddingBottom: theme.spacing[1],
         paddingTop,
         alignItems: 'flex-end',
         flexDirection: 'row',
@@ -101,9 +108,6 @@ const themedStyles = (insets: EdgeInsets, variant: IPageHeader['variant']) => {
         justifyContent: 'space-between',
         backgroundColor: theme.colors.surfaceExtraDim,
       },
-      default: {
-        paddingBottom: theme.spacing[1],
-      },
       left: {
         width: 60,
         flex: 1,
@@ -112,6 +116,14 @@ const themedStyles = (insets: EdgeInsets, variant: IPageHeader['variant']) => {
         width: 60,
         flex: 1,
         alignItems: 'flex-end',
+      },
+      topBarHeader: {
+        paddingLeft: 0,
+        paddingRight: 0,
+      },
+      topBarHeaderLabel: {
+        color: theme.colors.onSurface,
+        ...theme.fonts.h3Regular,
       },
     });
   };
