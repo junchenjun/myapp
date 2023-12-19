@@ -2,7 +2,7 @@ import { MouseEvent, ReactElement, ReactNode, useCallback } from 'react';
 import { GestureResponderEvent, Platform, Pressable as RNPressable, StyleProp, ViewStyle } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
-import { ITheme, useTheme } from '~theme/ThemeContext';
+import { IThemeColorKeys, useTheme } from '~theme/ThemeContext';
 
 interface IProps {
   onPress?: (e: MouseEvent<HTMLAnchorElement> | GestureResponderEvent) => void;
@@ -15,7 +15,7 @@ interface IProps {
     radius?: number;
     borderless?: boolean;
     disabled?: boolean;
-    colorKey?: keyof Pick<ITheme['colors'], 'ripple' | 'rippleDim'>;
+    colorKey?: Extract<IThemeColorKeys, 'rippleDim' | 'ripple'>;
   };
   hitSlop?: number;
   tabBarButton?: boolean;

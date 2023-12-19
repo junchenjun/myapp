@@ -1,6 +1,6 @@
 import { IIcon, icons } from '~assets/icons';
 import { Pressable } from '~components/pressable/Pressable';
-import { ITheme, IThemeColorKeys, useTheme } from '~theme/ThemeContext';
+import { IThemeColorKeys, useTheme } from '~theme/ThemeContext';
 
 export const Icon = ({
   icon = icons.Zap,
@@ -15,7 +15,7 @@ export const Icon = ({
   colorKey?: IThemeColorKeys;
   fill?: 'none' | IThemeColorKeys;
   onPress?: () => void;
-  rippleColor?: keyof Pick<ITheme['colors'], 'ripple' | 'rippleDim'>;
+  rippleColor?: Extract<IThemeColorKeys, 'rippleDim' | 'ripple'>;
 }) => {
   const theme = useTheme();
 

@@ -10,7 +10,7 @@ import { BackHandler, NativeEventSubscription, StyleSheet } from 'react-native';
 import { EdgeInsets, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Text } from '~components/text/Text';
-import { ITheme, useThemedStyles } from '~theme/ThemeContext';
+import { ITheme, IThemeColorKeys, useThemedStyles } from '~theme/ThemeContext';
 
 /**
  * hook that dismisses the bottom sheet on the hardware back button press if it is visible
@@ -41,7 +41,7 @@ interface IProps {
   modalRef: RefObject<BottomSheetModal>;
   children?: ReactElement | ReactElement[];
   title?: string;
-  backgroundColorKey?: keyof Pick<ITheme['colors'], 'surface' | 'surfaceExtraBright'>;
+  backgroundColorKey?: Extract<IThemeColorKeys, 'surface' | 'surfaceExtraBright'>;
 }
 
 export const Modal = (props: IProps) => {
@@ -81,7 +81,7 @@ export const Modal = (props: IProps) => {
 };
 const themedStyles = (extra: {
   insets: EdgeInsets;
-  backgroundColorKey: keyof Pick<ITheme['colors'], 'surface' | 'surfaceExtraBright'>;
+  backgroundColorKey: Extract<IThemeColorKeys, 'surface' | 'surfaceExtraBright'>;
 }) => {
   const styles = (theme: ITheme) => {
     return StyleSheet.create({
