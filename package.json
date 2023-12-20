@@ -10,7 +10,8 @@
     "build-local-pre": "eas build --profile local-pre --local",
     "lint": "eslint . --fix && tsc --noEmit",
     "storybook-generate": "sb-rn-get-stories",
-    "storybook-watch": "sb-rn-watcher"
+    "storybook-watch": "sb-rn-watcher",
+    "postinstall": "husky install"
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^4",
@@ -67,6 +68,7 @@
     "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-unused-imports": "^3.0.0",
+    "husky": "^8.0.0",
     "prettier": "^2.8.7",
     "ts-node": "^10.9.2"
   },
