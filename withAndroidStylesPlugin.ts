@@ -208,4 +208,5 @@ async function configureFullScreenDialog(
 
 module.exports = withAndroidStylesPlugin;
 
+// This can be tested with npx expo prebuild -p android --no-install
 // https://github.com/expo/expo/issues/7799#issuecomment-1009425322
