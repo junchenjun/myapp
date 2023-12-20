@@ -14,10 +14,11 @@ interface ISelectPlanModalProps {
   planIDs: { id: IPlan['id']; name: IPlan['name'] }[];
   selectedID: IPlan['id'];
   onSelect: (id: IPlan['id']) => void;
+  onActionButton: () => void;
 }
 
 export const SelectPlanModal = (props: ISelectPlanModalProps) => {
-  const { modalRef, planIDs, selectedID, onSelect } = props;
+  const { modalRef, planIDs, selectedID, onSelect, onActionButton } = props;
 
   const styles = useThemedStyles(themedStyles);
 
@@ -25,9 +26,15 @@ export const SelectPlanModal = (props: ISelectPlanModalProps) => {
     <Modal modalRef={modalRef} title='Select Workout Plan'>
       <View style={styles.modal}>
         {planIDs.map(p => (
-          <SelectItem title={p.name} onPress={() => onSelect(p.id)} selected={p.id === selectedID} variant='large' />
+          <SelectItem
+            key={p.id}
+            title={p.name}
+            onPress={() => onSelect(p.id)}
+            selected={p.id === selectedID}
+            variant='large'
+          />
         ))}
-        <Button icon={icons.Plus} title='New Workout Plan' variant='ghost' />
+        <Button onPress={onActionButton} icon={icons.Plus} title='New Workout Plan' variant='ghost' />
       </View>
     </Modal>
   );

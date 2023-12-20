@@ -7,6 +7,7 @@ import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { icons } from '~assets/icons';
 import { MenuItem } from '~components/atoms/menuItem/MenuItem';
 import { WeeklyActivity } from '~components/molecules/weeklyActivity/WeeklyActivity';
+import { AddPlanModal } from '~components/organisms/addPlanModal/AddPlanModal';
 import { BottomMenu } from '~components/organisms/bottomMenu/BottomMenu';
 import { SelectPlanModal } from '~components/organisms/selectPlanModal/SelectPlanModal';
 import { WorkoutItem } from '~components/organisms/workoutItem/WorkoutItem';
@@ -20,6 +21,7 @@ const Home = () => {
   const planList = useAppSelector(state => state.plans.list);
 
   const selectPlanModalRef = useRef<BottomSheetModal>(null);
+  const addPlanModalRef = useRef<BottomSheetModal>(null);
   const editPlanModalRef = useRef<BottomSheetModal>(null);
 
   useEffect(() => {
@@ -31,6 +33,11 @@ const Home = () => {
   }, []);
   const handleSelectPlanModalPress = useCallback(() => {
     selectPlanModalRef.current?.present();
+  }, []);
+  const handleAddPlanModalPress = useCallback(() => {
+    editPlanModalRef.current?.dismiss();
+    selectPlanModalRef.current?.dismiss();
+    addPlanModalRef.current?.present();
   }, []);
 
   const planIDs = planList?.map(p => {
@@ -57,7 +64,7 @@ const Home = () => {
         <BottomMenu
           modalRef={editPlanModalRef}
           items={[
-            { iconLeft: icons.Plus, title: 'New Workout Plan' },
+            { iconLeft: icons.Plus, title: 'New Workout Plan', onPress: handleAddPlanModalPress },
             { iconLeft: icons.Edit, title: 'Edit Plan' },
             {
               iconLeft: icons.Trash,
@@ -72,8 +79,10 @@ const Home = () => {
             modalRef={selectPlanModalRef}
             planIDs={planIDs}
             selectedID={planId}
+            onActionButton={handleAddPlanModalPress}
           />
         )}
+        <AddPlanModal modalRef={addPlanModalRef} />
         <View style={styles.buttonGroup}>
           <View style={styles.selectPlan}>
             <MenuItem
