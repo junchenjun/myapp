@@ -1,12 +1,11 @@
 import { ReactNode } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
-import { icons } from '~assets/icons';
+import { IIcon } from '~assets/icons';
 import { Card } from '~components/atoms/card/Card';
 import { Icon } from '~components/atoms/icon/Icon';
 import { Pressable } from '~components/atoms/pressable/Pressable';
 import { Text } from '~components/atoms/text/Text';
-import { IBottomMenuItems } from '~components/organisms/bottomMenu/BottomMenu';
 import {
   IWorkoutItemHeader,
   WorkoutItemHeader,
@@ -14,25 +13,24 @@ import {
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 export interface IWorkoutItemProps {
+  children?: ReactNode | ReactNode[];
+  header?: IWorkoutItemHeader;
   title?: string;
   descItems?: string[];
-  header?: IWorkoutItemHeader;
-  accordionToggle?: () => void;
-  open?: boolean;
   onPress?: () => void;
+  contained?: boolean;
   style?: StyleProp<ViewStyle>;
-  children?: ReactNode | ReactNode[];
-  menu?: IBottomMenuItems;
-  accordionItem?: boolean;
+  actionIcon?: IIcon;
+  onActionIconPress?: () => void;
 }
 
 export const WorkoutItem = (props: IWorkoutItemProps) => {
-  const { title, header, descItems, onPress, style, accordionToggle, menu, open, accordionItem } = props;
+  const { title, header, descItems, onPress, style, contained, actionIcon, onActionIconPress } = props;
   const styles = useThemedStyles(themedStyles);
 
-  const mainContent = (
+  const content = (
     <>
-      {header && <WorkoutItemHeader {...header} menu={menu} />}
+      {header && <WorkoutItemHeader {...header} />}
       <View style={styles.main}>
         <View>
           <Text variant='h5Regular' text={title} style={styles.title} />
@@ -51,25 +49,19 @@ export const WorkoutItem = (props: IWorkoutItemProps) => {
             })}
           </View>
         </View>
-        {accordionToggle && (
-          <Icon
-            colorKey='onSurfaceExtraDim'
-            icon={open ? icons.ExpandUp : icons.ExpandDown}
-            onPress={accordionToggle}
-          />
-        )}
+        {actionIcon && <Icon colorKey='onSurfaceExtraDim' icon={actionIcon} onPress={onActionIconPress} />}
       </View>
     </>
   );
 
-  return accordionItem ? (
-    <Pressable onPress={onPress} style={style}>
-      {mainContent}
-    </Pressable>
-  ) : (
+  return contained ? (
     <Card onPress={onPress} style={style}>
-      {mainContent}
+      {content}
     </Card>
+  ) : (
+    <Pressable onPress={onPress} style={style}>
+      {content}
+    </Pressable>
   );
 };
 

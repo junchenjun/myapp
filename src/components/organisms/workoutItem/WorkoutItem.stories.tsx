@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react-native';
 
+import { icons } from '~assets/icons';
 import { Text } from '~components/atoms/text/Text';
 import { Accordion } from '~components/molecules/accordion/Accordion';
 import { IWorkoutItemProps, WorkoutItem } from '~components/organisms/workoutItem/WorkoutItem';
@@ -37,14 +38,13 @@ export const WithAccordion = {
         <Accordion.Trigger>
           {({ open, toggle }) => (
             <WorkoutItem
-              accordionItem
               title='Chest&Triceps'
               header={{
                 labels: ['Shoulder', 'biceps'],
               }}
               descItems={['8 Exercises', '5 days ago']}
-              accordionToggle={toggle}
-              open={open}
+              onActionIconPress={toggle}
+              actionIcon={open ? icons.ExpandUp : icons.ExpandDown}
             />
           )}
         </Accordion.Trigger>
@@ -62,14 +62,13 @@ export const WithAccordion = {
         <Accordion.Trigger>
           {({ open, toggle }) => (
             <WorkoutItem
-              accordionItem
               title='Chest&Triceps'
               header={{
                 labels: ['Shoulder', 'biceps'],
               }}
               descItems={['8 Exercises', '5 days ago']}
-              accordionToggle={toggle}
-              open={open}
+              onActionIconPress={toggle}
+              actionIcon={open ? icons.ExpandUp : icons.ExpandDown}
             />
           )}
         </Accordion.Trigger>

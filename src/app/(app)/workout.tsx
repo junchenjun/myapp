@@ -2,6 +2,7 @@ import { router } from 'expo-router';
 import { useEffect } from 'react';
 import { Alert, BackHandler, ScrollView, StyleSheet, View } from 'react-native';
 
+import { icons } from '~assets/icons';
 import { Button } from '~components/atoms/button/Button';
 import { Text } from '~components/atoms/text/Text';
 import { Accordion } from '~components/molecules/accordion/Accordion';
@@ -41,21 +42,20 @@ const Workout = () => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scroll}>
-        <Accordion>
+        <Accordion autoCollapse>
           {workout?.exercises.map((i, index) => {
             return (
               <Accordion.Item key={index}>
                 <Accordion.Trigger>
                   {({ open, toggle }) => (
                     <WorkoutItem
-                      accordionItem
                       title={i.name}
                       header={{
                         labels: ['Shoulder', 'biceps'],
                       }}
                       descItems={['8 Exercises']}
-                      accordionToggle={toggle}
-                      open={open}
+                      onActionIconPress={toggle}
+                      actionIcon={open ? icons.ExpandUp : icons.ExpandDown}
                     />
                   )}
                 </Accordion.Trigger>

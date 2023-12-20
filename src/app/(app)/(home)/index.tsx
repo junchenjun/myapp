@@ -114,19 +114,20 @@ const Home = () => {
           <Animated.View entering={FadeIn} exiting={FadeOut} style={styles.list}>
             {workouts.map((item, index) => (
               <WorkoutItem
+                contained
                 key={index}
                 title={item.name}
                 header={{
                   labels: ['Shoulder', 'biceps'],
+                  menu: [
+                    { iconLeft: icons.Edit, title: 'Edit Workout' },
+                    {
+                      iconLeft: icons.Trash,
+                      danger: true,
+                      title: 'Delete Workout',
+                    },
+                  ],
                 }}
-                menu={[
-                  { iconLeft: icons.Edit, title: 'Edit Workout' },
-                  {
-                    iconLeft: icons.Trash,
-                    danger: true,
-                    title: 'Delete Workout',
-                  },
-                ]}
                 onPress={() => {
                   return router.push({
                     pathname: 'preview',

@@ -33,6 +33,9 @@ export default function Preview() {
           labels: ['Shoulder', 'biceps'],
         }}
         descItems={['8 Exercises']}
+        contained
+        actionIcon={icons.ExpandRight}
+        onActionIconPress={() => null}
       />
     ),
     [styles.gap.marginTop]
