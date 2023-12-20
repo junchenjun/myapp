@@ -1,7 +1,8 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { router } from 'expo-router';
-import { useCallback, useRef } from 'react';
-import { ScrollView, SectionList, StyleSheet, View } from 'react-native';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 import { icons } from '~assets/icons';
 import { MenuItem } from '~components/atoms/menuItem/MenuItem';
@@ -9,15 +10,21 @@ import { WeeklyActivity } from '~components/molecules/weeklyActivity/WeeklyActiv
 import { BottomMenu } from '~components/organisms/bottomMenu/BottomMenu';
 import { SelectPlanModal } from '~components/organisms/selectPlanModal/SelectPlanModal';
 import { WorkoutItem } from '~components/organisms/workoutItem/WorkoutItem';
+import { IPlan } from '~redux/planSlice';
 import { useAppSelector } from '~redux/store';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 const Home = () => {
+  const [planId, setPlanId] = useState<IPlan['id']>();
   const styles = useThemedStyles(createStyles);
   const planList = useAppSelector(state => state.plans.list);
 
   const selectPlanModalRef = useRef<BottomSheetModal>(null);
   const editPlanModalRef = useRef<BottomSheetModal>(null);
+
+  useEffect(() => {
+    setPlanId(planList?.[0].id || undefined);
+  }, [planList]);
 
   const handleEditPlanModalPress = useCallback(() => {
     editPlanModalRef.current?.present();
@@ -26,10 +33,10 @@ const Home = () => {
     selectPlanModalRef.current?.present();
   }, []);
 
-  const sectionData =
-    planList?.map(p => {
-      return { title: p.name, data: p.workouts, id: p.id };
-    }) || [];
+  const planIDs = planList?.map(p => {
+    return { id: p.id, name: p.name };
+  });
+  const workouts = planList && planId && planList.find(i => i.id === planId)?.workouts;
 
   return (
     <>
@@ -59,7 +66,14 @@ const Home = () => {
             },
           ]}
         />
-        <SelectPlanModal modalRef={selectPlanModalRef} />
+        {planId && planIDs && (
+          <SelectPlanModal
+            onSelect={id => setPlanId(id)}
+            modalRef={selectPlanModalRef}
+            planIDs={planIDs}
+            selectedID={planId}
+          />
+        )}
         <View style={styles.buttonGroup}>
           <View style={styles.selectPlan}>
             <MenuItem
@@ -87,38 +101,34 @@ const Home = () => {
           </View>
         </View>
         {/* List */}
-        <SectionList
-          style={styles.list}
-          sections={sectionData}
-          stickySectionHeadersEnabled={false}
-          keyExtractor={(item, index) => item.name + index}
-          scrollEnabled={false}
-          renderItem={({ item, section, index }) => (
-            <WorkoutItem
-              key={index}
-              title={item.name}
-              style={styles.gap}
-              header={{
-                labels: ['Shoulder', 'biceps'],
-              }}
-              menu={[
-                { iconLeft: icons.Edit, title: 'Edit Workout' },
-                {
-                  iconLeft: icons.Trash,
-                  danger: true,
-                  title: 'Delete Workout',
-                },
-              ]}
-              onPress={() => {
-                return router.push({
-                  pathname: 'preview',
-                  params: { planId: section.id, workoutId: item.id, title: item?.name },
-                });
-              }}
-              descItems={[`${item.exercises.length} Exercises`, '5 days ago']}
-            />
-          )}
-        />
+        {workouts && (
+          <Animated.View entering={FadeIn} exiting={FadeOut} style={styles.list}>
+            {workouts.map((item, index) => (
+              <WorkoutItem
+                key={index}
+                title={item.name}
+                header={{
+                  labels: ['Shoulder', 'biceps'],
+                }}
+                menu={[
+                  { iconLeft: icons.Edit, title: 'Edit Workout' },
+                  {
+                    iconLeft: icons.Trash,
+                    danger: true,
+                    title: 'Delete Workout',
+                  },
+                ]}
+                onPress={() => {
+                  return router.push({
+                    pathname: 'preview',
+                    params: { planId, workoutId: item.id, title: item?.name },
+                  });
+                }}
+                descItems={[`${item.exercises.length} Exercises`, '5 days ago']}
+              />
+            ))}
+          </Animated.View>
+        )}
       </ScrollView>
     </>
   );
@@ -134,12 +144,8 @@ const createStyles = (theme: ITheme) => {
       paddingHorizontal: theme.spacing[4],
       gap: theme.spacing[3],
     },
-    gap: {
-      marginBottom: theme.spacing[3],
-    },
     list: {
-      flex: 1,
-      overflow: 'hidden',
+      gap: theme.spacing[3],
     },
     buttonGroup: { flexDirection: 'row', gap: 8 },
     selectPlan: { flex: 1 },

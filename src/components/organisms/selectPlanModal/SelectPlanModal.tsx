@@ -6,22 +6,27 @@ import { icons } from '~assets/icons';
 import { Button } from '~components/atoms/button/Button';
 import { Modal } from '~components/atoms/modal/Modal';
 import { SelectItem } from '~components/atoms/selectItem/SelectItem';
+import { IPlan } from '~redux/planSlice';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
-interface IProps {
+interface ISelectPlanModalProps {
   modalRef: RefObject<BottomSheetModal>;
+  planIDs: { id: IPlan['id']; name: IPlan['name'] }[];
+  selectedID: IPlan['id'];
+  onSelect: (id: IPlan['id']) => void;
 }
 
-export const SelectPlanModal = (props: IProps) => {
-  const { modalRef } = props;
+export const SelectPlanModal = (props: ISelectPlanModalProps) => {
+  const { modalRef, planIDs, selectedID, onSelect } = props;
 
   const styles = useThemedStyles(themedStyles);
 
   return (
     <Modal modalRef={modalRef} title='Select Workout Plan'>
       <View style={styles.modal}>
-        <SelectItem title='Plan A' onPress={() => null} selected={false} variant='large' />
-        <SelectItem title='Plan B' onPress={() => null} selected variant='large' />
+        {planIDs.map(p => (
+          <SelectItem title={p.name} onPress={() => onSelect(p.id)} selected={p.id === selectedID} variant='large' />
+        ))}
         <Button icon={icons.Plus} title='New Workout Plan' variant='ghost' />
       </View>
     </Modal>
