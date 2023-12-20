@@ -26,11 +26,13 @@ export const Icon = ({ icon = icons.Zap, size = 24, colorKey, fill = 'none', onP
     />
   );
 
-  return onPress ? (
-    <Pressable style={{ width: size }} rippleConfig={{ radius: size, colorKey: rippleColor }} onPress={onPress}>
+  return (
+    <Pressable
+      style={{ width: size }}
+      rippleConfig={{ radius: size, colorKey: rippleColor, foreground: true }}
+      onPress={onPress}
+    >
       {content}
     </Pressable>
-  ) : (
-    content
   );
 };

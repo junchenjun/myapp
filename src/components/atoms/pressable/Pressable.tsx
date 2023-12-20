@@ -1,5 +1,5 @@
 import { MouseEvent, ReactElement, ReactNode, useCallback } from 'react';
-import { GestureResponderEvent, Platform, Pressable as RNPressable, StyleProp, ViewStyle } from 'react-native';
+import { GestureResponderEvent, Platform, Pressable as RNPressable, StyleProp, View, ViewStyle } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 import { IThemeColorKeys, useTheme } from '~theme/ThemeContext';
@@ -67,7 +67,7 @@ export const Pressable = (props: IProps) => {
     scaleDownAnimation && (onPressScale.value = 1);
   }, [disabledOnPress, onPressOpacity, onPressScale, scaleDownAnimation]);
 
-  return (
+  return onPress ? (
     <Animated.View style={[onPressOpacityStyle, scaleDownAnimation && onPressScaleStyle, tabBarButton && { flex: 1 }]}>
       <RNPressable
         hitSlop={hitSlop ?? 20}
@@ -92,5 +92,7 @@ export const Pressable = (props: IProps) => {
         {children}
       </RNPressable>
     </Animated.View>
+  ) : (
+    <View style={style}>{children}</View>
   );
 };

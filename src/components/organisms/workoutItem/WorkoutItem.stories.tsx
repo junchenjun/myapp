@@ -27,44 +27,62 @@ export const Default: IStory = {
 };
 
 export const WithAccordion = {
-  render: () => (
-    <Accordion>
-      <WorkoutItem
-        title='Chest&Triceps'
-        header={{
-          labels: ['Shoulder', 'biceps'],
-        }}
-        descItems={['8 Exercises', '5 days ago']}
-        accordionContent={
-          <>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-          </>
-        }
-      />
-      <WorkoutItem
-        title='Back&Biceps'
-        header={{
-          labels: ['Shoulder', 'biceps'],
-        }}
-        descItems={['8 Exercises', '5 days ago']}
-        accordionContent={
-          <>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-            <Text>content content content content content content content</Text>
-          </>
-        }
-      />
+  args: {
+    autoCollapse: true,
+    styled: true,
+  },
+  render: ({ ...args }) => (
+    <Accordion {...args}>
+      <Accordion.Item>
+        <Accordion.Trigger>
+          {({ open, toggle }) => (
+            <WorkoutItem
+              accordionItem
+              title='Chest&Triceps'
+              header={{
+                labels: ['Shoulder', 'biceps'],
+              }}
+              descItems={['8 Exercises', '5 days ago']}
+              accordionToggle={toggle}
+              open={open}
+            />
+          )}
+        </Accordion.Trigger>
+        <Accordion.Content>
+          <Text>content content content content content content content</Text>
+          <Text>content content content content content content content</Text>
+          <Text>content content content content content content content</Text>
+          <Text>content content content content content content content</Text>
+          <Text>content content content content content content content</Text>
+          <Text>content content content content content content content</Text>
+          <Text>content content content content content content content</Text>
+        </Accordion.Content>
+      </Accordion.Item>
+      <Accordion.Item>
+        <Accordion.Trigger>
+          {({ open, toggle }) => (
+            <WorkoutItem
+              accordionItem
+              title='Chest&Triceps'
+              header={{
+                labels: ['Shoulder', 'biceps'],
+              }}
+              descItems={['8 Exercises', '5 days ago']}
+              accordionToggle={toggle}
+              open={open}
+            />
+          )}
+        </Accordion.Trigger>
+        <Accordion.Content>
+          <Text>content content content content content content content</Text>
+          <Text>content content content content content content content</Text>
+          <Text>content content content content content content content</Text>
+          <Text>content content content content content content content</Text>
+          <Text>content content content content content content content</Text>
+          <Text>content content content content content content content</Text>
+          <Text>content content content content content content content</Text>
+        </Accordion.Content>
+      </Accordion.Item>
     </Accordion>
   ),
 };

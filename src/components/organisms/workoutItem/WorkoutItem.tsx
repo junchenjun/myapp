@@ -1,9 +1,11 @@
-import { ReactElement, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
+import { icons } from '~assets/icons';
 import { Card } from '~components/atoms/card/Card';
+import { Icon } from '~components/atoms/icon/Icon';
+import { Pressable } from '~components/atoms/pressable/Pressable';
 import { Text } from '~components/atoms/text/Text';
-import { AccordionItem } from '~components/molecules/accordion/accordionItem/AccordionItem';
 import { IBottomMenuItems } from '~components/organisms/bottomMenu/BottomMenu';
 import {
   IWorkoutItemHeader,
@@ -15,65 +17,60 @@ export interface IWorkoutItemProps {
   title?: string;
   descItems?: string[];
   header?: IWorkoutItemHeader;
-  accordionContent?: ReactElement;
+  accordionToggle?: () => void;
+  open?: boolean;
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
   children?: ReactNode | ReactNode[];
   menu?: IBottomMenuItems;
+  accordionItem?: boolean;
 }
 
 export const WorkoutItem = (props: IWorkoutItemProps) => {
-  const { title, header, descItems, accordionContent, onPress, style, children, menu } = props;
+  const { title, header, descItems, onPress, style, accordionToggle, menu, open, accordionItem } = props;
   const styles = useThemedStyles(themedStyles);
 
   const mainContent = (
     <>
-      <Text variant='h5Regular' text={title} style={styles.title} />
-      <View style={styles.desc}>
-        {descItems?.map((i, index) => {
-          const showDivider = index !== descItems.length - 1;
-          if (showDivider) {
-            return (
-              <View style={styles.showDivider} key={i}>
-                <Text variant='pSMRegular' text={i} colorKey='onSurfaceDim' />
-                <View style={styles.dot} />
-              </View>
-            );
-          }
-          return <Text key={i} variant='pSMRegular' text={i} colorKey='onSurfaceDim' />;
-        })}
+      {header && <WorkoutItemHeader {...header} menu={menu} />}
+      <View style={styles.main}>
+        <View>
+          <Text variant='h5Regular' text={title} style={styles.title} />
+          <View style={styles.desc}>
+            {descItems?.map((i, index) => {
+              const showDivider = index !== descItems.length - 1;
+              if (showDivider) {
+                return (
+                  <View style={styles.showDivider} key={i}>
+                    <Text variant='pSMRegular' text={i} colorKey='onSurfaceDim' />
+                    <View style={styles.dot} />
+                  </View>
+                );
+              }
+              return <Text key={i} variant='pSMRegular' text={i} colorKey='onSurfaceDim' />;
+            })}
+          </View>
+        </View>
+        {accordionToggle && (
+          <Icon
+            colorKey='onSurfaceExtraDim'
+            icon={open ? icons.ExpandUp : icons.ExpandDown}
+            onPress={accordionToggle}
+          />
+        )}
       </View>
     </>
   );
 
-  if (!accordionContent) {
-    return (
-      <Card onPress={onPress} style={style}>
-        <WorkoutItemHeader {...header} menu={menu} />
-        {mainContent}
-        {children}
-      </Card>
-    );
-  } else {
-    return (
-      <Card onPress={onPress} style={style}>
-        <AccordionItem
-          trigger={triggerButton => (
-            <>
-              <WorkoutItemHeader {...header} menu={menu} />
-              <View style={styles.main}>
-                <View>{mainContent}</View>
-                {triggerButton}
-              </View>
-            </>
-          )}
-        >
-          {accordionContent}
-          {children}
-        </AccordionItem>
-      </Card>
-    );
-  }
+  return accordionItem ? (
+    <Pressable onPress={onPress} style={style}>
+      {mainContent}
+    </Pressable>
+  ) : (
+    <Card onPress={onPress} style={style}>
+      {mainContent}
+    </Card>
+  );
 };
 
 const themedStyles = (theme: ITheme) => {

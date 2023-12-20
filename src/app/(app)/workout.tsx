@@ -40,36 +40,40 @@ const Workout = () => {
 
   return (
     <View style={styles.container}>
-      <Accordion>
-        <ScrollView contentContainerStyle={styles.scroll}>
+      <ScrollView contentContainerStyle={styles.scroll}>
+        <Accordion>
           {workout?.exercises.map((i, index) => {
             return (
-              <WorkoutItem
-                key={index}
-                title={i.name}
-                header={{
-                  labels: ['Shoulder', 'biceps'],
-                }}
-                descItems={['8 Exercises']}
-                accordionContent={
-                  <>
-                    <Text>content content content content content content content</Text>
-                    <Text>content content content content content content content</Text>
-                    <Text>content content content content content content content</Text>
-                    <Text>content content content content content content content</Text>
-                    <Text>content content content content content content content</Text>
-                    <Text>content content content content content content content</Text>
-                    <Text>content content content content content content content</Text>
-                    <Text>content content content content content content content</Text>
-                    <Button title='Log Out' variant='primary' onPress={() => {}} />
-                  </>
-                }
-              />
+              <Accordion.Item key={index}>
+                <Accordion.Trigger>
+                  {({ open, toggle }) => (
+                    <WorkoutItem
+                      accordionItem
+                      title={i.name}
+                      header={{
+                        labels: ['Shoulder', 'biceps'],
+                      }}
+                      descItems={['8 Exercises']}
+                      accordionToggle={toggle}
+                      open={open}
+                    />
+                  )}
+                </Accordion.Trigger>
+                <Accordion.Content>
+                  <Text>content content content content content content content</Text>
+                  <Text>content content content content content content content</Text>
+                  <Text>content content content content content content content</Text>
+                  <Text>content content content content content content content</Text>
+                  <Text>content content content content content content content</Text>
+                  <Text>content content content content content content content</Text>
+                  <Text>content content content content content content content</Text>
+                </Accordion.Content>
+              </Accordion.Item>
             );
           })}
-          <Button title='Complete Workout' variant='primary' onPress={() => router.back()} />
-        </ScrollView>
-      </Accordion>
+        </Accordion>
+        <Button title='Complete Workout' variant='primary' onPress={() => router.back()} />
+      </ScrollView>
     </View>
   );
 };

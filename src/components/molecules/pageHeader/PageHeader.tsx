@@ -70,13 +70,13 @@ export const PageHeader = (props: IPageHeader) => {
     return (
       <View style={styles.container}>
         <View style={styles.left}>{left?.icon || left?.component ? componentLeft : null}</View>
-        <Text text={title} animatedStyles={animatedStyles} colorKey='onSurfaceDim' />
+        <Text variant='pLGRegular' text={title} animatedStyles={animatedStyles} colorKey='onSurfaceDim' />
         <View style={styles.right}>{right?.icon || right?.component ? componentRight : null}</View>
       </View>
     );
   } else if (variant === 'tabHeader') {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, styles.tabHeader]}>
         <Text variant='h3Regular' colorKey='onSurface'>
           {title}
         </Text>
@@ -98,12 +98,11 @@ const themedStyles = (insets: EdgeInsets) => {
       container: {
         paddingLeft: theme.spacing[4],
         paddingRight: theme.spacing[4],
-        paddingBottom: theme.spacing[1],
+        paddingBottom: theme.spacing[2],
         paddingTop,
         alignItems: 'flex-end',
         flexDirection: 'row',
         gap: theme.spacing[1],
-        overflow: 'hidden',
         position: 'relative',
         justifyContent: 'space-between',
         backgroundColor: theme.colors.surfaceExtraDim,
@@ -117,7 +116,11 @@ const themedStyles = (insets: EdgeInsets) => {
         flex: 1,
         alignItems: 'flex-end',
       },
+      tabHeader: {
+        paddingBottom: theme.spacing[1],
+      },
       topBarHeader: {
+        paddingBottom: theme.spacing[1],
         paddingLeft: 0,
         paddingRight: 0,
       },
