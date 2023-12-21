@@ -33,6 +33,7 @@ export default function Layout() {
   return (
     <Tabs
       screenOptions={{
+        tabBarHideOnKeyboard: true,
         headerShown: false,
         tabBarStyle: {
           backgroundColor: theme.colors.surface,
