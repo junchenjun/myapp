@@ -7,16 +7,16 @@ import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { icons } from '~assets/icons';
 import { MenuItem } from '~components/atoms/menuItem/MenuItem';
 import { WeeklyActivity } from '~components/molecules/weeklyActivity/WeeklyActivity';
-import { AddPlanModal } from '~components/organisms/addPlanModal/AddPlanModal';
+import { AddFolderModal } from '~components/organisms/addFolderModal/AddFolderModal';
 import { BottomMenu } from '~components/organisms/bottomMenu/BottomMenu';
-import { SelectPlanModal } from '~components/organisms/selectPlanModal/SelectPlanModal';
+import { SelectFolderModal } from '~components/organisms/selectFolderModal/SelectFolderModal';
 import { WorkoutItem } from '~components/organisms/workoutItem/WorkoutItem';
 import { IPlan } from '~redux/planSlice';
 import { useAppSelector } from '~redux/store';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 const Home = () => {
-  const [planId, setPlanId] = useState<IPlan['id']>();
+  const [folderId, setFolderId] = useState<IPlan['id']>();
   const styles = useThemedStyles(createStyles);
   const planList = useAppSelector(state => state.plans.list);
 
@@ -25,7 +25,7 @@ const Home = () => {
   const editPlanModalRef = useRef<BottomSheetModal>(null);
 
   useEffect(() => {
-    setPlanId(planList?.[0].id || undefined);
+    setFolderId(planList?.[0].id || undefined);
   }, [planList]);
 
   const handleEditPlanModalPress = useCallback(() => {
@@ -40,10 +40,10 @@ const Home = () => {
     addPlanModalRef.current?.present();
   }, []);
 
-  const planIDs = planList?.map(p => {
+  const folders = planList?.map(p => {
     return { id: p.id, name: p.name };
   });
-  const workouts = planList && planId && planList.find(i => i.id === planId)?.workouts;
+  const workouts = planList && folderId && planList.find(i => i.id === folderId)?.workouts;
 
   return (
     <>
@@ -64,25 +64,25 @@ const Home = () => {
         <BottomMenu
           modalRef={editPlanModalRef}
           items={[
-            { iconLeft: icons.Plus, title: 'New Workout Plan', onPress: handleAddPlanModalPress },
-            { iconLeft: icons.Edit, title: 'Edit Plan' },
+            { iconLeft: icons.Plus, title: 'New Folder', onPress: handleAddPlanModalPress },
+            { iconLeft: icons.Edit, title: 'Edit This Folder' },
             {
               iconLeft: icons.Trash,
               danger: true,
-              title: 'Delete Plan',
+              title: 'Delete Folder',
             },
           ]}
         />
-        {planId && planIDs && (
-          <SelectPlanModal
-            onSelect={id => setPlanId(id)}
+        {folderId && folders && (
+          <SelectFolderModal
+            onSelect={id => setFolderId(id)}
             modalRef={selectPlanModalRef}
-            planIDs={planIDs}
-            selectedID={planId}
+            folders={folders}
+            selectedID={folderId}
             onActionButton={handleAddPlanModalPress}
           />
         )}
-        <AddPlanModal modalRef={addPlanModalRef} />
+        <AddFolderModal modalRef={addPlanModalRef} />
         <View style={styles.buttonGroup}>
           <View style={styles.selectPlan}>
             <MenuItem
@@ -92,7 +92,7 @@ const Home = () => {
               iconRight={icons.More}
               roundedTopCorners
               roundedBottomCorners
-              title='Plan B'
+              title={folders?.find(i => i.id === folderId)?.name}
               onPress={handleSelectPlanModalPress}
               size='sm'
               onRightIconPress={handleEditPlanModalPress}
@@ -131,7 +131,7 @@ const Home = () => {
                 onPress={() => {
                   return router.push({
                     pathname: 'preview',
-                    params: { planId, workoutId: item.id, title: item?.name },
+                    params: { planId: folderId, workoutId: item.id, title: item?.name },
                   });
                 }}
                 descItems={[`${item.exercises.length} Exercises`, '5 days ago']}

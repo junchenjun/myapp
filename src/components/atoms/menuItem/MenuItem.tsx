@@ -86,7 +86,7 @@ export const MenuItem = (props: IMenuItemProps) => {
           <View style={styles.left}>
             {iconLeft && <Icon icon={iconLeft} colorKey={iconLeftColor} />}
             {title && (
-              <View>
+              <View style={iconRight && { paddingRight: 24 }}>
                 <Text text={title} colorKey={titleColor} />
                 {desc && <Text text={desc} variant='pXSRegular' colorKey={descColor} />}
               </View>

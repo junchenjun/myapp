@@ -9,32 +9,32 @@ import { SelectItem } from '~components/atoms/selectItem/SelectItem';
 import { IPlan } from '~redux/planSlice';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
-interface ISelectPlanModalProps {
+interface ISelectFolderModalProps {
   modalRef: RefObject<BottomSheetModal>;
-  planIDs: { id: IPlan['id']; name: IPlan['name'] }[];
+  folders: { id: IPlan['id']; name: IPlan['name'] }[];
   selectedID: IPlan['id'];
   onSelect: (id: IPlan['id']) => void;
   onActionButton: () => void;
 }
 
-export const SelectPlanModal = (props: ISelectPlanModalProps) => {
-  const { modalRef, planIDs, selectedID, onSelect, onActionButton } = props;
+export const SelectFolderModal = (props: ISelectFolderModalProps) => {
+  const { modalRef, folders, selectedID, onSelect, onActionButton } = props;
 
   const styles = useThemedStyles(themedStyles);
 
   return (
-    <Modal modalRef={modalRef} title='Select Workout Plan'>
+    <Modal modalRef={modalRef} title='Select Folder'>
       <View style={styles.modal}>
-        {planIDs.map(p => (
+        {folders.map(i => (
           <SelectItem
-            key={p.id}
-            title={p.name}
-            onPress={() => onSelect(p.id)}
-            selected={p.id === selectedID}
+            key={i.id}
+            title={i.name}
+            onPress={() => onSelect(i.id)}
+            selected={i.id === selectedID}
             variant='large'
           />
         ))}
-        <Button onPress={onActionButton} icon={icons.Plus} title='New Workout Plan' variant='ghost' />
+        <Button onPress={onActionButton} icon={icons.Plus} title='New Folder' variant='ghost' />
       </View>
     </Modal>
   );

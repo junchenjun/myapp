@@ -6,17 +6,17 @@ import { Button } from '~components/atoms/button/Button';
 import { Modal } from '~components/atoms/modal/Modal';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
-interface IAddPlanModalProps {
+interface IAddFolderModalProps {
   modalRef: RefObject<BottomSheetModal>;
 }
 
-export const AddPlanModal = (props: IAddPlanModalProps) => {
+export const AddFolderModal = (props: IAddFolderModalProps) => {
   const { modalRef } = props;
 
   const styles = useThemedStyles(themedStyles);
 
   return (
-    <Modal modalRef={modalRef} title='Create Workout Plan'>
+    <Modal modalRef={modalRef} title='Create Folder'>
       <View style={styles.modal}>
         <Button title='Save' variant='primary' />
       </View>
