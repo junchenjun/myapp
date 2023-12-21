@@ -24,11 +24,12 @@ export type IInputProps = {
   editable?: boolean;
   returnKeyType?: ReturnKeyType;
   onChangeValue?: ((text: string) => void) | undefined;
-  errorMessage?: string;
   icon?: IIcon;
-  hint?: string;
-  withMessage?: boolean;
   inputMode?: InputModeOptions;
+  showMessage?: boolean;
+  errorMessage?: string;
+  hint?: string;
+  handleKeyboardInModal?: boolean;
 };
 
 export const Input = (props: IInputProps) => {
@@ -43,13 +44,23 @@ export const Input = (props: IInputProps) => {
     icon,
     value,
     hint,
-    withMessage,
+    showMessage,
     inputMode,
+    handleKeyboardInModal,
   } = props;
+
   const [focused, setFocused] = useState(false);
   const [height, setHeight] = useState(0);
+
   const styles = useThemedStyles(themedStyles);
   const theme = useTheme();
+  const { shouldHandleKeyboardEvents } = useBottomSheetInternal();
+
+  useEffect(() => {
+    return () => {
+      shouldHandleKeyboardEvents.value = false;
+    };
+  }, [shouldHandleKeyboardEvents]);
 
   const onLayout = useCallback(
     (event: LayoutChangeEvent) => {
@@ -61,22 +72,14 @@ export const Input = (props: IInputProps) => {
     [height]
   );
 
-  const { shouldHandleKeyboardEvents } = useBottomSheetInternal();
-
-  useEffect(() => {
-    return () => {
-      shouldHandleKeyboardEvents.value = false;
-    };
-  }, [shouldHandleKeyboardEvents]);
-
   const handleOnFocus = useCallback(() => {
-    Platform.OS === 'ios' && (shouldHandleKeyboardEvents.value = true);
+    handleKeyboardInModal && Platform.OS === 'ios' && (shouldHandleKeyboardEvents.value = true);
     setFocused(true);
-  }, [shouldHandleKeyboardEvents]);
+  }, [handleKeyboardInModal, shouldHandleKeyboardEvents]);
   const handleOnBlur = useCallback(() => {
-    Platform.OS === 'ios' && (shouldHandleKeyboardEvents.value = false);
+    handleKeyboardInModal && Platform.OS === 'ios' && (shouldHandleKeyboardEvents.value = false);
     setFocused(false);
-  }, [shouldHandleKeyboardEvents]);
+  }, [handleKeyboardInModal, shouldHandleKeyboardEvents]);
 
   return (
     <View style={styles.container}>
@@ -119,7 +122,7 @@ export const Input = (props: IInputProps) => {
         autoCorrect={false}
         autoCapitalize='sentences'
       />
-      {withMessage && (
+      {showMessage && (
         <View
           style={[styles.message, !!hint && focused && styles.messageVisible, !!errorMessage && styles.messageVisible]}
         >

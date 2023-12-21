@@ -22,7 +22,7 @@ export const AddFolderModal = (props: IAddFolderModalProps) => {
     <Modal modalRef={modalRef} title='Create Folder' onDismiss={() => setValue('')}>
       <View style={styles.modal}>
         <Icon icon={icons.Folder} size={36} />
-        <Input value={value} onChangeValue={v => setValue(v)} placeholder='Name for the folder' />
+        <Input handleKeyboardInModal value={value} onChangeValue={v => setValue(v)} placeholder='Name for the folder' />
       </View>
       <Button title='Save' variant='primary' onPress={() => null} />
     </Modal>

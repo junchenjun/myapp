@@ -19,6 +19,6 @@ export const Default: IStory = {
     errorMessage: '',
     icon: icons.Search,
     hint: 'An Error Occurred',
-    withMessage: true,
+    showMessage: true,
   },
 };
