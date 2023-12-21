@@ -64,7 +64,7 @@ const Home = () => {
         <BottomMenu
           modalRef={editPlanModalRef}
           items={[
-            { iconLeft: icons.Plus, title: 'New Folder', onPress: handleAddPlanModalPress },
+            { iconLeft: icons.FolderPlus, title: 'New Folder', onPress: handleAddPlanModalPress },
             { iconLeft: icons.Edit, title: 'Edit This Folder' },
             {
               iconLeft: icons.Trash,

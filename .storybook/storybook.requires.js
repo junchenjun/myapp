@@ -50,6 +50,7 @@ const getStories = () => {
     "./src/components/atoms/button/Button.stories.tsx": require("../src/components/atoms/button/Button.stories.tsx"),
     "./src/components/atoms/card/Card.stories.tsx": require("../src/components/atoms/card/Card.stories.tsx"),
     "./src/components/atoms/icon/Icon.stories.tsx": require("../src/components/atoms/icon/Icon.stories.tsx"),
+    "./src/components/atoms/input/Input.stories.tsx": require("../src/components/atoms/input/Input.stories.tsx"),
     "./src/components/atoms/label/Label.stories.tsx": require("../src/components/atoms/label/Label.stories.tsx"),
     "./src/components/atoms/menuItem/MenuItem.stories.tsx": require("../src/components/atoms/menuItem/MenuItem.stories.tsx"),
     "./src/components/atoms/selectItem/SelectItem.stories.tsx": require("../src/components/atoms/selectItem/SelectItem.stories.tsx"),

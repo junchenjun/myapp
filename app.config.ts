@@ -66,6 +66,7 @@ const appConfig: ExpoConfig = {
   icon: config.icon,
   backgroundColor: '#E4E6EB',
   android: {
+    softwareKeyboardLayoutMode: 'pan',
     userInterfaceStyle: 'automatic',
     googleServicesFile: config.file.android,
     package: config.package,

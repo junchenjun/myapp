@@ -1,3 +1,5 @@
+import { StyleProp, ViewStyle } from 'react-native';
+
 import { IIcon, icons } from '~assets/icons';
 import { Pressable } from '~components/atoms/pressable/Pressable';
 import { IThemeColorKeys, useTheme } from '~theme/ThemeContext';
@@ -9,9 +11,18 @@ export type IIconProps = {
   fill?: 'none' | IThemeColorKeys;
   onPress?: () => void;
   rippleColor?: Extract<IThemeColorKeys, 'rippleDim' | 'ripple'>;
+  style?: StyleProp<ViewStyle>;
 };
 
-export const Icon = ({ icon = icons.Zap, size = 24, colorKey, fill = 'none', onPress, rippleColor }: IIconProps) => {
+export const Icon = ({
+  icon = icons.Zap,
+  size = 24,
+  colorKey,
+  fill = 'none',
+  onPress,
+  rippleColor,
+  style,
+}: IIconProps) => {
   const theme = useTheme();
 
   const IconComponent = icon;
@@ -28,7 +39,7 @@ export const Icon = ({ icon = icons.Zap, size = 24, colorKey, fill = 'none', onP
 
   return (
     <Pressable
-      style={{ width: size }}
+      style={[{ width: size }, style]}
       rippleConfig={{ radius: size, colorKey: rippleColor, foreground: true }}
       onPress={onPress}
     >

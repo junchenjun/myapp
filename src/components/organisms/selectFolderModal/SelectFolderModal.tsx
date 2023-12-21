@@ -44,6 +44,7 @@ const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
     modal: {
       gap: theme.spacing[3],
+      paddingTop: theme.spacing[5],
     },
   });
 };

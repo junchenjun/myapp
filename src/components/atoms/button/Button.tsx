@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import { Platform, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 import { IIcon } from '~assets/icons';
 import { Icon } from '~components/atoms/icon/Icon';
@@ -13,6 +13,7 @@ interface ICommonButtonProps {
   disabled?: boolean;
   icon?: IIcon;
   elevated?: boolean;
+  style?: StyleProp<ViewStyle>;
 }
 
 interface IPrimaryButton extends ICommonButtonProps {
@@ -27,14 +28,14 @@ interface IIconButton extends ICommonButtonProps {
 export type IButtonProps = IPrimaryButton | IIconButton;
 
 export const Button = (props: IButtonProps) => {
-  const { onPress, title, variant, disabled, icon, elevated } = props;
+  const { onPress, title, variant, disabled, icon, elevated, style } = props;
   const styles = useThemedStyles(themedStyles(variant));
 
   if (variant === 'primary') {
     const { loading } = props;
     const isDisabled = disabled || loading;
     return (
-      <View style={[styles.container, elevated && styles.elevated]}>
+      <View style={[styles.container, elevated && styles.elevated, style]}>
         <Pressable
           iosScaleDownAnimation
           disabled={isDisabled}
@@ -51,7 +52,7 @@ export const Button = (props: IButtonProps) => {
     );
   } else if (variant === 'ghost') {
     return (
-      <View style={[styles.container, elevated && styles.elevated]}>
+      <View style={[styles.container, elevated && styles.elevated, style]}>
         <Pressable
           iosScaleDownAnimation
           disabled={disabled}

@@ -6,7 +6,7 @@ import {
   BottomSheetView,
 } from '@gorhom/bottom-sheet';
 import { ReactElement, RefObject, useCallback, useRef } from 'react';
-import { BackHandler, NativeEventSubscription, StyleSheet } from 'react-native';
+import { BackHandler, Keyboard, NativeEventSubscription, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { EdgeInsets, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Text } from '~components/atoms/text/Text';
@@ -42,10 +42,11 @@ interface IProps {
   children?: ReactElement | ReactElement[];
   title?: string;
   backgroundColorKey?: Extract<IThemeColorKeys, 'surface' | 'surfaceExtraBright'>;
+  onDismiss?: () => void;
 }
 
 export const Modal = (props: IProps) => {
-  const { modalRef, children, title, backgroundColorKey = 'surfaceExtraBright' } = props;
+  const { modalRef, children, title, backgroundColorKey = 'surfaceExtraBright', onDismiss } = props;
   const insets = useSafeAreaInsets();
   const styles = useThemedStyles(themedStyles({ insets, backgroundColorKey }));
   const { handleSheetPositionChange } = useBottomSheetBackHandler(modalRef);
@@ -67,15 +68,21 @@ export const Modal = (props: IProps) => {
       backgroundStyle={styles.backgroundStyle}
       handleIndicatorStyle={styles.handle}
       onChange={handleSheetPositionChange}
+      keyboardBlurBehavior='restore'
+      android_keyboardInputMode='adjustResize'
+      keyboardBehavior='interactive'
+      onDismiss={onDismiss}
     >
-      <BottomSheetView style={[styles.view, !!title && styles.withTitle]}>
-        {title && (
-          <Text variant='h6Regular' style={styles.title}>
-            {title}
-          </Text>
-        )}
-        {children}
-      </BottomSheetView>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <BottomSheetView style={[styles.view, !!title && styles.withTitle]}>
+          {title && (
+            <Text variant='h6Regular' style={styles.title}>
+              {title}
+            </Text>
+          )}
+          {children}
+        </BottomSheetView>
+      </TouchableWithoutFeedback>
     </BottomSheetModal>
   );
 };
@@ -84,6 +91,7 @@ const themedStyles = (extra: {
   backgroundColorKey: Extract<IThemeColorKeys, 'surface' | 'surfaceExtraBright'>;
 }) => {
   const styles = (theme: ITheme) => {
+    const paddingBottom = extra.insets.bottom ? extra.insets.bottom + theme.spacing[4] : theme.spacing[6];
     return StyleSheet.create({
       backgroundStyle: {
         backgroundColor: theme.colors[extra.backgroundColorKey],
@@ -92,18 +100,17 @@ const themedStyles = (extra: {
         borderRadius: 0,
       },
       title: {
-        paddingVertical: theme.spacing[7],
+        paddingBottom: theme.spacing[4],
         paddingTop: 0,
         textAlign: 'center',
       },
       withTitle: {
         paddingTop: 0,
-        paddingBottom: extra.insets.bottom + theme.spacing[10],
       },
       view: {
         paddingHorizontal: theme.spacing[4],
         paddingVertical: theme.spacing[2],
-        paddingBottom: extra.insets.bottom + theme.spacing[4],
+        paddingBottom,
       },
       handle: {
         backgroundColor: theme.colors.outlineDim,

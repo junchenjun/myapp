@@ -11,6 +11,8 @@ import { IconExpandRight } from '~assets/icons/IconExpandRight';
 import { IconExpandUp } from '~assets/icons/IconExpandUp';
 import { IconExternal } from '~assets/icons/IconExternal';
 import { IconFile } from '~assets/icons/IconFile';
+import { IconFolder } from '~assets/icons/IconFolder';
+import { IconFolderPlus } from '~assets/icons/IconFolderPlus';
 import { IconGoogle } from '~assets/icons/IconGoogle';
 import { IconHourglass } from '~assets/icons/IconHourglass';
 import { IconLightbulb } from '~assets/icons/IconLightbulb';
@@ -20,6 +22,7 @@ import { IconMoon } from '~assets/icons/IconMoon';
 import { IconMore } from '~assets/icons/IconMore';
 import { IconPlus } from '~assets/icons/IconPlus';
 import { IconRuler } from '~assets/icons/IconRuler';
+import { IconSearch } from '~assets/icons/IconSearch';
 import { IconSettings } from '~assets/icons/IconSettings';
 import { IconSignOut } from '~assets/icons/IconSignOut';
 import { IconSun } from '~assets/icons/IconSun';
@@ -60,6 +63,9 @@ const icons = {
   Moon: IconMoon,
   Plus: IconPlus,
   Collections: IconCollections,
+  Search: IconSearch,
+  FolderPlus: IconFolderPlus,
+  Folder: IconFolder,
 };
 
 type IIcon = (typeof icons)[keyof typeof icons];
