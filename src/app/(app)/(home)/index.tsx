@@ -6,6 +6,7 @@ import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 import { icons } from '~assets/icons';
 import { MenuItem } from '~components/atoms/menuItem/MenuItem';
+import { Modal } from '~components/atoms/modal/Modal';
 import { WeeklyActivity } from '~components/molecules/weeklyActivity/WeeklyActivity';
 import { AddFolderModal } from '~components/organisms/addFolderModal/AddFolderModal';
 import { BottomMenu } from '~components/organisms/bottomMenu/BottomMenu';
@@ -74,15 +75,18 @@ const Home = () => {
           ]}
         />
         {folderId && folders && (
-          <SelectFolderModal
-            onSelect={id => setFolderId(id)}
-            modalRef={selectPlanModalRef}
-            folders={folders}
-            selectedID={folderId}
-            onActionButton={handleAddPlanModalPress}
-          />
+          <Modal modalRef={selectPlanModalRef} title='Select Folder'>
+            <SelectFolderModal
+              onSelect={id => setFolderId(id)}
+              folders={folders}
+              selectedID={folderId}
+              onActionButton={handleAddPlanModalPress}
+            />
+          </Modal>
         )}
-        <AddFolderModal modalRef={addPlanModalRef} />
+        <Modal modalRef={addPlanModalRef} title='Create Folder'>
+          <AddFolderModal />
+        </Modal>
         <View style={styles.buttonGroup}>
           <View style={styles.selectPlan}>
             <MenuItem

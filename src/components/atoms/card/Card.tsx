@@ -36,10 +36,8 @@ const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
     wrapper: {
       borderRadius: theme.radius.sm,
-      overflow: 'hidden',
     },
     container: {
-      overflow: 'hidden',
       backgroundColor: theme.colors.surfaceExtraBright,
       borderRadius: theme.radius.sm,
       height: 'auto',

@@ -6,6 +6,7 @@ import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
 import { MenuItem } from '~components/atoms/menuItem/MenuItem';
+import { Modal } from '~components/atoms/modal/Modal';
 import { Text } from '~components/atoms/text/Text';
 import { AppearanceModal } from '~components/organisms/appearanceModal/AppearanceModal';
 import { firebaseAuth } from '~firebase/firebaseConfig';
@@ -56,7 +57,9 @@ const Settings = () => {
 
   return (
     <ScrollView ref={scrollViewRef} contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-      <AppearanceModal modalRef={appearanceModalRef} />
+      <Modal modalRef={appearanceModalRef} title='Appearance'>
+        <AppearanceModal />
+      </Modal>
       {/* Help */}
       <Text text='Help' colorKey='onSurfaceDim' style={styles.label} />
       <View style={styles.menu}>

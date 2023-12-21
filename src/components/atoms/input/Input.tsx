@@ -1,10 +1,8 @@
-import { useBottomSheetInternal } from '@gorhom/bottom-sheet';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import {
   InputModeOptions,
   KeyboardTypeOptions,
   LayoutChangeEvent,
-  Platform,
   ReturnKeyType,
   StyleSheet,
   TextInput,
@@ -30,6 +28,8 @@ export type IInputProps = {
   errorMessage?: string;
   hint?: string;
   handleKeyboardInModal?: boolean;
+  onFocus?: () => void;
+  onBlur?: () => void;
 };
 
 export const Input = (props: IInputProps) => {
@@ -46,7 +46,8 @@ export const Input = (props: IInputProps) => {
     hint,
     showMessage,
     inputMode,
-    handleKeyboardInModal,
+    onFocus,
+    onBlur,
   } = props;
 
   const [focused, setFocused] = useState(false);
@@ -54,13 +55,6 @@ export const Input = (props: IInputProps) => {
 
   const styles = useThemedStyles(themedStyles);
   const theme = useTheme();
-  const { shouldHandleKeyboardEvents } = useBottomSheetInternal();
-
-  useEffect(() => {
-    return () => {
-      shouldHandleKeyboardEvents.value = false;
-    };
-  }, [shouldHandleKeyboardEvents]);
 
   const onLayout = useCallback(
     (event: LayoutChangeEvent) => {
@@ -73,13 +67,13 @@ export const Input = (props: IInputProps) => {
   );
 
   const handleOnFocus = useCallback(() => {
-    handleKeyboardInModal && Platform.OS === 'ios' && (shouldHandleKeyboardEvents.value = true);
     setFocused(true);
-  }, [handleKeyboardInModal, shouldHandleKeyboardEvents]);
+    onFocus && onFocus();
+  }, [onFocus]);
   const handleOnBlur = useCallback(() => {
-    handleKeyboardInModal && Platform.OS === 'ios' && (shouldHandleKeyboardEvents.value = false);
     setFocused(false);
-  }, [handleKeyboardInModal, shouldHandleKeyboardEvents]);
+    onBlur && onBlur();
+  }, [onBlur]);
 
   return (
     <View style={styles.container}>
