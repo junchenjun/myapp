@@ -81,14 +81,13 @@ export const Input = (props: IInputProps) => {
         <Icon
           icon={icon}
           style={[styles.icon, { top: height / 2 - 12 }]}
-          colorKey={editable ? (focused && !errorMessage ? 'primary' : 'onSurfaceDim') : 'onSurfaceExtraDim'}
+          colorKey={editable ? 'onSurfaceDim' : 'onSurfaceExtraDim'}
         />
       )}
       <TextInput
         onLayout={icon && onLayout}
         style={[
           styles.input,
-          focused && styles.focused,
           !editable && styles.disabled,
           !!errorMessage && styles.error,
           icon && styles.withIcon,
@@ -120,7 +119,7 @@ export const Input = (props: IInputProps) => {
         <View
           style={[styles.message, !!hint && focused && styles.messageVisible, !!errorMessage && styles.messageVisible]}
         >
-          <Text variant='pXSRegular' colorKey={errorMessage ? 'error' : 'primary'}>
+          <Text variant='pSMRegular' colorKey={errorMessage ? 'error' : 'onSurfaceDim'}>
             {errorMessage ? errorMessage : hint ? hint : 'placeholder'}
           </Text>
         </View>
@@ -151,9 +150,6 @@ const themedStyles = (theme: ITheme) => {
       backgroundColor: theme.colors.surfaceExtraBright,
       ...theme.fonts.pMDRegular,
     },
-    focused: {
-      borderColor: theme.colors.primary,
-    },
     disabled: {
       backgroundColor: theme.colors.surfaceDim,
     },
@@ -162,7 +158,6 @@ const themedStyles = (theme: ITheme) => {
     },
     message: {
       paddingHorizontal: theme.spacing[1],
-      paddingVertical: theme.spacing[1],
       opacity: 0,
     },
     messageVisible: {

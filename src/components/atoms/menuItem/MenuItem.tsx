@@ -79,7 +79,11 @@ export const MenuItem = (props: IMenuItemProps) => {
         disabled={disabled}
         disabledOnPress={disabledOnPress}
         onPress={onPress}
-        style={styles.pressable}
+        style={[
+          styles.pressable,
+          roundedTopCorners && styles.roundedTopCorners,
+          roundedBottomCorners && styles.roundedBottomCorners,
+        ]}
         rippleConfig={{ borderless: false, disabled: false }}
       >
         {(iconLeft || title) && (
