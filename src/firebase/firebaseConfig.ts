@@ -6,6 +6,11 @@ import firestore from '@react-native-firebase/firestore';
     persistence: true, // disable offline persistence
   }))();
 
+const firebaseAuth = auth;
+const firebaseStore = firestore;
+
+export { firebaseAuth, firebaseStore };
+
 export const collections = {
   user: {
     name: 'Users',
@@ -16,12 +21,12 @@ export const collections = {
 } as const;
 
 export const getUserConfig = async (id: string) => {
-  return (await firestore().collection(collections.user.name).doc(id).get()).data();
+  return (await firebaseStore().collection(collections.user.name).doc(id).get()).data();
 };
 
 export const createFolder = async (name: string) => {
   const uid = auth().currentUser?.uid;
-  return await firestore()
+  return await firebaseStore()
     .collection(collections.user.name)
     .doc(uid)
     .collection(collections.user.subCollections.plan.name)
@@ -33,17 +38,24 @@ export const createFolder = async (name: string) => {
     });
 };
 
+export const updateFolderName = async ({ id, name }: { id: string; name: string }) => {
+  const uid = auth().currentUser?.uid;
+  return await firebaseStore()
+    .collection(collections.user.name)
+    .doc(uid)
+    .collection(collections.user.subCollections.plan.name)
+    .doc(id)
+    .update({
+      name,
+    });
+};
+
 export const deleteFolder = async (folderId: string) => {
   const uid = auth().currentUser?.uid;
-  return await firestore()
+  return await firebaseStore()
     .collection(collections.user.name)
     .doc(uid)
     .collection(collections.user.subCollections.plan.name)
     .doc(folderId)
     .delete();
 };
-
-const firebaseAuth = auth;
-const firebaseStore = firestore;
-
-export { firebaseAuth, firebaseStore };

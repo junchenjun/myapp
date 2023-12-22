@@ -6,11 +6,15 @@ import { icons } from '~assets/icons';
 import { Button } from '~components/atoms/button/Button';
 import { Icon } from '~components/atoms/icon/Icon';
 import { Input } from '~components/atoms/input/Input';
-import { createFolder } from '~firebase/firebaseConfig';
+import { createFolder, updateFolderName } from '~firebase/firebaseConfig';
 import { useAppSelector } from '~redux/store';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
-export const AddFolderModal = ({ setFolder }: { setFolder: Dispatch<SetStateAction<string | undefined>> }) => {
+export const FolderNameModal = (props: {
+  setFolder: Dispatch<SetStateAction<string | undefined>>;
+  folderId?: string;
+}) => {
+  const { folderId, setFolder } = props;
   const [value, setValue] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const folders = useAppSelector(state => state.folders);
@@ -19,24 +23,36 @@ export const AddFolderModal = ({ setFolder }: { setFolder: Dispatch<SetStateActi
   const { shouldHandleKeyboardEvents } = useBottomSheetInternal();
   const { close } = useBottomSheet();
 
-  const exists = !!folders.filter(i => i.name === value).length;
-
-  let error = '';
-  if (exists) {
-    error = 'A folder with the same name already exists';
-  }
-  if (folders.length >= 5) {
-    error = 'You can only have up to 5 folders';
-  }
-  if (submitting) {
-    error = '';
-  }
+  const isCreate = !folderId;
+  const currentName = folders?.find(i => i.id === folderId)?.name;
 
   useEffect(() => {
     return () => {
       shouldHandleKeyboardEvents.value = false;
     };
   }, [shouldHandleKeyboardEvents]);
+
+  useEffect(() => {
+    if (!isCreate && currentName) {
+      setValue(currentName);
+    }
+  }, [isCreate, currentName]);
+
+  const exists = !!folders.filter(i => {
+    if (isCreate) {
+      return i.name === value;
+    } else {
+      return i.name === value && value !== currentName;
+    }
+  }).length;
+
+  let error = '';
+  if (exists) {
+    error = 'A folder with the same name already exists';
+  }
+  if (submitting) {
+    error = '';
+  }
 
   const handleOnFocus = useCallback(() => {
     Platform.OS === 'ios' && (shouldHandleKeyboardEvents.value = true);
@@ -47,28 +63,36 @@ export const AddFolderModal = ({ setFolder }: { setFolder: Dispatch<SetStateActi
 
   const onSave = useCallback(() => {
     setSubmitting(true);
-    createFolder(value).then(id => {
-      close();
-      setFolder(id);
-    });
-  }, [close, setFolder, value]);
+    if (isCreate) {
+      createFolder(value).then(id => {
+        close();
+        setFolder(id);
+      });
+    } else {
+      updateFolderName({ id: folderId, name: value }).then(() => {
+        close();
+        setFolder(folderId);
+      });
+    }
+  }, [close, folderId, isCreate, setFolder, value]);
+
+  const isButtonDisabled = !value || !!error || submitting || (!isCreate && value === currentName);
 
   return (
     <View>
       <View style={styles.modal}>
-        <Icon icon={icons.Folder} size={36} />
+        <Icon icon={isCreate ? icons.Folder : icons.Edit} size={36} />
         <Input
-          editable={folders.length < 5 && !submitting}
           onBlur={handleOnBlur}
           onFocus={handleOnFocus}
           handleKeyboardInModal
           value={value}
           onChangeValue={v => setValue(v)}
-          placeholder='Name for the folder'
+          placeholder={currentName || 'Name for the folder'}
           errorMessage={error}
         />
       </View>
-      <Button disabled={!value || !!error || submitting} title='Save' variant='primary' onPress={onSave} />
+      <Button disabled={isButtonDisabled} title={isCreate ? 'Create' : 'Save'} variant='primary' onPress={onSave} />
     </View>
   );
 };

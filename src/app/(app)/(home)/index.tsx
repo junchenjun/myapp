@@ -1,15 +1,15 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { router } from 'expo-router';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 import { icons } from '~assets/icons';
 import { MenuItem } from '~components/atoms/menuItem/MenuItem';
 import { Modal } from '~components/atoms/modal/Modal';
 import { WeeklyActivity } from '~components/molecules/weeklyActivity/WeeklyActivity';
-import { AddFolderModal } from '~components/organisms/addFolderModal/AddFolderModal';
 import { BottomMenu } from '~components/organisms/bottomMenu/BottomMenu';
+import { FolderNameModal } from '~components/organisms/FolderNameModal/FolderNameModal';
 import { SelectFolderModal } from '~components/organisms/selectFolderModal/SelectFolderModal';
 import { WorkoutItem } from '~components/organisms/workoutItem/WorkoutItem';
 import { deleteFolder } from '~firebase/firebaseConfig';
@@ -26,36 +26,99 @@ const Home = () => {
   const selectFolderModalRef = useRef<BottomSheetModal>(null);
   const editFolderNameRef = useRef<BottomSheetModal>(null);
   const addFolderModalRef = useRef<BottomSheetModal>(null);
-  const openFolderConfigModalRef = useRef<BottomSheetModal>(null);
+  const folderConfigModalRef = useRef<BottomSheetModal>(null);
 
   useEffect(() => {
-    setFolderId(folders?.[0]?.id || undefined);
-  }, [folders]);
+    if (!folderId) {
+      setFolderId(folders?.[0]?.id || undefined);
+    }
+  }, [folderId, folders]);
 
   const onFolderConfigPress = useCallback(() => {
-    openFolderConfigModalRef.current?.present();
+    folderConfigModalRef.current?.present();
   }, []);
   const onEditFolderNamePress = useCallback(() => {
     editFolderNameRef.current?.present();
-    selectFolderModalRef.current?.dismiss();
+    folderConfigModalRef.current?.dismiss();
   }, []);
   const onSelectFolderPress = useCallback(() => {
     selectFolderModalRef.current?.present();
   }, []);
   const onAddFolderPress = useCallback(() => {
     addFolderModalRef.current?.present();
-    openFolderConfigModalRef.current?.dismiss();
+    folderConfigModalRef.current?.dismiss();
     selectFolderModalRef.current?.dismiss();
   }, []);
-
-  const handleFolderDelete = useCallback(() => {
-    folderId && deleteFolder(folderId).then(() => openFolderConfigModalRef.current?.dismiss());
-  }, [folderId]);
+  const onFolderDelete = useCallback(() => {
+    folderId &&
+      deleteFolder(folderId).then(() => {
+        setFolderId(folders.filter(i => i.id !== folderId)[0].id);
+        folderConfigModalRef.current?.dismiss();
+      });
+  }, [folderId, folders]);
 
   const workouts = folders && folderId && folders.find(i => i.id === folderId)?.workouts;
+  const folderName = folders?.find(i => i.id === folderId)?.name;
+
+  const folderLimitAlert = () =>
+    Alert.alert('Maximum folder limit reached', 'You can have up to 5 folders', [{ text: 'OK' }], {
+      cancelable: true,
+    });
+
+  const deleteAlert = () =>
+    Alert.alert(
+      `Delete This Folder?`,
+      '',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        { text: 'Delete', onPress: onFolderDelete },
+      ],
+      {
+        cancelable: true,
+      }
+    );
+
+  const maximumFolderLimit = 5;
 
   return (
     <>
+      {/* Modals */}
+      <Modal modalRef={folderConfigModalRef} backgroundColorKey='surface'>
+        <BottomMenu
+          items={[
+            {
+              iconLeft: icons.FolderPlus,
+              title: 'New Folder',
+              onPress: folders.length >= 5 ? folderLimitAlert : onAddFolderPress,
+            },
+            { iconLeft: icons.Edit, title: 'Edit Folder Name', onPress: onEditFolderNamePress },
+            {
+              iconLeft: icons.Trash,
+              danger: true,
+              title: 'Delete Folder',
+              onPress: deleteAlert,
+              disabled: folders.length <= 1,
+            },
+          ]}
+        />
+      </Modal>
+      <Modal modalRef={selectFolderModalRef} title='Select Folder'>
+        <SelectFolderModal
+          onSelect={id => setFolderId(id)}
+          folders={folders}
+          selectedID={folderId}
+          onActionButton={folders.length >= maximumFolderLimit ? folderLimitAlert : onAddFolderPress}
+        />
+      </Modal>
+      <Modal modalRef={addFolderModalRef} title='Create Folder'>
+        <FolderNameModal setFolder={setFolderId} />
+      </Modal>
+      <Modal modalRef={editFolderNameRef} title='Edit Folder Name'>
+        <FolderNameModal setFolder={setFolderId} folderId={folderId} />
+      </Modal>
       <ScrollView contentContainerStyle={styles.scroll}>
         {/* WeeklyActivity */}
         <WeeklyActivity
@@ -70,34 +133,6 @@ const Home = () => {
           }}
         />
         {/* Buttons */}
-        <BottomMenu
-          modalRef={openFolderConfigModalRef}
-          items={[
-            { iconLeft: icons.FolderPlus, title: 'New Folder', onPress: onAddFolderPress },
-            { iconLeft: icons.Edit, title: 'Edit Folder Name' },
-            {
-              iconLeft: icons.Trash,
-              danger: true,
-              title: 'Delete Folder',
-              onPress: folderId ? handleFolderDelete : undefined,
-              disabled: folders.length <= 1,
-            },
-          ]}
-        />
-        <Modal modalRef={selectFolderModalRef} title='Select Folder'>
-          <SelectFolderModal
-            onSelect={id => setFolderId(id)}
-            folders={folders}
-            selectedID={folderId}
-            onActionButton={onAddFolderPress}
-          />
-        </Modal>
-        <Modal modalRef={addFolderModalRef} title='Create Folder'>
-          <AddFolderModal setFolder={setFolderId} />
-        </Modal>
-        {/* <Modal modalRef={editFolderNameRef} title='Create Folder'>
-          <AddFolderModal />
-        </Modal> */}
         <View style={styles.buttonGroup}>
           <View style={styles.selectPlan}>
             <MenuItem
@@ -107,7 +142,7 @@ const Home = () => {
               iconRight={icons.More}
               roundedTopCorners
               roundedBottomCorners
-              title={folders?.find(i => i.id === folderId)?.name}
+              title={folderName}
               onPress={onSelectFolderPress}
               size='sm'
               onRightIconPress={onFolderConfigPress}

@@ -161,7 +161,8 @@ const themedStyles = (theme: ITheme) => {
       borderColor: theme.colors.error,
     },
     message: {
-      paddingHorizontal: theme.spacing[2],
+      paddingHorizontal: theme.spacing[1],
+      paddingVertical: theme.spacing[1],
       opacity: 0,
     },
     messageVisible: {

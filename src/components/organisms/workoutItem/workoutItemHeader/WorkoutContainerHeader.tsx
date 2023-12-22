@@ -5,6 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import { icons } from '~assets/icons';
 import { Icon } from '~components/atoms/icon/Icon';
 import { Label } from '~components/atoms/label/Label';
+import { Modal } from '~components/atoms/modal/Modal';
 import { BottomMenu, IBottomMenuItems } from '~components/organisms/bottomMenu/BottomMenu';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
@@ -24,7 +25,11 @@ export const WorkoutItemHeader = (props: IWorkoutItemHeader) => {
 
   return (
     <View style={styles.container}>
-      {menu && <BottomMenu modalRef={modalRef} items={menu} />}
+      {menu && (
+        <Modal modalRef={modalRef} backgroundColorKey='surface'>
+          <BottomMenu items={menu} />
+        </Modal>
+      )}
       <View style={styles.labels}>
         {labels?.map(i => (
           <Label title={i} key={i} />
