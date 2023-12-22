@@ -12,39 +12,47 @@ import { AddFolderModal } from '~components/organisms/addFolderModal/AddFolderMo
 import { BottomMenu } from '~components/organisms/bottomMenu/BottomMenu';
 import { SelectFolderModal } from '~components/organisms/selectFolderModal/SelectFolderModal';
 import { WorkoutItem } from '~components/organisms/workoutItem/WorkoutItem';
-import { IPlan } from '~redux/planSlice';
+import { deleteFolder } from '~firebase/firebaseConfig';
+import { IFolder } from '~redux/foldersSlice';
 import { useAppSelector } from '~redux/store';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 const Home = () => {
-  const [folderId, setFolderId] = useState<IPlan['id']>();
-  const styles = useThemedStyles(createStyles);
-  const planList = useAppSelector(state => state.plans.list);
+  const [folderId, setFolderId] = useState<IFolder['id']>();
 
-  const selectPlanModalRef = useRef<BottomSheetModal>(null);
-  const addPlanModalRef = useRef<BottomSheetModal>(null);
-  const editPlanModalRef = useRef<BottomSheetModal>(null);
+  const styles = useThemedStyles(createStyles);
+  const folders = useAppSelector(state => state.folders);
+
+  const selectFolderModalRef = useRef<BottomSheetModal>(null);
+  const editFolderNameRef = useRef<BottomSheetModal>(null);
+  const addFolderModalRef = useRef<BottomSheetModal>(null);
+  const openFolderConfigModalRef = useRef<BottomSheetModal>(null);
 
   useEffect(() => {
-    setFolderId(planList?.[0].id || undefined);
-  }, [planList]);
+    setFolderId(folders?.[0]?.id || undefined);
+  }, [folders]);
 
-  const handleEditPlanModalPress = useCallback(() => {
-    editPlanModalRef.current?.present();
+  const onFolderConfigPress = useCallback(() => {
+    openFolderConfigModalRef.current?.present();
   }, []);
-  const handleSelectPlanModalPress = useCallback(() => {
-    selectPlanModalRef.current?.present();
+  const onEditFolderNamePress = useCallback(() => {
+    editFolderNameRef.current?.present();
+    selectFolderModalRef.current?.dismiss();
   }, []);
-  const handleAddPlanModalPress = useCallback(() => {
-    editPlanModalRef.current?.dismiss();
-    selectPlanModalRef.current?.dismiss();
-    addPlanModalRef.current?.present();
+  const onSelectFolderPress = useCallback(() => {
+    selectFolderModalRef.current?.present();
+  }, []);
+  const onAddFolderPress = useCallback(() => {
+    addFolderModalRef.current?.present();
+    openFolderConfigModalRef.current?.dismiss();
+    selectFolderModalRef.current?.dismiss();
   }, []);
 
-  const folders = planList?.map(p => {
-    return { id: p.id, name: p.name };
-  });
-  const workouts = planList && folderId && planList.find(i => i.id === folderId)?.workouts;
+  const handleFolderDelete = useCallback(() => {
+    folderId && deleteFolder(folderId).then(() => openFolderConfigModalRef.current?.dismiss());
+  }, [folderId]);
+
+  const workouts = folders && folderId && folders.find(i => i.id === folderId)?.workouts;
 
   return (
     <>
@@ -61,32 +69,35 @@ const Home = () => {
             su: { value: 'Su', variant: 'inactive' },
           }}
         />
-        {/* Plan Buttons */}
+        {/* Buttons */}
         <BottomMenu
-          modalRef={editPlanModalRef}
+          modalRef={openFolderConfigModalRef}
           items={[
-            { iconLeft: icons.FolderPlus, title: 'New Folder', onPress: handleAddPlanModalPress },
-            { iconLeft: icons.Edit, title: 'Edit This Folder' },
+            { iconLeft: icons.FolderPlus, title: 'New Folder', onPress: onAddFolderPress },
+            { iconLeft: icons.Edit, title: 'Edit Folder Name' },
             {
               iconLeft: icons.Trash,
               danger: true,
               title: 'Delete Folder',
+              onPress: folderId ? handleFolderDelete : undefined,
+              disabled: folders.length <= 1,
             },
           ]}
         />
-        {folderId && folders && (
-          <Modal modalRef={selectPlanModalRef} title='Select Folder'>
-            <SelectFolderModal
-              onSelect={id => setFolderId(id)}
-              folders={folders}
-              selectedID={folderId}
-              onActionButton={handleAddPlanModalPress}
-            />
-          </Modal>
-        )}
-        <Modal modalRef={addPlanModalRef} title='Create Folder'>
-          <AddFolderModal />
+        <Modal modalRef={selectFolderModalRef} title='Select Folder'>
+          <SelectFolderModal
+            onSelect={id => setFolderId(id)}
+            folders={folders}
+            selectedID={folderId}
+            onActionButton={onAddFolderPress}
+          />
         </Modal>
+        <Modal modalRef={addFolderModalRef} title='Create Folder'>
+          <AddFolderModal setFolder={setFolderId} />
+        </Modal>
+        {/* <Modal modalRef={editFolderNameRef} title='Create Folder'>
+          <AddFolderModal />
+        </Modal> */}
         <View style={styles.buttonGroup}>
           <View style={styles.selectPlan}>
             <MenuItem
@@ -97,9 +108,9 @@ const Home = () => {
               roundedTopCorners
               roundedBottomCorners
               title={folders?.find(i => i.id === folderId)?.name}
-              onPress={handleSelectPlanModalPress}
+              onPress={onSelectFolderPress}
               size='sm'
-              onRightIconPress={handleEditPlanModalPress}
+              onRightIconPress={onFolderConfigPress}
             />
           </View>
           <View>
@@ -135,7 +146,7 @@ const Home = () => {
                 onPress={() => {
                   return router.push({
                     pathname: 'preview',
-                    params: { planId: folderId, workoutId: item.id, title: item?.name },
+                    params: { folderId, workoutId: item.id, title: item?.name },
                   });
                 }}
                 descItems={[`${item.exercises.length} Exercises`, '5 days ago']}

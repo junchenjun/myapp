@@ -6,20 +6,44 @@ import firestore from '@react-native-firebase/firestore';
     persistence: true, // disable offline persistence
   }))();
 
-export const getPlansCollection = async (id: string) => {
-  return await firestore().collection('plan').where('owner', '==', id).get();
+export const collections = {
+  user: {
+    name: 'Users',
+    subCollections: {
+      plan: { name: 'Plans' },
+    },
+  },
+} as const;
+
+export const getUserConfig = async (id: string) => {
+  return (await firestore().collection(collections.user.name).doc(id).get()).data();
 };
 
-export const firebaseAuth = auth;
+export const createFolder = async (name: string) => {
+  const uid = auth().currentUser?.uid;
+  return await firestore()
+    .collection(collections.user.name)
+    .doc(uid)
+    .collection(collections.user.subCollections.plan.name)
+    .add({
+      name,
+    })
+    .then(docRef => {
+      return docRef.id;
+    });
+};
 
-// database().setPersistenceEnabled(true);
+export const deleteFolder = async (folderId: string) => {
+  const uid = auth().currentUser?.uid;
+  return await firestore()
+    .collection(collections.user.name)
+    .doc(uid)
+    .collection(collections.user.subCollections.plan.name)
+    .doc(folderId)
+    .delete();
+};
 
-// const firebaseConfig = {
-//   apiKey: 'AIzaSyCHiR-m9SwwZVwEJWO37dLfvF9-BVe8bUc',
-//   authDomain: 'myapp-403222.firebaseapp.com',
-//   projectId: 'myapp-403222',
-//   storageBucket: 'myapp-403222.appspot.com',
-//   messagingSenderId: '878529743045',
-//   appId: '1:878529743045:web:3461009e939028b764c8ac',
-//   measurementId: 'G-R43FR8HGZ5',
-// };
+const firebaseAuth = auth;
+const firebaseStore = firestore;
+
+export { firebaseAuth, firebaseStore };

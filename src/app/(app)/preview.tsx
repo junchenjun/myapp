@@ -14,13 +14,13 @@ import { IExercise, setWorkout } from '~redux/workoutSlice';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 export default function Preview() {
-  const plans = useAppSelector(state => state.plans.list);
-  const { workoutId, planId } = useLocalSearchParams();
+  const folders = useAppSelector(state => state.folders);
+  const { workoutId, folderId } = useLocalSearchParams();
   const styles = useThemedStyles(themedStyles);
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
 
-  const workout = plans?.find(p => p.id === planId)?.workouts.find(w => w.id === workoutId);
+  const workout = folders?.find(f => f.id === folderId)?.workouts?.find(w => w.id === workoutId);
   const labels = ['Back', 'Triceps'];
   const ITEM_HEIGHT = 126;
 

@@ -22,8 +22,12 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     setAuth: (state, action: PayloadAction<IUser | undefined>) => {
-      state.user = action.payload;
-      state.authed = !!action.payload;
+      if (action.payload) {
+        state.user = action.payload;
+        state.authed = !!action.payload;
+      } else {
+        return initialState;
+      }
     },
   },
 });

@@ -3,13 +3,13 @@ import { configureStore, PreloadedState } from '@reduxjs/toolkit';
 import { useSelector, TypedUseSelectorHook, useDispatch } from 'react-redux';
 import { combineReducers } from 'redux';
 
-import { authReducer, authSlice } from '~redux/authSlice';
-import { planReducer } from '~redux/planSlice';
+import { authReducer } from '~redux/authSlice';
+import { folderReducer } from '~redux/foldersSlice';
 import { workoutReducer } from '~redux/workoutSlice';
 
 export const rootReducer = combineReducers({
   auth: authReducer,
-  plans: planReducer,
+  folders: folderReducer,
   workout: workoutReducer,
 });
 
@@ -20,9 +20,8 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
   });
 };
 
-// persist auth data
 const preloadedState = {
-  auth: { ...authSlice.getInitialState() },
+  // auth: { ...authSlice.getInitialState() },
 };
 
 export const store = setupStore(preloadedState);

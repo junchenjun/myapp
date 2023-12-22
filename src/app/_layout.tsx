@@ -9,9 +9,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { Platform, View } from 'react-native';
 import { Provider } from 'react-redux';
 
-import { firebaseAuth, getPlansCollection } from '~firebase/firebaseConfig';
+import { collections, firebaseAuth, firebaseStore } from '~firebase/firebaseConfig';
 import { setAuth } from '~redux/authSlice';
-import { setPlans } from '~redux/planSlice';
+import { IFolder, setFolders } from '~redux/foldersSlice';
 import { store, useAppDispatch, useAppSelector } from '~redux/store';
 import { IAppColorScheme, ThemeProvider, appColorScheme, useTheme } from '~theme/ThemeContext';
 import { useUpdateAppColorScheme } from '~utils/hooks/useUpdateAppColorScheme';
@@ -80,11 +80,22 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
           providerId: user.providerId,
           uid: user.uid,
         };
-        const plans = (await getPlansCollection(user.uid)).docs.map(doc => doc.data());
-        dispatch(setPlans(plans));
         dispatch(setAuth(userInfo));
+
+        firebaseStore()
+          .collection(collections.user.name)
+          .doc(user.uid)
+          .collection(collections.user.subCollections.plan.name)
+          .onSnapshot(snapshot => {
+            const data = [] as IFolder[];
+            snapshot.forEach(doc => {
+              data.push({ ...doc.data(), id: doc.id } as IFolder);
+            });
+            dispatch(setFolders(data));
+          });
       } else {
         dispatch(setAuth());
+        dispatch(setFolders());
       }
       if (initializing) {
         setInitializing(false);

@@ -2,14 +2,11 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { RefObject } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { MenuItem } from '~components/atoms/menuItem/MenuItem';
+import { IMenuItemProps, MenuItem } from '~components/atoms/menuItem/MenuItem';
 import { Modal } from '~components/atoms/modal/Modal';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
-export type IBottomMenuItems = Pick<
-  React.ComponentProps<typeof MenuItem>,
-  'danger' | 'iconLeft' | 'onPress' | 'title'
->[];
+export type IBottomMenuItems = Pick<IMenuItemProps, 'danger' | 'iconLeft' | 'onPress' | 'title' | 'disabled'>[];
 
 interface IProps {
   items: IBottomMenuItems;

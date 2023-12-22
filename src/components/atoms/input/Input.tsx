@@ -44,7 +44,7 @@ export const Input = (props: IInputProps) => {
     icon,
     value,
     hint,
-    showMessage,
+    showMessage = true,
     inputMode,
     onFocus,
     onBlur,
