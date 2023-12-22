@@ -52,7 +52,7 @@ export default function Layout() {
                 right={{
                   component: (
                     <Pressable rippleConfig={{ radius: 24, colorKey: 'rippleDim' }}>
-                      <Text text='Edit' colorKey='primary' />
+                      <Text variant='h6Regular' text='Edit' colorKey='primary' />
                     </Pressable>
                   ),
                 }}
