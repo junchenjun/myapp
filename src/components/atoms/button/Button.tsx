@@ -75,7 +75,7 @@ const themedStyles = (variant: IButtonProps['variant']) => {
     return StyleSheet.create({
       container: {
         borderRadius: theme.radius.round,
-        backgroundColor: variant === 'primary' ? theme.colors.primary : undefined,
+        backgroundColor: variant === 'primary' ? theme.colors.primaryBright : undefined,
         alignSelf: 'center',
         overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
       },

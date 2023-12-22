@@ -72,13 +72,13 @@ const themedStyles = (theme: ITheme) => {
       gap: theme.spacing[2],
       borderWidth: 1,
       borderStyle: 'solid',
-      borderRadius: theme.radius.lg,
+      borderRadius: theme.radius.md,
       borderColor: theme.colors.outlineDim,
-      backgroundColor: theme.colors.surfaceBright,
+      backgroundColor: theme.colors.surfaceExtraBright,
     },
     selected: {
       borderColor: theme.colors.primary,
-      backgroundColor: theme.colors.primaryContainer,
+      backgroundColor: theme.colors.surfaceExtraBright,
     },
     left: {
       flexDirection: 'row',

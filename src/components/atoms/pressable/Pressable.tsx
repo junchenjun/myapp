@@ -52,11 +52,11 @@ export const Pressable = (props: IProps) => {
 
   const onPressOpacityStyle = useAnimatedStyle(() => {
     return {
-      opacity: withTiming(onPressOpacity.value, { duration: 80 }),
+      opacity: withTiming(onPressOpacity.value, { duration: 100 }),
     };
   });
   const onPressScaleStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: withTiming(onPressScale.value, { duration: 50 }) }],
+    transform: [{ scale: withTiming(onPressScale.value, { duration: 100 }) }],
   }));
 
   const onPressIn = useCallback(() => {

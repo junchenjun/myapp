@@ -24,8 +24,10 @@ const colors = {
   },
   blue: {
     100: '#FFFFFF',
+    87: '#C9DAFF',
     80: '#AAC7FF',
     50: '#1275E3',
+    40: '#478BFF',
     20: '#002F64',
     10: '#001B3E',
   },
@@ -40,8 +42,8 @@ const colors = {
 export const themeColorsLight = {
   // primary
   primary: colors.blue[50],
+  primaryBright: colors.blue[40],
   onPrimary: colors.blue[100],
-  primaryContainer: '#F2F8FF',
   // surface
   surfaceExtraBright: colors.gray[100],
   surfaceBright: colors.gray[98],
@@ -66,8 +68,8 @@ export const themeColorsLight = {
 export const themeColorsDark = {
   // primary
   primary: colors.blue[80],
+  primaryBright: colors.blue[87],
   onPrimary: colors.blue[20],
-  primaryContainer: '#051A33',
   // surface
   surfaceExtraBright: colors.gray[17],
   surfaceBright: colors.gray[12],
