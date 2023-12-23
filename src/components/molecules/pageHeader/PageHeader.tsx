@@ -22,7 +22,7 @@ interface ITopBarHeader {
   topBarHeaderAnimatedStyle: Animated.WithAnimatedObject<TextStyle>;
 }
 
-interface IHeaderWithActions {
+export interface IActionPageHeader {
   variant: 'actionHeader';
   title: string;
   left?: {
@@ -43,7 +43,7 @@ interface IHeaderWithActions {
   };
 }
 
-type IPageHeader = IHeader | IHeaderWithActions | ITopBarHeader;
+type IPageHeader = IHeader | IActionPageHeader | ITopBarHeader;
 
 export const PageHeader = (props: IPageHeader) => {
   const { title, variant } = props;
@@ -109,7 +109,7 @@ export const PageHeader = (props: IPageHeader) => {
 
 const themedStyles = (insets: EdgeInsets) => {
   return (theme: ITheme) => {
-    const paddingTop = insets.top < 40 ? 40 : insets.top + theme.spacing[1];
+    const paddingTop = insets.top < 40 ? 40 : insets.top + theme.spacing[2];
     return StyleSheet.create({
       container: {
         paddingLeft: theme.spacing[4],

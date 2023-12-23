@@ -4,7 +4,7 @@ import { Alert } from 'react-native';
 import { icons } from '~assets/icons';
 import { Pressable } from '~components/atoms/pressable/Pressable';
 import { Text } from '~components/atoms/text/Text';
-import { PageHeader } from '~components/molecules/pageHeader/PageHeader';
+import { IActionPageHeader, PageHeader } from '~components/molecules/pageHeader/PageHeader';
 import { resetCreateWorkout } from '~redux/createWorkoutSlice';
 import { useAppDispatch } from '~redux/store';
 
@@ -92,11 +92,7 @@ export default function Layout() {
         options={{
           headerShown: true,
           header: ({ options }) => {
-            const headerSearchBarOptions = options.headerSearchBarOptions as {
-              onChangeText?: (text: string) => void;
-              placeholder: string;
-              value: string;
-            };
+            const headerSearchBarOptions = options.headerSearchBarOptions as IActionPageHeader['searchBar'];
             return (
               <PageHeader
                 searchBar={{
@@ -136,11 +132,7 @@ export default function Layout() {
         options={{
           headerShown: true,
           header: ({ options }) => {
-            const headerSearchBarOptions = options.headerSearchBarOptions as {
-              onChangeText?: (text: string) => void;
-              placeholder: string;
-              value: string;
-            };
+            const headerSearchBarOptions = options.headerSearchBarOptions as IActionPageHeader['searchBar'];
             return (
               <PageHeader
                 searchBar={{

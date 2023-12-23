@@ -13,13 +13,13 @@ interface ICommonButtonProps {
   title?: string;
   disabled?: boolean;
   icon?: IIcon;
-  elevated?: boolean;
   style?: StyleProp<ViewStyle>;
 }
 
 interface IPrimaryButton extends ICommonButtonProps {
   variant: 'primary';
   loading?: boolean;
+  float?: boolean;
 }
 
 interface IIconButton extends ICommonButtonProps {
@@ -29,14 +29,14 @@ interface IIconButton extends ICommonButtonProps {
 export type IButtonProps = IPrimaryButton | IIconButton;
 
 export const Button = (props: IButtonProps) => {
-  const { onPress, title, variant, disabled, icon, elevated, style } = props;
+  const { onPress, title, variant, disabled, icon, style } = props;
   const styles = useThemedStyles(themedStyles(variant));
 
   if (variant === 'primary') {
-    const { loading } = props;
+    const { loading, float } = props;
     const isDisabled = disabled || loading;
     return (
-      <Animated.View style={[styles.container, elevated && styles.elevated, style]}>
+      <Animated.View style={[styles.container, float && styles.float, style]}>
         <Pressable
           iosScaleDownAnimation
           disabled={isDisabled}
@@ -53,7 +53,7 @@ export const Button = (props: IButtonProps) => {
     );
   } else if (variant === 'ghost') {
     return (
-      <View style={[styles.container, elevated && styles.elevated, style]}>
+      <View style={[styles.container, style]}>
         <Pressable
           iosScaleDownAnimation
           disabled={disabled}
@@ -80,7 +80,10 @@ const themedStyles = (variant: IButtonProps['variant']) => {
         alignSelf: 'center',
         overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
       },
-      elevated: {
+      float: {
+        position: 'absolute',
+        bottom: 25,
+        right: theme.spacing[3],
         elevation: 5,
         shadowOffset: { width: 0, height: 5 },
         shadowOpacity: 0.35,

@@ -1,8 +1,7 @@
-import { useHeaderHeight } from '@react-navigation/elements';
 import { StackActions } from '@react-navigation/native';
 import { useNavigation } from 'expo-router';
 import { useState } from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
 import { Button } from '~components/atoms/button/Button';
@@ -10,7 +9,7 @@ import { Card } from '~components/atoms/card/Card';
 import { Input } from '~components/atoms/input/Input';
 import { Label } from '~components/atoms/label/Label';
 import { Text } from '~components/atoms/text/Text';
-import { KeyboardAwareFloatView } from '~components/organisms/keyboardAwareFloatView/KeyboardAwareFloatView';
+import { KeyboardAwareView } from '~components/layout/keyboardAwareView/KeyboardAwareView';
 import { IExerciseForm, addExercise } from '~redux/createWorkoutSlice';
 import { useAppDispatch } from '~redux/store';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
@@ -78,7 +77,6 @@ export default function EditExercise() {
 
   const styles = useThemedStyles(themedStyles);
   const navigation = useNavigation();
-  const headerHeight = useHeaderHeight();
 
   const dispatch = useAppDispatch();
 
@@ -88,11 +86,7 @@ export default function EditExercise() {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      keyboardVerticalOffset={headerHeight}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    >
+    <KeyboardAwareView>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
         <Card>
           <View style={styles.item}>
@@ -119,28 +113,22 @@ export default function EditExercise() {
           </View>
         </Card>
       </ScrollView>
-      <KeyboardAwareFloatView hideWhenKeyboardVisible>
-        <Button
-          variant='primary'
-          title='Add To Workout'
-          disabled={!title}
-          elevated={false}
-          onPress={() => {
-            dispatch(addExercise(formValues));
-            navigation.dispatch(StackActions.pop(2));
-          }}
-          icon={icons.Plus}
-        />
-      </KeyboardAwareFloatView>
-    </KeyboardAvoidingView>
+      <Button
+        variant='primary'
+        title='Add To Workout'
+        disabled={!title}
+        float
+        onPress={() => {
+          dispatch(addExercise(formValues));
+          navigation.dispatch(StackActions.pop(2));
+        }}
+        icon={icons.Plus}
+      />
+    </KeyboardAwareView>
   );
 }
 const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
-    container: {
-      flex: 1,
-      position: 'relative',
-    },
     scroll: {
       paddingHorizontal: theme.spacing[4],
       paddingBottom: 120,
@@ -149,11 +137,6 @@ const themedStyles = (theme: ITheme) => {
       flexDirection: 'row',
       justifyContent: 'space-between',
       paddingVertical: theme.spacing[1],
-    },
-    float: {
-      position: 'absolute',
-      right: theme.spacing[4],
-      bottom: 30,
     },
     item: {
       gap: theme.spacing[2],

@@ -85,7 +85,6 @@ export const FolderNameModal = (props: {
         <Input
           onBlur={handleOnBlur}
           onFocus={handleOnFocus}
-          handleKeyboardInModal
           value={value}
           onChangeValue={v => setValue(v)}
           placeholder={currentName || 'Name for the folder'}

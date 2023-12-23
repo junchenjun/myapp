@@ -1,34 +1,40 @@
 import { router, useNavigation } from 'expo-router';
-import { useCallback, useEffect, useState } from 'react';
-import { FlatList, Platform, StyleSheet, View } from 'react-native';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { FlatList, Keyboard, Platform, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
 import { Button } from '~components/atoms/button/Button';
 import { Text } from '~components/atoms/text/Text';
+import { KeyboardAwareView } from '~components/layout/keyboardAwareView/KeyboardAwareView';
 import { Accordion } from '~components/molecules/accordion/Accordion';
-import { KeyboardAwareFloatView } from '~components/organisms/keyboardAwareFloatView/KeyboardAwareFloatView';
+import { IActionPageHeader } from '~components/molecules/pageHeader/PageHeader';
 import { IExercise } from '~redux/workoutSlice';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 export default function FindExercise() {
-  const [name, setName] = useState('');
+  const [title, setTitle] = useState('');
   const styles = useThemedStyles(themedStyles);
   const navigation = useNavigation();
 
+  const headerSearchBarOptions = useMemo(() => {
+    const options: IActionPageHeader['searchBar'] = {
+      onChangeText: (v: string) => setTitle(v),
+      placeholder: 'Search',
+      value: title,
+    };
+    return options;
+  }, [title]);
+
   useEffect(() => {
     navigation.setOptions({
-      headerSearchBarOptions: {
-        onChangeText: (v: string) => setName(v),
-        placeholder: 'Search',
-        value: name,
-      },
+      headerSearchBarOptions,
     });
-  }, [name, navigation]);
+  }, [headerSearchBarOptions, navigation]);
 
   const renderItem = useCallback(() => null, []);
   const exercises: IExercise[] = [];
   return (
-    <View style={styles.container}>
+    <KeyboardAwareView>
       {exercises && (
         <Accordion>
           <FlatList
@@ -50,25 +56,21 @@ export default function FindExercise() {
           />
         </Accordion>
       )}
-      <KeyboardAwareFloatView>
-        <Button
-          variant='primary'
-          title='New Exercise'
-          elevated
-          onPress={() => router.push('editExercise')}
-          icon={icons.Plus}
-        />
-      </KeyboardAwareFloatView>
-    </View>
+      <Button
+        variant='primary'
+        title='New Exercise'
+        float
+        onPress={() => {
+          Keyboard.dismiss();
+          router.push('editExercise');
+        }}
+        icon={icons.Plus}
+      />
+    </KeyboardAwareView>
   );
 }
 const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
-    container: {
-      flex: 1,
-      position: 'relative',
-      backgroundColor: theme.colors.surfaceExtraDim,
-    },
     scroll: {
       paddingHorizontal: theme.spacing[4],
       paddingBottom: 120,

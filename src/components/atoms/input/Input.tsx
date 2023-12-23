@@ -1,8 +1,10 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   InputModeOptions,
+  Keyboard,
   KeyboardTypeOptions,
   LayoutChangeEvent,
+  Platform,
   ReturnKeyType,
   StyleSheet,
   TextInput,
@@ -27,7 +29,6 @@ export type IInputProps = {
   showMessage?: boolean;
   errorMessage?: string;
   hint?: string;
-  handleKeyboardInModal?: boolean;
   onFocus?: () => void;
   onBlur?: () => void;
 };
@@ -53,8 +54,21 @@ export const Input = (props: IInputProps) => {
   const [focused, setFocused] = useState(false);
   const [height, setHeight] = useState(0);
 
+  const inputRef = useRef<TextInput>(null);
+
   const styles = useThemedStyles(themedStyles);
   const theme = useTheme();
+
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
+        inputRef.current?.blur();
+      });
+      return () => {
+        hideSubscription.remove();
+      };
+    }
+  }, []);
 
   const onLayout = useCallback(
     (event: LayoutChangeEvent) => {
@@ -85,6 +99,7 @@ export const Input = (props: IInputProps) => {
         />
       )}
       <TextInput
+        ref={inputRef}
         onLayout={icon && onLayout}
         style={[
           styles.input,

@@ -1,12 +1,13 @@
 import { router, useFocusEffect, useNavigation } from 'expo-router';
-import { useCallback, useEffect, useState } from 'react';
-import { Alert, BackHandler, FlatList, Platform, StyleSheet, View } from 'react-native';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Alert, BackHandler, FlatList, Keyboard, Platform, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
 import { Button } from '~components/atoms/button/Button';
 import { Text } from '~components/atoms/text/Text';
+import { KeyboardAwareView } from '~components/layout/keyboardAwareView/KeyboardAwareView';
 import { Accordion } from '~components/molecules/accordion/Accordion';
-import { KeyboardAwareFloatView } from '~components/organisms/keyboardAwareFloatView/KeyboardAwareFloatView';
+import { IActionPageHeader } from '~components/molecules/pageHeader/PageHeader';
 import { WorkoutItem } from '~components/organisms/workoutItem/WorkoutItem';
 import { IExerciseForm, resetCreateWorkout } from '~redux/createWorkoutSlice';
 import { useAppDispatch, useAppSelector } from '~redux/store';
@@ -65,15 +66,20 @@ export default function EditWorkout() {
     }, [dispatch, exercises?.length, exitAlert, title])
   );
 
+  const headerSearchBarOptions = useMemo(() => {
+    const options: IActionPageHeader['searchBar'] = {
+      onChangeText: (v: string) => setTitle(v),
+      placeholder: 'Name for the workout',
+      value: title,
+    };
+    return options;
+  }, [title]);
+
   useEffect(() => {
     navigation.setOptions({
-      headerSearchBarOptions: {
-        onChangeText: (v: string) => setTitle(v),
-        placeholder: 'Name for the workout',
-        value: title,
-      },
+      headerSearchBarOptions,
     });
-  }, [title, navigation]);
+  }, [headerSearchBarOptions, navigation]);
 
   const renderItem = useCallback(
     ({ item }: { item: IExerciseForm }) => (
@@ -93,7 +99,7 @@ export default function EditWorkout() {
   );
 
   return (
-    <View style={styles.container}>
+    <KeyboardAwareView>
       {exercises && (
         <Accordion>
           <FlatList
@@ -115,25 +121,21 @@ export default function EditWorkout() {
           />
         </Accordion>
       )}
-      <KeyboardAwareFloatView>
-        <Button
-          variant='primary'
-          title='Add Exercise'
-          elevated
-          onPress={() => router.push('findExercise')}
-          icon={icons.Plus}
-        />
-      </KeyboardAwareFloatView>
-    </View>
+      <Button
+        variant='primary'
+        title='Add Exercise'
+        float
+        onPress={() => {
+          Keyboard.dismiss();
+          router.push('findExercise');
+        }}
+        icon={icons.Plus}
+      />
+    </KeyboardAwareView>
   );
 }
 const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
-    container: {
-      flex: 1,
-      position: 'relative',
-      backgroundColor: theme.colors.surfaceExtraDim,
-    },
     scroll: {
       flex: 1,
       paddingHorizontal: theme.spacing[4],
