@@ -1,9 +1,9 @@
 import { StyleSheet, View } from 'react-native';
 
-import { IMenuItemProps, MenuItem } from '~components/atoms/menuItem/MenuItem';
+import { IListItemProps, ListItem } from '~components/atoms/listItem/ListItem';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
-export type IBottomMenuItems = Pick<IMenuItemProps, 'danger' | 'iconLeft' | 'onPress' | 'title' | 'disabled'>[];
+export type IBottomMenuItems = Pick<IListItemProps, 'danger' | 'iconLeft' | 'onPress' | 'title' | 'disabled'>[];
 
 interface IProps {
   items: IBottomMenuItems;
@@ -16,7 +16,7 @@ export const BottomMenu = (props: IProps) => {
   return (
     <View style={styles.content}>
       {items.map((i, index) => {
-        return <MenuItem iosScaleDownAnimation key={index} {...i} roundedBottomCorners roundedTopCorners />;
+        return <ListItem iosScaleDownAnimation key={index} {...i} roundedBottomCorners roundedTopCorners />;
       })}
     </View>
   );

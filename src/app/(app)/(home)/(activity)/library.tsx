@@ -5,7 +5,7 @@ import { useCallback, useRef, useState } from 'react';
 import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
-import { MenuItem } from '~components/atoms/menuItem/MenuItem';
+import { ListItem } from '~components/atoms/listItem/ListItem';
 import { Modal } from '~components/atoms/modal/Modal';
 import { Text } from '~components/atoms/text/Text';
 import { AppearanceModal } from '~components/organisms/appearanceModal/AppearanceModal';
@@ -63,7 +63,7 @@ const Settings = () => {
       {/* Account */}
       <Text text='Account' colorKey='onSurfaceDim' style={styles.label} />
       <View style={styles.menu}>
-        <MenuItem
+        <ListItem
           iconLeft={icons.User}
           iconRight={icons.ExpandRight}
           withBorder
@@ -71,7 +71,7 @@ const Settings = () => {
           title='Jun Chen'
           desc='junchen.cq@gmail.com'
         />
-        <MenuItem
+        <ListItem
           disabled={loading}
           disabledOnPress
           onPress={() => {
@@ -86,16 +86,16 @@ const Settings = () => {
       {/* Help */}
       <Text text='Help' colorKey='onSurfaceDim' style={styles.label} />
       <View style={styles.menu}>
-        <MenuItem iconRight={icons.ExpandRight} iconLeft={icons.Mail} withBorder roundedTopCorners title='Contact Us' />
-        <MenuItem iconRight={icons.External} iconLeft={icons.File} withBorder title='License' />
-        <MenuItem iconRight={icons.External} iconLeft={icons.File} withBorder title='Privacy Policy' />
-        <MenuItem iconRight={icons.External} iconLeft={icons.File} withBorder title='Terms of Service' />
-        <MenuItem danger iconLeft={icons.Trash} roundedBottomCorners title='Delete Account' />
+        <ListItem iconRight={icons.ExpandRight} iconLeft={icons.Mail} withBorder roundedTopCorners title='Contact Us' />
+        <ListItem iconRight={icons.External} iconLeft={icons.File} withBorder title='License' />
+        <ListItem iconRight={icons.External} iconLeft={icons.File} withBorder title='Privacy Policy' />
+        <ListItem iconRight={icons.External} iconLeft={icons.File} withBorder title='Terms of Service' />
+        <ListItem danger iconLeft={icons.Trash} roundedBottomCorners title='Delete Account' />
       </View>
       {/* Preferences */}
       <Text text='Preferences' colorKey='onSurfaceDim' style={styles.label} />
       <View style={styles.menu}>
-        <MenuItem
+        <ListItem
           iconRight={icons.ExpandRight}
           iconLeft={icons.Appearance}
           withBorder
@@ -104,22 +104,22 @@ const Settings = () => {
           desc={colorschemeName}
           onPress={appearanceModalPress}
         />
-        <MenuItem
+        <ListItem
           iconRight={icons.ExpandRight}
           iconLeft={icons.Hourglass}
           withBorder
           title='Rest Timer'
           desc='Default'
         />
-        <MenuItem iconRight={icons.ExpandRight} iconLeft={icons.Ruler} withBorder title='Units' desc='kg' />
-        <MenuItem
+        <ListItem iconRight={icons.ExpandRight} iconLeft={icons.Ruler} withBorder title='Units' desc='kg' />
+        <ListItem
           iconRight={icons.ExpandRight}
           iconLeft={icons.Calender}
           withBorder
           title='First Day of the week'
           desc='Monday'
         />
-        <MenuItem
+        <ListItem
           iconRight={icons.ExpandRight}
           iconLeft={icons.LightBulb}
           roundedBottomCorners

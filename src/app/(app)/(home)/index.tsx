@@ -5,7 +5,7 @@ import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 import { icons } from '~assets/icons';
-import { MenuItem } from '~components/atoms/menuItem/MenuItem';
+import { ListItem } from '~components/atoms/listItem/ListItem';
 import { Modal } from '~components/atoms/modal/Modal';
 import { WeeklyActivity } from '~components/molecules/weeklyActivity/WeeklyActivity';
 import { BottomMenu } from '~components/organisms/bottomMenu/BottomMenu';
@@ -135,7 +135,7 @@ const Home = () => {
         {/* Buttons */}
         <View style={styles.buttonGroup}>
           <View style={styles.selectPlan}>
-            <MenuItem
+            <ListItem
               iosScaleDownAnimation
               color='primaryInverse'
               iconLeft={icons.Collections}
@@ -149,7 +149,7 @@ const Home = () => {
             />
           </View>
           <View>
-            <MenuItem
+            <ListItem
               iosScaleDownAnimation
               color='primary'
               size='sm'

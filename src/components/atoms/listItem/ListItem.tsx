@@ -6,7 +6,7 @@ import { Pressable } from '~components/atoms/pressable/Pressable';
 import { Text } from '~components/atoms/text/Text';
 import { ITheme, IThemeColorKeys, useThemedStyles } from '~theme/ThemeContext';
 
-interface IDefaultMenuItem {
+export type IListItemProps = {
   title?: string;
   desc?: string;
   iconLeft?: IIcon;
@@ -22,11 +22,9 @@ interface IDefaultMenuItem {
   iosScaleDownAnimation?: boolean;
   color?: 'default' | 'primaryInverse' | 'primary';
   size?: 'lg' | 'sm';
-}
+};
 
-export type IMenuItemProps = IDefaultMenuItem;
-
-export const MenuItem = (props: IMenuItemProps) => {
+export const ListItem = (props: IListItemProps) => {
   const {
     title,
     desc,
@@ -108,9 +106,9 @@ const themedStyles = ({
   color,
   size,
 }: {
-  iosScaleDownAnimation?: IDefaultMenuItem['iosScaleDownAnimation'];
-  color: IDefaultMenuItem['color'];
-  size: IDefaultMenuItem['size'];
+  iosScaleDownAnimation?: IListItemProps['iosScaleDownAnimation'];
+  color: IListItemProps['color'];
+  size: IListItemProps['size'];
 }) => {
   const styles = (theme: ITheme) => {
     const backgroundColor = color === 'primary' ? theme.colors['primary'] : theme.colors.surfaceExtraBright;

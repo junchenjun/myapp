@@ -1,11 +1,11 @@
 import { Meta, StoryObj } from '@storybook/react-native';
 
 import { icons } from '~assets/icons';
-import { IMenuItemProps, MenuItem } from '~components/atoms/menuItem/MenuItem';
+import { IListItemProps, ListItem } from '~components/atoms/listItem/ListItem';
 
-const CardStory: Meta<IMenuItemProps> = {
-  title: 'Atoms/MenuItem',
-  component: MenuItem,
+const CardStory: Meta<IListItemProps> = {
+  title: 'Atoms/ListItem',
+  component: ListItem,
   argTypes: {
     onPress: { control: null, action: 'onPress' },
     size: { options: ['lg', 'sm'], control: { type: 'select' } },
@@ -13,7 +13,7 @@ const CardStory: Meta<IMenuItemProps> = {
   },
 };
 
-type IStory = StoryObj<IMenuItemProps>;
+type IStory = StoryObj<IListItemProps>;
 
 export default CardStory;
 

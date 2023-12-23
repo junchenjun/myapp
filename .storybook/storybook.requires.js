@@ -52,7 +52,7 @@ const getStories = () => {
     "./src/components/atoms/icon/Icon.stories.tsx": require("../src/components/atoms/icon/Icon.stories.tsx"),
     "./src/components/atoms/input/Input.stories.tsx": require("../src/components/atoms/input/Input.stories.tsx"),
     "./src/components/atoms/label/Label.stories.tsx": require("../src/components/atoms/label/Label.stories.tsx"),
-    "./src/components/atoms/menuItem/MenuItem.stories.tsx": require("../src/components/atoms/menuItem/MenuItem.stories.tsx"),
+    "./src/components/atoms/listItem/ListItem.stories.tsx": require("../src/components/atoms/listItem/ListItem.stories.tsx"),
     "./src/components/atoms/selectItem/SelectItem.stories.tsx": require("../src/components/atoms/selectItem/SelectItem.stories.tsx"),
     "./src/components/atoms/text/Text.stories.tsx": require("../src/components/atoms/text/Text.stories.tsx"),
     "./src/components/molecules/accordion/Accordion.stories.tsx": require("../src/components/molecules/accordion/Accordion.stories.tsx"),
