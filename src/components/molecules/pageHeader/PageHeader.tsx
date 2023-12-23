@@ -5,6 +5,7 @@ import { EdgeInsets, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { IIcon } from '~assets/icons';
 import { Icon } from '~components/atoms/icon/Icon';
+import { Input } from '~components/atoms/input/Input';
 import { Text } from '~components/atoms/text/Text';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
@@ -35,6 +36,11 @@ interface IHeaderWithActions {
     onPress?: () => void;
   };
   showTitle?: boolean;
+  searchBar?: {
+    onChangeText?: (text: string) => void;
+    placeholder?: string;
+    value?: string;
+  };
 }
 
 type IPageHeader = IHeader | IHeaderWithActions | ITopBarHeader;
@@ -52,7 +58,7 @@ export const PageHeader = (props: IPageHeader) => {
   });
 
   if (variant === 'actionHeader') {
-    const { left, right, showTitle = true } = props;
+    const { left, right, searchBar, showTitle = true } = props;
 
     opacity.value = withTiming(showTitle ? 1 : 0, { duration: 200 });
 
@@ -68,10 +74,20 @@ export const PageHeader = (props: IPageHeader) => {
     );
 
     return (
-      <View style={styles.container}>
-        <View style={styles.left}>{left?.icon || left?.component ? componentLeft : null}</View>
-        <Text variant='pLGRegular' text={title} animatedStyles={animatedStyles} colorKey='onSurfaceDim' />
-        <View style={styles.right}>{right?.icon || right?.component ? componentRight : null}</View>
+      <View style={[styles.container, searchBar && styles.withSearchBar]}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View style={styles.left}>{left?.icon || left?.component ? componentLeft : null}</View>
+          <Text variant='h5Regular' text={title} animatedStyles={animatedStyles} colorKey='onSurface' />
+          <View style={styles.right}>{right?.icon || right?.component ? componentRight : null}</View>
+        </View>
+        {searchBar && (
+          <Input
+            value={searchBar?.value}
+            onChangeValue={searchBar?.onChangeText}
+            showMessage={false}
+            placeholder={searchBar?.placeholder}
+          />
+        )}
       </View>
     );
   } else if (variant === 'tabHeader') {
@@ -93,19 +109,24 @@ export const PageHeader = (props: IPageHeader) => {
 
 const themedStyles = (insets: EdgeInsets) => {
   return (theme: ITheme) => {
-    const paddingTop = insets.top < 40 ? 40 : insets.top;
+    const paddingTop = insets.top < 40 ? 40 : insets.top + theme.spacing[1];
     return StyleSheet.create({
       container: {
         paddingLeft: theme.spacing[4],
         paddingRight: theme.spacing[4],
         paddingBottom: theme.spacing[2],
         paddingTop,
-        alignItems: 'flex-end',
+        alignItems: 'center',
         flexDirection: 'row',
         gap: theme.spacing[1],
         position: 'relative',
         justifyContent: 'space-between',
         backgroundColor: theme.colors.surfaceExtraDim,
+      },
+      withSearchBar: {
+        flexDirection: 'column',
+        gap: theme.spacing[3],
+        paddingBottom: theme.spacing[1],
       },
       left: {
         width: 60,

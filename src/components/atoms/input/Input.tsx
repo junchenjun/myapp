@@ -21,7 +21,7 @@ export type IInputProps = {
   autoFocus?: boolean;
   editable?: boolean;
   returnKeyType?: ReturnKeyType;
-  onChangeValue?: ((text: string) => void) | undefined;
+  onChangeValue?: (text: string) => void;
   icon?: IIcon;
   inputMode?: InputModeOptions;
   showMessage?: boolean;

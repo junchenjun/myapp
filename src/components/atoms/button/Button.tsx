@@ -80,10 +80,11 @@ const themedStyles = (variant: IButtonProps['variant']) => {
         overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
       },
       elevated: {
-        elevation: 4,
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.3,
-        shadowRadius: 2,
+        elevation: 5,
+        shadowOffset: { width: 0, height: 5 },
+        shadowOpacity: 0.35,
+        shadowRadius: 10,
+        shadowColor: theme.id === 'light' ? theme.colors.onSurface : theme.colors.primary,
       },
       button: {
         alignItems: 'center',

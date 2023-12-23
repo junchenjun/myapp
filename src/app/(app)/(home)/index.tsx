@@ -156,6 +156,7 @@ const Home = () => {
               iconRight={icons.Plus}
               roundedTopCorners
               roundedBottomCorners
+              onPress={() => router.push('editWorkout')}
             />
           </View>
         </View>

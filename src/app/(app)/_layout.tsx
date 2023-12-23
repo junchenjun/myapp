@@ -35,7 +35,6 @@ export default function Layout() {
         options={{
           headerShown: false,
         }}
-        key='home'
       />
       <Stack.Screen
         name='preview'
@@ -58,13 +57,12 @@ export default function Layout() {
                 }}
                 left={{
                   icon: icons.Back,
-                  onPress: () => router.back(),
+                  onPress: router.back,
                 }}
               />
             );
           },
         }}
-        key='preview'
       />
       <Stack.Screen
         name='workout'
@@ -84,14 +82,93 @@ export default function Layout() {
             );
           },
         }}
-        key='workout'
+      />
+      <Stack.Screen
+        name='editWorkout'
+        options={{
+          headerShown: true,
+          header: ({ options }) => {
+            const headerSearchBarOptions = options.headerSearchBarOptions as {
+              onChangeText?: (text: string) => void;
+              placeholder: string;
+              value: string;
+            };
+            return (
+              <PageHeader
+                searchBar={{
+                  onChangeText: headerSearchBarOptions?.onChangeText,
+                  placeholder: headerSearchBarOptions?.placeholder,
+                  value: headerSearchBarOptions?.value,
+                }}
+                variant='actionHeader'
+                title='Create Workout'
+                left={{
+                  icon: icons.Back,
+                  onPress: router.back,
+                }}
+                right={{
+                  component: (
+                    <Pressable rippleConfig={{ radius: 24, colorKey: 'rippleDim' }}>
+                      <Text variant='h6Regular' text='Save' colorKey='primary' />
+                    </Pressable>
+                  ),
+                }}
+              />
+            );
+          },
+        }}
+      />
+      <Stack.Screen
+        name='findExercise'
+        options={{
+          headerShown: true,
+          header: ({ options }) => {
+            const headerSearchBarOptions = options.headerSearchBarOptions as {
+              onChangeText?: (text: string) => void;
+              placeholder: string;
+              value: string;
+            };
+            return (
+              <PageHeader
+                searchBar={{
+                  onChangeText: headerSearchBarOptions?.onChangeText,
+                  placeholder: headerSearchBarOptions?.placeholder,
+                  value: headerSearchBarOptions?.value,
+                }}
+                variant='actionHeader'
+                title='Find Exercise'
+                left={{
+                  icon: icons.Back,
+                  onPress: router.back,
+                }}
+              />
+            );
+          },
+        }}
+      />
+      <Stack.Screen
+        name='editExercise'
+        options={{
+          headerShown: true,
+          header: () => {
+            return (
+              <PageHeader
+                variant='actionHeader'
+                title='Add Exercise'
+                left={{
+                  icon: icons.Back,
+                  onPress: router.back,
+                }}
+              />
+            );
+          },
+        }}
       />
       <Stack.Screen
         name='auth'
         options={{
           headerShown: false,
         }}
-        key='auth'
       />
     </Stack>
   );

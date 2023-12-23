@@ -61,7 +61,7 @@ export const SelectItem = (props: ISelectItemProps) => {
 const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
     largeButton: {
-      borderRadius: theme.radius.lg,
+      borderRadius: theme.radius.md,
       alignSelf: 'center',
       overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
       width: '100%',

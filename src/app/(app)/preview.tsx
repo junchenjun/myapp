@@ -125,7 +125,7 @@ const themedStyles = (theme: ITheme) => {
     float: {
       position: 'absolute',
       right: theme.spacing[4],
-      bottom: 25,
+      bottom: 30,
     },
   });
 };
