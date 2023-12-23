@@ -119,7 +119,7 @@ export default function EditExercise() {
           </View>
         </Card>
       </ScrollView>
-      <KeyboardAwareFloatView>
+      <KeyboardAwareFloatView hideWhenKeyboardVisible>
         <Button
           variant='primary'
           title='Add To Workout'

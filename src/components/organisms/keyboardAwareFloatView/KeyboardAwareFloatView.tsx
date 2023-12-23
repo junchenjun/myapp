@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { Keyboard, Platform, StyleSheet } from 'react-native';
-import Animated, { LightSpeedOutRight } from 'react-native-reanimated';
+import Animated, { FadeOut } from 'react-native-reanimated';
 
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
@@ -33,7 +33,7 @@ export const KeyboardAwareFloatView = (props: IKeyboardAwareFloatViewProps) => {
 
   return (
     (!keyboardVisible || Platform.OS === 'ios' || !props.hideWhenKeyboardVisible) && (
-      <Animated.View style={styles.float} exiting={LightSpeedOutRight}>
+      <Animated.View style={styles.float} exiting={FadeOut}>
         {props.children}
       </Animated.View>
     )
