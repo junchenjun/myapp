@@ -15,66 +15,66 @@ import { IExerciseForm, addExercise } from '~redux/createWorkoutSlice';
 import { useAppDispatch } from '~redux/store';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
-type IMuscleTarget =
-  | 'fullBody'
-  | 'other'
-  | 'arms'
-  | 'biceps'
-  | 'triceps'
-  | 'forearms'
-  | 'back'
-  | 'lats'
-  | 'midBack'
-  | 'lowerBack'
-  | 'lowerChest'
-  | 'upperChest'
-  | 'midChest'
-  | 'core'
-  | 'obliques'
-  | 'legs'
-  | 'glutes'
-  | 'hamstrings'
-  | 'calves'
-  | 'quads'
-  | 'hips'
-  | 'shoulders'
-  | 'traps'
-  | 'chest';
+// type IMuscleTarget =
+//   | 'fullBody'
+//   | 'other'
+//   | 'arms'
+//   | 'biceps'
+//   | 'triceps'
+//   | 'forearms'
+//   | 'back'
+//   | 'lats'
+//   | 'midBack'
+//   | 'lowerBack'
+//   | 'lowerChest'
+//   | 'upperChest'
+//   | 'midChest'
+//   | 'core'
+//   | 'obliques'
+//   | 'legs'
+//   | 'glutes'
+//   | 'hamstrings'
+//   | 'calves'
+//   | 'quads'
+//   | 'hips'
+//   | 'shoulders'
+//   | 'traps'
+//   | 'chest';
 
-const targetMuscles: { group: IMuscleTarget; subs: IMuscleTarget[] }[] = [
-  {
-    group: 'fullBody',
-    subs: ['other'],
-  },
-  {
-    group: 'arms',
-    subs: ['biceps', 'triceps', 'forearms'],
-  },
-  {
-    group: 'back',
-    subs: ['lats', 'midBack', 'lowerBack'],
-  },
-  {
-    group: 'chest',
-    subs: ['lowerChest', 'upperChest', 'midChest'],
-  },
-  {
-    group: 'core',
-    subs: ['obliques'],
-  },
-  {
-    group: 'shoulders',
-    subs: ['traps'],
-  },
-  {
-    group: 'legs',
-    subs: ['glutes', 'hamstrings', 'calves', 'quads', 'hips'],
-  },
-];
+// const targetMuscles: { group: IMuscleTarget; subs: IMuscleTarget[] }[] = [
+//   {
+//     group: 'fullBody',
+//     subs: ['other'],
+//   },
+//   {
+//     group: 'arms',
+//     subs: ['biceps', 'triceps', 'forearms'],
+//   },
+//   {
+//     group: 'back',
+//     subs: ['lats', 'midBack', 'lowerBack'],
+//   },
+//   {
+//     group: 'chest',
+//     subs: ['lowerChest', 'upperChest', 'midChest'],
+//   },
+//   {
+//     group: 'core',
+//     subs: ['obliques'],
+//   },
+//   {
+//     group: 'shoulders',
+//     subs: ['traps'],
+//   },
+//   {
+//     group: 'legs',
+//     subs: ['glutes', 'hamstrings', 'calves', 'quads', 'hips'],
+//   },
+// ];
 
 export default function EditExercise() {
   const [title, setTile] = useState('');
-  const [targets, setTargets] = useState<IMuscleTarget>();
+  // const [targets, setTargets] = useState<IMuscleTarget>();
 
   const styles = useThemedStyles(themedStyles);
   const navigation = useNavigation();

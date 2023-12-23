@@ -7,7 +7,7 @@ import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 export type IKeyboardAwareFloatViewProps = {
   children?: ReactNode | ReactNode[];
   // Android
-  hideWhenKeyboardVisible: boolean;
+  hideWhenKeyboardVisible?: boolean;
 };
 
 export const KeyboardAwareFloatView = (props: IKeyboardAwareFloatViewProps) => {
@@ -29,7 +29,7 @@ export const KeyboardAwareFloatView = (props: IKeyboardAwareFloatViewProps) => {
         hideSubscription.remove();
       };
     }
-  }, []);
+  }, [props.hideWhenKeyboardVisible]);
 
   return (
     (!keyboardVisible || Platform.OS === 'ios' || !props.hideWhenKeyboardVisible) && (
