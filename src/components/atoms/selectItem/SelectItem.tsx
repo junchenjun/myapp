@@ -41,8 +41,8 @@ export const SelectItem = (props: ISelectItemProps) => {
           style={[styles.pressable, selected && styles.selected]}
         >
           <View style={styles.left}>
-            {icon && <Icon icon={icon} colorKey={selected ? 'primary' : 'onSurfaceExtraDim'} />}
-            <Text text={title} colorKey={selected ? 'primary' : 'onSurfaceDim'} />
+            {icon && <Icon icon={icon} colorKey={selected ? 'primary' : 'onSurfaceDim'} />}
+            <Text text={title} colorKey={selected ? 'primary' : 'onSurface'} />
           </View>
           <Icon
             size={22}

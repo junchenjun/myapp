@@ -37,17 +37,18 @@ export const Pressable = (props: IProps) => {
   const theme = useTheme();
   const onPressOpacity = useSharedValue(1);
   const onPressScale = useSharedValue(1);
+  const disabledOpacity = useSharedValue(1);
   const scaleDownAnimation = (iosScaleDownAnimation && Platform.OS === 'ios') || tabBarButton;
   // const scaleDownAnimation = iosScaleDownAnimation || tabBarButton;
 
   const rippleDisabled = rippleConfig?.disabled;
   // const rippleDisabled = true;
-  const opacityValue = 0.35;
+  const opacityValue = 0.4;
 
   if (disabled) {
-    onPressOpacity.value = opacityValue;
+    disabledOpacity.value = opacityValue;
   } else {
-    onPressOpacity.value = 1;
+    disabledOpacity.value = 1;
   }
 
   const onPressOpacityStyle = useAnimatedStyle(() => {
@@ -58,6 +59,11 @@ export const Pressable = (props: IProps) => {
   const onPressScaleStyle = useAnimatedStyle(() => ({
     transform: [{ scale: withTiming(onPressScale.value, { duration: 100 }) }],
   }));
+  const disabledOpacityStyle = useAnimatedStyle(() => {
+    return {
+      opacity: withTiming(disabledOpacity.value, { duration: 250 }),
+    };
+  });
 
   const onPressIn = useCallback(() => {
     onPressOpacity.value = opacityValue;
@@ -70,7 +76,14 @@ export const Pressable = (props: IProps) => {
   }, [disabledOnPress, onPressOpacity, onPressScale, scaleDownAnimation]);
 
   return onPress ? (
-    <Animated.View style={[onPressOpacityStyle, scaleDownAnimation && onPressScaleStyle, tabBarButton && { flex: 1 }]}>
+    <Animated.View
+      style={[
+        onPressOpacityStyle,
+        scaleDownAnimation && onPressScaleStyle,
+        disabledOpacityStyle,
+        tabBarButton && { flex: 1 },
+      ]}
+    >
       <RNPressable
         hitSlop={hitSlop ?? 20}
         disabled={disabled}

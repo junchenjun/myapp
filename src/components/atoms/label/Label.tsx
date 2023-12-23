@@ -23,10 +23,10 @@ export const Label = (props: ILabelProps) => {
 const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
     container: {
-      backgroundColor: theme.colors.surface,
+      backgroundColor: theme.colors.surfaceDim,
       borderRadius: theme.radius.sm,
-      display: 'flex',
       flexDirection: 'column',
+      alignSelf: 'flex-start',
       paddingHorizontal: theme.spacing[2],
       paddingVertical: theme.spacing[1],
       paddingBottom: theme.spacing[1] + 1,

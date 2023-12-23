@@ -4,6 +4,7 @@ import { useSelector, TypedUseSelectorHook, useDispatch } from 'react-redux';
 import { combineReducers } from 'redux';
 
 import { authReducer } from '~redux/authSlice';
+import { createWorkoutReducer } from '~redux/createWorkoutSlice';
 import { folderReducer } from '~redux/foldersSlice';
 import { workoutReducer } from '~redux/workoutSlice';
 
@@ -11,6 +12,7 @@ export const rootReducer = combineReducers({
   auth: authReducer,
   folders: folderReducer,
   workout: workoutReducer,
+  createWorkout: createWorkoutReducer,
 });
 
 export const setupStore = (preloadedState?: PreloadedState<RootState>) => {

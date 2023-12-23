@@ -182,6 +182,7 @@ const AccordionContent: React.FC<IAccordionContentProps> = ({ children }) => <>{
 const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
     container: {
+      flex: 1,
       width: '100%',
       gap: theme.spacing[3],
     },

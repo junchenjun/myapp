@@ -6,15 +6,13 @@ import { icons } from '~assets/icons';
 import { Button } from '~components/atoms/button/Button';
 import { Text } from '~components/atoms/text/Text';
 import { Accordion } from '~components/molecules/accordion/Accordion';
-import { useAppDispatch, useAppSelector } from '~redux/store';
+import { KeyboardAwareFloatView } from '~components/organisms/keyboardAwareFloatView/KeyboardAwareFloatView';
 import { IExercise } from '~redux/workoutSlice';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 export default function FindExercise() {
   const [name, setName] = useState('');
-  const folders = useAppSelector(state => state.folders);
   const styles = useThemedStyles(themedStyles);
-  const dispatch = useAppDispatch();
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -27,9 +25,7 @@ export default function FindExercise() {
     });
   }, [name, navigation]);
 
-  //   const ITEM_HEIGHT = 126;
-
-  const renderItem = useCallback(({ item }: { item: IExercise }) => null, []);
+  const renderItem = useCallback(() => null, []);
   const exercises: IExercise[] = [];
   return (
     <View style={styles.container}>
@@ -39,7 +35,6 @@ export default function FindExercise() {
             removeClippedSubviews={Platform.OS === 'android'}
             scrollEventThrottle={16}
             initialNumToRender={8}
-            // getItemLayout={(_data, index) => ({ length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index })}
             contentContainerStyle={styles.scroll}
             data={exercises}
             renderItem={renderItem}
@@ -55,7 +50,7 @@ export default function FindExercise() {
           />
         </Accordion>
       )}
-      <View style={styles.float}>
+      <KeyboardAwareFloatView>
         <Button
           variant='primary'
           title='New Exercise'
@@ -63,7 +58,7 @@ export default function FindExercise() {
           onPress={() => router.push('editExercise')}
           icon={icons.Plus}
         />
-      </View>
+      </KeyboardAwareFloatView>
     </View>
   );
 }

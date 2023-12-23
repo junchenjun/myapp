@@ -1,5 +1,6 @@
 import React from 'react';
 import { Platform, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import Animated from 'react-native-reanimated';
 
 import { IIcon } from '~assets/icons';
 import { Icon } from '~components/atoms/icon/Icon';
@@ -35,7 +36,7 @@ export const Button = (props: IButtonProps) => {
     const { loading } = props;
     const isDisabled = disabled || loading;
     return (
-      <View style={[styles.container, elevated && styles.elevated, style]}>
+      <Animated.View style={[styles.container, elevated && styles.elevated, style]}>
         <Pressable
           iosScaleDownAnimation
           disabled={isDisabled}
@@ -48,7 +49,7 @@ export const Button = (props: IButtonProps) => {
           {icon && <Icon icon={icon} colorKey='onPrimary' />}
           <Text text={title} variant='pLGRegular' colorKey='onPrimary' />
         </Pressable>
-      </View>
+      </Animated.View>
     );
   } else if (variant === 'ghost') {
     return (
@@ -94,11 +95,7 @@ const themedStyles = (variant: IButtonProps['variant']) => {
         flexDirection: 'row',
         gap: theme.spacing[1],
         alignContent: 'center',
-        backgroundColor: variant === 'primary' ? theme.colors.primary : undefined,
         paddingHorizontal: theme.spacing[6],
-      },
-      lowOpacity: {
-        opacity: 0.5,
       },
     });
   };

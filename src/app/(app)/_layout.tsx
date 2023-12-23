@@ -5,8 +5,12 @@ import { icons } from '~assets/icons';
 import { Pressable } from '~components/atoms/pressable/Pressable';
 import { Text } from '~components/atoms/text/Text';
 import { PageHeader } from '~components/molecules/pageHeader/PageHeader';
+import { resetCreateWorkout } from '~redux/createWorkoutSlice';
+import { useAppDispatch } from '~redux/store';
 
 export default function Layout() {
+  const dispatch = useAppDispatch();
+
   const createAlert = () =>
     Alert.alert(
       'Leave workout?',
@@ -104,11 +108,20 @@ export default function Layout() {
                 title='Create Workout'
                 left={{
                   icon: icons.Back,
-                  onPress: router.back,
+                  onPress: () => {
+                    dispatch(resetCreateWorkout());
+                    router.back();
+                  },
                 }}
                 right={{
                   component: (
-                    <Pressable rippleConfig={{ radius: 24, colorKey: 'rippleDim' }}>
+                    <Pressable
+                      onPress={() => {
+                        dispatch(resetCreateWorkout());
+                        router.back();
+                      }}
+                      rippleConfig={{ radius: 24, colorKey: 'rippleDim' }}
+                    >
                       <Text variant='h6Regular' text='Save' colorKey='primary' />
                     </Pressable>
                   ),
