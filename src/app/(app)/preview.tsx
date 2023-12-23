@@ -81,21 +81,19 @@ export default function Preview() {
           />
         </Accordion>
       )}
-      <View style={styles.float}>
-        <Button
-          variant='primary'
-          title='Start Workout'
-          elevated
-          onPress={() => {
-            router.replace({
-              pathname: 'workout',
-              params: { title: workout?.name },
-            });
-            dispatch(setWorkout(workout));
-          }}
-          icon={icons.Zap}
-        />
-      </View>
+      <Button
+        variant='primary'
+        title='Start Workout'
+        float
+        onPress={() => {
+          router.replace({
+            pathname: 'workout',
+            params: { title: workout?.name },
+          });
+          dispatch(setWorkout(workout));
+        }}
+        icon={icons.Zap}
+      />
     </View>
   );
 }
@@ -121,11 +119,6 @@ const themedStyles = (theme: ITheme) => {
     labels: {
       flexDirection: 'row',
       gap: theme.spacing[1],
-    },
-    float: {
-      position: 'absolute',
-      right: theme.spacing[4],
-      bottom: 30,
     },
   });
 };
