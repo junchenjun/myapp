@@ -38,7 +38,7 @@ export default function EditExercise() {
             <Input value={title} onChangeValue={setTile} placeholder='Exercise Title' showMessage={false} />
           </View>
           <View style={styles.item}>
-            <Text>Target Muscle Groups</Text>
+            <Text>Target Muscle</Text>
             <View>
               <Label title='Full Body' />
             </View>
