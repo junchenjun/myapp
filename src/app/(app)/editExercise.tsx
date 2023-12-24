@@ -9,7 +9,7 @@ import { Card } from '~components/atoms/card/Card';
 import { Input } from '~components/atoms/input/Input';
 import { Label } from '~components/atoms/label/Label';
 import { Text } from '~components/atoms/text/Text';
-import { KeyboardSafeView } from '~components/layout/keyboardSafeView/KeyboardAwareView';
+import { KeyboardSafeView } from '~components/layout/keyboardSafeView/KeyboardSafeView';
 import { useAppDispatch } from '~redux/store';
 import { createExercise } from '~redux/workoutCreationSlice';
 import { IExercise } from '~redux/workoutSlice';

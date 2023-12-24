@@ -5,7 +5,7 @@ import { FlatList, Keyboard, Platform, StyleSheet, View } from 'react-native';
 import { icons } from '~assets/icons';
 import { Button } from '~components/atoms/button/Button';
 import { Text } from '~components/atoms/text/Text';
-import { KeyboardSafeView } from '~components/layout/keyboardSafeView/KeyboardAwareView';
+import { KeyboardSafeView } from '~components/layout/keyboardSafeView/KeyboardSafeView';
 import { Accordion } from '~components/molecules/accordion/Accordion';
 import { IActionPageHeader } from '~components/molecules/pageHeader/PageHeader';
 import { IExercise } from '~redux/workoutSlice';
