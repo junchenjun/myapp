@@ -65,10 +65,12 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
     }
   }, [auth.authed, isAppReady, router]);
 
-  if (Platform.OS === 'android' && splashHidden) {
-    NavigationBar.setBackgroundColorAsync(theme.colors.surface);
-    NavigationBar.setBorderColorAsync(theme.colors.surface);
-  }
+  useEffect(() => {
+    if (Platform.OS === 'android' && splashHidden) {
+      NavigationBar.setBackgroundColorAsync(theme.colors.surface);
+      NavigationBar.setBorderColorAsync(theme.colors.surface);
+    }
+  }, [splashHidden, theme.colors.surface]);
 
   const onAuthStateChanged = useCallback(
     async (user: FirebaseAuthTypes.User | null) => {
