@@ -73,7 +73,7 @@ const themedStyles = (theme: ITheme) => {
       borderWidth: 1,
       borderStyle: 'solid',
       borderRadius: theme.radius.md,
-      borderColor: theme.colors.outlineDim,
+      borderColor: theme.colors.outline,
       backgroundColor: theme.colors.surfaceExtraBright,
     },
     selected: {
