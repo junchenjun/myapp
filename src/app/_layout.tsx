@@ -5,7 +5,7 @@ import { useFonts } from 'expo-font';
 import * as NavigationBar from 'expo-navigation-bar';
 import { Slot, SplashScreen, useRouter } from 'expo-router';
 import * as SystemUI from 'expo-system-ui';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Platform, View } from 'react-native';
 import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
@@ -72,8 +72,8 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
     }
   }, [splashHidden, theme.colors.surface]);
 
-  const onAuthStateChanged = useCallback(
-    async (user: FirebaseAuthTypes.User | null) => {
+  useEffect(() => {
+    const subscriber = firebaseAuth().onAuthStateChanged(async (user: FirebaseAuthTypes.User | null) => {
       if (user) {
         const userInfo = {
           displayName: user.displayName,
@@ -100,17 +100,10 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
         dispatch(setAuth());
         dispatch(setFolders());
       }
-      if (initializing) {
-        setInitializing(false);
-      }
-    },
-    [dispatch, initializing]
-  );
-
-  useEffect(() => {
-    const subscriber = firebaseAuth().onAuthStateChanged(onAuthStateChanged);
+      setInitializing(false);
+    });
     return subscriber;
-  }, [onAuthStateChanged]);
+  }, [dispatch]);
 
   if (!loaded) {
     return null;
