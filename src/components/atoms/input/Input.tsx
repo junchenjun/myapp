@@ -111,7 +111,7 @@ export const Input = (props: IInputProps) => {
           !editable && styles.disabled,
           !!errorMessage && styles.error,
           icon && styles.withIcon,
-          { color: editable ? theme.colors.onSurface : theme.colors.onSurfaceDim },
+          { color: editable && !multiline ? theme.colors.onSurface : theme.colors.onSurfaceDim },
         ]}
         onChangeText={onChangeValue}
         value={value}

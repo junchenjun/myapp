@@ -77,7 +77,7 @@ export const PageHeader = (props: IPageHeader) => {
       <View style={[styles.container, searchBar && styles.withSearchBar]}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <View style={styles.left}>{left?.icon || left?.component ? componentLeft : null}</View>
-          <Text variant='h5Regular' text={title} animatedStyles={animatedStyles} colorKey='onSurface' />
+          <Text variant='h6Regular' text={title} animatedStyles={animatedStyles} colorKey='onSurface' />
           <View style={styles.right}>{right?.icon || right?.component ? componentRight : null}</View>
         </View>
         {searchBar && (
