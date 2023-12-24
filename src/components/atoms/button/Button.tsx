@@ -77,8 +77,8 @@ export const Button = (props: IButtonProps) => {
           style={styles.button}
           onPress={onPress}
         >
-          {icon && <Icon icon={icon} colorKey='onPrimary' />}
-          <Text text={title} variant='pLGRegular' colorKey='onPrimary' />
+          {icon && <Icon strokeWidth={2} icon={icon} colorKey='onPrimary' />}
+          <Text text={title} variant='pLGMedium' colorKey='onPrimary' />
         </Pressable>
       </Animated.View>
     );

@@ -12,6 +12,7 @@ export type IIconProps = {
   onPress?: () => void;
   rippleColor?: Extract<IThemeColorKeys, 'rippleDim' | 'ripple'>;
   style?: StyleProp<ViewStyle>;
+  strokeWidth?: 1.5 | 2;
 };
 
 export const Icon = ({
@@ -22,6 +23,7 @@ export const Icon = ({
   onPress,
   rippleColor,
   style,
+  strokeWidth,
 }: IIconProps) => {
   const theme = useTheme();
 
@@ -32,6 +34,7 @@ export const Icon = ({
       width={size}
       height={size}
       stroke={colorKey ? theme.colors?.[colorKey] : theme.colors.onSurfaceDim}
+      strokeWidth={strokeWidth}
       color={colorKey ? theme.colors?.[colorKey] : theme.colors.onSurfaceDim}
       fill={fill !== 'none' ? theme.colors?.[fill] : 'none'}
     />
