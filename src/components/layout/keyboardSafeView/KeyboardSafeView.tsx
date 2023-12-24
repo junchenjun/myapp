@@ -1,8 +1,6 @@
 import { useHeaderHeight } from '@react-navigation/elements';
 import { ReactNode } from 'react';
-import { StatusBar } from 'react-native';
-import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { KeyboardAvoidingView } from 'react-native';
 
 type IKeyboardSafeViewProps = {
   children?: ReactNode | ReactNode[];
@@ -13,14 +11,8 @@ export const KeyboardSafeView = (props: IKeyboardSafeViewProps) => {
   const headerHeight = useHeaderHeight();
 
   return (
-    <SafeAreaView edges={['bottom']} style={{ flex: 1 }}>
-      <KeyboardAvoidingView
-        keyboardVerticalOffset={headerHeight - (StatusBar.currentHeight || 0)}
-        style={{ flex: 1 }}
-        behavior='height'
-      >
-        {children}
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+    <KeyboardAvoidingView keyboardVerticalOffset={headerHeight} style={{ flex: 1 }} behavior='height'>
+      {children}
+    </KeyboardAvoidingView>
   );
 };

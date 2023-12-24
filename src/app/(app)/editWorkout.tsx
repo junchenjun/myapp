@@ -1,6 +1,6 @@
 import { router, useFocusEffect, useNavigation } from 'expo-router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Alert, BackHandler, FlatList, Keyboard, Platform, StyleSheet, View } from 'react-native';
+import { Alert, BackHandler, FlatList, Platform, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
 import { Button } from '~components/atoms/button/Button';
@@ -13,6 +13,7 @@ import { useAppDispatch, useAppSelector } from '~redux/store';
 import { resetWorkoutCreation } from '~redux/workoutCreationSlice';
 import { IExercise } from '~redux/workoutSlice';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
+import { dismissKeyboardBeforeNavigate } from '~utils/navigation';
 
 export default function EditWorkout() {
   const [title, setTitle] = useState('');
@@ -126,10 +127,7 @@ export default function EditWorkout() {
         variant='primary'
         title='Add Exercise'
         float
-        onPress={() => {
-          Keyboard.dismiss();
-          router.push('findExercise');
-        }}
+        onPress={() => dismissKeyboardBeforeNavigate('findExercise')}
         icon={icons.Plus}
       />
     </KeyboardSafeView>

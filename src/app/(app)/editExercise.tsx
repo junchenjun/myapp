@@ -58,10 +58,10 @@ export default function EditExercise() {
         </Card>
       </ScrollView>
       <Button
+        float
         variant='primary'
         title='Add To Workout'
         disabled={!title}
-        float
         onPress={() => {
           dispatch(createExercise(formValues));
           navigation.dispatch(StackActions.pop(2));

@@ -1,6 +1,7 @@
-import React from 'react';
-import { Platform, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
-import Animated from 'react-native-reanimated';
+import React, { useEffect } from 'react';
+import { Keyboard, Platform, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { IIcon } from '~assets/icons';
 import { Icon } from '~components/atoms/icon/Icon';
@@ -30,13 +31,43 @@ export type IButtonProps = IPrimaryButton | IIconButton;
 
 export const Button = (props: IButtonProps) => {
   const { onPress, title, variant, disabled, icon, style } = props;
-  const styles = useThemedStyles(themedStyles(variant));
+
+  const insets = useSafeAreaInsets();
+  const floatBottomInset = insets.bottom + 25;
+  const styles = useThemedStyles(themedStyles(variant, floatBottomInset));
+
+  // ios float only
+  const floatBottomKeyboardInset = 14;
+  const bottom = useSharedValue(floatBottomInset);
+  const floatAnimation = variant === 'primary' && props.float && Platform.OS === 'ios';
+
+  useEffect(() => {
+    if (floatAnimation) {
+      const showSubscription = Keyboard.addListener('keyboardWillShow', () => {
+        bottom.value = floatBottomKeyboardInset;
+      });
+      const hideSubscription = Keyboard.addListener('keyboardWillHide', () => {
+        bottom.value = floatBottomInset;
+      });
+
+      return () => {
+        showSubscription.remove();
+        hideSubscription.remove();
+      };
+    }
+  }, [bottom, floatBottomInset, floatAnimation]);
+
+  const floatAnimatedStyles = useAnimatedStyle(() => {
+    return {
+      bottom: withTiming(bottom.value, { duration: 300 }),
+    };
+  });
 
   if (variant === 'primary') {
     const { loading, float } = props;
     const isDisabled = disabled || loading;
     return (
-      <Animated.View style={[styles.container, float && styles.float, style]}>
+      <Animated.View style={[styles.container, float && styles.float, floatAnimation && floatAnimatedStyles, style]}>
         <Pressable
           iosScaleDownAnimation
           disabled={isDisabled}
@@ -71,7 +102,7 @@ export const Button = (props: IButtonProps) => {
   }
 };
 
-const themedStyles = (variant: IButtonProps['variant']) => {
+const themedStyles = (variant: IButtonProps['variant'], floatBottomInset: number) => {
   return (theme: ITheme) => {
     return StyleSheet.create({
       container: {
@@ -82,8 +113,8 @@ const themedStyles = (variant: IButtonProps['variant']) => {
       },
       float: {
         position: 'absolute',
-        bottom: 25,
         right: theme.spacing[3],
+        bottom: floatBottomInset,
         elevation: 5,
         shadowOffset: { width: 0, height: 5 },
         shadowOpacity: 0.35,

@@ -7,7 +7,6 @@ import { Slot, SplashScreen, useRouter } from 'expo-router';
 import * as SystemUI from 'expo-system-ui';
 import { useCallback, useEffect, useState } from 'react';
 import { Platform, View } from 'react-native';
-import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 
@@ -129,13 +128,11 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
 
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-      <KeyboardProvider statusBarTranslucent navigationBarTranslucent enabled={false}>
-        <BottomSheetModalProvider>
-          <RNThemeProvider value={navTheme}>
-            <Slot />
-          </RNThemeProvider>
-        </BottomSheetModalProvider>
-      </KeyboardProvider>
+      <BottomSheetModalProvider>
+        <RNThemeProvider value={navTheme}>
+          <Slot />
+        </RNThemeProvider>
+      </BottomSheetModalProvider>
     </SafeAreaProvider>
   );
 };
