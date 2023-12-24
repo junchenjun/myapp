@@ -1,7 +1,7 @@
 import { StackActions } from '@react-navigation/native';
 import { useNavigation } from 'expo-router';
-import { useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { useCallback, useRef, useState } from 'react';
+import { LayoutChangeEvent, Platform, ScrollView, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
 import { Button } from '~components/atoms/button/Button';
@@ -16,13 +16,20 @@ import { IExercise } from '~redux/workoutSlice';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 export default function EditExercise() {
+  const ref = useRef<ScrollView>(null);
   const [title, setTile] = useState('');
-  // const [targets, setTargets] = useState<IMuscleTarget>();
+  const [scrollTo, setScrollTo] = useState(0);
+  const enableScrollTo = Platform.OS === 'ios';
 
   const styles = useThemedStyles(themedStyles);
   const navigation = useNavigation();
 
   const dispatch = useAppDispatch();
+
+  const onLayout = useCallback((event: LayoutChangeEvent) => {
+    const onLayoutHeight = event.nativeEvent.layout.y;
+    setScrollTo(Math.round(onLayoutHeight));
+  }, []);
 
   const formValues: IExercise = {
     title,
@@ -31,7 +38,7 @@ export default function EditExercise() {
 
   return (
     <KeyboardSafeView>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
+      <ScrollView ref={ref} showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
         <Card>
           <View style={styles.item}>
             <Text>Title</Text>
@@ -49,9 +56,19 @@ export default function EditExercise() {
           <View style={styles.item}>
             <Text>Exercise Link</Text>
           </View>
-          <View style={[styles.item, styles.withoutBorder]}>
+          <View style={[styles.item, styles.withoutBorder]} onLayout={enableScrollTo ? onLayout : undefined}>
             <Text>Exercise Notes</Text>
-            <Input multiline placeholder='Exercise Notes' showMessage={false} />
+            <Input
+              onFocus={() => {
+                enableScrollTo &&
+                  setTimeout(() => {
+                    ref.current?.scrollTo({ y: scrollTo });
+                  }, 150);
+              }}
+              multiline
+              placeholder='Exercise Notes'
+              showMessage={false}
+            />
           </View>
         </Card>
       </ScrollView>

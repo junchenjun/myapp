@@ -102,8 +102,7 @@ export const Input = (props: IInputProps) => {
       )}
       <TextInput
         multiline={multiline}
-        numberOfLines={multiline ? 12 : 1}
-        maxLength={multiline ? 500 : 50}
+        maxLength={multiline ? 320 : 48}
         ref={inputRef}
         onLayout={icon && onLayout}
         style={[
@@ -172,6 +171,7 @@ const themedStyles = (theme: ITheme) => {
     },
     large: {
       textAlignVertical: 'top',
+      height: 160,
     },
     disabled: {
       backgroundColor: theme.colors.surfaceDim,
