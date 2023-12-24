@@ -4,11 +4,11 @@ import { StatusBar } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-type IKeyboardAwareViewProps = {
+type IKeyboardSafeViewProps = {
   children?: ReactNode | ReactNode[];
 };
 
-export const KeyboardAwareView = (props: IKeyboardAwareViewProps) => {
+export const KeyboardSafeView = (props: IKeyboardSafeViewProps) => {
   const { children } = props;
   const headerHeight = useHeaderHeight();
 

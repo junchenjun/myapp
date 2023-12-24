@@ -9,7 +9,7 @@ import { Card } from '~components/atoms/card/Card';
 import { Input } from '~components/atoms/input/Input';
 import { Label } from '~components/atoms/label/Label';
 import { Text } from '~components/atoms/text/Text';
-import { KeyboardAwareView } from '~components/layout/keyboardAwareView/KeyboardAwareView';
+import { KeyboardSafeView } from '~components/layout/keyboardSafeView/KeyboardAwareView';
 import { IExerciseForm, addExercise } from '~redux/createWorkoutSlice';
 import { useAppDispatch } from '~redux/store';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
@@ -86,7 +86,7 @@ export default function EditExercise() {
   };
 
   return (
-    <KeyboardAwareView>
+    <KeyboardSafeView>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
         <Card>
           <View style={styles.item}>
@@ -124,7 +124,7 @@ export default function EditExercise() {
         }}
         icon={icons.Plus}
       />
-    </KeyboardAwareView>
+    </KeyboardSafeView>
   );
 }
 const themedStyles = (theme: ITheme) => {

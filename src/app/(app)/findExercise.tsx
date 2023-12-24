@@ -5,7 +5,7 @@ import { FlatList, Keyboard, Platform, StyleSheet, View } from 'react-native';
 import { icons } from '~assets/icons';
 import { Button } from '~components/atoms/button/Button';
 import { Text } from '~components/atoms/text/Text';
-import { KeyboardAwareView } from '~components/layout/keyboardAwareView/KeyboardAwareView';
+import { KeyboardSafeView } from '~components/layout/keyboardSafeView/KeyboardAwareView';
 import { Accordion } from '~components/molecules/accordion/Accordion';
 import { IActionPageHeader } from '~components/molecules/pageHeader/PageHeader';
 import { IExercise } from '~redux/workoutSlice';
@@ -34,7 +34,7 @@ export default function FindExercise() {
   const renderItem = useCallback(() => null, []);
   const exercises: IExercise[] = [];
   return (
-    <KeyboardAwareView>
+    <KeyboardSafeView>
       {exercises && (
         <Accordion>
           <FlatList
@@ -66,7 +66,7 @@ export default function FindExercise() {
         }}
         icon={icons.Plus}
       />
-    </KeyboardAwareView>
+    </KeyboardSafeView>
   );
 }
 const themedStyles = (theme: ITheme) => {

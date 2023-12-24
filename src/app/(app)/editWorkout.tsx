@@ -5,7 +5,7 @@ import { Alert, BackHandler, FlatList, Keyboard, Platform, StyleSheet, View } fr
 import { icons } from '~assets/icons';
 import { Button } from '~components/atoms/button/Button';
 import { Text } from '~components/atoms/text/Text';
-import { KeyboardAwareView } from '~components/layout/keyboardAwareView/KeyboardAwareView';
+import { KeyboardSafeView } from '~components/layout/keyboardSafeView/KeyboardAwareView';
 import { Accordion } from '~components/molecules/accordion/Accordion';
 import { IActionPageHeader } from '~components/molecules/pageHeader/PageHeader';
 import { WorkoutItem } from '~components/organisms/workoutItem/WorkoutItem';
@@ -99,7 +99,7 @@ export default function EditWorkout() {
   );
 
   return (
-    <KeyboardAwareView>
+    <KeyboardSafeView>
       {exercises && (
         <Accordion>
           <FlatList
@@ -131,7 +131,7 @@ export default function EditWorkout() {
         }}
         icon={icons.Plus}
       />
-    </KeyboardAwareView>
+    </KeyboardSafeView>
   );
 }
 const themedStyles = (theme: ITheme) => {
