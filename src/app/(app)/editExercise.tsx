@@ -45,15 +45,13 @@ export default function EditExercise() {
           </View>
           <View style={styles.item}>
             <Text>Rest Timer</Text>
-            <Input showMessage={false} />
           </View>
           <View style={styles.item}>
             <Text>Exercise Link</Text>
-            <Input showMessage={false} />
           </View>
           <View style={[styles.item, styles.withoutBorder]}>
             <Text>Exercise Notes</Text>
-            <Input showMessage={false} />
+            <Input multiline placeholder='Exercise Notes' showMessage={false} />
           </View>
         </Card>
       </ScrollView>

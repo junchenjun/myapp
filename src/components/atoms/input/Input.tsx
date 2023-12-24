@@ -31,6 +31,7 @@ export type IInputProps = {
   hint?: string;
   onFocus?: () => void;
   onBlur?: () => void;
+  multiline?: boolean;
 };
 
 export const Input = (props: IInputProps) => {
@@ -49,6 +50,7 @@ export const Input = (props: IInputProps) => {
     inputMode,
     onFocus,
     onBlur,
+    multiline = false,
   } = props;
 
   const [focused, setFocused] = useState(false);
@@ -99,10 +101,14 @@ export const Input = (props: IInputProps) => {
         />
       )}
       <TextInput
+        multiline={multiline}
+        numberOfLines={multiline ? 12 : 1}
+        maxLength={multiline ? 500 : 50}
         ref={inputRef}
         onLayout={icon && onLayout}
         style={[
           styles.input,
+          multiline && styles.large,
           !editable && styles.disabled,
           !!errorMessage && styles.error,
           icon && styles.withIcon,
@@ -112,7 +118,6 @@ export const Input = (props: IInputProps) => {
         value={value}
         placeholder={placeholder}
         keyboardType={keyboardType}
-        multiline={false}
         autoFocus={!!autoFocus}
         clearButtonMode='while-editing'
         cursorColor={theme.colors.primary}
@@ -124,7 +129,6 @@ export const Input = (props: IInputProps) => {
         onBlur={handleOnBlur}
         keyboardAppearance={theme.id === appColorScheme.dark ? 'dark' : 'light'}
         underlineColorAndroid='transparent'
-        maxLength={50}
         inputMode={inputMode}
         autoComplete='off'
         autoCorrect={false}
@@ -165,6 +169,9 @@ const themedStyles = (theme: ITheme) => {
       borderColor: theme.colors.outline,
       backgroundColor: theme.colors.surfaceExtraBright,
       ...theme.fonts.pMDRegular,
+    },
+    large: {
+      textAlignVertical: 'top',
     },
     disabled: {
       backgroundColor: theme.colors.surfaceDim,
