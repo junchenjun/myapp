@@ -159,7 +159,8 @@ const themedStyles = (theme: ITheme) => {
     },
     input: {
       borderWidth: 1,
-      padding: theme.spacing[3],
+      padding: theme.spacing[2],
+      paddingHorizontal: theme.spacing[3],
       borderRadius: theme.radius.sm,
       borderColor: theme.colors.outline,
       backgroundColor: theme.colors.surfaceExtraBright,
