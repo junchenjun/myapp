@@ -10,66 +10,10 @@ import { Input } from '~components/atoms/input/Input';
 import { Label } from '~components/atoms/label/Label';
 import { Text } from '~components/atoms/text/Text';
 import { KeyboardSafeView } from '~components/layout/keyboardSafeView/KeyboardAwareView';
-import { IExerciseForm, addExercise } from '~redux/createWorkoutSlice';
 import { useAppDispatch } from '~redux/store';
+import { createExercise } from '~redux/workoutCreationSlice';
+import { IExercise } from '~redux/workoutSlice';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
-
-// type IMuscleTarget =
-//   | 'fullBody'
-//   | 'other'
-//   | 'arms'
-//   | 'biceps'
-//   | 'triceps'
-//   | 'forearms'
-//   | 'back'
-//   | 'lats'
-//   | 'midBack'
-//   | 'lowerBack'
-//   | 'lowerChest'
-//   | 'upperChest'
-//   | 'midChest'
-//   | 'core'
-//   | 'obliques'
-//   | 'legs'
-//   | 'glutes'
-//   | 'hamstrings'
-//   | 'calves'
-//   | 'quads'
-//   | 'hips'
-//   | 'shoulders'
-//   | 'traps'
-//   | 'chest';
-
-// const targetMuscles: { group: IMuscleTarget; subs: IMuscleTarget[] }[] = [
-//   {
-//     group: 'fullBody',
-//     subs: ['other'],
-//   },
-//   {
-//     group: 'arms',
-//     subs: ['biceps', 'triceps', 'forearms'],
-//   },
-//   {
-//     group: 'back',
-//     subs: ['lats', 'midBack', 'lowerBack'],
-//   },
-//   {
-//     group: 'chest',
-//     subs: ['lowerChest', 'upperChest', 'midChest'],
-//   },
-//   {
-//     group: 'core',
-//     subs: ['obliques'],
-//   },
-//   {
-//     group: 'shoulders',
-//     subs: ['traps'],
-//   },
-//   {
-//     group: 'legs',
-//     subs: ['glutes', 'hamstrings', 'calves', 'quads', 'hips'],
-//   },
-// ];
 
 export default function EditExercise() {
   const [title, setTile] = useState('');
@@ -80,7 +24,7 @@ export default function EditExercise() {
 
   const dispatch = useAppDispatch();
 
-  const formValues: IExerciseForm = {
+  const formValues: IExercise = {
     title,
     targets: ['fullBody'],
   };
@@ -119,7 +63,7 @@ export default function EditExercise() {
         disabled={!title}
         float
         onPress={() => {
-          dispatch(addExercise(formValues));
+          dispatch(createExercise(formValues));
           navigation.dispatch(StackActions.pop(2));
         }}
         icon={icons.Plus}

@@ -9,8 +9,9 @@ import { KeyboardSafeView } from '~components/layout/keyboardSafeView/KeyboardAw
 import { Accordion } from '~components/molecules/accordion/Accordion';
 import { IActionPageHeader } from '~components/molecules/pageHeader/PageHeader';
 import { WorkoutItem } from '~components/organisms/workoutItem/WorkoutItem';
-import { IExerciseForm, resetCreateWorkout } from '~redux/createWorkoutSlice';
 import { useAppDispatch, useAppSelector } from '~redux/store';
+import { resetWorkoutCreation } from '~redux/workoutCreationSlice';
+import { IExercise } from '~redux/workoutSlice';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 export default function EditWorkout() {
@@ -19,7 +20,7 @@ export default function EditWorkout() {
   const navigation = useNavigation();
 
   const dispatch = useAppDispatch();
-  const exercises = useAppSelector(state => state.createWorkout.exercises);
+  const exercises = useAppSelector(state => state.workoutCreation.exercises);
 
   const exitAlert = useCallback(
     () =>
@@ -31,14 +32,14 @@ export default function EditWorkout() {
             text: 'Discard',
             style: 'cancel',
             onPress: () => {
-              dispatch(resetCreateWorkout());
+              dispatch(resetWorkoutCreation());
               router.back();
             },
           },
           {
             text: 'Save',
             onPress: () => {
-              dispatch(resetCreateWorkout());
+              dispatch(resetWorkoutCreation());
               router.back();
             },
           },
@@ -56,7 +57,7 @@ export default function EditWorkout() {
         if (title || exercises?.length) {
           exitAlert();
         } else {
-          dispatch(resetCreateWorkout());
+          dispatch(resetWorkoutCreation());
           router.back();
         }
         return true;
@@ -82,7 +83,7 @@ export default function EditWorkout() {
   }, [headerSearchBarOptions, navigation]);
 
   const renderItem = useCallback(
-    ({ item }: { item: IExerciseForm }) => (
+    ({ item }: { item: IExercise }) => (
       <WorkoutItem
         title={item.title}
         header={{

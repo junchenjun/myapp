@@ -5,8 +5,8 @@ import { icons } from '~assets/icons';
 import { Pressable } from '~components/atoms/pressable/Pressable';
 import { Text } from '~components/atoms/text/Text';
 import { IActionPageHeader, PageHeader } from '~components/molecules/pageHeader/PageHeader';
-import { resetCreateWorkout } from '~redux/createWorkoutSlice';
 import { useAppDispatch } from '~redux/store';
+import { resetWorkoutCreation } from '~redux/workoutCreationSlice';
 
 export default function Layout() {
   const dispatch = useAppDispatch();
@@ -105,7 +105,7 @@ export default function Layout() {
                 left={{
                   icon: icons.Back,
                   onPress: () => {
-                    dispatch(resetCreateWorkout());
+                    dispatch(resetWorkoutCreation());
                     router.back();
                   },
                 }}
@@ -113,7 +113,7 @@ export default function Layout() {
                   component: (
                     <Pressable
                       onPress={() => {
-                        dispatch(resetCreateWorkout());
+                        dispatch(resetWorkoutCreation());
                         router.back();
                       }}
                       rippleConfig={{ radius: 24, colorKey: 'rippleDim' }}

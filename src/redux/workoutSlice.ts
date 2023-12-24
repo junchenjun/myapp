@@ -1,19 +1,45 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+export type IMuscleTarget =
+  | 'fullBody'
+  | 'other'
+  | 'arms'
+  | 'biceps'
+  | 'triceps'
+  | 'forearms'
+  | 'back'
+  | 'lats'
+  | 'midBack'
+  | 'lowerBack'
+  | 'lowerChest'
+  | 'upperChest'
+  | 'midChest'
+  | 'core'
+  | 'obliques'
+  | 'legs'
+  | 'glutes'
+  | 'hamstrings'
+  | 'calves'
+  | 'quads'
+  | 'hips'
+  | 'shoulders'
+  | 'traps'
+  | 'chest';
+
 export interface IExerciseSet {
   weight: string;
   reps: number;
 }
 
 export interface IExercise {
-  name: string;
-  restTime: number;
-  sets: IExerciseSet[];
+  title: string;
+  restTime?: number;
+  sets?: IExerciseSet[];
+  targets: IMuscleTarget[];
 }
 
 export interface IWorkout {
-  repeteOn?: string[];
-  name: string;
+  title: string;
   lastPerformed?: string;
   exercises: IExercise[];
   id: string;

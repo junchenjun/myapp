@@ -167,7 +167,7 @@ const Home = () => {
               <WorkoutItem
                 contained
                 key={index}
-                title={item.name}
+                title={item.title}
                 header={{
                   labels: ['Shoulder', 'biceps'],
                   menu: [
@@ -182,7 +182,7 @@ const Home = () => {
                 onPress={() => {
                   return router.push({
                     pathname: 'preview',
-                    params: { folderId, workoutId: item.id, title: item?.name },
+                    params: { folderId, workoutId: item.id, title: item?.title },
                   });
                 }}
                 descItems={[`${item.exercises.length} Exercises`, '5 days ago']}

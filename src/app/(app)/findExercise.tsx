@@ -44,7 +44,7 @@ export default function FindExercise() {
             contentContainerStyle={styles.scroll}
             data={exercises}
             renderItem={renderItem}
-            keyExtractor={(item, index) => item.name + index}
+            keyExtractor={(item, index) => item.title + index}
             ListHeaderComponent={
               exercises.length ? (
                 <View style={styles.header}>

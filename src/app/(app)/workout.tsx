@@ -49,7 +49,7 @@ const Workout = () => {
                 <Accordion.Trigger>
                   {({ open, toggle }) => (
                     <WorkoutItem
-                      title={i.name}
+                      title={i.title}
                       header={{
                         labels: ['Shoulder', 'biceps'],
                       }}

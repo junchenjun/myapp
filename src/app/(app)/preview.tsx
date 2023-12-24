@@ -28,7 +28,7 @@ export default function Preview() {
     ({ item }: { item: IExercise }) => (
       <WorkoutItem
         style={{ marginTop: styles.gap.marginTop }}
-        title={item.name}
+        title={item.title}
         header={{
           labels: ['Shoulder', 'biceps'],
         }}
@@ -60,10 +60,10 @@ export default function Preview() {
             contentContainerStyle={styles.scroll}
             data={workout?.exercises}
             renderItem={renderItem}
-            keyExtractor={(item, index) => item.name + index}
+            keyExtractor={(item, index) => item.title + index}
             ListHeaderComponent={
               <View style={styles.gap}>
-                <Text text={workout?.name} style={styles.title} variant='h2Medium' colorKey='primary' />
+                <Text text={workout?.title} style={styles.title} variant='h2Medium' colorKey='primary' />
                 <InfoContainer
                   title='Traget Muscles'
                   content={
@@ -88,7 +88,7 @@ export default function Preview() {
         onPress={() => {
           router.replace({
             pathname: 'workout',
-            params: { title: workout?.name },
+            params: { title: workout?.title },
           });
           dispatch(setWorkout(workout));
         }}
