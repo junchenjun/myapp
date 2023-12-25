@@ -34,8 +34,6 @@ const Home = () => {
     }
   }, [folderId, folders]);
 
-  console.log(111, 'xxxxxx', folderId, folders);
-
   const onFolderConfigPress = useCallback(() => {
     folderConfigModalRef.current?.present();
   }, []);
