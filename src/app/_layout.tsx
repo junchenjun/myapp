@@ -123,11 +123,11 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
 
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-      <BottomSheetModalProvider>
-        <RNThemeProvider value={navTheme}>
+      <RNThemeProvider value={navTheme}>
+        <BottomSheetModalProvider>
           <Slot />
-        </RNThemeProvider>
-      </BottomSheetModalProvider>
+        </BottomSheetModalProvider>
+      </RNThemeProvider>
     </SafeAreaProvider>
   );
 };

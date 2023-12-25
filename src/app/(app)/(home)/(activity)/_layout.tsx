@@ -79,8 +79,6 @@ export default function Layout() {
       screenOptions={{
         tabBarShowIcon: false,
         tabBarPressColor: 'transparent',
-        // swipeEnabled: false,
-        // lazy: true,
       }}
     >
       <MaterialTopTabs.Screen name='activity' key='activity' options={{ title: 'Activity' }} />

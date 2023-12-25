@@ -13,7 +13,7 @@ export const Label = (props: ILabelProps) => {
 
   return (
     <View style={styles.container}>
-      <Text variant='pSMRegular' colorKey='onSurfaceDim'>
+      <Text variant='pSMRegular' colorKey='onSurface'>
         {title}
       </Text>
     </View>
