@@ -97,7 +97,14 @@ export default function EditWorkout() {
           keyExtractor={(_, index) => index.toString()}
           ListHeaderComponent={
             <View style={styles.header}>
-              <Input onChangeValue={setTitle} variant='open' value={title} placeholder='Exercise Title' />
+              <Input
+                onChangeValue={setTitle}
+                showMessage
+                errorMessage=''
+                variant='open'
+                value={title}
+                placeholder='Exercise Title'
+              />
               {!!exercises?.length && (
                 <View style={styles.actions}>
                   <Text text='Reorder' variant='pMDRegular' colorKey='primary' />

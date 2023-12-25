@@ -1,6 +1,6 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { router } from 'expo-router';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
@@ -19,14 +19,14 @@ import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 const Home = () => {
   const [folderId, setFolderId] = useState<IFolder['id']>();
-
-  const styles = useThemedStyles(createStyles);
   const folders = useAppSelector(state => state.folders);
 
   const selectFolderModalRef = useRef<BottomSheetModal>(null);
   const editFolderNameRef = useRef<BottomSheetModal>(null);
   const addFolderModalRef = useRef<BottomSheetModal>(null);
   const folderConfigModalRef = useRef<BottomSheetModal>(null);
+
+  const styles = useThemedStyles(createStyles);
 
   useEffect(() => {
     if (!folderId || !folders.find(i => i.id === folderId)) {
@@ -57,29 +57,38 @@ const Home = () => {
       });
   }, [folderId, folders]);
 
-  const workouts = folders && folderId && folders.find(i => i.id === folderId)?.workouts;
+  const workouts = useMemo(
+    () => folders && folderId && folders.find(i => i.id === folderId)?.workouts,
+    [folderId, folders]
+  );
   const folderName = folders?.find(i => i.id === folderId)?.name;
 
-  const folderLimitAlert = () =>
-    Alert.alert('Maximum folder limit reached', 'You can have up to 5 folders', [{ text: 'OK' }], {
-      cancelable: true,
-    });
-
-  const deleteAlert = () =>
-    Alert.alert(
-      `Delete This Folder?`,
-      '',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        { text: 'Delete', onPress: onFolderDelete },
-      ],
-      {
+  const folderLimitAlert = useCallback(
+    () =>
+      Alert.alert('Maximum folder limit reached', 'You can have up to 5 folders', [{ text: 'OK' }], {
         cancelable: true,
-      }
-    );
+      }),
+    []
+  );
+
+  const deleteAlert = useCallback(
+    () =>
+      Alert.alert(
+        `Delete This Folder?`,
+        '',
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+          },
+          { text: 'Delete', onPress: onFolderDelete },
+        ],
+        {
+          cancelable: true,
+        }
+      ),
+    [onFolderDelete]
+  );
 
   const maximumFolderLimit = 5;
 

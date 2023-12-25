@@ -55,10 +55,10 @@ export const EditFolderName = (props: {
   }
 
   const handleOnFocus = useCallback(() => {
-    Platform.OS === 'ios' && (shouldHandleKeyboardEvents.value = true);
+    shouldHandleKeyboardEvents.value = true;
   }, [shouldHandleKeyboardEvents]);
   const handleOnBlur = useCallback(() => {
-    Platform.OS === 'ios' && (shouldHandleKeyboardEvents.value = false);
+    shouldHandleKeyboardEvents.value = false;
   }, [shouldHandleKeyboardEvents]);
 
   const onSave = useCallback(() => {
@@ -90,6 +90,7 @@ export const EditFolderName = (props: {
           onChangeValue={v => setValue(v)}
           placeholder={currentName || 'Name for the folder'}
           errorMessage={error}
+          showMessage
         />
       </View>
       <Button disabled={isButtonDisabled} title={isCreate ? 'Create' : 'Save'} variant='primary' onPress={onSave} />

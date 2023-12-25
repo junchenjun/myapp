@@ -18,7 +18,6 @@ export const Default: IStory = {
     editable: true,
     errorMessage: '',
     icon: icons.Search,
-    hint: 'An Error Occurred',
     showMessage: true,
   },
 };

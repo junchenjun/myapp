@@ -33,6 +33,8 @@ type ICommonInputProps = {
 
 interface IOpenInputProps extends ICommonInputProps {
   variant: 'open';
+  showMessage?: boolean;
+  errorMessage?: string;
 }
 
 interface IEnclosedInputProps extends ICommonInputProps {
@@ -40,7 +42,6 @@ interface IEnclosedInputProps extends ICommonInputProps {
   icon?: IIcon;
   showMessage?: boolean;
   errorMessage?: string;
-  hint?: string;
 }
 
 interface ITextAreaInputProps extends ICommonInputProps {
@@ -66,12 +67,10 @@ export const Input = (props: IInputProps) => {
   } = props;
 
   const multiline = variant === 'textArea';
-  const errorMessage = variant === 'enclosed' ? props.errorMessage : '';
   const icon = variant === 'enclosed' ? props.icon : undefined;
-  const hint = variant === 'enclosed' ? props.hint : '';
-  const showMessage = variant === 'enclosed' && props.showMessage;
+  const showMessage = (variant === 'enclosed' || variant === 'open') && props.showMessage;
+  const errorMessage = showMessage ? props.errorMessage : '';
 
-  const [focused, setFocused] = useState(false);
   const [height, setHeight] = useState(0);
 
   const inputRef = useRef<TextInput>(null);
@@ -101,11 +100,9 @@ export const Input = (props: IInputProps) => {
   );
 
   const handleOnFocus = useCallback(() => {
-    setFocused(true);
     onFocus && onFocus();
   }, [onFocus]);
   const handleOnBlur = useCallback(() => {
-    setFocused(false);
     onBlur && onBlur();
   }, [onBlur]);
 
@@ -157,11 +154,9 @@ export const Input = (props: IInputProps) => {
         textAlign='left'
       />
       {showMessage && (
-        <View
-          style={[styles.message, !!hint && focused && styles.messageVisible, !!errorMessage && styles.messageVisible]}
-        >
+        <View style={[styles.message, !!errorMessage && styles.messageVisible]}>
           <Text variant='pSMItalic' colorKey={errorMessage ? 'error' : 'onSurfaceDim'}>
-            {errorMessage ? errorMessage : hint ? hint : 'placeholder'}
+            {errorMessage ? errorMessage : 'placeholder'}
           </Text>
         </View>
       )}
