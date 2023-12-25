@@ -190,7 +190,7 @@ export const themeFonts = {
   },
   // paragraphs
   pLGItalic: {
-    fontFamily: 'Kanit-Italic',
+    fontFamily: 'Kanit-LightItalic',
     fontSize: 18,
   },
   pLGLight: {
@@ -206,7 +206,7 @@ export const themeFonts = {
     fontSize: 18,
   },
   pMDItalic: {
-    fontFamily: 'Kanit-Italic',
+    fontFamily: 'Kanit-LightItalic',
     fontSize: 16,
   },
   pMDLight: {
@@ -222,7 +222,7 @@ export const themeFonts = {
     fontSize: 16,
   },
   pSMItalic: {
-    fontFamily: 'Kanit-Italic',
+    fontFamily: 'Kanit-LightItalic',
     fontSize: 14,
   },
   pSMLight: {
@@ -238,7 +238,7 @@ export const themeFonts = {
     fontSize: 14,
   },
   pXSItalic: {
-    fontFamily: 'Kanit-Italic',
+    fontFamily: 'Kanit-LightItalic',
     fontSize: 12,
   },
   pXSLight: {

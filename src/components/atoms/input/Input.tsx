@@ -137,7 +137,7 @@ export const Input = (props: IInputProps) => {
         <View
           style={[styles.message, !!hint && focused && styles.messageVisible, !!errorMessage && styles.messageVisible]}
         >
-          <Text variant='pSMRegular' colorKey={errorMessage ? 'error' : 'onSurfaceDim'}>
+          <Text variant='pSMItalic' colorKey={errorMessage ? 'error' : 'onSurfaceDim'}>
             {errorMessage ? errorMessage : hint ? hint : 'placeholder'}
           </Text>
         </View>

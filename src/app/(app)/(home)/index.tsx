@@ -29,10 +29,12 @@ const Home = () => {
   const folderConfigModalRef = useRef<BottomSheetModal>(null);
 
   useEffect(() => {
-    if (!folderId) {
+    if (!folderId || !folders.find(i => i.id === folderId)) {
       setFolderId(folders?.[0]?.id || undefined);
     }
   }, [folderId, folders]);
+
+  console.log(111, 'xxxxxx', folderId, folders);
 
   const onFolderConfigPress = useCallback(() => {
     folderConfigModalRef.current?.present();

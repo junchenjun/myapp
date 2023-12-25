@@ -136,7 +136,8 @@ export default function Root() {
   const [loaded] = useFonts({
     'Kanit-Medium': require('../assets/fonts/Kanit-Medium.ttf'),
     'Kanit-Regular': require('../assets/fonts/Kanit-Regular.ttf'),
-    'Kanit-SemiBold': require('../assets/fonts/Kanit-SemiBold.ttf'),
+    'Kanit-Light': require('../assets/fonts/Kanit-Light.ttf'),
+    'Kanit-LightItalic': require('../assets/fonts/Kanit-LightItalic.ttf'),
   });
 
   let EntryPoint = (
