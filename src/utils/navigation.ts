@@ -1,13 +1,12 @@
-import { router } from 'expo-router';
 import { Keyboard, Platform } from 'react-native';
 
-export const dismissKeyboardBeforeNavigate = (route: string) => {
+export const dismissKeyboardBeforeAction = (action: () => void) => {
   Keyboard.dismiss();
-  if (Platform.OS === 'android') {
+  if (Platform.OS === 'android' && Keyboard.isVisible()) {
     setTimeout(() => {
-      router.push(route);
-    }, 25);
+      action();
+    }, 35);
   } else {
-    router.push(route);
+    action();
   }
 };

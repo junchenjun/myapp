@@ -17,6 +17,7 @@ import { useAppDispatch } from '~redux/store';
 import { createExercise } from '~redux/workoutCreationSlice';
 import { IExercise, IMuscleTarget } from '~redux/workoutSlice';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
+import { dismissKeyboardBeforeAction } from '~utils/navigation';
 
 export default function EditExercise() {
   const [title, setTile] = useState('');
@@ -107,7 +108,7 @@ export default function EditExercise() {
         disabled={!title}
         onPress={() => {
           dispatch(createExercise(formValues));
-          navigation.dispatch(StackActions.pop(2));
+          dismissKeyboardBeforeAction(() => navigation.dispatch(StackActions.pop(2)));
         }}
         icon={icons.Plus}
       />

@@ -1,4 +1,4 @@
-import { useNavigation } from 'expo-router';
+import { router, useNavigation } from 'expo-router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { FlatList, Platform, StyleSheet, View } from 'react-native';
 
@@ -10,7 +10,7 @@ import { Accordion } from '~components/molecules/accordion/Accordion';
 import { IActionPageHeader } from '~components/molecules/pageHeader/PageHeader';
 import { IExercise } from '~redux/workoutSlice';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
-import { dismissKeyboardBeforeNavigate } from '~utils/navigation';
+import { dismissKeyboardBeforeAction } from '~utils/navigation';
 
 export default function FindExercise() {
   const [title, setTitle] = useState('');
@@ -62,7 +62,7 @@ export default function FindExercise() {
         title='New Exercise'
         alignment='right'
         float
-        onPress={() => dismissKeyboardBeforeNavigate('editExercise')}
+        onPress={() => dismissKeyboardBeforeAction(() => router.push('editExercise'))}
         icon={icons.Star}
       />
     </KeyboardSafeView>

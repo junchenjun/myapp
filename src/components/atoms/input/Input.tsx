@@ -198,6 +198,7 @@ const themedStyles = (theme: ITheme) => {
       paddingHorizontal: theme.spacing[1],
       paddingBottom: theme.spacing[1],
       color: theme.colors.primary,
+      backgroundColor: undefined,
       ...theme.fonts.h4Regular,
       height: 50,
     },

@@ -91,15 +91,9 @@ export default function Layout() {
         name='editWorkout'
         options={{
           headerShown: true,
-          header: ({ options }) => {
-            const headerSearchBarOptions = options.headerSearchBarOptions as IActionPageHeader['searchBar'];
+          header: () => {
             return (
               <PageHeader
-                searchBar={{
-                  onChangeText: headerSearchBarOptions?.onChangeText,
-                  placeholder: headerSearchBarOptions?.placeholder,
-                  value: headerSearchBarOptions?.value,
-                }}
                 variant='actionHeader'
                 title='Create Workout'
                 left={{
