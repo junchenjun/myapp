@@ -16,7 +16,7 @@ export const Card = (props: ICardProps) => {
 
   if (onPress) {
     return (
-      <View style={[styles.wrapper, style && style]}>
+      <View style={[styles.pressableContainer, style && style]}>
         <Pressable
           onPress={onPress}
           rippleConfig={{ borderless: false }}
@@ -34,8 +34,9 @@ export const Card = (props: ICardProps) => {
 
 const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
-    wrapper: {
+    pressableContainer: {
       borderRadius: theme.radius.sm,
+      overflow: 'hidden',
     },
     container: {
       backgroundColor: theme.colors.surfaceExtraBright,
@@ -45,6 +46,7 @@ const themedStyles = (theme: ITheme) => {
       flexDirection: 'column',
       width: '100%',
       padding: theme.spacing[5],
+      overflow: 'hidden',
     },
     flex: {
       display: 'flex',

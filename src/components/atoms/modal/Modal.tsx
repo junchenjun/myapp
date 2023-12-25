@@ -4,9 +4,11 @@ import {
   BottomSheetModal,
   BottomSheetModalProps,
   BottomSheetScrollView,
+  BottomSheetView,
 } from '@gorhom/bottom-sheet';
 import { ReactElement, RefObject, useCallback, useRef } from 'react';
-import { BackHandler, NativeEventSubscription, StyleSheet, View } from 'react-native';
+import { BackHandler, Keyboard, NativeEventSubscription, StyleSheet, View } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { EdgeInsets, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button, IButtonProps } from '~components/atoms/button/Button';
@@ -59,7 +61,7 @@ export const Modal = (props: IProps) => {
     onDismiss,
   } = props;
   const insets = useSafeAreaInsets();
-  const styles = useThemedStyles(themedStyles(insets, backgroundColorKey, !!scrollEnabled));
+  const styles = useThemedStyles(themedStyles(insets, backgroundColorKey));
   const { handleSheetPositionChange } = useBottomSheetBackHandler(modalRef);
 
   const renderBackdrop = useCallback(
@@ -84,20 +86,38 @@ export const Modal = (props: IProps) => {
       keyboardBehavior='interactive'
       onDismiss={onDismiss}
     >
-      {title && (
-        <View style={styles.title}>
-          <Text variant='h6Regular' colorKey={scrollEnabled ? 'onSurfaceDim' : 'onSurface'}>
-            {title}
-          </Text>
-        </View>
+      {scrollEnabled ? (
+        <>
+          {title && (
+            <View style={[styles.title, scrollEnabled && styles.borderedTitle]}>
+              <Text variant='h6Regular' colorKey='onSurface'>
+                {title}
+              </Text>
+            </View>
+          )}
+          <BottomSheetScrollView
+            showsVerticalScrollIndicator={false}
+            scrollEnabled={!!scrollEnabled}
+            contentContainerStyle={[styles.view, !!title && styles.withTitle]}
+          >
+            {children}
+          </BottomSheetScrollView>
+        </>
+      ) : (
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+          <BottomSheetView style={[styles.view, !!title && styles.withTitle]}>
+            {title && (
+              <View style={[styles.title, scrollEnabled && styles.borderedTitle]}>
+                <Text variant='h6Regular' colorKey='onSurface'>
+                  {title}
+                </Text>
+              </View>
+            )}
+            {children}
+          </BottomSheetView>
+        </TouchableWithoutFeedback>
       )}
-      <BottomSheetScrollView
-        showsVerticalScrollIndicator={false}
-        scrollEnabled={!!scrollEnabled}
-        contentContainerStyle={[styles.view, !!title && styles.withTitle]}
-      >
-        {children}
-      </BottomSheetScrollView>
+
       {floatButton && <Button {...floatButton} variant='primary' float alignment='center' />}
     </BottomSheetModal>
   );
@@ -105,8 +125,7 @@ export const Modal = (props: IProps) => {
 
 const themedStyles = (
   insets: EdgeInsets,
-  backgroundColorKey: Extract<IThemeColorKeys, 'surface' | 'surfaceExtraBright'>,
-  scrollEnabled: boolean
+  backgroundColorKey: Extract<IThemeColorKeys, 'surface' | 'surfaceExtraBright'>
 ) => {
   const styles = (theme: ITheme) => {
     const paddingBottom = insets.bottom ? insets.bottom + theme.spacing[4] : theme.spacing[6];
@@ -115,23 +134,25 @@ const themedStyles = (
         borderTopLeftRadius: theme.radius.xl,
         borderTopRightRadius: theme.radius.xl,
         borderRadius: 0,
-        backgroundColor: scrollEnabled ? theme.colors.surfaceDim : theme.colors[backgroundColorKey],
+        backgroundColor: theme.colors[backgroundColorKey],
       },
       title: {
         paddingBottom: theme.spacing[4],
         paddingTop: 0,
         alignItems: 'center',
-        backgroundColor: scrollEnabled ? theme.colors.surfaceDim : undefined,
+      },
+      borderedTitle: {
+        borderBottomWidth: 1,
+        borderColor: theme.colors.outlineDim,
       },
       withTitle: {
         paddingTop: 0,
-        paddingBottom: paddingBottom + 40,
+        paddingBottom,
       },
       view: {
         paddingHorizontal: theme.spacing[4],
         paddingVertical: theme.spacing[2],
         paddingBottom,
-        backgroundColor: scrollEnabled ? theme.colors.surfaceExtraBright : undefined,
       },
       handle: {
         backgroundColor: theme.colors.outlineDim,

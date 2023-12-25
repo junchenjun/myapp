@@ -1,6 +1,6 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useCallback, useRef } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
 import { Icon } from '~components/atoms/icon/Icon';
@@ -30,11 +30,16 @@ export const WorkoutItemHeader = (props: IWorkoutItemHeader) => {
           <BottomMenu items={menu} />
         </Modal>
       )}
-      <View style={styles.labels}>
+      <ScrollView
+        bounces={false}
+        horizontal
+        contentContainerStyle={styles.labels}
+        showsHorizontalScrollIndicator={false}
+      >
         {labels?.map(i => (
           <Label title={i} key={i} />
         ))}
-      </View>
+      </ScrollView>
       {menu && <Icon icon={icons.More} onPress={handlePresentModalPress} colorKey='onSurface' fill='onSurface' />}
     </View>
   );
@@ -46,6 +51,7 @@ const themedStyles = (theme: ITheme) => {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
+      gap: theme.spacing[1],
     },
     labels: {
       flexDirection: 'row',

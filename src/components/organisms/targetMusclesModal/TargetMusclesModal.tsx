@@ -1,17 +1,41 @@
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { Dispatch, RefObject, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
+import { Modal } from '~components/atoms/modal/Modal';
 import { SelectItem } from '~components/atoms/selectItem/SelectItem';
 import { Text } from '~components/atoms/text/Text';
 import { IMuscleTarget } from '~redux/workoutSlice';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
-export const TargetMusclesModal = () => {
+type ITargetMusclesModalProps = {
+  targets: IMuscleTarget[];
+  setTargets: Dispatch<SetStateAction<IMuscleTarget[]>>;
+  modalRef: RefObject<BottomSheetModal>;
+};
+
+const equalArrays = (firstArray: string[], secondArray: string[]) => {
+  if (firstArray.length !== secondArray.length) return false;
+  [...firstArray].sort();
+  [...secondArray].sort();
+
+  return firstArray.every((elem, index) => elem === secondArray[index]);
+};
+
+export const TargetMusclesModal = (porps: ITargetMusclesModalProps) => {
+  const { targets, setTargets, modalRef } = porps;
   const styles = useThemedStyles(themedStyles);
+  const [items, setItems] = useState<IMuscleTarget[]>(targets);
+  const maximumTargets = 4;
+
+  useEffect(() => {
+    setItems(targets);
+  }, [targets]);
 
   const targetMuscles: { groupName: IMuscleTarget; subs: IMuscleTarget[] }[] = [
     {
-      groupName: 'fullBody',
-      subs: ['other'],
+      groupName: 'Other',
+      subs: ['fullBody'],
     },
     {
       groupName: 'arms',
@@ -27,11 +51,11 @@ export const TargetMusclesModal = () => {
     },
     {
       groupName: 'core',
-      subs: ['obliques'],
+      subs: ['core', 'obliques'],
     },
     {
       groupName: 'shoulders',
-      subs: ['traps'],
+      subs: ['shoulders', 'traps'],
     },
     {
       groupName: 'legs',
@@ -39,31 +63,69 @@ export const TargetMusclesModal = () => {
     },
   ];
 
+  const onPress = useCallback(
+    (i: IMuscleTarget) => {
+      if (items.find(item => item === i) && items.length > 1) {
+        setItems(prev => {
+          return prev.filter(item => item !== i);
+        });
+      } else if (items.length < maximumTargets) {
+        setItems(prev => {
+          return [...new Set([...prev, i])];
+        });
+      }
+    },
+    [items]
+  );
+
+  const onSubmit = () => {
+    setTargets(items);
+    modalRef.current?.dismiss();
+  };
+
+  const isDirty = useMemo(() => equalArrays(targets, items), [items, targets]);
+
   return (
-    <>
+    <Modal
+      modalRef={modalRef}
+      title='Target Muscles'
+      scrollEnabled
+      onDismiss={() => setItems(targets)}
+      floatButton={{ title: `Update (${items.length}/${maximumTargets})`, disabled: isDirty, onPress: onSubmit }}
+    >
       <View style={styles.container}>
         {targetMuscles.map(group => {
           return (
             <View key={group.groupName} style={styles.group}>
-              <Text>{group.groupName}</Text>
+              <Text colorKey='onSurface'>{group.groupName}</Text>
               <View style={styles.items}>
-                <SelectItem variant='small' title={group.groupName} />
                 {group.subs.map(i => {
-                  return <SelectItem key={i} variant='small' title={i} />;
+                  const selected = !!items?.find(item => item === i);
+                  const disabled = selected ? items.length <= 1 : items.length >= maximumTargets;
+                  return (
+                    <SelectItem
+                      disabled={disabled}
+                      key={i}
+                      onPress={() => onPress(i)}
+                      selected={selected}
+                      variant='small'
+                      title={i}
+                    />
+                  );
                 })}
               </View>
             </View>
           );
         })}
       </View>
-    </>
+    </Modal>
   );
 };
 
 const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
     container: {
-      paddingBottom: 60,
+      paddingBottom: 30,
     },
     group: {
       gap: theme.spacing[2],
@@ -73,6 +135,7 @@ const themedStyles = (theme: ITheme) => {
     },
     items: {
       flexDirection: 'row',
+      flexWrap: 'wrap',
       gap: theme.spacing[2],
     },
   });

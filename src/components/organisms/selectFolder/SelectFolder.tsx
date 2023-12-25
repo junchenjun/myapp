@@ -13,7 +13,7 @@ interface ISelectFolderModalProps {
   onActionButton: () => void;
 }
 
-export const SelectFolderModal = (props: ISelectFolderModalProps) => {
+export const SelectFolder = (props: ISelectFolderModalProps) => {
   const { folders, selectedID, onSelect, onActionButton } = props;
 
   const styles = useThemedStyles(themedStyles);

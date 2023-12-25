@@ -10,7 +10,7 @@ import { createFolder, updateFolderName } from '~firebase/firebaseConfig';
 import { useAppSelector } from '~redux/store';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
-export const FolderNameModal = (props: {
+export const EditFolderName = (props: {
   setFolder: Dispatch<SetStateAction<string | undefined>>;
   folderId?: string;
 }) => {

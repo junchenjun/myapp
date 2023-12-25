@@ -24,6 +24,7 @@ export const Default: IStory = {
     header: {
       labels: ['Shoulder', 'biceps'],
     },
+    contained: true,
   },
 };
 
@@ -40,7 +41,7 @@ export const WithAccordion = {
             <WorkoutItem
               title='Chest&Triceps'
               header={{
-                labels: ['Shoulder', 'biceps'],
+                labels: ['Shoulder', 'biceps', 'Shoulder 1', 'Shoulder 2', 'Shoulder 3'],
               }}
               descItems={['8 Exercises', '5 days ago']}
               onActionIconPress={toggle}

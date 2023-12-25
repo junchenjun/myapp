@@ -91,6 +91,6 @@ export const Pressable = (props: IProps) => {
       </RNPressable>
     </Animated.View>
   ) : (
-    <View style={style}>{children}</View>
+    <View style={[style, disabled && { opacity: opacityValue }]}>{children}</View>
   );
 };

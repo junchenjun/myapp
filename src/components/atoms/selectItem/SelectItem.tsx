@@ -11,6 +11,7 @@ interface ICommonProps {
   onPress?: () => void;
   title?: string;
   selected?: boolean;
+  disabled?: boolean;
 }
 
 interface ISmallSelectItemProps extends ICommonProps {
@@ -25,7 +26,7 @@ interface ILargeSelectItemProps extends ICommonProps {
 export type ISelectItemProps = ILargeSelectItemProps | ISmallSelectItemProps;
 
 export const SelectItem = (props: ISelectItemProps) => {
-  const { onPress, title, selected, variant } = props;
+  const { onPress, title, selected, variant, disabled } = props;
   const styles = useThemedStyles(themedStyles);
 
   if (variant === 'large') {
@@ -37,6 +38,7 @@ export const SelectItem = (props: ISelectItemProps) => {
           rippleConfig={{
             borderless: false,
           }}
+          disabled={disabled}
           onPress={onPress}
           style={[styles.pressable, selected && styles.selected]}
         >
@@ -61,10 +63,11 @@ export const SelectItem = (props: ISelectItemProps) => {
           rippleConfig={{
             borderless: false,
           }}
+          disabled={disabled}
           onPress={onPress}
-          style={[styles.pressable, styles.smallPressable, selected && styles.selected]}
+          style={[styles.pressable, styles.smallPressable, selected && styles.smallSelected]}
         >
-          <Text text={title} variant='pMDRegular' colorKey={selected ? 'primary' : 'onSurface'} />
+          <Text text={title} variant='pMDRegular' colorKey={selected ? 'onPrimary' : 'onSurfaceDim'} />
         </Pressable>
       </View>
     );
@@ -100,6 +103,10 @@ const themedStyles = (theme: ITheme) => {
     selected: {
       borderColor: theme.colors.primary,
       backgroundColor: theme.colors.surfaceExtraBright,
+    },
+    smallSelected: {
+      borderColor: theme.colors.primary,
+      backgroundColor: theme.colors.primary,
     },
     left: {
       flexDirection: 'row',

@@ -8,7 +8,7 @@ import { icons } from '~assets/icons';
 import { ListItem } from '~components/atoms/listItem/ListItem';
 import { Modal } from '~components/atoms/modal/Modal';
 import { Text } from '~components/atoms/text/Text';
-import { AppearanceModal } from '~components/organisms/appearanceModal/AppearanceModal';
+import { ChangeAppearance } from '~components/organisms/changeAppearance/ChangeAppearance';
 import { firebaseAuth } from '~firebase/firebaseConfig';
 import { ITheme, appColorScheme, useTheme, useThemedStyles } from '~theme/ThemeContext';
 
@@ -58,7 +58,7 @@ const Settings = () => {
   return (
     <ScrollView ref={scrollViewRef} contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
       <Modal modalRef={appearanceModalRef} title='Appearance'>
-        <AppearanceModal />
+        <ChangeAppearance />
       </Modal>
       {/* Help */}
       <Text text='Help' colorKey='onSurfaceDim' style={styles.label} />

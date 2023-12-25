@@ -33,7 +33,7 @@ export const WorkoutItem = (props: IWorkoutItemProps) => {
       {header && <WorkoutItemHeader {...header} />}
       <View style={styles.main}>
         <View>
-          <Text variant='h5Regular' text={title} style={styles.title} />
+          <Text variant='h5Regular' text={title} />
           <View style={styles.desc}>
             {descItems?.map((i, index) => {
               const showDivider = index !== descItems.length - 1;
@@ -67,9 +67,6 @@ export const WorkoutItem = (props: IWorkoutItemProps) => {
 
 const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
-    title: {
-      marginTop: theme.spacing[2],
-    },
     desc: {
       flexDirection: 'row',
     },
@@ -88,6 +85,7 @@ const themedStyles = (theme: ITheme) => {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
+      marginTop: theme.spacing[2],
     },
   });
 };

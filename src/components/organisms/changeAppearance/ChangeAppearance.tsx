@@ -6,7 +6,7 @@ import { IAppColorScheme, ITheme, appColorScheme, useTheme, useThemedStyles } fr
 import { useUpdateAppColorScheme } from '~utils/hooks/useUpdateAppColorScheme';
 import { saveToSecureStore, secureStoreKeys } from '~utils/secureStore';
 
-export const AppearanceModal = () => {
+export const ChangeAppearance = () => {
   const theme = useTheme();
   const updateAppColorScheme = useUpdateAppColorScheme();
 

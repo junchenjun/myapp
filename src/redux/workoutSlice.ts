@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export type IMuscleTarget =
+  | 'Other'
   | 'fullBody'
   | 'other'
   | 'arms'

@@ -9,8 +9,8 @@ import { ListItem } from '~components/atoms/listItem/ListItem';
 import { Modal } from '~components/atoms/modal/Modal';
 import { WeeklyActivity } from '~components/molecules/weeklyActivity/WeeklyActivity';
 import { BottomMenu } from '~components/organisms/bottomMenu/BottomMenu';
-import { FolderNameModal } from '~components/organisms/FolderNameModal/FolderNameModal';
-import { SelectFolderModal } from '~components/organisms/selectFolderModal/SelectFolderModal';
+import { EditFolderName } from '~components/organisms/editFolderName/EditFolderName';
+import { SelectFolder } from '~components/organisms/selectFolder/SelectFolder';
 import { WorkoutItem } from '~components/organisms/workoutItem/WorkoutItem';
 import { deleteFolder } from '~firebase/firebaseConfig';
 import { IFolder } from '~redux/foldersSlice';
@@ -106,7 +106,7 @@ const Home = () => {
         />
       </Modal>
       <Modal modalRef={selectFolderModalRef} title='Select Folder'>
-        <SelectFolderModal
+        <SelectFolder
           onSelect={id => setFolderId(id)}
           folders={folders}
           selectedID={folderId}
@@ -114,10 +114,10 @@ const Home = () => {
         />
       </Modal>
       <Modal modalRef={addFolderModalRef} title='Create Folder'>
-        <FolderNameModal setFolder={setFolderId} />
+        <EditFolderName setFolder={setFolderId} />
       </Modal>
       <Modal modalRef={editFolderNameRef} title='Edit Folder Name'>
-        <FolderNameModal setFolder={setFolderId} folderId={folderId} />
+        <EditFolderName setFolder={setFolderId} folderId={folderId} />
       </Modal>
       <ScrollView contentContainerStyle={styles.scroll}>
         {/* WeeklyActivity */}

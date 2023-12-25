@@ -10,17 +10,17 @@ import { Card } from '~components/atoms/card/Card';
 import { Icon } from '~components/atoms/icon/Icon';
 import { Input } from '~components/atoms/input/Input';
 import { Label } from '~components/atoms/label/Label';
-import { Modal } from '~components/atoms/modal/Modal';
 import { Text } from '~components/atoms/text/Text';
 import { KeyboardSafeView } from '~components/layout/keyboardSafeView/KeyboardSafeView';
 import { TargetMusclesModal } from '~components/organisms/targetMusclesModal/TargetMusclesModal';
 import { useAppDispatch } from '~redux/store';
 import { createExercise } from '~redux/workoutCreationSlice';
-import { IExercise } from '~redux/workoutSlice';
+import { IExercise, IMuscleTarget } from '~redux/workoutSlice';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 export default function EditExercise() {
   const [title, setTile] = useState('');
+  const [targets, setTargets] = useState<IMuscleTarget[]>(['fullBody']);
   const [scrollTo, setScrollTo] = useState(0);
   const enableScrollTo = Platform.OS === 'ios';
 
@@ -42,28 +42,33 @@ export default function EditExercise() {
 
   const formValues: IExercise = {
     title,
-    targets: ['fullBody'],
+    targets,
   };
 
   return (
     <KeyboardSafeView>
-      <Modal modalRef={targetsModalRef} title='Target Muscles' scrollEnabled floatButton={{ title: 'Done' }}>
-        <TargetMusclesModal />
-      </Modal>
+      <TargetMusclesModal modalRef={targetsModalRef} targets={targets} setTargets={setTargets} />
       <ScrollView ref={ref} showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
-        <Card>
+        <Card style={styles.card}>
           <View style={[styles.item, styles.topItem]}>
             <Text>Title</Text>
             <Input value={title} onChangeValue={setTile} placeholder='Exercise Title' showMessage={false} />
           </View>
-          <View style={[styles.item, styles.gap]}>
-            <View style={styles.itemTitle}>
+          <View style={[styles.item, styles.scrollable]}>
+            <View style={[styles.itemTitle, styles.scrollableTitle]}>
               <Text>Target Muscle</Text>
               <Icon onPress={onTargetsPress} colorKey='primary' icon={icons.Config} />
             </View>
-            <View>
-              <Label title='Full Body' />
-            </View>
+            <ScrollView
+              bounces={false}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.labels}
+            >
+              {targets.map(i => (
+                <Label title={i} key={i} />
+              ))}
+            </ScrollView>
           </View>
           <View style={styles.item}>
             <View style={styles.itemTitle}>
@@ -113,6 +118,9 @@ export default function EditExercise() {
 }
 const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
+    card: {
+      paddingHorizontal: 0,
+    },
     scroll: {
       paddingHorizontal: theme.spacing[4],
       paddingBottom: 120,
@@ -123,16 +131,26 @@ const themedStyles = (theme: ITheme) => {
       paddingVertical: theme.spacing[1],
     },
     item: {
+      paddingHorizontal: theme.spacing[5],
       gap: theme.spacing[2],
       paddingVertical: theme.spacing[5],
       borderBottomWidth: 1,
       borderColor: theme.colors.outlineExtraDim,
     },
+    scrollable: {
+      paddingRight: 0,
+      gap: theme.spacing[4],
+    },
+    scrollableTitle: {
+      paddingRight: theme.spacing[5],
+    },
+    labels: {
+      flexDirection: 'row',
+      gap: theme.spacing[1],
+      paddingRight: theme.spacing[1],
+    },
     topItem: {
       paddingTop: 0,
-    },
-    gap: {
-      gap: theme.spacing[4],
     },
     iconWrapper: {
       flexDirection: 'row',
