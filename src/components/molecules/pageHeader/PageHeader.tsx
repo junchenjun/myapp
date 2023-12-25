@@ -79,11 +79,12 @@ export const PageHeader = (props: IPageHeader) => {
       <View style={[styles.container, searchBar && styles.withSearchBar]}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <View style={styles.left}>{left?.icon || left?.component ? componentLeft : null}</View>
-          <Text variant='h6Regular' text={title} animatedStyles={animatedStyles} colorKey='onSurface' />
+          <Text variant='h6Regular' text={title} animatedStyles={animatedStyles} colorKey='onSurfaceDim' />
           <View style={styles.right}>{right?.icon || right?.component ? componentRight : null}</View>
         </View>
         {searchBar && (
           <Input
+            variant='enclosed'
             value={searchBar?.value}
             onChangeValue={searchBar?.onChangeText}
             showMessage={false}
@@ -130,7 +131,7 @@ const themedStyles = (insets: EdgeInsets) => {
       withSearchBar: {
         flexDirection: 'column',
         gap: theme.spacing[3],
-        paddingBottom: theme.spacing[1],
+        paddingBottom: theme.spacing[2],
       },
       left: {
         width: 60,

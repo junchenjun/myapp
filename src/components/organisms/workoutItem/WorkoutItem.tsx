@@ -32,20 +32,20 @@ export const WorkoutItem = (props: IWorkoutItemProps) => {
     <>
       {header && <WorkoutItemHeader {...header} />}
       <View style={styles.main}>
-        <View>
-          <Text variant='h5Regular' text={title} />
+        <View style={styles.left}>
+          <Text variant='h5Regular' numberOfLines={2} text={title} />
           <View style={styles.desc}>
             {descItems?.map((i, index) => {
               const showDivider = index !== descItems.length - 1;
               if (showDivider) {
                 return (
                   <View style={styles.showDivider} key={i}>
-                    <Text variant='pSMRegular' text={i} colorKey='onSurfaceDim' />
+                    <Text variant='pSMLight' text={i} colorKey='onSurfaceDim' />
                     <View style={styles.dot} />
                   </View>
                 );
               }
-              return <Text key={i} variant='pSMRegular' text={i} colorKey='onSurfaceDim' />;
+              return <Text key={i} variant='pSMLight' text={i} colorKey='onSurfaceDim' />;
             })}
           </View>
         </View>
@@ -86,6 +86,9 @@ const themedStyles = (theme: ITheme) => {
       alignItems: 'center',
       justifyContent: 'space-between',
       marginTop: theme.spacing[2],
+    },
+    left: {
+      flex: 1,
     },
   });
 };

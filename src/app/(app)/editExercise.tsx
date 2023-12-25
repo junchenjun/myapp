@@ -49,13 +49,12 @@ export default function EditExercise() {
     <KeyboardSafeView>
       <TargetMusclesModal modalRef={targetsModalRef} targets={targets} setTargets={setTargets} />
       <ScrollView ref={ref} showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
-        <Card style={styles.card}>
+        <Card>
           <View style={[styles.item, styles.topItem]}>
-            <Text>Title</Text>
-            <Input value={title} onChangeValue={setTile} placeholder='Exercise Title' showMessage={false} />
+            <Input variant='open' value={title} onChangeValue={setTile} placeholder='Exercise Title' />
           </View>
-          <View style={[styles.item, styles.scrollable]}>
-            <View style={[styles.itemTitle, styles.scrollableTitle]}>
+          <View style={[styles.item, styles.targets]}>
+            <View style={[styles.itemTitle]}>
               <Text>Target Muscle</Text>
               <Icon onPress={onTargetsPress} colorKey='primary' icon={icons.Config} />
             </View>
@@ -94,9 +93,8 @@ export default function EditExercise() {
                     ref.current?.scrollTo({ y: scrollTo });
                   }, 150);
               }}
-              multiline
+              variant='textArea'
               placeholder='Exercise Notes'
-              showMessage={false}
             />
           </View>
         </Card>
@@ -118,9 +116,6 @@ export default function EditExercise() {
 }
 const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
-    card: {
-      paddingHorizontal: 0,
-    },
     scroll: {
       paddingHorizontal: theme.spacing[4],
       paddingBottom: 120,
@@ -131,18 +126,13 @@ const themedStyles = (theme: ITheme) => {
       paddingVertical: theme.spacing[1],
     },
     item: {
-      paddingHorizontal: theme.spacing[5],
       gap: theme.spacing[2],
       paddingVertical: theme.spacing[5],
       borderBottomWidth: 1,
       borderColor: theme.colors.outlineExtraDim,
     },
-    scrollable: {
-      paddingRight: 0,
-      gap: theme.spacing[4],
-    },
-    scrollableTitle: {
-      paddingRight: theme.spacing[5],
+    targets: {
+      gap: theme.spacing[3],
     },
     labels: {
       flexDirection: 'row',
@@ -151,6 +141,8 @@ const themedStyles = (theme: ITheme) => {
     },
     topItem: {
       paddingTop: 0,
+      paddingBottom: theme.spacing[2],
+      borderBottomWidth: 0,
     },
     iconWrapper: {
       flexDirection: 'row',

@@ -83,6 +83,7 @@ export const EditFolderName = (props: {
       <View style={styles.modal}>
         <Icon icon={isCreate ? icons.Folder : icons.Edit} size={36} />
         <Input
+          variant='enclosed'
           onBlur={handleOnBlur}
           onFocus={handleOnFocus}
           value={value}

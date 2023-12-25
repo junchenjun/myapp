@@ -17,7 +17,7 @@ import { Icon } from '~components/atoms/icon/Icon';
 import { Text } from '~components/atoms/text/Text';
 import { ITheme, appColorScheme, useTheme, useThemedStyles } from '~theme/ThemeContext';
 
-export type IInputProps = {
+type ICommonInputProps = {
   placeholder?: string;
   keyboardType?: KeyboardTypeOptions;
   value?: string;
@@ -25,16 +25,29 @@ export type IInputProps = {
   editable?: boolean;
   returnKeyType?: ReturnKeyType;
   onChangeValue?: (text: string) => void;
-  icon?: IIcon;
   inputMode?: InputModeOptions;
+  onFocus?: () => void;
+  onBlur?: () => void;
+  enterKeyHint?: EnterKeyHintTypeOptions;
+};
+
+interface IOpenInputProps extends ICommonInputProps {
+  variant: 'open';
+}
+
+interface IEnclosedInputProps extends ICommonInputProps {
+  variant: 'enclosed';
+  icon?: IIcon;
   showMessage?: boolean;
   errorMessage?: string;
   hint?: string;
-  onFocus?: () => void;
-  onBlur?: () => void;
-  multiline?: boolean;
-  enterKeyHint?: EnterKeyHintTypeOptions;
-};
+}
+
+interface ITextAreaInputProps extends ICommonInputProps {
+  variant: 'textArea';
+}
+
+export type IInputProps = IOpenInputProps | IEnclosedInputProps | ITextAreaInputProps;
 
 export const Input = (props: IInputProps) => {
   const {
@@ -44,17 +57,19 @@ export const Input = (props: IInputProps) => {
     editable = true,
     returnKeyType,
     onChangeValue,
-    errorMessage,
-    icon,
     value,
-    hint,
-    showMessage = true,
     inputMode = 'text',
     onFocus,
     onBlur,
-    multiline = false,
     enterKeyHint = 'done',
+    variant,
   } = props;
+
+  const multiline = variant === 'textArea';
+  const errorMessage = variant === 'enclosed' ? props.errorMessage : '';
+  const icon = variant === 'enclosed' ? props.icon : undefined;
+  const hint = variant === 'enclosed' ? props.hint : '';
+  const showMessage = variant === 'enclosed' && props.showMessage;
 
   const [focused, setFocused] = useState(false);
   const [height, setHeight] = useState(0);
@@ -115,6 +130,7 @@ export const Input = (props: IInputProps) => {
           !!errorMessage && styles.error,
           icon && styles.withIcon,
           { color: editable && !multiline ? theme.colors.onSurface : theme.colors.onSurfaceDim },
+          variant === 'open' && styles.open,
         ]}
         onChangeText={onChangeValue}
         value={value}
@@ -174,11 +190,21 @@ const themedStyles = (theme: ITheme) => {
       borderRadius: theme.radius.sm,
       borderColor: theme.colors.outline,
       backgroundColor: theme.colors.surfaceExtraBright,
-      ...theme.fonts.pMDRegular,
+      ...theme.fonts.pLGRegular,
+    },
+    open: {
+      borderWidth: 0,
+      borderBottomWidth: 1,
+      paddingHorizontal: theme.spacing[1],
+      paddingBottom: theme.spacing[1],
+      color: theme.colors.primary,
+      ...theme.fonts.h4Regular,
+      height: 50,
     },
     large: {
       textAlignVertical: 'top',
       height: 160,
+      ...theme.fonts.pMDRegular,
     },
     disabled: {
       backgroundColor: theme.colors.surfaceDim,

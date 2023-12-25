@@ -71,7 +71,7 @@ export default function EditWorkout() {
   const headerSearchBarOptions = useMemo(() => {
     const options: IActionPageHeader['searchBar'] = {
       onChangeText: (v: string) => setTitle(v),
-      placeholder: 'Name for the workout',
+      placeholder: 'Workout Title',
       value: title,
     };
     return options;
@@ -137,7 +137,6 @@ export default function EditWorkout() {
 const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
     scroll: {
-      flex: 1,
       paddingHorizontal: theme.spacing[4],
       paddingBottom: 120,
     },
