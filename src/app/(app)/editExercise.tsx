@@ -6,6 +6,7 @@ import { LayoutChangeEvent, Platform, ScrollView, StyleSheet, View } from 'react
 import { icons } from '~assets/icons';
 import { Button } from '~components/atoms/button/Button';
 import { Card } from '~components/atoms/card/Card';
+import { Icon } from '~components/atoms/icon/Icon';
 import { Input } from '~components/atoms/input/Input';
 import { Label } from '~components/atoms/label/Label';
 import { Text } from '~components/atoms/text/Text';
@@ -16,16 +17,16 @@ import { IExercise } from '~redux/workoutSlice';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 export default function EditExercise() {
-  const ref = useRef<ScrollView>(null);
   const [title, setTile] = useState('');
   const [scrollTo, setScrollTo] = useState(0);
   const enableScrollTo = Platform.OS === 'ios';
 
   const styles = useThemedStyles(themedStyles);
   const navigation = useNavigation();
-
   const dispatch = useAppDispatch();
+  const ref = useRef<ScrollView>(null);
 
+  // ios only
   const onLayout = useCallback((event: LayoutChangeEvent) => {
     const onLayoutHeight = event.nativeEvent.layout.y;
     setScrollTo(Math.round(onLayoutHeight));
@@ -40,23 +41,35 @@ export default function EditExercise() {
     <KeyboardSafeView>
       <ScrollView ref={ref} showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
         <Card>
-          <View style={styles.item}>
+          <View style={[styles.item, styles.topItem]}>
             <Text>Title</Text>
             <Input value={title} onChangeValue={setTile} placeholder='Exercise Title' showMessage={false} />
           </View>
-          <View style={styles.item}>
-            <Text>Target Muscle</Text>
+          <View style={[styles.item, styles.gap]}>
+            <View style={styles.itemTitle}>
+              <Text>Target Muscle</Text>
+              <Icon colorKey='primary' icon={icons.Config} />
+            </View>
             <View>
               <Label title='Full Body' />
             </View>
           </View>
           <View style={styles.item}>
-            <Text>Rest Timer</Text>
+            <View style={styles.itemTitle}>
+              <Text>Rest Timer</Text>
+              <View style={styles.iconWrapper}>
+                <Text colorKey='primary'>50s</Text>
+                <Icon colorKey='primary' icon={icons.ExpandRight} />
+              </View>
+            </View>
           </View>
           <View style={styles.item}>
-            <Text>Exercise Link</Text>
+            <View style={styles.itemTitle}>
+              <Text>Exercise Link</Text>
+              <Icon colorKey='primary' icon={icons.Plus} />
+            </View>
           </View>
-          <View style={[styles.item, styles.withoutBorder]} onLayout={enableScrollTo ? onLayout : undefined}>
+          <View style={[styles.item, styles.bottomItem]} onLayout={enableScrollTo ? onLayout : undefined}>
             <Text>Exercise Notes</Text>
             <Input
               onFocus={() => {
@@ -103,7 +116,20 @@ const themedStyles = (theme: ITheme) => {
       borderBottomWidth: 1,
       borderColor: theme.colors.outlineExtraDim,
     },
-    withoutBorder: {
+    topItem: {
+      paddingTop: 0,
+    },
+    gap: {
+      gap: theme.spacing[4],
+    },
+    iconWrapper: {
+      flexDirection: 'row',
+    },
+    itemTitle: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+    bottomItem: {
       borderBottomWidth: 0,
     },
   });

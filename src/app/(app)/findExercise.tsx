@@ -62,7 +62,7 @@ export default function FindExercise() {
         title='New Exercise'
         float
         onPress={() => dismissKeyboardBeforeNavigate('editExercise')}
-        icon={icons.Plus}
+        icon={icons.Star}
       />
     </KeyboardSafeView>
   );
