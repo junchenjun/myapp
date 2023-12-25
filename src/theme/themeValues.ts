@@ -171,6 +171,7 @@ export const themeFonts = {
   h5Regular: {
     fontFamily: 'Kanit-Regular',
     fontSize: 20,
+    lineHeight: 25,
   },
   h5Medium: {
     fontFamily: 'Kanit-Medium',
@@ -228,6 +229,7 @@ export const themeFonts = {
   pSMLight: {
     fontFamily: 'Kanit-Light',
     fontSize: 14,
+    lineHeight: 16,
   },
   pSMRegular: {
     fontFamily: 'Kanit-Regular',

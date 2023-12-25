@@ -85,10 +85,11 @@ const themedStyles = (theme: ITheme) => {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      marginTop: theme.spacing[2],
+      marginTop: theme.spacing[3],
     },
     left: {
       flex: 1,
+      gap: theme.spacing[2],
     },
   });
 };

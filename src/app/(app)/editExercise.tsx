@@ -55,7 +55,7 @@ export default function EditExercise() {
           </View>
           <View style={[styles.item, styles.targets]}>
             <View style={[styles.itemTitle]}>
-              <Text>Target Muscle</Text>
+              <Text colorKey='onSurfaceDim'>Target Muscle</Text>
               <Icon onPress={onTargetsPress} colorKey='primary' icon={icons.Config} />
             </View>
             <ScrollView
@@ -71,7 +71,7 @@ export default function EditExercise() {
           </View>
           <View style={styles.item}>
             <View style={styles.itemTitle}>
-              <Text>Rest Timer</Text>
+              <Text colorKey='onSurfaceDim'>Rest Timer</Text>
               <View style={styles.iconWrapper}>
                 <Text colorKey='primary'>50s</Text>
                 <Icon colorKey='primary' icon={icons.ExpandRight} />
@@ -80,12 +80,12 @@ export default function EditExercise() {
           </View>
           <View style={styles.item}>
             <View style={styles.itemTitle}>
-              <Text>Exercise Link</Text>
+              <Text colorKey='onSurfaceDim'>Exercise Link</Text>
               <Icon colorKey='primary' icon={icons.Plus} />
             </View>
           </View>
           <View style={[styles.item, styles.bottomItem]} onLayout={enableScrollTo ? onLayout : undefined}>
-            <Text>Exercise Notes</Text>
+            <Text colorKey='onSurfaceDim'>Exercise Notes</Text>
             <Input
               onFocus={() => {
                 enableScrollTo &&
@@ -140,7 +140,7 @@ const themedStyles = (theme: ITheme) => {
       paddingRight: theme.spacing[1],
     },
     topItem: {
-      paddingTop: 0,
+      paddingTop: theme.spacing[2],
       paddingBottom: theme.spacing[2],
       borderBottomWidth: 0,
     },

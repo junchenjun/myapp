@@ -129,7 +129,7 @@ export const Input = (props: IInputProps) => {
           !editable && styles.disabled,
           !!errorMessage && styles.error,
           icon && styles.withIcon,
-          { color: editable && !multiline ? theme.colors.onSurface : theme.colors.onSurfaceDim },
+          { color: editable ? theme.colors.onSurface : theme.colors.onSurfaceDim },
           variant === 'open' && styles.open,
         ]}
         onChangeText={onChangeValue}
