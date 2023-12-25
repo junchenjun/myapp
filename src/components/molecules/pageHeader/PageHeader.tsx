@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Animated, StyleSheet, TextStyle, View } from 'react-native';
+import { Animated, EnterKeyHintTypeOptions, StyleSheet, TextStyle, View } from 'react-native';
 import { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { EdgeInsets, useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -40,6 +40,8 @@ export interface IActionPageHeader {
     onChangeText?: (text: string) => void;
     placeholder?: string;
     value?: string;
+    icon?: IIcon;
+    enterKeyHint?: EnterKeyHintTypeOptions;
   };
 }
 
@@ -86,6 +88,8 @@ export const PageHeader = (props: IPageHeader) => {
             onChangeValue={searchBar?.onChangeText}
             showMessage={false}
             placeholder={searchBar?.placeholder}
+            icon={searchBar.icon}
+            enterKeyHint={searchBar.enterKeyHint}
           />
         )}
       </View>

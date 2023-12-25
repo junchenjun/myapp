@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
+  EnterKeyHintTypeOptions,
   InputModeOptions,
   Keyboard,
   KeyboardTypeOptions,
@@ -32,12 +33,13 @@ export type IInputProps = {
   onFocus?: () => void;
   onBlur?: () => void;
   multiline?: boolean;
+  enterKeyHint?: EnterKeyHintTypeOptions;
 };
 
 export const Input = (props: IInputProps) => {
   const {
     placeholder,
-    keyboardType,
+    keyboardType = 'default',
     autoFocus,
     editable = true,
     returnKeyType,
@@ -47,10 +49,11 @@ export const Input = (props: IInputProps) => {
     value,
     hint,
     showMessage = true,
-    inputMode,
+    inputMode = 'text',
     onFocus,
     onBlur,
     multiline = false,
+    enterKeyHint = 'done',
   } = props;
 
   const [focused, setFocused] = useState(false);
@@ -132,6 +135,10 @@ export const Input = (props: IInputProps) => {
         autoComplete='off'
         autoCorrect={false}
         autoCapitalize='sentences'
+        enterKeyHint={enterKeyHint}
+        importantForAutofill='no'
+        selectTextOnFocus={false}
+        textAlign='left'
       />
       {showMessage && (
         <View

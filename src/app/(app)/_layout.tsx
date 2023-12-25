@@ -139,6 +139,8 @@ export default function Layout() {
                   onChangeText: headerSearchBarOptions?.onChangeText,
                   placeholder: headerSearchBarOptions?.placeholder,
                   value: headerSearchBarOptions?.value,
+                  icon: icons.Search,
+                  enterKeyHint: 'search',
                 }}
                 variant='actionHeader'
                 title='Find Exercise'
