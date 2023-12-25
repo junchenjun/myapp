@@ -60,6 +60,7 @@ export default function FindExercise() {
       <Button
         variant='primary'
         title='New Exercise'
+        alignment='right'
         float
         onPress={() => dismissKeyboardBeforeNavigate('editExercise')}
         icon={icons.Star}

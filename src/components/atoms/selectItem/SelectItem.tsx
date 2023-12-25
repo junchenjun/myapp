@@ -31,7 +31,7 @@ export const SelectItem = (props: ISelectItemProps) => {
   if (variant === 'large') {
     const { icon } = props;
     return (
-      <View style={styles.largeButton}>
+      <View style={styles.container}>
         <Pressable
           iosScaleDownAnimation
           rippleConfig={{
@@ -53,18 +53,35 @@ export const SelectItem = (props: ISelectItemProps) => {
         </Pressable>
       </View>
     );
-  } else {
-    return null;
+  } else if (variant === 'small') {
+    return (
+      <View style={[styles.container, styles.smallContainer]}>
+        <Pressable
+          iosScaleDownAnimation
+          rippleConfig={{
+            borderless: false,
+          }}
+          onPress={onPress}
+          style={[styles.pressable, styles.smallPressable, selected && styles.selected]}
+        >
+          <Text text={title} variant='pMDRegular' colorKey={selected ? 'primary' : 'onSurface'} />
+        </Pressable>
+      </View>
+    );
   }
 };
 
 const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
-    largeButton: {
+    container: {
       borderRadius: theme.radius.md,
       alignSelf: 'center',
       overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
       width: '100%',
+    },
+    smallContainer: {
+      borderRadius: theme.radius.sm,
+      width: 'auto',
     },
     pressable: {
       flexDirection: 'row',
@@ -75,6 +92,10 @@ const themedStyles = (theme: ITheme) => {
       borderRadius: theme.radius.md,
       borderColor: theme.colors.outline,
       backgroundColor: theme.colors.surfaceExtraBright,
+    },
+    smallPressable: {
+      paddingVertical: theme.spacing[2],
+      borderRadius: theme.radius.sm,
     },
     selected: {
       borderColor: theme.colors.primary,

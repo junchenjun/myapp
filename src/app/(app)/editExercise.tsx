@@ -1,3 +1,4 @@
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { StackActions } from '@react-navigation/native';
 import { useNavigation } from 'expo-router';
 import { useCallback, useRef, useState } from 'react';
@@ -9,8 +10,10 @@ import { Card } from '~components/atoms/card/Card';
 import { Icon } from '~components/atoms/icon/Icon';
 import { Input } from '~components/atoms/input/Input';
 import { Label } from '~components/atoms/label/Label';
+import { Modal } from '~components/atoms/modal/Modal';
 import { Text } from '~components/atoms/text/Text';
 import { KeyboardSafeView } from '~components/layout/keyboardSafeView/KeyboardSafeView';
+import { TargetMusclesModal } from '~components/organisms/targetMusclesModal/TargetMusclesModal';
 import { useAppDispatch } from '~redux/store';
 import { createExercise } from '~redux/workoutCreationSlice';
 import { IExercise } from '~redux/workoutSlice';
@@ -25,11 +28,16 @@ export default function EditExercise() {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const ref = useRef<ScrollView>(null);
+  const targetsModalRef = useRef<BottomSheetModal>(null);
 
   // ios only
   const onLayout = useCallback((event: LayoutChangeEvent) => {
     const onLayoutHeight = event.nativeEvent.layout.y;
     setScrollTo(Math.round(onLayoutHeight));
+  }, []);
+
+  const onTargetsPress = useCallback(() => {
+    targetsModalRef.current?.present();
   }, []);
 
   const formValues: IExercise = {
@@ -39,6 +47,9 @@ export default function EditExercise() {
 
   return (
     <KeyboardSafeView>
+      <Modal modalRef={targetsModalRef} title='Target Muscles' scrollEnabled floatButton={{ title: 'Done' }}>
+        <TargetMusclesModal />
+      </Modal>
       <ScrollView ref={ref} showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
         <Card>
           <View style={[styles.item, styles.topItem]}>
@@ -48,7 +59,7 @@ export default function EditExercise() {
           <View style={[styles.item, styles.gap]}>
             <View style={styles.itemTitle}>
               <Text>Target Muscle</Text>
-              <Icon colorKey='primary' icon={icons.Config} />
+              <Icon onPress={onTargetsPress} colorKey='primary' icon={icons.Config} />
             </View>
             <View>
               <Label title='Full Body' />
@@ -87,6 +98,7 @@ export default function EditExercise() {
       </ScrollView>
       <Button
         float
+        alignment='right'
         variant='primary'
         title='Add To Workout'
         disabled={!title}

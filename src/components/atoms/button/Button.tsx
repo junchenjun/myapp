@@ -15,6 +15,7 @@ interface ICommonButtonProps {
   disabled?: boolean;
   icon?: IIcon;
   style?: StyleProp<ViewStyle>;
+  alignment?: 'left' | 'center' | 'right';
 }
 
 interface IPrimaryButton extends ICommonButtonProps {
@@ -23,14 +24,14 @@ interface IPrimaryButton extends ICommonButtonProps {
   float?: boolean;
 }
 
-interface IIconButton extends ICommonButtonProps {
+interface IGhostButton extends ICommonButtonProps {
   variant: 'ghost';
 }
 
-export type IButtonProps = IPrimaryButton | IIconButton;
+export type IButtonProps = IPrimaryButton | IGhostButton;
 
 export const Button = (props: IButtonProps) => {
-  const { onPress, title, variant, disabled, icon, style } = props;
+  const { onPress, title, variant, disabled, icon, style, alignment = 'center' } = props;
 
   const insets = useSafeAreaInsets();
   const floatBottomInset = insets.bottom + 25;
@@ -67,7 +68,15 @@ export const Button = (props: IButtonProps) => {
     const { loading, float } = props;
     const isDisabled = disabled || loading;
     return (
-      <Animated.View style={[styles.container, float && styles.float, floatAnimation && floatAnimatedStyles, style]}>
+      <Animated.View
+        style={[
+          styles.container,
+          styles[alignment],
+          float && styles.float,
+          floatAnimation && floatAnimatedStyles,
+          style,
+        ]}
+      >
         <Pressable
           iosScaleDownAnimation
           disabled={isDisabled}
@@ -84,7 +93,7 @@ export const Button = (props: IButtonProps) => {
     );
   } else if (variant === 'ghost') {
     return (
-      <View style={[styles.container, style]}>
+      <View style={[styles.container, styles[alignment], style]}>
         <Pressable
           iosScaleDownAnimation
           disabled={disabled}
@@ -113,13 +122,19 @@ const themedStyles = (variant: IButtonProps['variant'], floatBottomInset: number
       },
       float: {
         position: 'absolute',
-        right: theme.spacing[3],
         bottom: floatBottomInset,
         elevation: 5,
         shadowOffset: { width: 0, height: 5 },
         shadowOpacity: 0.35,
         shadowRadius: 10,
         shadowColor: theme.id === 'light' ? theme.colors.onSurface : theme.colors.primary,
+      },
+      left: {
+        left: theme.spacing[3],
+      },
+      center: {},
+      right: {
+        right: theme.spacing[3],
       },
       button: {
         alignItems: 'center',

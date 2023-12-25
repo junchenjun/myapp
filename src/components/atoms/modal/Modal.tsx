@@ -3,12 +3,13 @@ import {
   BottomSheetBackdropProps,
   BottomSheetModal,
   BottomSheetModalProps,
-  BottomSheetView,
+  BottomSheetScrollView,
 } from '@gorhom/bottom-sheet';
 import { ReactElement, RefObject, useCallback, useRef } from 'react';
-import { BackHandler, Keyboard, NativeEventSubscription, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { BackHandler, NativeEventSubscription, StyleSheet, View } from 'react-native';
 import { EdgeInsets, useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { Button, IButtonProps } from '~components/atoms/button/Button';
 import { Text } from '~components/atoms/text/Text';
 import { ITheme, IThemeColorKeys, useThemedStyles } from '~theme/ThemeContext';
 
@@ -43,12 +44,22 @@ interface IProps {
   title?: string;
   backgroundColorKey?: Extract<IThemeColorKeys, 'surface' | 'surfaceExtraBright'>;
   onDismiss?: () => void;
+  scrollEnabled?: boolean;
+  floatButton?: Pick<IButtonProps, 'title' | 'disabled' | 'onPress' | 'icon'>;
 }
 
 export const Modal = (props: IProps) => {
-  const { modalRef, children, title, backgroundColorKey = 'surfaceExtraBright', onDismiss } = props;
+  const {
+    modalRef,
+    children,
+    title,
+    scrollEnabled,
+    floatButton,
+    backgroundColorKey = 'surfaceExtraBright',
+    onDismiss,
+  } = props;
   const insets = useSafeAreaInsets();
-  const styles = useThemedStyles(themedStyles({ insets, backgroundColorKey }));
+  const styles = useThemedStyles(themedStyles(insets, backgroundColorKey, !!scrollEnabled));
   const { handleSheetPositionChange } = useBottomSheetBackHandler(modalRef);
 
   const renderBackdrop = useCallback(
@@ -73,44 +84,54 @@ export const Modal = (props: IProps) => {
       keyboardBehavior='interactive'
       onDismiss={onDismiss}
     >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <BottomSheetView style={[styles.view, !!title && styles.withTitle]}>
-          {title && (
-            <Text variant='h6Regular' style={styles.title}>
-              {title}
-            </Text>
-          )}
-          {children}
-        </BottomSheetView>
-      </TouchableWithoutFeedback>
+      {title && (
+        <View style={styles.title}>
+          <Text variant='h6Regular' colorKey={scrollEnabled ? 'onSurfaceDim' : 'onSurface'}>
+            {title}
+          </Text>
+        </View>
+      )}
+      <BottomSheetScrollView
+        showsVerticalScrollIndicator={false}
+        scrollEnabled={!!scrollEnabled}
+        contentContainerStyle={[styles.view, !!title && styles.withTitle]}
+      >
+        {children}
+      </BottomSheetScrollView>
+      {floatButton && <Button {...floatButton} variant='primary' float alignment='center' />}
     </BottomSheetModal>
   );
 };
-const themedStyles = (extra: {
-  insets: EdgeInsets;
-  backgroundColorKey: Extract<IThemeColorKeys, 'surface' | 'surfaceExtraBright'>;
-}) => {
+
+const themedStyles = (
+  insets: EdgeInsets,
+  backgroundColorKey: Extract<IThemeColorKeys, 'surface' | 'surfaceExtraBright'>,
+  scrollEnabled: boolean
+) => {
   const styles = (theme: ITheme) => {
-    const paddingBottom = extra.insets.bottom ? extra.insets.bottom + theme.spacing[4] : theme.spacing[6];
+    const paddingBottom = insets.bottom ? insets.bottom + theme.spacing[4] : theme.spacing[6];
     return StyleSheet.create({
       backgroundStyle: {
-        backgroundColor: theme.colors[extra.backgroundColorKey],
         borderTopLeftRadius: theme.radius.xl,
         borderTopRightRadius: theme.radius.xl,
         borderRadius: 0,
+        backgroundColor: scrollEnabled ? theme.colors.surfaceDim : theme.colors[backgroundColorKey],
       },
       title: {
         paddingBottom: theme.spacing[4],
         paddingTop: 0,
-        textAlign: 'center',
+        alignItems: 'center',
+        backgroundColor: scrollEnabled ? theme.colors.surfaceDim : undefined,
       },
       withTitle: {
         paddingTop: 0,
+        paddingBottom: paddingBottom + 40,
       },
       view: {
         paddingHorizontal: theme.spacing[4],
         paddingVertical: theme.spacing[2],
         paddingBottom,
+        backgroundColor: scrollEnabled ? theme.colors.surfaceExtraBright : undefined,
       },
       handle: {
         backgroundColor: theme.colors.outlineDim,

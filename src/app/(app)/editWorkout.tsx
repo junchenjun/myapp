@@ -124,6 +124,7 @@ export default function EditWorkout() {
         </Accordion>
       )}
       <Button
+        alignment='right'
         variant='primary'
         title='Add Exercise'
         float

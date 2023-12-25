@@ -1,9 +1,12 @@
 import React, {
+  Children,
   Dispatch,
+  FC,
   ReactElement,
   ReactNode,
   SetStateAction,
   createContext,
+  isValidElement,
   useCallback,
   useContext,
   useEffect,
@@ -135,14 +138,14 @@ const AccordionItem = (props: IAccordionItemProps) => {
   animatedHeight.value = expanded ? withTiming(height, { duration: 200 }) : withTiming(0);
   animatedOpacity.value = expanded ? withTiming(1, { duration: 500 }) : withTiming(0, { duration: 200 });
 
-  const trigger = React.Children.toArray(children).filter(
+  const trigger = Children.toArray(children).filter(
     child =>
-      React.isValidElement(child) &&
+      isValidElement(child) &&
       (child as unknown as { type: { displayName: string } }).type.displayName === Accordion.Trigger.name
   );
-  const content = React.Children.toArray(children).filter(
+  const content = Children.toArray(children).filter(
     child =>
-      React.isValidElement(child) &&
+      isValidElement(child) &&
       (child as unknown as { type: { displayName: string } }).type.displayName === Accordion.Content.name
   );
 
@@ -167,7 +170,7 @@ const AccordionItem = (props: IAccordionItemProps) => {
   );
 };
 
-const AccordionTrigger: React.FC<IAccordionTriggerProps> = ({ children }) => {
+const AccordionTrigger: FC<IAccordionTriggerProps> = ({ children }) => {
   const { open, toggle } = useContext(AccordionItemContext);
 
   if (typeof children === 'function') {
@@ -177,7 +180,7 @@ const AccordionTrigger: React.FC<IAccordionTriggerProps> = ({ children }) => {
   }
 };
 
-const AccordionContent: React.FC<IAccordionContentProps> = ({ children }) => <>{children}</>;
+const AccordionContent: FC<IAccordionContentProps> = ({ children }) => <>{children}</>;
 
 const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
