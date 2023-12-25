@@ -88,10 +88,10 @@ export const TargetMusclesModal = (porps: ITargetMusclesModalProps) => {
   return (
     <Modal
       modalRef={modalRef}
-      title='Target Muscles'
+      title={`Target Muscles (${items.length}/${maximumTargets})`}
       scrollEnabled
       onDismiss={() => setItems(targets)}
-      floatButton={{ title: `Update (${items.length}/${maximumTargets})`, disabled: isDirty, onPress: onSubmit }}
+      floatButton={{ title: 'Done', disabled: isDirty, onPress: onSubmit }}
     >
       <View style={styles.container}>
         {targetMuscles.map(group => {

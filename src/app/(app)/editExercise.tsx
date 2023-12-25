@@ -52,11 +52,11 @@ export default function EditExercise() {
       <ScrollView ref={ref} showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
         <Card>
           <View style={[styles.item, styles.topItem]}>
-            <Input variant='open' value={title} onChangeValue={setTile} placeholder='Exercise Title' />
+            <Input variant='open' value={title} onChangeValue={setTile} placeholder='Exercise Title*' />
           </View>
           <View style={[styles.item, styles.targets]}>
             <View style={[styles.itemTitle]}>
-              <Text colorKey='onSurfaceDim'>Target Muscle</Text>
+              <Text colorKey='onSurfaceDim'>Target Muscle*</Text>
               <Icon onPress={onTargetsPress} colorKey='primary' icon={icons.Config} />
             </View>
             <ScrollView
@@ -141,8 +141,8 @@ const themedStyles = (theme: ITheme) => {
       paddingRight: theme.spacing[1],
     },
     topItem: {
-      paddingTop: theme.spacing[2],
-      paddingBottom: theme.spacing[2],
+      paddingTop: theme.spacing[3],
+      paddingBottom: theme.spacing[4],
       borderBottomWidth: 0,
     },
     iconWrapper: {
