@@ -98,13 +98,7 @@ const Settings = () => {
           desc={colorschemeName}
           onPress={appearanceModalPress}
         />
-        <ListItem
-          iconRight={icons.ExpandRight}
-          iconLeft={icons.Hourglass}
-          withBorder
-          title='Rest Timer'
-          desc='Default'
-        />
+        <ListItem iconRight={icons.ExpandRight} iconLeft={icons.Timer} withBorder title='Rest Timer' desc='Default' />
         <ListItem iconRight={icons.ExpandRight} iconLeft={icons.Ruler} withBorder title='Units' desc='kg' />
         <ListItem
           iconRight={icons.ExpandRight}

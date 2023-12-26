@@ -15,7 +15,6 @@ import { IconFile } from '~assets/icons/IconFile';
 import { IconFolder } from '~assets/icons/IconFolder';
 import { IconFolderPlus } from '~assets/icons/IconFolderPlus';
 import { IconGoogle } from '~assets/icons/IconGoogle';
-import { IconHourglass } from '~assets/icons/IconHourglass';
 import { IconLightbulb } from '~assets/icons/IconLightbulb';
 import { IconLightning } from '~assets/icons/IconLightning';
 import { IconMail } from '~assets/icons/IconMail';
@@ -29,6 +28,7 @@ import { IconSignOut } from '~assets/icons/IconSignOut';
 import { IconStar } from '~assets/icons/IconStar';
 import { IconSun } from '~assets/icons/IconSun';
 import { IconSwitch } from '~assets/icons/IconSwitch';
+import { IconTimer } from '~assets/icons/IconTimer';
 import { IconTrash } from '~assets/icons/IconTrash';
 import { IconUnchecked } from '~assets/icons/IconUnchecked';
 import { IconUser } from '~assets/icons/IconUser';
@@ -45,7 +45,7 @@ const icons = {
   Apple: IconApple,
   Appearance: IconAppearance,
   Ruler: IconRuler,
-  Hourglass: IconHourglass,
+  Timer: IconTimer,
   Calender: IconCalendar,
   SignOut: IconSignOut,
   User: IconUser,
