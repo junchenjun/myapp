@@ -25,7 +25,7 @@ const withAndroidStylesPlugin: ConfigPlugin = config => {
 const colors = {
   dark: {
     navigationBarColor: '#141517',
-    alertBackground: '#1D1F21',
+    alertBackground: '#181A1C',
     alertText: '#F7F8FA',
     alertTextDim: '#C6C6C9',
     primary: '#AAC7FF',
@@ -155,7 +155,7 @@ async function configureFullScreenDialog(
   // AppTheme
   const appTheme = (
     await XML.parseXMLAsync(`
-      <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+      <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:editTextStyle">@style/ResetEditText</item>
         <item name="android:editTextBackground">@drawable/rn_edit_text_material</item>
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -172,28 +172,33 @@ async function configureFullScreenDialog(
   // AlertDialogTheme
   const alertDialogTheme = (
     await XML.parseXMLAsync(`
-      <style name="AlertDialogTheme" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+      <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="dialogCornerRadius">16dp</item>
+        <item name="android:backgroundDimEnabled">true</item>
         <item name="android:background">@color/alertBackground</item>
         <item name="android:textColor">@color/alertText</item>
         <item name="android:textColorPrimary">@color/alertTextDim</item>
         <item name="android:buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
         <item name="android:buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+        <item name="android:buttonBarNeutralButtonStyle">@style/NegativeButtonStyle</item>
       </style>
     `)
   ).style as AndroidConfig.Resources.ResourceGroupXML;
   const negativeButtonStyle = (
     await XML.parseXMLAsync(`
-      <style name="NegativeButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+      <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">@color/alertTextDim</item>
         <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
       </style>
     `)
   ).style as AndroidConfig.Resources.ResourceGroupXML;
   const positiveButtonStyle = (
     await XML.parseXMLAsync(`
-      <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+      <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">@color/primary</item>
         <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
       </style>
     `)
   ).style as AndroidConfig.Resources.ResourceGroupXML;

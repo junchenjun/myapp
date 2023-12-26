@@ -65,7 +65,7 @@ export const TargetMusclesModal = (porps: ITargetMusclesModalProps) => {
 
   const onPress = useCallback(
     (i: IMuscleTarget) => {
-      if (items.find(item => item === i) && items.length > 1) {
+      if (items.find(item => item === i)) {
         setItems(prev => {
           return prev.filter(item => item !== i);
         });
@@ -101,7 +101,7 @@ export const TargetMusclesModal = (porps: ITargetMusclesModalProps) => {
               <View style={styles.items}>
                 {group.subs.map(i => {
                   const selected = !!items?.find(item => item === i);
-                  const disabled = selected ? items.length <= 1 : items.length >= maximumTargets;
+                  const disabled = !selected && items.length >= maximumTargets;
                   return (
                     <SelectItem
                       disabled={disabled}

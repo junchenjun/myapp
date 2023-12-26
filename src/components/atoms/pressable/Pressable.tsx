@@ -7,7 +7,6 @@ import { IThemeColorKeys, useTheme } from '~theme/ThemeContext';
 interface IProps {
   onPress?: (e: MouseEvent<HTMLAnchorElement> | GestureResponderEvent) => void;
   disabled?: boolean;
-  disabledOnPress?: boolean;
   children?: ReactElement | (ReactElement | undefined)[] | ReactNode;
   style?: StyleProp<ViewStyle>;
   rippleConfig?: {
@@ -23,17 +22,7 @@ interface IProps {
 }
 
 export const Pressable = (props: IProps) => {
-  const {
-    onPress,
-    children,
-    disabled,
-    style,
-    rippleConfig,
-    hitSlop,
-    tabBarButton,
-    disabledOnPress,
-    iosScaleDownAnimation,
-  } = props;
+  const { onPress, children, disabled, style, rippleConfig, hitSlop, tabBarButton, iosScaleDownAnimation } = props;
   const theme = useTheme();
   const onPressOpacity = useSharedValue(1);
   const onPressScale = useSharedValue(1);
@@ -59,9 +48,9 @@ export const Pressable = (props: IProps) => {
   }, [onPressOpacity, onPressScale, scaleDownAnimation, tabBarButton]);
 
   const onPressOut = useCallback(() => {
-    !disabledOnPress && (onPressOpacity.value = 1);
+    onPressOpacity.value = 1;
     scaleDownAnimation && (onPressScale.value = 1);
-  }, [disabledOnPress, onPressOpacity, onPressScale, scaleDownAnimation]);
+  }, [onPressOpacity, onPressScale, scaleDownAnimation]);
 
   return onPress ? (
     <Animated.View style={[onPressOpacityStyle, scaleDownAnimation && onPressScaleStyle, tabBarButton && { flex: 1 }]}>
@@ -80,7 +69,7 @@ export const Pressable = (props: IProps) => {
               }
             : undefined
         }
-        style={[style, disabled && { opacity: 0.5 }, tabBarButton && { flex: 1 }]}
+        style={[style, disabled && { opacity: opacityValue }, tabBarButton && { flex: 1 }]}
         onPressIn={Platform.OS === 'ios' || tabBarButton ? onPressIn : undefined}
         // onPressIn={onPressIn}
         onPress={onPress}

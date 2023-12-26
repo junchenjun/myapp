@@ -18,7 +18,6 @@ export type IListItemProps = {
   onPress?: () => void;
   onRightIconPress?: () => void;
   disabled?: boolean;
-  disabledOnPress?: boolean;
   iosScaleDownAnimation?: boolean;
   color?: 'default' | 'primaryInverse' | 'primary';
   size?: 'lg' | 'sm';
@@ -37,7 +36,6 @@ export const ListItem = (props: IListItemProps) => {
     roundedTopCorners,
     roundedBottomCorners,
     withBorder,
-    disabledOnPress,
     iosScaleDownAnimation,
     color = 'default',
     size = 'lg',
@@ -75,7 +73,6 @@ export const ListItem = (props: IListItemProps) => {
       <Pressable
         iosScaleDownAnimation={iosScaleDownAnimation}
         disabled={disabled}
-        disabledOnPress={disabledOnPress}
         onPress={onPress}
         style={[
           styles.pressable,

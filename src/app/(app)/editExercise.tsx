@@ -2,7 +2,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { StackActions } from '@react-navigation/native';
 import { useNavigation } from 'expo-router';
 import { useCallback, useRef, useState } from 'react';
-import { LayoutChangeEvent, Platform, ScrollView, StyleSheet, View } from 'react-native';
+import { Alert, LayoutChangeEvent, Platform, ScrollView, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
 import { Button } from '~components/atoms/button/Button';
@@ -21,7 +21,7 @@ import { dismissKeyboardBeforeAction } from '~utils/navigation';
 
 export default function EditExercise() {
   const [title, setTile] = useState('');
-  const [targets, setTargets] = useState<IMuscleTarget[]>(['fullBody']);
+  const [targets, setTargets] = useState<IMuscleTarget[]>([]);
   const [scrollTo, setScrollTo] = useState(0);
   const enableScrollTo = Platform.OS === 'ios';
 
@@ -46,6 +46,21 @@ export default function EditExercise() {
     targets,
   };
 
+  const titleRequiredAlert = useCallback(
+    () =>
+      Alert.alert('', 'Exercise Title is required', [{ text: 'OK' }], {
+        cancelable: true,
+      }),
+    []
+  );
+  const targetsRequiredAlert = useCallback(
+    () =>
+      Alert.alert('', 'At least 1 target muscle is required', [{ text: 'OK' }], {
+        cancelable: true,
+      }),
+    []
+  );
+
   return (
     <KeyboardSafeView>
       <TargetMusclesModal modalRef={targetsModalRef} targets={targets} setTargets={setTargets} />
@@ -57,18 +72,20 @@ export default function EditExercise() {
           <View style={[styles.item, styles.targets]}>
             <View style={[styles.itemTitle]}>
               <Text colorKey='onSurfaceDim'>Target Muscle*</Text>
-              <Icon onPress={onTargetsPress} colorKey='primary' icon={icons.Config} />
+              <Icon onPress={onTargetsPress} colorKey='primary' icon={targets.length ? icons.Config : icons.Plus} />
             </View>
-            <ScrollView
-              bounces={false}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.labels}
-            >
-              {targets.map(i => (
-                <Label title={i} key={i} />
-              ))}
-            </ScrollView>
+            {!!targets.length && (
+              <ScrollView
+                bounces={false}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.labels}
+              >
+                {targets.map(i => (
+                  <Label title={i} key={i} />
+                ))}
+              </ScrollView>
+            )}
           </View>
           <View style={styles.item}>
             <View style={styles.itemTitle}>
@@ -105,10 +122,17 @@ export default function EditExercise() {
         alignment='right'
         variant='primary'
         title='Add To Workout'
-        disabled={!title}
         onPress={() => {
-          dispatch(createExercise(formValues));
-          dismissKeyboardBeforeAction(() => navigation.dispatch(StackActions.pop(2)));
+          if (title && targets.length >= 1) {
+            dispatch(createExercise(formValues));
+            dismissKeyboardBeforeAction(() => navigation.dispatch(StackActions.pop(2)));
+          } else {
+            if (!title) {
+              titleRequiredAlert();
+            } else if (targets.length < 1) {
+              targetsRequiredAlert();
+            }
+          }
         }}
         icon={icons.Plus}
       />

@@ -1,7 +1,7 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { useScrollToTop } from '@react-navigation/native';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useRef } from 'react';
 import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
@@ -13,7 +13,6 @@ import { firebaseAuth } from '~firebase/firebaseConfig';
 import { ITheme, appColorScheme, useTheme, useThemedStyles } from '~theme/ThemeContext';
 
 const Settings = () => {
-  const [loading, setLoading] = useState(false);
   const scrollViewRef = useRef(null);
   const appearanceModalRef = useRef<BottomSheetModal>(null);
   const appearanceModalPress = useCallback(() => {
@@ -44,14 +43,12 @@ const Settings = () => {
       [
         {
           text: 'Cancel',
-          style: 'cancel',
-          onPress: () => setLoading(false),
+          style: 'default',
         },
-        { text: 'Confirm', onPress: logout },
+        { text: 'Log Out', style: 'destructive', onPress: logout },
       ],
       {
         cancelable: true,
-        onDismiss: () => setLoading(false),
       }
     );
 
@@ -72,10 +69,7 @@ const Settings = () => {
           desc='junchen.cq@gmail.com'
         />
         <ListItem
-          disabled={loading}
-          disabledOnPress
           onPress={() => {
-            setLoading(true);
             logoutAlert();
           }}
           iconLeft={icons.SignOut}
