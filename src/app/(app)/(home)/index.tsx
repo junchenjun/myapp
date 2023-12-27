@@ -16,8 +16,7 @@ import { WorkoutItem } from '~components/organisms/workoutItem/WorkoutItem';
 import { deleteFolder } from '~firebase/firebaseConfig';
 import { IFolder } from '~redux/foldersSlice';
 import { useAppSelector } from '~redux/store';
-import { IAppColorScheme, ITheme, useThemedStyles } from '~theme/ThemeContext';
-import { getSecureStoreValue, secureStoreKeys } from '~utils/secureStore';
+import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
 const Home = () => {
   const [folderId, setFolderId] = useState<IFolder['id']>();
@@ -30,13 +29,7 @@ const Home = () => {
 
   const styles = useThemedStyles(createStyles);
 
-  const colorSchemexx = useColorScheme();
-  const [test, setTest] = useState('');
-  const getSavedColorscheme = async () => {
-    const result = await getSecureStoreValue<IAppColorScheme>(secureStoreKeys.colorscheme);
-    setTest(result || 'null');
-  };
-  getSavedColorscheme();
+  const colorScheme = useColorScheme();
 
   useEffect(() => {
     if (!folderId || !folders.find(i => i.id === folderId)) {
@@ -179,8 +172,7 @@ const Home = () => {
             />
           </View>
         </View>
-        <Text>{'colorScheme ' + (colorSchemexx || 'null')}</Text>
-        <Text>{'secureStor ' + test}</Text>
+        <Text>{'colorScheme ' + (colorScheme || 'null')}</Text>
         {/* List */}
         {workouts && (
           <Animated.View entering={FadeIn} exiting={FadeOut} style={styles.list}>

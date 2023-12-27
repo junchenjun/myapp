@@ -1,5 +1,6 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { Dispatch, RefObject, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 
 import { Modal } from '~components/atoms/modal/Modal';
@@ -26,40 +27,42 @@ export const TargetMusclesModal = (porps: ITargetMusclesModalProps) => {
   const { targets, setTargets, modalRef } = porps;
   const styles = useThemedStyles(themedStyles);
   const [items, setItems] = useState<IMuscleTarget[]>(targets);
+  const { t } = useTranslation();
+
   const maximumTargets = 4;
 
   useEffect(() => {
     setItems(targets);
   }, [targets]);
 
-  const targetMuscles: { groupName: IMuscleTarget; subs: IMuscleTarget[] }[] = [
+  const targetMuscles: { name: IMuscleTarget; items: IMuscleTarget[] }[] = [
     {
-      groupName: 'Other',
-      subs: ['fullBody'],
+      name: 'fullBody',
+      items: ['fullBody'],
     },
     {
-      groupName: 'arms',
-      subs: ['biceps', 'triceps', 'forearms'],
+      name: 'arms',
+      items: ['biceps', 'triceps', 'forearms'],
     },
     {
-      groupName: 'back',
-      subs: ['lats', 'midBack', 'lowerBack'],
+      name: 'back',
+      items: ['lats', 'midBack', 'lowerBack'],
     },
     {
-      groupName: 'chest',
-      subs: ['lowerChest', 'upperChest', 'midChest'],
+      name: 'chest',
+      items: ['lowerChest', 'upperChest', 'midChest'],
     },
     {
-      groupName: 'core',
-      subs: ['core', 'obliques'],
+      name: 'core',
+      items: ['core', 'obliques'],
     },
     {
-      groupName: 'shoulders',
-      subs: ['shoulders', 'traps'],
+      name: 'shoulders',
+      items: ['shoulders', 'traps'],
     },
     {
-      groupName: 'legs',
-      subs: ['glutes', 'hamstrings', 'calves', 'quads', 'hips'],
+      name: 'legs',
+      items: ['glutes', 'hamstrings', 'calves', 'quads', 'hips'],
     },
   ];
 
@@ -94,12 +97,14 @@ export const TargetMusclesModal = (porps: ITargetMusclesModalProps) => {
       floatButton={{ title: 'Done', disabled: isDirty, onPress: onSubmit }}
     >
       <View style={styles.container}>
-        {targetMuscles.map(group => {
+        {targetMuscles.map((group, index) => {
           return (
-            <View key={group.groupName} style={styles.group}>
-              <Text colorKey='onSurface'>{group.groupName}</Text>
+            <View key={group.name} style={[styles.group, index === targetMuscles.length - 1 && styles.topGroup]}>
+              <Text variant='pLGLight' colorKey='onSurfaceDim'>
+                {t(group.name)}
+              </Text>
               <View style={styles.items}>
-                {group.subs.map(i => {
+                {group.items.map(i => {
                   const selected = !!items?.find(item => item === i);
                   const disabled = !selected && items.length >= maximumTargets;
                   return (
@@ -109,7 +114,7 @@ export const TargetMusclesModal = (porps: ITargetMusclesModalProps) => {
                       onPress={() => onPress(i)}
                       selected={selected}
                       variant='small'
-                      title={i}
+                      title={t(i)}
                     />
                   );
                 })}
@@ -125,13 +130,17 @@ export const TargetMusclesModal = (porps: ITargetMusclesModalProps) => {
 const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
     container: {
-      paddingBottom: 30,
+      paddingBottom: 70,
+      paddingTop: theme.spacing[2],
     },
     group: {
       gap: theme.spacing[2],
-      paddingVertical: theme.spacing[5],
+      paddingVertical: theme.spacing[4],
       borderBottomWidth: 1,
       borderColor: theme.colors.outlineExtraDim,
+    },
+    topGroup: {
+      borderBottomWidth: 0,
     },
     items: {
       flexDirection: 'row',

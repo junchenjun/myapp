@@ -17,6 +17,7 @@ import { IFolder, setFolders } from '~redux/foldersSlice';
 import { store, useAppDispatch, useAppSelector } from '~redux/store';
 import { IAppColorScheme, ThemeProvider, appColorScheme, useTheme, useUpdateTheme } from '~theme/ThemeContext';
 import { getSecureStoreValue, secureStoreKeys } from '~utils/secureStore';
+import '~i18n/i18n';
 
 SplashScreen.preventAutoHideAsync();
 const storybookEnabled = process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true';

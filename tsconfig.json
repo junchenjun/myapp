@@ -19,6 +19,7 @@
       "~utils/*": ["./src/utils/*"],
       "~redux/*": ["./src/redux/*"],
       "~app/*": ["./src/app/*"],
+      "~i18n/*": ["./src/i18n/*"],
       "~firebase/*": ["./src/firebase/*"],
       "@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"]
     }

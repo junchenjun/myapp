@@ -2,6 +2,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { StackActions } from '@react-navigation/native';
 import { useNavigation } from 'expo-router';
 import { useCallback, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Alert, LayoutChangeEvent, Platform, ScrollView, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
@@ -30,6 +31,7 @@ export default function EditExercise() {
   const dispatch = useAppDispatch();
   const ref = useRef<ScrollView>(null);
   const targetsModalRef = useRef<BottomSheetModal>(null);
+  const { t } = useTranslation();
 
   // ios only
   const onLayout = useCallback((event: LayoutChangeEvent) => {
@@ -71,7 +73,9 @@ export default function EditExercise() {
           </View>
           <View style={[styles.item, styles.targets]}>
             <View style={[styles.itemTitle]}>
-              <Text colorKey='onSurfaceDim'>Target Muscle*</Text>
+              <Text variant='pMDRegular' colorKey='onSurfaceDim'>
+                Target Muscle*
+              </Text>
               <Icon onPress={onTargetsPress} colorKey='primary' icon={targets.length ? icons.Config : icons.Plus} />
             </View>
             {!!targets.length && (
@@ -82,28 +86,36 @@ export default function EditExercise() {
                 contentContainerStyle={styles.labels}
               >
                 {targets.map(i => (
-                  <Label title={i} key={i} />
+                  <Label title={t(i)} key={i} />
                 ))}
               </ScrollView>
             )}
           </View>
           <View style={styles.item}>
             <View style={styles.itemTitle}>
-              <Text colorKey='onSurfaceDim'>Rest Timer</Text>
+              <Text variant='pMDRegular' colorKey='onSurfaceDim'>
+                Rest Timer
+              </Text>
               <View style={styles.iconWrapper}>
-                <Text colorKey='primary'>50s</Text>
+                <Text variant='pLGRegular' colorKey='primary'>
+                  50s
+                </Text>
                 <Icon colorKey='primary' icon={icons.ExpandRight} />
               </View>
             </View>
           </View>
           <View style={styles.item}>
             <View style={styles.itemTitle}>
-              <Text colorKey='onSurfaceDim'>Exercise Link</Text>
+              <Text variant='pMDRegular' colorKey='onSurfaceDim'>
+                Exercise Link
+              </Text>
               <Icon colorKey='primary' icon={icons.Plus} />
             </View>
           </View>
           <View style={[styles.item, styles.bottomItem]} onLayout={enableScrollTo ? onLayout : undefined}>
-            <Text colorKey='onSurfaceDim'>Exercise Notes</Text>
+            <Text variant='pMDRegular' colorKey='onSurfaceDim'>
+              Exercise Notes
+            </Text>
             <Input
               onFocus={() => {
                 enableScrollTo &&
@@ -171,10 +183,12 @@ const themedStyles = (theme: ITheme) => {
     },
     iconWrapper: {
       flexDirection: 'row',
+      alignItems: 'center',
     },
     itemTitle: {
       flexDirection: 'row',
       justifyContent: 'space-between',
+      alignItems: 'center',
     },
     bottomItem: {
       borderBottomWidth: 0,

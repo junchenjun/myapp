@@ -99,6 +99,8 @@ const themedStyles = (theme: ITheme) => {
     smallPressable: {
       paddingVertical: theme.spacing[2],
       borderRadius: theme.radius.sm,
+      borderColor: theme.colors.surfaceDim,
+      backgroundColor: theme.colors.surfaceDim,
     },
     selected: {
       borderColor: theme.colors.primary,

@@ -1,5 +1,6 @@
 import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Alert, BackHandler, FlatList, Platform, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
@@ -18,6 +19,7 @@ import { dismissKeyboardBeforeAction } from '~utils/navigation';
 export default function EditWorkout() {
   const [title, setTitle] = useState('');
   const styles = useThemedStyles(themedStyles);
+  const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
   const exercises = useAppSelector(state => state.workoutCreation.exercises);
@@ -72,7 +74,7 @@ export default function EditWorkout() {
       <WorkoutItem
         title={item.title}
         header={{
-          labels: item.targets,
+          labels: item.targets.map(i => t(i)),
         }}
         descItems={['8 Exercises']}
         contained
@@ -81,7 +83,7 @@ export default function EditWorkout() {
         style={styles.item}
       />
     ),
-    [styles.item]
+    [styles.item, t]
   );
 
   return (
