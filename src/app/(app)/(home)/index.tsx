@@ -1,12 +1,13 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { router } from 'expo-router';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Alert, ScrollView, StyleSheet, View } from 'react-native';
+import { Alert, ScrollView, StyleSheet, View, useColorScheme } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 import { icons } from '~assets/icons';
 import { ListItem } from '~components/atoms/listItem/ListItem';
 import { Modal } from '~components/atoms/modal/Modal';
+import { Text } from '~components/atoms/text/Text';
 import { WeeklyActivity } from '~components/molecules/weeklyActivity/WeeklyActivity';
 import { BottomMenu } from '~components/organisms/bottomMenu/BottomMenu';
 import { EditFolderName } from '~components/organisms/editFolderName/EditFolderName';
@@ -15,7 +16,8 @@ import { WorkoutItem } from '~components/organisms/workoutItem/WorkoutItem';
 import { deleteFolder } from '~firebase/firebaseConfig';
 import { IFolder } from '~redux/foldersSlice';
 import { useAppSelector } from '~redux/store';
-import { ITheme, useThemedStyles } from '~theme/ThemeContext';
+import { IAppColorScheme, ITheme, useThemedStyles } from '~theme/ThemeContext';
+import { getSecureStoreValue, secureStoreKeys } from '~utils/secureStore';
 
 const Home = () => {
   const [folderId, setFolderId] = useState<IFolder['id']>();
@@ -27,6 +29,14 @@ const Home = () => {
   const folderConfigModalRef = useRef<BottomSheetModal>(null);
 
   const styles = useThemedStyles(createStyles);
+
+  const colorSchemexx = useColorScheme();
+  const [test, setTest] = useState('');
+  const getSavedColorscheme = async () => {
+    const result = await getSecureStoreValue<IAppColorScheme>(secureStoreKeys.colorscheme);
+    setTest(result || 'null');
+  };
+  getSavedColorscheme();
 
   useEffect(() => {
     if (!folderId || !folders.find(i => i.id === folderId)) {
@@ -169,6 +179,8 @@ const Home = () => {
             />
           </View>
         </View>
+        <Text>{'colorScheme ' + (colorSchemexx || 'null')}</Text>
+        <Text>{'secureStor ' + test}</Text>
         {/* List */}
         {workouts && (
           <Animated.View entering={FadeIn} exiting={FadeOut} style={styles.list}>

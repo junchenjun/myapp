@@ -1,22 +1,39 @@
+import { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
 import { SelectItem } from '~components/atoms/selectItem/SelectItem';
-import { IAppColorScheme, ITheme, appColorScheme, useTheme, useThemedStyles } from '~theme/ThemeContext';
-import { useUpdateAppColorScheme } from '~utils/hooks/useUpdateAppColorScheme';
+import {
+  IAppColorScheme,
+  ITheme,
+  appColorScheme,
+  useTheme,
+  useThemedStyles,
+  useUpdateTheme,
+} from '~theme/ThemeContext';
 import { saveToSecureStore, secureStoreKeys } from '~utils/secureStore';
 
 export const ChangeAppearance = () => {
   const theme = useTheme();
-  const updateAppColorScheme = useUpdateAppColorScheme();
-
+  const updateTheme = useUpdateTheme();
   const styles = useThemedStyles(themedStyles);
 
-  const setTheme = (v: IAppColorScheme | null) => {
-    saveToSecureStore(secureStoreKeys.colorscheme, v || '').then(() => {
-      updateAppColorScheme(v);
-    });
-  };
+  const setTheme = useCallback(
+    (v: IAppColorScheme | null) => {
+      saveToSecureStore(secureStoreKeys.colorscheme, v || '').then(() => {
+        if (v === null) {
+          updateTheme(theme.id, true);
+        } else {
+          if (v === appColorScheme.dark) {
+            updateTheme(appColorScheme.dark, false);
+          } else if (v === appColorScheme.light) {
+            updateTheme(appColorScheme.light, false);
+          }
+        }
+      });
+    },
+    [theme.id, updateTheme]
+  );
 
   return (
     <View style={styles.modal}>

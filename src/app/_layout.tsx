@@ -4,9 +4,10 @@ import { ThemeProvider as RNThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import * as NavigationBar from 'expo-navigation-bar';
 import { Slot, SplashScreen, useRouter } from 'expo-router';
+import { setStatusBarStyle } from 'expo-status-bar';
 import * as SystemUI from 'expo-system-ui';
 import { useEffect, useState } from 'react';
-import { Platform, View } from 'react-native';
+import { Appearance, Platform, View, useColorScheme } from 'react-native';
 import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 
@@ -14,8 +15,7 @@ import { collections, firebaseAuth, firebaseStore } from '~firebase/firebaseConf
 import { setAuth } from '~redux/authSlice';
 import { IFolder, setFolders } from '~redux/foldersSlice';
 import { store, useAppDispatch, useAppSelector } from '~redux/store';
-import { IAppColorScheme, ThemeProvider, appColorScheme, useTheme } from '~theme/ThemeContext';
-import { useUpdateAppColorScheme } from '~utils/hooks/useUpdateAppColorScheme';
+import { IAppColorScheme, ThemeProvider, appColorScheme, useTheme, useUpdateTheme } from '~theme/ThemeContext';
 import { getSecureStoreValue, secureStoreKeys } from '~utils/secureStore';
 
 SplashScreen.preventAutoHideAsync();
@@ -26,10 +26,11 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
   const [splashHidden, setSplashHidden] = useState(false);
 
   const theme = useTheme();
+  const colorScheme = useColorScheme();
   const auth = useAppSelector(state => state.auth);
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const updateAppColorScheme = useUpdateAppColorScheme();
+  const updateTheme = useUpdateTheme();
 
   const isAppReady = loaded && !initializing;
   const systemBackgroundColor = theme.colors.surfaceExtraDim;
@@ -53,11 +54,39 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
 
   useEffect(() => {
     const getSavedColorscheme = async () => {
-      const result = await getSecureStoreValue<IAppColorScheme>(secureStoreKeys.colorscheme);
-      updateAppColorScheme(result);
+      const v = await getSecureStoreValue<IAppColorScheme>(secureStoreKeys.colorscheme);
+      if (!v) {
+        if (colorScheme === 'light') {
+          updateTheme(appColorScheme.light, true);
+          setStatusBarStyle('dark');
+        } else {
+          updateTheme(appColorScheme.dark, true);
+          setStatusBarStyle('light');
+        }
+      } else {
+        if (v === appColorScheme.dark) {
+          updateTheme(appColorScheme.dark, false);
+          setStatusBarStyle('light');
+        } else if (v === appColorScheme.light) {
+          updateTheme(appColorScheme.light, false);
+          setStatusBarStyle('dark');
+        }
+      }
     };
     getSavedColorscheme();
-  }, [updateAppColorScheme]);
+  }, [colorScheme, updateTheme]);
+
+  useEffect(() => {
+    if (theme.systemDefault) {
+      Appearance.setColorScheme(null);
+    } else {
+      if (theme.id === appColorScheme.dark) {
+        Appearance.setColorScheme('dark');
+      } else if (theme.id === appColorScheme.light) {
+        Appearance.setColorScheme('light');
+      }
+    }
+  }, [theme.id, theme.systemDefault]);
 
   useEffect(() => {
     if (!auth.authed && isAppReady) {
