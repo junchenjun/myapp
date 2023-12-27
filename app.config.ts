@@ -81,21 +81,25 @@ const appConfig: ExpoConfig = {
     splash: {
       backgroundColor: '#F4F5F6',
       image: './src/assets/images/splash.png',
-      resizeMode: 'native',
+      resizeMode: 'contain',
       dark: {
         backgroundColor: '#141517',
         image: './src/assets/images/splashDark.png',
-        resizeMode: 'native',
+        resizeMode: 'contain',
       },
     },
   },
   ios: {
     bundleIdentifier: config.package,
     googleServicesFile: config.file.ios,
-  },
-  splash: {
-    backgroundColor: '#F4F5F6',
-    image: './src/assets/images/splash.png',
+    splash: {
+      backgroundColor: '#F4F5F6',
+      image: './src/assets/images/splash.png',
+      dark: {
+        backgroundColor: '#141517',
+        image: './src/assets/images/splashDark.png',
+      },
+    },
   },
   plugins: [
     '@react-native-firebase/app',

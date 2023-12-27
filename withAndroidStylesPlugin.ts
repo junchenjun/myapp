@@ -162,9 +162,9 @@ async function configureFullScreenDialog(
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:enforceNavigationBarContrast">false</item>
         <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
-        <item name="android:windowSplashScreenBackground">@color/splashscreen_background</item>
         <item name="android:windowLightNavigationBar">true</item>
         <item name="android:navigationBarColor">@color/navigationBarColor</item>
+        <item name="android:windowBackground">@color/activityBackground</item>
       </style>
     `)
   ).style as AndroidConfig.Resources.ResourceGroupXML;

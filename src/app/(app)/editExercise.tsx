@@ -97,7 +97,7 @@ export default function EditExercise() {
                 Rest Timer
               </Text>
               <View style={styles.iconWrapper}>
-                <Text variant='pLGRegular' colorKey='primary'>
+                <Text variant='pMDRegular' colorKey='primary'>
                   50s
                 </Text>
                 <Icon colorKey='primary' icon={icons.ExpandRight} />
