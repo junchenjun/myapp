@@ -21,11 +21,12 @@ import { useAppDispatch } from '~redux/store';
 import { createExercise } from '~redux/workoutCreationSlice';
 import { IExercise, IMuscleTarget } from '~redux/workoutSlice';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
+import { getTimerInfoBySeconds } from '~utils/dateTime';
 import { dismissKeyboardBeforeAction } from '~utils/navigation';
 
 export default function EditExercise() {
   const [title, setTile] = useState('');
-  const [timer, setTimer] = useState(0);
+  const [timer, setTimer] = useState(20);
   const [targets, setTargets] = useState<IMuscleTarget[]>([]);
   const [scrollTo, setScrollTo] = useState(0);
   const enableScrollTo = Platform.OS === 'ios';
@@ -71,6 +72,7 @@ export default function EditExercise() {
       }),
     []
   );
+  const timerInfo = getTimerInfoBySeconds(timer);
 
   return (
     <KeyboardSafeView>
@@ -116,7 +118,7 @@ export default function EditExercise() {
               </Text>
               <Pressable rippleConfig={{ foreground: true }} style={styles.iconWrapper} onPress={onRestTimerPress}>
                 <Text variant='pMDRegular' colorKey='primary'>
-                  {timer + 's'}
+                  {(timerInfo.min ? timerInfo.min + 'm' : '') + (timerInfo.sec ? timerInfo.sec + 's' : '0s')}
                 </Text>
                 <Icon colorKey='primary' icon={icons.ExpandRight} />
               </Pressable>

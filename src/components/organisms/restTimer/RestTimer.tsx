@@ -6,91 +6,34 @@ import { Button } from '~components/atoms/button/Button';
 import { Text } from '~components/atoms/text/Text';
 import ScrollPicker from '~components/layout/ScrollPicker/ScrollPicker';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
+import { getTimerInfoBySeconds, minuteOptions, secondOptions } from '~utils/dateTime';
 
 export const RestTimer = (props: { setTimer: Dispatch<SetStateAction<number>>; timer: number }) => {
   const { setTimer, timer } = props;
 
-  const [newTimer, setNewTimer] = useState(timer);
+  const values = getTimerInfoBySeconds(timer);
+  const [minutes, setMinutes] = useState<number>(values.min);
+  const [seconds, setSeconds] = useState<number>(values.sec);
 
   const pickerItemHeight = 50;
   const pickerHeight = pickerItemHeight * 3;
   const styles = useThemedStyles(themedStyles);
 
-  const mins = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10'];
-  const seconds = [
-    '00',
-    '01',
-    '02',
-    '03',
-    '04',
-    '05',
-    '06',
-    '07',
-    '08',
-    '09',
-    '10',
-    '11',
-    '12',
-    '13',
-    '14',
-    '15',
-    '16',
-    '17',
-    '18',
-    '19',
-    '20',
-    '21',
-    '22',
-    '23',
-    '24',
-    '25',
-    '26',
-    '27',
-    '28',
-    '29',
-    '30',
-    '31',
-    '32',
-    '33',
-    '34',
-    '35',
-    '36',
-    '37',
-    '38',
-    '39',
-    '40',
-    '41',
-    '42',
-    '43',
-    '44',
-    '45',
-    '46',
-    '47',
-    '48',
-    '49',
-    '50',
-    '51',
-    '52',
-    '53',
-    '54',
-    '55',
-    '56',
-    '57',
-    '58',
-    '59',
-  ];
-
+  const totalSeconds = minutes * 60 + seconds;
   const onSave = useCallback(() => {
-    setTimer(newTimer);
-  }, [newTimer, setTimer]);
+    setTimer(totalSeconds);
+  }, [setTimer, totalSeconds]);
+
+  const selectedMinuteIndex = values.min;
+  const selectedSecondIndex = values.sec;
 
   return (
     <View>
       <View style={styles.modal}>
         <View style={styles.picker}>
           <ScrollPicker
-            dataSource={mins}
-            selectedIndex={1}
+            data={minuteOptions}
+            selectedIndex={selectedMinuteIndex}
             renderItem={(data, selected) => {
               return (
                 <View style={{ paddingLeft: 70, height: '100%' }}>
@@ -100,8 +43,8 @@ export const RestTimer = (props: { setTimer: Dispatch<SetStateAction<number>>; t
                 </View>
               );
             }}
-            onValueChange={(data, selectedIndex) => {
-              //
+            onValueChange={data => {
+              setMinutes(Number(data));
             }}
             wrapperHeight={pickerHeight}
             itemHeight={pickerItemHeight}
@@ -112,8 +55,8 @@ export const RestTimer = (props: { setTimer: Dispatch<SetStateAction<number>>; t
             :
           </Text>
           <ScrollPicker
-            dataSource={seconds}
-            selectedIndex={30}
+            data={secondOptions}
+            selectedIndex={selectedSecondIndex}
             renderItem={(data, selected) => {
               return (
                 <View style={{ paddingRight: 70, height: '100%' }}>
@@ -123,8 +66,8 @@ export const RestTimer = (props: { setTimer: Dispatch<SetStateAction<number>>; t
                 </View>
               );
             }}
-            onValueChange={(data, selectedIndex) => {
-              //
+            onValueChange={data => {
+              setSeconds(Number(data));
             }}
             wrapperHeight={pickerHeight}
             itemHeight={pickerItemHeight}

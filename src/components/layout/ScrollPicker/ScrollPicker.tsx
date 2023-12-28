@@ -22,7 +22,7 @@ import {
 import { NativeViewGestureHandlerProps } from 'react-native-gesture-handler';
 
 export type ScrollPickerProps<ItemT extends string | number> = {
-  dataSource: ItemT[];
+  data: ItemT[];
   selectedIndex?: number;
   onValueChange?: (value: ItemT, index: number) => void;
   renderItem: (data: ItemT, isSelected: boolean, index: number) => JSX.Element;
@@ -83,7 +83,7 @@ const ScrollPicker: {
     return { header, footer };
   };
 
-  const renderItem = (data: (typeof props.dataSource)[0], index: number) => {
+  const renderItem = (data: (typeof props.data)[0], index: number) => {
     const isSelected = index === selectedIndex;
     const item = props.renderItem(data, isSelected, index);
 
@@ -115,7 +115,7 @@ const ScrollPicker: {
       }
       // onValueChange
       if (props.onValueChange) {
-        const selectedValue = props.dataSource[_selectedIndex];
+        const selectedValue = props.data[_selectedIndex];
         setSelectedIndex(_selectedIndex);
         props.onValueChange(selectedValue, _selectedIndex);
       }
@@ -181,7 +181,7 @@ const ScrollPicker: {
         onScrollEndDrag={(e: NativeSyntheticEvent<NativeScrollEvent>) => onScrollEndDrag(e)}
       >
         {header}
-        {props.dataSource.map(renderItem)}
+        {props.data.map(renderItem)}
         {footer}
       </CustomScrollViewComponent>
     </View>
