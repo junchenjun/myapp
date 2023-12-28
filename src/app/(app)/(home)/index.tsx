@@ -7,6 +7,7 @@ import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { icons } from '~assets/icons';
 import { ListItem } from '~components/atoms/listItem/ListItem';
 import { Modal } from '~components/atoms/modal/Modal';
+import { Pressable } from '~components/atoms/pressable/Pressable';
 import { Text } from '~components/atoms/text/Text';
 import { WeeklyActivity } from '~components/molecules/weeklyActivity/WeeklyActivity';
 import { BottomMenu } from '~components/organisms/bottomMenu/BottomMenu';
@@ -172,7 +173,9 @@ const Home = () => {
             />
           </View>
         </View>
-        <Text>{'colorScheme ' + (colorScheme || 'null')}</Text>
+        <Pressable>
+          <Text>{'colorScheme ' + (colorScheme || 'null')}</Text>
+        </Pressable>
         {/* List */}
         {workouts && (
           <Animated.View entering={FadeIn} exiting={FadeOut} style={styles.list}>

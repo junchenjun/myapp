@@ -1,5 +1,6 @@
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import * as Sentry from 'sentry-expo';
 
 (async () =>
   await firestore().settings({
@@ -24,9 +25,9 @@ export const getUserConfig = async (id: string) => {
   return (await firebaseStore().collection(collections.user.name).doc(id).get()).data();
 };
 
-export const createFolder = async (name: string) => {
+export const createFolder = (name: string) => {
   const uid = auth().currentUser?.uid;
-  return await firebaseStore()
+  return firebaseStore()
     .collection(collections.user.name)
     .doc(uid)
     .collection(collections.user.subCollections.plan.name)
@@ -35,27 +36,30 @@ export const createFolder = async (name: string) => {
     })
     .then(docRef => {
       return docRef.id;
-    });
+    })
+    .catch(error => Sentry.Native.captureException(error));
 };
 
-export const updateFolderName = async ({ id, name }: { id: string; name: string }) => {
+export const updateFolderName = ({ id, name }: { id: string; name: string }) => {
   const uid = auth().currentUser?.uid;
-  return await firebaseStore()
+  return firebaseStore()
     .collection(collections.user.name)
     .doc(uid)
     .collection(collections.user.subCollections.plan.name)
     .doc(id)
     .update({
       name,
-    });
+    })
+    .catch(error => Sentry.Native.captureException(error));
 };
 
-export const deleteFolder = async (folderId: string) => {
+export const deleteFolder = (folderId: string) => {
   const uid = auth().currentUser?.uid;
-  return await firebaseStore()
+  return firebaseStore()
     .collection(collections.user.name)
     .doc(uid)
     .collection(collections.user.subCollections.plan.name)
     .doc(folderId)
-    .delete();
+    .delete()
+    .catch(error => Sentry.Native.captureException(error));
 };

@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { Appearance, Platform, View, useColorScheme } from 'react-native';
 import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
+import * as Sentry from 'sentry-expo';
 
 import { collections, firebaseAuth, firebaseStore } from '~firebase/firebaseConfig';
 import { setAuth } from '~redux/authSlice';
@@ -18,6 +19,17 @@ import { store, useAppDispatch, useAppSelector } from '~redux/store';
 import { IAppColorScheme, ThemeProvider, appColorScheme, useTheme, useUpdateTheme } from '~theme/ThemeContext';
 import { getSecureStoreValue, secureStoreKeys } from '~utils/secureStore';
 import '~i18n/i18n';
+
+Sentry.init({
+  dsn: 'https://a7fe81a7cd114e72ec0711cf63cb8bb0@o4506469899173888.ingest.sentry.io/4506469913657344',
+  enableInExpoDevelopment: true,
+  debug: false, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
+  // integrations: [
+  //   new Sentry.Native.ReactNativeTracing({
+  //     enableUserInteractionTracing: true,
+  //   }),
+  // ],
+});
 
 SplashScreen.preventAutoHideAsync();
 const storybookEnabled = process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true';
@@ -102,6 +114,7 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
     }
   }, [splashHidden, theme.colors.surface]);
 
+  // onAuthStateChanged
   useEffect(() => {
     const subscriber = firebaseAuth().onAuthStateChanged(async (user: FirebaseAuthTypes.User | null) => {
       if (user) {
@@ -114,26 +127,33 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
           uid: user.uid,
         };
         dispatch(setAuth(userInfo));
-
-        firebaseStore()
-          .collection(collections.user.name)
-          .doc(user.uid)
-          .collection(collections.user.subCollections.plan.name)
-          .onSnapshot(snapshot => {
-            const data = [] as IFolder[];
-            snapshot.forEach(doc => {
-              data.push({ ...doc.data(), id: doc.id } as IFolder);
-            });
-            dispatch(setFolders(data));
-          });
       } else {
         dispatch(setAuth());
         dispatch(setFolders());
       }
       setInitializing(false);
     });
-    return subscriber;
+    return () => subscriber();
   }, [dispatch]);
+
+  // onSnapshot
+  useEffect(() => {
+    const subscriber = firebaseStore()
+      .collection(collections.user.name)
+      .doc(auth.user?.uid)
+      .collection(collections.user.subCollections.plan.name)
+      .onSnapshot(
+        snapshot => {
+          const data = [] as IFolder[];
+          snapshot.forEach(doc => {
+            data.push({ ...doc.data(), id: doc.id } as IFolder);
+          });
+          dispatch(setFolders(data));
+        },
+        error => Sentry.Native.captureException(error)
+      );
+    return () => subscriber();
+  }, [auth.user?.uid, dispatch]);
 
   if (!loaded) {
     return null;
@@ -162,7 +182,7 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
   );
 };
 
-export default function Root() {
+function Root() {
   const [loaded] = useFonts({
     'Kanit-Medium': require('../assets/fonts/Kanit-Medium.ttf'),
     'Kanit-Regular': require('../assets/fonts/Kanit-Regular.ttf'),
@@ -193,3 +213,5 @@ export default function Root() {
   }
   return EntryPoint;
 }
+
+export default Sentry.Native.wrap(Root);

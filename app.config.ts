@@ -104,6 +104,7 @@ const appConfig: ExpoConfig = {
   plugins: [
     '@react-native-firebase/app',
     '@react-native-google-signin/google-signin',
+    'sentry-expo',
     [
       'expo-build-properties',
       {
@@ -112,18 +113,20 @@ const appConfig: ExpoConfig = {
         },
       },
     ],
-    // [
-    //   'expo-font',
-    //   {
-    //     fonts: [
-    //       './src/assets/fonts/Kanit-Medium.ttf',
-    //       './src/assets/fonts/Kanit-Regular.ttf',
-    //       './src/assets/fonts/Kanit-SemiBold.ttf',
-    //     ],
-    //   },
-    // ],
     ['./withAndroidStylesPlugin', 'withAndroidStylesPlugin'],
   ],
+  hooks: {
+    postPublish: [
+      {
+        file: 'sentry-expo/upload-sourcemaps',
+        config: {
+          organization: 'jun-my-app',
+          project: 'pump',
+          authToken: process.env.EXPO_PUBLIC_SENTRY_AUTH_TOKEN,
+        },
+      },
+    ],
+  },
   experiments: {
     tsconfigPaths: true,
   },
