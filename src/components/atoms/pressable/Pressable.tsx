@@ -27,6 +27,7 @@ export const Pressable = (props: IProps) => {
   const onPressOpacity = useSharedValue(1);
   const onPressScale = useSharedValue(1);
   const scaleDownAnimation = (iosScaleDownAnimation && Platform.OS === 'ios') || tabBarButton;
+  const opacityAnimation = Platform.OS === 'ios' || tabBarButton;
   // const scaleDownAnimation = iosScaleDownAnimation || tabBarButton;
 
   const rippleDisabled = rippleConfig?.disabled;
@@ -35,11 +36,11 @@ export const Pressable = (props: IProps) => {
 
   const onPressOpacityStyle = useAnimatedStyle(() => {
     return {
-      opacity: withTiming(onPressOpacity.value, { duration: 100 }),
+      opacity: withTiming(onPressOpacity.value, { duration: 80 }),
     };
   });
   const onPressScaleStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: withTiming(onPressScale.value, { duration: 100 }) }],
+    transform: [{ scale: withTiming(onPressScale.value, { duration: 80 }) }],
   }));
 
   const onPressIn = useCallback(() => {
@@ -53,7 +54,17 @@ export const Pressable = (props: IProps) => {
   }, [onPressOpacity, onPressScale, scaleDownAnimation]);
 
   return onPress ? (
-    <Animated.View style={[onPressOpacityStyle, scaleDownAnimation && onPressScaleStyle, tabBarButton && { flex: 1 }]}>
+    <Animated.View
+      style={[
+        style && {
+          backgroundColor: (style as ViewStyle).backgroundColor,
+          borderRadius: (style as ViewStyle).borderRadius,
+        },
+        opacityAnimation && onPressOpacityStyle,
+        scaleDownAnimation && onPressScaleStyle,
+        tabBarButton && { flex: 1 },
+      ]}
+    >
       <RNPressable
         hitSlop={hitSlop ?? 20}
         disabled={disabled}
@@ -70,10 +81,10 @@ export const Pressable = (props: IProps) => {
             : undefined
         }
         style={[style, disabled && { opacity: opacityValue }, tabBarButton && { flex: 1 }]}
-        onPressIn={Platform.OS === 'ios' || tabBarButton ? onPressIn : undefined}
+        onPressIn={opacityAnimation || scaleDownAnimation ? onPressIn : undefined}
         // onPressIn={onPressIn}
         onPress={onPress}
-        onPressOut={Platform.OS === 'ios' || tabBarButton ? onPressOut : undefined}
+        onPressOut={opacityAnimation || scaleDownAnimation ? onPressOut : undefined}
         // onPressOut={onPressOut}
       >
         {children}

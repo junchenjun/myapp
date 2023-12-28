@@ -25,7 +25,7 @@ import { ITheme, IThemeColorKeys, useThemedStyles } from '~theme/ThemeContext';
  * hook that dismisses the bottom sheet on the hardware back button press if it is visible
  * @param bottomSheetRef ref to the bottom sheet which is going to be closed/dismissed on the back press
  */
-const useBottomSheetBackHandler = (bottomSheetRef: React.RefObject<BottomSheetModal | null>) => {
+const useBottomSheetBackHandler = (bottomSheetRef: RefObject<BottomSheetModal | null>) => {
   const backHandlerSubscriptionRef = useRef<NativeEventSubscription | null>(null);
   const handleSheetPositionChange = useCallback<NonNullable<BottomSheetModalProps['onChange']>>(
     (index: number) => {

@@ -26,21 +26,21 @@ import { dismissKeyboardBeforeAction } from '~utils/navigation';
 
 export default function EditExercise() {
   const [title, setTile] = useState('');
-  const [timer, setTimer] = useState(20);
+  const [restTime, setRestTime] = useState(20);
   const [targets, setTargets] = useState<IMuscleTarget[]>([]);
   const [scrollTo, setScrollTo] = useState(0);
-  const enableScrollTo = Platform.OS === 'ios';
 
   const styles = useThemedStyles(themedStyles);
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
+
   const ref = useRef<ScrollView>(null);
   const targetsModalRef = useRef<BottomSheetModal>(null);
   const restTimerModalRef = useRef<BottomSheetModal>(null);
 
-  const { t } = useTranslation();
-
   // ios only
+  const enableScrollTo = Platform.OS === 'ios';
   const onLayout = useCallback((event: LayoutChangeEvent) => {
     const onLayoutHeight = event.nativeEvent.layout.y;
     setScrollTo(Math.round(onLayoutHeight));
@@ -52,11 +52,6 @@ export default function EditExercise() {
   const onRestTimerPress = useCallback(() => {
     restTimerModalRef.current?.present();
   }, []);
-
-  const formValues: IExercise = {
-    title,
-    targets,
-  };
 
   const titleRequiredAlert = useCallback(
     () =>
@@ -72,16 +67,22 @@ export default function EditExercise() {
       }),
     []
   );
-  const timerInfo = getTimerInfoBySeconds(timer);
+  const restTimeInfo = getTimerInfoBySeconds(restTime);
+
+  const formValues: IExercise = {
+    title,
+    targets,
+    restTime,
+  };
 
   return (
     <KeyboardSafeView>
       <TargetMusclesModal modalRef={targetsModalRef} targets={targets} setTargets={setTargets} />
-      <Modal autoDismissKeyboard={false} modalRef={restTimerModalRef} title='Rest Time'>
+      <Modal autoDismissKeyboard={false} modalRef={restTimerModalRef} title={t('restTimer')}>
         <RestTimer
-          timer={timer}
+          timer={restTime}
           setTimer={v => {
-            setTimer(v);
+            setRestTime(v);
             restTimerModalRef.current?.dismiss();
           }}
         />
@@ -94,7 +95,7 @@ export default function EditExercise() {
           <View style={[styles.item, styles.targets]}>
             <View style={[styles.itemTitle]}>
               <Text variant='pMDRegular' colorKey='onSurfaceDim'>
-                Target Muscle*
+                {t('targetMuscles') + '*'}
               </Text>
               <Icon onPress={onTargetsPress} colorKey='primary' icon={targets.length ? icons.Config : icons.Plus} />
             </View>
@@ -114,11 +115,12 @@ export default function EditExercise() {
           <View style={styles.item}>
             <View style={styles.itemTitle}>
               <Text variant='pMDRegular' colorKey='onSurfaceDim'>
-                Rest Timer
+                {t('restTimer')}
               </Text>
               <Pressable rippleConfig={{ foreground: true }} style={styles.iconWrapper} onPress={onRestTimerPress}>
                 <Text variant='pMDRegular' colorKey='primary'>
-                  {(timerInfo.min ? timerInfo.min + 'm' : '') + (timerInfo.sec ? timerInfo.sec + 's' : '0s')}
+                  {(restTimeInfo.min ? restTimeInfo.min + 'm' : '') +
+                    (restTimeInfo.sec ? restTimeInfo.sec + 's' : '0s')}
                 </Text>
                 <Icon colorKey='primary' icon={icons.ExpandRight} />
               </Pressable>

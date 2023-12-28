@@ -1,6 +1,5 @@
 import React, {
   useCallback,
-  useEffect,
   useRef,
   useState,
   useImperativeHandle,
@@ -37,11 +36,12 @@ export type ScrollPickerHandle = {
   scrollToTargetIndex: (val: number) => void;
 };
 
+// https://github.com/rheng001/react-native-wheel-scrollview-picker
+
 const ScrollPicker: {
   <ItemT extends string | number>(props: ScrollPickerProps<ItemT> & { ref?: Ref<ScrollPickerHandle> }): ReactNode;
 } = React.forwardRef((propsState, ref) => {
   const { itemHeight = 30, scrollViewComponent, ...props } = propsState;
-  const [initialized, setInitialized] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(
     props.selectedIndex && props.selectedIndex >= 0 ? props.selectedIndex : 0
   );
@@ -52,29 +52,15 @@ const ScrollPicker: {
   const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
 
   useImperativeHandle(ref, () => ({
-    scrollToTargetIndex: (val: number) => {
-      setSelectedIndex(val);
-      sView?.current?.scrollTo({ y: val * itemHeight });
+    scrollToTargetIndex: (index: number) => {
+      setSelectedIndex(index);
+      sView?.current?.scrollTo({ y: index * itemHeight });
+      const selectedValue = props.data[index];
+      props?.onValueChange?.(selectedValue, index);
     },
   }));
 
   const wrapperHeight = props.wrapperHeight;
-  useEffect(
-    function initialize() {
-      if (initialized) return;
-      setInitialized(true);
-
-      setTimeout(() => {
-        const y = itemHeight * selectedIndex;
-        sView?.current?.scrollTo({ y });
-      }, 0);
-
-      return () => {
-        timer && clearTimeout(timer);
-      };
-    },
-    [initialized, itemHeight, selectedIndex, sView, timer]
-  );
 
   const renderPlaceHolder = () => {
     const h = (wrapperHeight - itemHeight) / 2;
@@ -168,6 +154,9 @@ const ScrollPicker: {
 
   const CustomScrollViewComponent = scrollViewComponent || ScrollView;
 
+  // initial position
+  const contentOffset = { x: 0, y: itemHeight * (props.selectedIndex || 0) };
+
   return (
     <View style={wrapperStyle}>
       <CustomScrollViewComponent
@@ -179,6 +168,7 @@ const ScrollPicker: {
         onMomentumScrollEnd={(e: NativeSyntheticEvent<NativeScrollEvent>) => onMomentumScrollEnd(e)}
         onScrollBeginDrag={() => onScrollBeginDrag()}
         onScrollEndDrag={(e: NativeSyntheticEvent<NativeScrollEvent>) => onScrollEndDrag(e)}
+        contentOffset={contentOffset}
       >
         {header}
         {props.data.map(renderItem)}

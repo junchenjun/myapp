@@ -62,12 +62,18 @@ export const secondOptions = [
   '59',
 ];
 
-export const getTimerInfoBySeconds = (seconds: number) => {
-  const m = seconds / 60 > 0 ? Math.floor(seconds / 60) : 0;
-  const s = m > 0 ? seconds - m * 60 : seconds;
-
-  return {
-    min: m,
-    sec: s,
-  };
+export const getTimerInfoBySeconds = (seconds?: number) => {
+  if (seconds) {
+    const m = seconds / 60 > 0 ? Math.floor(seconds / 60) : 0;
+    const s = m > 0 ? seconds - m * 60 : seconds;
+    return {
+      min: m,
+      sec: s,
+    };
+  } else {
+    return {
+      min: 0,
+      sec: 0,
+    };
+  }
 };
