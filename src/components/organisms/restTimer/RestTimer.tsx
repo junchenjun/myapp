@@ -48,7 +48,7 @@ export const RestTimer = (props: { setTimer: Dispatch<SetStateAction<number>>; t
 
   const presets = [
     {
-      icon: icons.Folder,
+      icon: icons.Disable,
       label: t('disabled'),
     },
     {

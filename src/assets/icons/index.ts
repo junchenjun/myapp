@@ -6,6 +6,7 @@ import { IconCalendar } from '~assets/icons/IconCalendar';
 import { IconChecked } from '~assets/icons/IconChecked';
 import { IconCollections } from '~assets/icons/IconCollections';
 import { IconConfig } from '~assets/icons/IconConfig';
+import { IconDisable } from '~assets/icons/IconDisable';
 import { IconEdit } from '~assets/icons/IconEdit';
 import { IconExpandDown } from '~assets/icons/IconExpandDown';
 import { IconExpandRight } from '~assets/icons/IconExpandRight';
@@ -70,6 +71,7 @@ const icons = {
   Folder: IconFolder,
   Config: IconConfig,
   Star: IconStar,
+  Disable: IconDisable,
 };
 
 type IIcon = (typeof icons)[keyof typeof icons];
