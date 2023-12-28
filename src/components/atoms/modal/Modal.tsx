@@ -7,8 +7,14 @@ import {
   BottomSheetView,
 } from '@gorhom/bottom-sheet';
 import { ReactElement, RefObject, useCallback, useRef } from 'react';
-import { BackHandler, Keyboard, NativeEventSubscription, StyleSheet, View } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import {
+  BackHandler,
+  Keyboard,
+  NativeEventSubscription,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import { EdgeInsets, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button, IButtonProps } from '~components/atoms/button/Button';
