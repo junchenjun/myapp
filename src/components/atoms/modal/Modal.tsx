@@ -52,8 +52,12 @@ interface IProps {
   title?: string;
   backgroundColorKey?: Extract<IThemeColorKeys, 'surface' | 'surfaceExtraBright'>;
   onDismiss?: () => void;
-  scrollEnabled?: boolean;
   floatButton?: Pick<IButtonProps, 'title' | 'disabled' | 'onPress' | 'icon'>;
+  scrollEnabled?: boolean;
+  // autoDismissKeyboard required to be false to work with ScrollPicker
+  // autoDismissKeyboard required to be true to work with non-scrollable modal with Input
+  // autoDismissKeyboard overwrites scrollEnabled
+  autoDismissKeyboard?: boolean;
 }
 
 export const Modal = (props: IProps) => {
@@ -64,6 +68,7 @@ export const Modal = (props: IProps) => {
     scrollEnabled,
     floatButton,
     backgroundColorKey = 'surfaceExtraBright',
+    autoDismissKeyboard = true,
     onDismiss,
   } = props;
   const insets = useSafeAreaInsets();
@@ -73,6 +78,14 @@ export const Modal = (props: IProps) => {
   const renderBackdrop = useCallback(
     (props: BottomSheetBackdropProps) => <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} />,
     []
+  );
+
+  const titleComponent = title && (
+    <View style={[styles.title, scrollEnabled && styles.borderedTitle]}>
+      <Text variant='h6Regular' colorKey='onSurface'>
+        {title}
+      </Text>
+    </View>
   );
 
   return (
@@ -94,13 +107,7 @@ export const Modal = (props: IProps) => {
     >
       {scrollEnabled ? (
         <>
-          {title && (
-            <View style={[styles.title, scrollEnabled && styles.borderedTitle]}>
-              <Text variant='h6Regular' colorKey='onSurface'>
-                {title}
-              </Text>
-            </View>
-          )}
+          {titleComponent}
           <BottomSheetScrollView
             showsVerticalScrollIndicator={false}
             scrollEnabled={!!scrollEnabled}
@@ -109,19 +116,18 @@ export const Modal = (props: IProps) => {
             {children}
           </BottomSheetScrollView>
         </>
-      ) : (
+      ) : autoDismissKeyboard ? (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
           <BottomSheetView style={[styles.view, !!title && styles.withTitle]}>
-            {title && (
-              <View style={[styles.title, scrollEnabled && styles.borderedTitle]}>
-                <Text variant='h6Regular' colorKey='onSurface'>
-                  {title}
-                </Text>
-              </View>
-            )}
+            {titleComponent}
             {children}
           </BottomSheetView>
         </TouchableWithoutFeedback>
+      ) : (
+        <BottomSheetView style={[styles.view, !!title && styles.withTitle]}>
+          {titleComponent}
+          {children}
+        </BottomSheetView>
       )}
 
       {floatButton && <Button {...floatButton} variant='primary' float alignment='center' />}

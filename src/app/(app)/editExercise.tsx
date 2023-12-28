@@ -11,8 +11,11 @@ import { Card } from '~components/atoms/card/Card';
 import { Icon } from '~components/atoms/icon/Icon';
 import { Input } from '~components/atoms/input/Input';
 import { Label } from '~components/atoms/label/Label';
+import { Modal } from '~components/atoms/modal/Modal';
+import { Pressable } from '~components/atoms/pressable/Pressable';
 import { Text } from '~components/atoms/text/Text';
 import { KeyboardSafeView } from '~components/layout/keyboardSafeView/KeyboardSafeView';
+import { RestTimer } from '~components/organisms/restTimer/RestTimer';
 import { TargetMusclesModal } from '~components/organisms/targetMusclesModal/TargetMusclesModal';
 import { useAppDispatch } from '~redux/store';
 import { createExercise } from '~redux/workoutCreationSlice';
@@ -22,6 +25,7 @@ import { dismissKeyboardBeforeAction } from '~utils/navigation';
 
 export default function EditExercise() {
   const [title, setTile] = useState('');
+  const [timer, setTimer] = useState(0);
   const [targets, setTargets] = useState<IMuscleTarget[]>([]);
   const [scrollTo, setScrollTo] = useState(0);
   const enableScrollTo = Platform.OS === 'ios';
@@ -31,6 +35,8 @@ export default function EditExercise() {
   const dispatch = useAppDispatch();
   const ref = useRef<ScrollView>(null);
   const targetsModalRef = useRef<BottomSheetModal>(null);
+  const restTimerModalRef = useRef<BottomSheetModal>(null);
+
   const { t } = useTranslation();
 
   // ios only
@@ -41,6 +47,9 @@ export default function EditExercise() {
 
   const onTargetsPress = useCallback(() => {
     targetsModalRef.current?.present();
+  }, []);
+  const onRestTimerPress = useCallback(() => {
+    restTimerModalRef.current?.present();
   }, []);
 
   const formValues: IExercise = {
@@ -66,6 +75,15 @@ export default function EditExercise() {
   return (
     <KeyboardSafeView>
       <TargetMusclesModal modalRef={targetsModalRef} targets={targets} setTargets={setTargets} />
+      <Modal autoDismissKeyboard={false} modalRef={restTimerModalRef} title='Rest Time'>
+        <RestTimer
+          timer={timer}
+          setTimer={v => {
+            setTimer(v);
+            restTimerModalRef.current?.dismiss();
+          }}
+        />
+      </Modal>
       <ScrollView ref={ref} showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
         <Card>
           <View style={[styles.item, styles.topItem]}>
@@ -96,12 +114,12 @@ export default function EditExercise() {
               <Text variant='pMDRegular' colorKey='onSurfaceDim'>
                 Rest Timer
               </Text>
-              <View style={styles.iconWrapper}>
+              <Pressable rippleConfig={{ foreground: true }} style={styles.iconWrapper} onPress={onRestTimerPress}>
                 <Text variant='pMDRegular' colorKey='primary'>
-                  50s
+                  {timer + 's'}
                 </Text>
                 <Icon colorKey='primary' icon={icons.ExpandRight} />
-              </View>
+              </Pressable>
             </View>
           </View>
           <View style={styles.item}>
