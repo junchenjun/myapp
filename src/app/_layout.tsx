@@ -23,7 +23,7 @@ import '~i18n/i18n';
 Sentry.init({
   dsn: 'https://a7fe81a7cd114e72ec0711cf63cb8bb0@o4506469899173888.ingest.sentry.io/4506469913657344',
   enableInExpoDevelopment: true,
-  debug: false, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
+  debug: false,
   // integrations: [
   //   new Sentry.Native.ReactNativeTracing({
   //     enableUserInteractionTracing: true,
@@ -46,12 +46,8 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
   const updateTheme = useUpdateTheme();
 
   const isAppReady = loaded && !initializing;
-  const systemBackgroundColor = theme.colors.surfaceExtraDim;
 
-  useEffect(() => {
-    SystemUI.setBackgroundColorAsync(systemBackgroundColor);
-  }, [systemBackgroundColor]);
-
+  // splash screen
   useEffect(() => {
     if (isAppReady) {
       const hide = async () => {
@@ -65,6 +61,14 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
     }
   }, [isAppReady]);
 
+  // auth redirect
+  useEffect(() => {
+    if (!auth.authed && isAppReady) {
+      router.replace('auth');
+    }
+  }, [auth.authed, isAppReady, router]);
+
+  // themes and colors
   useEffect(() => {
     const getSavedColorscheme = async () => {
       const v = await getSecureStoreValue<IAppColorScheme>(secureStoreKeys.colorscheme);
@@ -102,17 +106,12 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
   }, [theme.id, theme.systemDefault]);
 
   useEffect(() => {
-    if (!auth.authed && isAppReady) {
-      router.replace('auth');
-    }
-  }, [auth.authed, isAppReady, router]);
-
-  useEffect(() => {
     if (Platform.OS === 'android' && splashHidden) {
       NavigationBar.setBackgroundColorAsync(theme.colors.surface);
       NavigationBar.setBorderColorAsync(theme.colors.surface);
+      SystemUI.setBackgroundColorAsync(theme.colors.surfaceExtraDim);
     }
-  }, [splashHidden, theme.colors.surface]);
+  }, [splashHidden, theme.colors.surface, theme.colors.surfaceExtraDim]);
 
   // onAuthStateChanged
   useEffect(() => {

@@ -50,14 +50,14 @@ export default function EditExercise() {
 
   const titleRequiredAlert = useCallback(
     () =>
-      Alert.alert('', 'Exercise Title is required', [{ text: 'OK' }], {
+      Alert.alert('Exercise Title is required', '', [{ text: 'OK' }], {
         cancelable: true,
       }),
     []
   );
   const targetsRequiredAlert = useCallback(
     () =>
-      Alert.alert('', 'At least 1 target muscle is required', [{ text: 'OK' }], {
+      Alert.alert('At least 1 target muscle is required', '', [{ text: 'OK' }], {
         cancelable: true,
       }),
     []
