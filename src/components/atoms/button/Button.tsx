@@ -36,7 +36,6 @@ export const Button = (props: IButtonProps) => {
   const insets = useSafeAreaInsets();
   const floatBottomInset = insets.bottom + 25;
   const styles = useThemedStyles(themedStyles(variant, floatBottomInset));
-
   // ios float only
   const floatBottomKeyboardInset = 14;
   const bottom = useSharedValue(floatBottomInset);

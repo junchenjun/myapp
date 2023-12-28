@@ -20,6 +20,9 @@ import { IAppColorScheme, ThemeProvider, appColorScheme, useTheme, useUpdateThem
 import { getSecureStoreValue, secureStoreKeys } from '~utils/secureStore';
 import '~i18n/i18n';
 
+SplashScreen.preventAutoHideAsync();
+const storybookEnabled = process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true';
+
 Sentry.init({
   dsn: 'https://a7fe81a7cd114e72ec0711cf63cb8bb0@o4506469899173888.ingest.sentry.io/4506469913657344',
   enableInExpoDevelopment: true,
@@ -31,10 +34,7 @@ Sentry.init({
   // ],
 });
 
-SplashScreen.preventAutoHideAsync();
-const storybookEnabled = process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true';
-
-const RootLayout = ({ loaded }: { loaded: boolean }) => {
+const Root = ({ loaded }: { loaded: boolean }) => {
   const [initializing, setInitializing] = useState(true);
   const [splashHidden, setSplashHidden] = useState(false);
 
@@ -181,7 +181,7 @@ const RootLayout = ({ loaded }: { loaded: boolean }) => {
   );
 };
 
-function Root() {
+function App() {
   const [loaded] = useFonts({
     'Kanit-Medium': require('../assets/fonts/Kanit-Medium.ttf'),
     'Kanit-Regular': require('../assets/fonts/Kanit-Regular.ttf'),
@@ -192,7 +192,7 @@ function Root() {
   let EntryPoint = (
     <Provider store={store}>
       <ThemeProvider>
-        <RootLayout loaded={loaded} />
+        <Root loaded={loaded} />
       </ThemeProvider>
     </Provider>
   );
@@ -213,4 +213,4 @@ function Root() {
   return EntryPoint;
 }
 
-export default Sentry.Native.wrap(Root);
+export default Sentry.Native.wrap(App);
