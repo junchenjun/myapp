@@ -41,7 +41,7 @@ export const WeeklyActivity = ({ config }: IWeeklyActivityProps) => {
     <View style={styles.container}>
       {Object.values(config).map((i, index) =>
         i.onPress ? (
-          <Pressable style={styles.item} key={index} onPress={i.onPress} hitSlop={5}>
+          <Pressable style={styles.item} key={index} onPress={i.onPress}>
             {getItem(i)}
           </Pressable>
         ) : (

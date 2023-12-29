@@ -18,7 +18,7 @@ export default function Layout() {
   const iconSize = 27;
 
   const tabBarButton = (props: BottomTabBarButtonProps) => {
-    return <Pressable {...props} onPress={props.onPress} hitSlop={10} />;
+    return <Pressable {...props} onPress={props.onPress} />;
   };
 
   return (
