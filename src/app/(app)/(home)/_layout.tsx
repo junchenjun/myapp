@@ -37,6 +37,7 @@ export default function Layout() {
       }}
       initialRouteName='index'
       backBehavior='initialRoute'
+      sceneContainerStyle={{ backgroundColor: theme.colors.surfaceExtraDim }}
     >
       <Tabs.Screen
         name='(activity)'

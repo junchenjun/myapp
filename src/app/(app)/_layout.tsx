@@ -7,9 +7,11 @@ import { Text } from '~components/atoms/text/Text';
 import { IActionPageHeader, PageHeader } from '~components/molecules/pageHeader/PageHeader';
 import { useAppDispatch } from '~redux/store';
 import { resetWorkoutCreation } from '~redux/workoutCreationSlice';
+import { useTheme } from '~theme/ThemeContext';
 
 export default function Layout() {
   const dispatch = useAppDispatch();
+  const theme = useTheme();
 
   const createAlert = () =>
     Alert.alert(
@@ -32,6 +34,7 @@ export default function Layout() {
       screenOptions={{
         animation: 'default',
         headerShown: false,
+        contentStyle: { backgroundColor: theme.colors.surfaceExtraDim },
       }}
     >
       <Stack.Screen

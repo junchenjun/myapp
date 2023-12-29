@@ -70,6 +70,8 @@ function MyTabBar({ state, descriptors, navigation, position }: MaterialTopTabBa
 }
 
 export default function Layout() {
+  const theme = useTheme();
+
   return (
     <MaterialTopTabs
       backBehavior='initialRoute'
@@ -79,6 +81,7 @@ export default function Layout() {
         tabBarShowIcon: false,
         tabBarPressColor: 'transparent',
       }}
+      sceneContainerStyle={{ backgroundColor: theme.colors.surfaceExtraDim }}
     >
       <MaterialTopTabs.Screen name='activity' key='activity' options={{ title: 'Activity' }} />
       <MaterialTopTabs.Screen name='library' key='library' options={{ title: 'Library' }} />

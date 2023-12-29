@@ -1,6 +1,5 @@
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { ThemeProvider as RNThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import * as NavigationBar from 'expo-navigation-bar';
 import { Slot, SplashScreen, useRouter } from 'expo-router';
@@ -158,25 +157,11 @@ const Root = ({ loaded }: { loaded: boolean }) => {
     return null;
   }
 
-  const navTheme = {
-    dark: theme.id === appColorScheme.dark,
-    colors: {
-      primary: theme.colors.primary,
-      card: theme.colors.surfaceExtraDim,
-      text: theme.colors.onPrimary,
-      border: theme.colors.outlineDim,
-      notification: theme.colors.primary,
-      background: theme.colors.surfaceExtraDim,
-    },
-  };
-
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-      <RNThemeProvider value={navTheme}>
-        <BottomSheetModalProvider>
-          <Slot />
-        </BottomSheetModalProvider>
-      </RNThemeProvider>
+      <BottomSheetModalProvider>
+        <Slot />
+      </BottomSheetModalProvider>
     </SafeAreaProvider>
   );
 };
