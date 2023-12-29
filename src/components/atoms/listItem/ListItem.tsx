@@ -102,7 +102,6 @@ const themedStyles = ({ color, size }: { color: IListItemProps['color']; size: I
       container: {
         width: '100%',
         overflow: 'hidden',
-        backgroundColor,
       },
       pressable: {
         backgroundColor,
