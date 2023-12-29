@@ -16,7 +16,7 @@ export const BottomMenu = (props: IProps) => {
   return (
     <View style={styles.content}>
       {items.map((i, index) => {
-        return <ListItem iosScaleDownAnimation key={index} {...i} roundedBottomCorners roundedTopCorners />;
+        return <ListItem key={index} {...i} roundedBottomCorners roundedTopCorners />;
       })}
     </View>
   );

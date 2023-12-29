@@ -10,7 +10,6 @@ export type IIconProps = {
   colorKey?: IThemeColorKeys;
   fill?: 'none' | IThemeColorKeys;
   onPress?: () => void;
-  rippleColor?: Extract<IThemeColorKeys, 'rippleDim' | 'ripple'>;
   style?: StyleProp<ViewStyle>;
   strokeWidth?: 1.5 | 2;
 };
@@ -21,7 +20,6 @@ export const Icon = ({
   colorKey,
   fill = 'none',
   onPress,
-  rippleColor,
   style,
   strokeWidth,
 }: IIconProps) => {
@@ -41,11 +39,7 @@ export const Icon = ({
   );
 
   return (
-    <Pressable
-      style={[{ width: size }, style]}
-      rippleConfig={{ radius: size, colorKey: rippleColor, foreground: true }}
-      onPress={onPress}
-    >
+    <Pressable style={[{ width: size }, style]} onPress={onPress}>
       {content}
     </Pressable>
   );

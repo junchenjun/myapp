@@ -18,7 +18,6 @@ export type IListItemProps = {
   onPress?: () => void;
   onRightIconPress?: () => void;
   disabled?: boolean;
-  iosScaleDownAnimation?: boolean;
   color?: 'default' | 'primaryInverse' | 'primary';
   size?: 'lg' | 'sm';
 };
@@ -36,12 +35,11 @@ export const ListItem = (props: IListItemProps) => {
     roundedTopCorners,
     roundedBottomCorners,
     withBorder,
-    iosScaleDownAnimation,
     color = 'default',
     size = 'lg',
   } = props;
 
-  const styles = useThemedStyles(themedStyles({ iosScaleDownAnimation, color, size }));
+  const styles = useThemedStyles(themedStyles({ color, size }));
 
   let titleColor: IThemeColorKeys = danger ? 'error' : 'onSurface';
   let descColor: IThemeColorKeys = danger ? 'error' : 'onSurfaceExtraDim';
@@ -71,7 +69,6 @@ export const ListItem = (props: IListItemProps) => {
       ]}
     >
       <Pressable
-        iosScaleDownAnimation={iosScaleDownAnimation}
         disabled={disabled}
         onPress={onPress}
         style={[
@@ -79,7 +76,6 @@ export const ListItem = (props: IListItemProps) => {
           roundedTopCorners && styles.roundedTopCorners,
           roundedBottomCorners && styles.roundedBottomCorners,
         ]}
-        rippleConfig={{ borderless: false, disabled: false }}
       >
         {(iconLeft || title) && (
           <View style={styles.left}>
@@ -98,15 +94,7 @@ export const ListItem = (props: IListItemProps) => {
   );
 };
 
-const themedStyles = ({
-  iosScaleDownAnimation,
-  color,
-  size,
-}: {
-  iosScaleDownAnimation?: IListItemProps['iosScaleDownAnimation'];
-  color: IListItemProps['color'];
-  size: IListItemProps['size'];
-}) => {
+const themedStyles = ({ color, size }: { color: IListItemProps['color']; size: IListItemProps['size'] }) => {
   const styles = (theme: ITheme) => {
     const backgroundColor = color === 'primary' ? theme.colors['primary'] : theme.colors.surfaceExtraBright;
 
@@ -114,7 +102,7 @@ const themedStyles = ({
       container: {
         width: '100%',
         overflow: 'hidden',
-        backgroundColor: iosScaleDownAnimation ? '' : backgroundColor,
+        backgroundColor,
       },
       pressable: {
         backgroundColor,

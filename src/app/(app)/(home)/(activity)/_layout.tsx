@@ -5,7 +5,7 @@ import {
 } from '@react-navigation/material-top-tabs';
 import { EventMapBase, NavigationState } from '@react-navigation/native';
 import { withLayoutContext } from 'expo-router';
-import Animated from 'react-native-reanimated';
+import { View } from 'react-native';
 
 import { Pressable } from '~components/atoms/pressable/Pressable';
 import { PageHeader } from '~components/molecules/pageHeader/PageHeader';
@@ -24,7 +24,7 @@ function MyTabBar({ state, descriptors, navigation, position }: MaterialTopTabBa
   const theme = useTheme();
 
   return (
-    <Animated.View style={{ flexDirection: 'row' }}>
+    <View style={{ flexDirection: 'row', backgroundColor: theme.colors.surfaceExtraDim }}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label = options.title || '';
@@ -53,7 +53,6 @@ function MyTabBar({ state, descriptors, navigation, position }: MaterialTopTabBa
           <Pressable
             key={label}
             onPress={onPress}
-            rippleConfig={{ disabled: true }}
             style={{ marginLeft: index === 0 ? theme.spacing[4] : theme.spacing[2] }}
           >
             <PageHeader
@@ -66,7 +65,7 @@ function MyTabBar({ state, descriptors, navigation, position }: MaterialTopTabBa
           </Pressable>
         );
       })}
-    </Animated.View>
+    </View>
   );
 }
 

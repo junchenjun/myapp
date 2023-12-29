@@ -149,7 +149,6 @@ const Home = () => {
         <View style={styles.buttonGroup}>
           <View style={styles.selectPlan}>
             <ListItem
-              iosScaleDownAnimation
               color='primaryInverse'
               iconLeft={icons.Collections}
               iconRight={icons.More}
@@ -163,7 +162,6 @@ const Home = () => {
           </View>
           <View>
             <ListItem
-              iosScaleDownAnimation
               color='primary'
               size='sm'
               iconRight={icons.Plus}

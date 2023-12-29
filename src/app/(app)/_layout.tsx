@@ -54,7 +54,7 @@ export default function Layout() {
                 showTitle={showTitle || false}
                 right={{
                   component: (
-                    <Pressable rippleConfig={{ radius: 24, colorKey: 'rippleDim' }}>
+                    <Pressable>
                       <Text variant='h6Regular' text='Edit' colorKey='primary' />
                     </Pressable>
                   ),
@@ -110,7 +110,6 @@ export default function Layout() {
                         dispatch(resetWorkoutCreation());
                         router.back();
                       }}
-                      rippleConfig={{ radius: 24, colorKey: 'rippleDim' }}
                     >
                       <Text variant='h6Regular' text='Save' colorKey='primary' />
                     </Pressable>

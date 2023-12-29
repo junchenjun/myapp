@@ -17,12 +17,7 @@ export const Card = (props: ICardProps) => {
   if (onPress) {
     return (
       <View style={[styles.pressableContainer, style && style]}>
-        <Pressable
-          onPress={onPress}
-          rippleConfig={{ borderless: false }}
-          style={styles.container}
-          iosScaleDownAnimation
-        >
+        <Pressable onPress={onPress} style={styles.container}>
           <View style={[styles.flex]}>{children}</View>
         </Pressable>
       </View>

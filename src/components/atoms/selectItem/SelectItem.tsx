@@ -33,15 +33,7 @@ export const SelectItem = (props: ISelectItemProps) => {
     const { icon } = props;
     return (
       <View style={styles.container}>
-        <Pressable
-          iosScaleDownAnimation
-          rippleConfig={{
-            borderless: false,
-          }}
-          disabled={disabled}
-          onPress={onPress}
-          style={[styles.pressable, selected && styles.selected]}
-        >
+        <Pressable disabled={disabled} onPress={onPress} style={[styles.pressable, selected && styles.selected]}>
           <View style={styles.left}>
             {icon && <Icon icon={icon} colorKey={selected ? 'primary' : 'onSurfaceDim'} />}
             <Text text={title} colorKey={selected ? 'primary' : 'onSurface'} />
@@ -59,10 +51,6 @@ export const SelectItem = (props: ISelectItemProps) => {
     return (
       <View style={[styles.container, styles.smallContainer]}>
         <Pressable
-          iosScaleDownAnimation
-          rippleConfig={{
-            borderless: false,
-          }}
           disabled={disabled}
           onPress={onPress}
           style={[styles.pressable, styles.smallPressable, selected && styles.smallSelected]}

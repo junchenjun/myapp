@@ -65,12 +65,12 @@ export const PageHeader = (props: IPageHeader) => {
     opacity.value = withTiming(showTitle ? 1 : 0, { duration: 200 });
 
     const componentLeft = left?.icon ? (
-      <Icon icon={left.icon} colorKey='onSurface' onPress={left.onPress} rippleColor='rippleDim' />
+      <Icon icon={left.icon} colorKey='onSurface' onPress={left.onPress} />
     ) : (
       left?.component
     );
     const componentRight = right?.icon ? (
-      <Icon icon={right.icon} onPress={right.onPress} colorKey='onSurface' rippleColor='rippleDim' />
+      <Icon icon={right.icon} onPress={right.onPress} colorKey='onSurface' />
     ) : (
       right?.component
     );

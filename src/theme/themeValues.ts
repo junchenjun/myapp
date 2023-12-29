@@ -60,9 +60,6 @@ export const themeColorsLight = {
   outline: colors.gray[70],
   outlineDim: colors.gray[90],
   outlineExtraDim: colors.gray[95],
-  // android ripple
-  ripple: colors.gray[90],
-  rippleDim: colors.gray[70],
 } as const;
 
 export const themeColorsDark = {
@@ -86,9 +83,6 @@ export const themeColorsDark = {
   outline: colors.gray[40],
   outlineDim: colors.gray[22],
   outlineExtraDim: colors.gray[20],
-  // android ripple
-  ripple: colors.gray[30],
-  rippleDim: colors.gray[30],
 } as const;
 
 export const themeSpacing = {

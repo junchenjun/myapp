@@ -76,15 +76,7 @@ export const Button = (props: IButtonProps) => {
           style,
         ]}
       >
-        <Pressable
-          iosScaleDownAnimation
-          disabled={isDisabled}
-          rippleConfig={{
-            borderless: false,
-          }}
-          style={styles.button}
-          onPress={onPress}
-        >
+        <Pressable disabled={isDisabled} style={styles.button} onPress={onPress}>
           {icon && <Icon strokeWidth={2} icon={icon} colorKey='onPrimary' />}
           <Text text={title} variant='pLGMedium' colorKey='onPrimary' />
         </Pressable>
@@ -93,15 +85,7 @@ export const Button = (props: IButtonProps) => {
   } else if (variant === 'ghost') {
     return (
       <View style={[styles.container, styles[alignment], style]}>
-        <Pressable
-          iosScaleDownAnimation
-          disabled={disabled}
-          rippleConfig={{
-            borderless: false,
-          }}
-          style={styles.button}
-          onPress={onPress}
-        >
+        <Pressable disabled={disabled} style={styles.button} onPress={onPress}>
           {icon && <Icon icon={icon} colorKey='primary' />}
           <Text text={title} colorKey='primary' variant='pLGRegular' />
         </Pressable>

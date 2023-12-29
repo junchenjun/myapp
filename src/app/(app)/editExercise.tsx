@@ -26,7 +26,7 @@ import { dismissKeyboardBeforeAction } from '~utils/navigation';
 
 export default function EditExercise() {
   const [title, setTile] = useState('');
-  const [restTime, setRestTime] = useState(20);
+  const [restTime, setRestTime] = useState(90);
   const [targets, setTargets] = useState<IMuscleTarget[]>([]);
   const [scrollTo, setScrollTo] = useState(0);
 
@@ -117,7 +117,7 @@ export default function EditExercise() {
               <Text variant='pMDRegular' colorKey='onSurfaceDim'>
                 {t('restTimer')}
               </Text>
-              <Pressable rippleConfig={{ foreground: true }} style={styles.iconWrapper} onPress={onRestTimerPress}>
+              <Pressable style={styles.iconWrapper} onPress={onRestTimerPress}>
                 <Text variant='pMDRegular' colorKey='primary'>
                   {(restTimeInfo.min ? restTimeInfo.min + 'm' : '') +
                     (restTimeInfo.sec ? restTimeInfo.sec + 's' : '0s')}

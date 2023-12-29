@@ -119,12 +119,7 @@ export const RestTimer = (props: { setTimer: Dispatch<SetStateAction<number>>; t
       <ScrollView showsHorizontalScrollIndicator={false} contentContainerStyle={styles.presets} horizontal>
         {presets.map((i, index) => {
           return (
-            <Pressable
-              rippleConfig={{ colorKey: 'rippleDim' }}
-              onPress={() => onPresetPress(i.value)}
-              key={index}
-              style={styles.presetItem}
-            >
+            <Pressable onPress={() => onPresetPress(i.value)} key={index} style={styles.presetItem}>
               {i.icon ? (
                 <Icon style={styles.presetIcon} icon={i.icon} />
               ) : (

@@ -18,16 +18,7 @@ export default function Layout() {
   const iconSize = 27;
 
   const tabBarButton = (props: BottomTabBarButtonProps) => {
-    return (
-      <Pressable
-        {...props}
-        iosScaleDownAnimation
-        onPress={props.onPress}
-        hitSlop={10}
-        tabBarButton
-        rippleConfig={{ disabled: true }}
-      />
-    );
+    return <Pressable {...props} onPress={props.onPress} hitSlop={10} />;
   };
 
   return (
