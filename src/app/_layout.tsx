@@ -128,16 +128,13 @@ const Root = () => {
       .collection(collections.user.name)
       .doc(auth.user?.uid)
       .collection(collections.user.subCollections.plan.name)
-      .onSnapshot(
-        snapshot => {
-          const data = [] as IFolder[];
-          snapshot.forEach(doc => {
-            data.push({ ...doc.data(), id: doc.id } as IFolder);
-          });
-          dispatch(setFolders(data));
-        },
-        error => {}
-      );
+      .onSnapshot(snapshot => {
+        const data = [] as IFolder[];
+        snapshot.forEach(doc => {
+          data.push({ ...doc.data(), id: doc.id } as IFolder);
+        });
+        dispatch(setFolders(data));
+      });
     return () => subscriber();
   }, [auth.user?.uid, dispatch]);
 
