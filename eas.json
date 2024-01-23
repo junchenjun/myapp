@@ -1,6 +1,6 @@
 {
   "build": {
-    "dev": {
+    "eas-dev": {
       "developmentClient": true,
       "distribution": "internal",
       "env": {
@@ -9,6 +9,22 @@
       },
       "ios": {
         "simulator": true
+      }
+    },
+    "eas-pre": {
+      "android": {
+        "buildType": "apk"
+      },
+      "distribution": "internal",
+      "env": {
+        "APP_VARIANT": "preview",
+        "EXPO_PUBLIC_STORYBOOK_ENABLED": "false"
+      }
+    },
+    "eas-prod": {
+      "env": {
+        "APP_VARIANT": "production",
+        "EXPO_PUBLIC_STORYBOOK_ENABLED": "false"
       }
     },
     "local-dev": {
@@ -32,22 +48,6 @@
         "APP_VARIANT": "preview",
         "EXPO_PUBLIC_STORYBOOK_ENABLED": "false",
         "USE_LOCAL_FILES": "true"
-      }
-    },
-    "preview": {
-      "android": {
-        "buildType": "apk"
-      },
-      "distribution": "internal",
-      "env": {
-        "APP_VARIANT": "preview",
-        "EXPO_PUBLIC_STORYBOOK_ENABLED": "false"
-      }
-    },
-    "production": {
-      "env": {
-        "APP_VARIANT": "production",
-        "EXPO_PUBLIC_STORYBOOK_ENABLED": "false"
       }
     }
   },
