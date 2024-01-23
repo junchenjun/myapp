@@ -82,5 +82,8 @@
   "eslintConfig": {
     "extends": "universe/native"
   },
+  "resolutions": {
+    "@typescript-eslint/parser": "^6.15.0"
+  },
   "packageManager": "yarn@4.0.2"
 }
