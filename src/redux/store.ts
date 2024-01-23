@@ -22,9 +22,7 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
   });
 };
 
-const preloadedState = {
-  // auth: { ...authSlice.getInitialState() },
-};
+const preloadedState = {};
 
 export const store = setupStore(preloadedState);
 
