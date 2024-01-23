@@ -1,6 +1,5 @@
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import * as Sentry from 'sentry-expo';
 
 (async () =>
   await firestore().settings({
@@ -36,8 +35,7 @@ export const createFolder = (name: string) => {
     })
     .then(docRef => {
       return docRef.id;
-    })
-    .catch(error => Sentry.Native.captureException(error));
+    });
 };
 
 export const updateFolderName = ({ id, name }: { id: string; name: string }) => {
@@ -49,8 +47,7 @@ export const updateFolderName = ({ id, name }: { id: string; name: string }) => 
     .doc(id)
     .update({
       name,
-    })
-    .catch(error => Sentry.Native.captureException(error));
+    });
 };
 
 export const deleteFolder = (folderId: string) => {
@@ -60,6 +57,5 @@ export const deleteFolder = (folderId: string) => {
     .doc(uid)
     .collection(collections.user.subCollections.plan.name)
     .doc(folderId)
-    .delete()
-    .catch(error => Sentry.Native.captureException(error));
+    .delete();
 };

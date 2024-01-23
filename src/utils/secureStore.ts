@@ -1,5 +1,4 @@
 import * as SecureStore from 'expo-secure-store';
-import * as Sentry from 'sentry-expo';
 
 export const secureStoreKeys = {
   colorscheme: 'colorscheme',
@@ -8,9 +7,7 @@ export const secureStoreKeys = {
 export async function saveToSecureStore(key: (typeof secureStoreKeys)[keyof typeof secureStoreKeys], value: string) {
   try {
     await SecureStore.setItemAsync(key, value);
-  } catch (error) {
-    Sentry.Native.captureException(error);
-  }
+  } catch (error) {}
 }
 
 export async function getSecureStoreValue<T>(
@@ -20,7 +17,6 @@ export async function getSecureStoreValue<T>(
     const result = await SecureStore.getItemAsync(key);
     return result as T | null;
   } catch (error) {
-    Sentry.Native.captureException(error);
     return null;
   }
 }

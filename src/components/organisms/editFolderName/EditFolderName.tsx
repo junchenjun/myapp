@@ -1,6 +1,6 @@
 import { useBottomSheet, useBottomSheetInternal } from '@gorhom/bottom-sheet';
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
 import { Button } from '~components/atoms/button/Button';
@@ -102,7 +102,7 @@ const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
     modal: {
       gap: theme.spacing[4],
-      minHeight: Platform.OS === 'ios' ? 100 : 140,
+      minHeight: 120,
       marginVertical: theme.spacing[6],
       justifyContent: 'center',
     },

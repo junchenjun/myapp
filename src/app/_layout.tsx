@@ -1,15 +1,14 @@
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { useFonts } from 'expo-font';
 import * as NavigationBar from 'expo-navigation-bar';
 import { Slot, SplashScreen, useRouter } from 'expo-router';
 import { setStatusBarStyle } from 'expo-status-bar';
 import * as SystemUI from 'expo-system-ui';
 import { useEffect, useState } from 'react';
 import { Appearance, Platform, View, useColorScheme } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
-import * as Sentry from 'sentry-expo';
 
 import { collections, firebaseAuth, firebaseStore } from '~firebase/firebaseConfig';
 import { setAuth } from '~redux/authSlice';
@@ -22,18 +21,7 @@ import '~i18n/i18n';
 SplashScreen.preventAutoHideAsync();
 const storybookEnabled = process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true';
 
-Sentry.init({
-  dsn: 'https://a7fe81a7cd114e72ec0711cf63cb8bb0@o4506469899173888.ingest.sentry.io/4506469913657344',
-  enableInExpoDevelopment: true,
-  debug: false,
-  // integrations: [
-  //   new Sentry.Native.ReactNativeTracing({
-  //     enableUserInteractionTracing: true,
-  //   }),
-  // ],
-});
-
-const Root = ({ loaded }: { loaded: boolean }) => {
+const Root = () => {
   const [initializing, setInitializing] = useState(true);
   const [splashHidden, setSplashHidden] = useState(false);
 
@@ -44,7 +32,7 @@ const Root = ({ loaded }: { loaded: boolean }) => {
   const dispatch = useAppDispatch();
   const updateTheme = useUpdateTheme();
 
-  const isAppReady = loaded && !initializing;
+  const isAppReady = !initializing;
 
   // splash screen
   useEffect(() => {
@@ -148,54 +136,40 @@ const Root = ({ loaded }: { loaded: boolean }) => {
           });
           dispatch(setFolders(data));
         },
-        error => Sentry.Native.captureException(error)
+        error => {}
       );
     return () => subscriber();
   }, [auth.user?.uid, dispatch]);
 
-  if (!loaded) {
-    return null;
-  }
-
-  return (
-    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-      <BottomSheetModalProvider>
-        <Slot />
-      </BottomSheetModalProvider>
-    </SafeAreaProvider>
-  );
+  return <Slot />;
 };
 
-function App() {
-  const [loaded] = useFonts({
-    'Kanit-Medium': require('../assets/fonts/Kanit-Medium.ttf'),
-    'Kanit-Regular': require('../assets/fonts/Kanit-Regular.ttf'),
-    'Kanit-Light': require('../assets/fonts/Kanit-Light.ttf'),
-    'Kanit-LightItalic': require('../assets/fonts/Kanit-LightItalic.ttf'),
-  });
-
-  let EntryPoint = (
-    <Provider store={store}>
-      <ThemeProvider>
-        <Root loaded={loaded} />
-      </ThemeProvider>
-    </Provider>
-  );
-
+export default function App() {
   const hide = async () => {
     await SplashScreen.hideAsync();
   };
 
-  if (storybookEnabled && loaded) {
+  if (storybookEnabled) {
     const StorybookUI = require('../../.storybook').default;
-    EntryPoint = (
+    hide();
+    return (
       <View style={{ flex: 1 }}>
         <StorybookUI />
       </View>
     );
-    hide();
+  } else {
+    return (
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+          <ThemeProvider>
+            <Provider store={store}>
+              <BottomSheetModalProvider>
+                <Root />
+              </BottomSheetModalProvider>
+            </Provider>
+          </ThemeProvider>
+        </SafeAreaProvider>
+      </GestureHandlerRootView>
+    );
   }
-  return EntryPoint;
 }
-
-export default Sentry.Native.wrap(App);
