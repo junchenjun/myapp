@@ -65,6 +65,7 @@ const appConfig: ExpoConfig = {
   orientation: 'portrait',
   icon: config.icon,
   backgroundColor: '#E4E6EB',
+  runtimeVersion: '1.0.0',
   android: {
     userInterfaceStyle: 'automatic',
     googleServicesFile: config.file.android,
