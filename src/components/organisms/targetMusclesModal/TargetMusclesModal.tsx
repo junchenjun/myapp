@@ -100,7 +100,7 @@ export const TargetMusclesModal = (porps: ITargetMusclesModalProps) => {
         {targetMuscles.map((group, index) => {
           return (
             <View key={group.name} style={[styles.group, index === targetMuscles.length - 1 && styles.topGroup]}>
-              <Text variant='pLGLight' colorKey='onSurfaceDim'>
+              <Text variant='pMDRegular' colorKey='onSurface'>
                 {t(group.name)}
               </Text>
               <View style={styles.items}>

@@ -81,7 +81,7 @@ const themedStyles = (theme: ITheme) => {
       borderWidth: 1,
       borderStyle: 'solid',
       borderRadius: theme.radius.md,
-      borderColor: theme.colors.outline,
+      borderColor: theme.colors.outlineDim,
       backgroundColor: theme.colors.surfaceExtraBright,
     },
     smallPressable: {
