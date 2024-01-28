@@ -1,8 +1,8 @@
 import { Keyboard, Platform } from 'react-native';
 
 export const dismissKeyboardBeforeAction = (action: () => void) => {
-  Keyboard.dismiss();
   if (Platform.OS === 'android' && Keyboard.isVisible()) {
+    Keyboard.dismiss();
     setTimeout(() => {
       action();
     }, 35);
