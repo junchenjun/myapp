@@ -1,5 +1,5 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import { router } from 'expo-router';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Alert, ScrollView, StyleSheet, View, useColorScheme } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
@@ -17,9 +17,14 @@ import { WorkoutItem } from '~components/organisms/workoutItem/WorkoutItem';
 import { deleteFolder } from '~firebase/firebaseConfig';
 import { IFolder } from '~redux/foldersSlice';
 import { useAppSelector } from '~redux/store';
+import { RootStackParamList } from '~routes/RootNavigator';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
-const Home = () => {
+interface IHomeScreenProps {
+  navigation: NativeStackNavigationProp<RootStackParamList, 'HomeScreen'>;
+}
+
+export const HomeScreen = ({ navigation }: IHomeScreenProps) => {
   const [folderId, setFolderId] = useState<IFolder['id']>();
   const folders = useAppSelector(state => state.folders);
 
@@ -29,7 +34,6 @@ const Home = () => {
   const folderConfigModalRef = useRef<BottomSheetModal>(null);
 
   const styles = useThemedStyles(createStyles);
-
   const colorScheme = useColorScheme();
 
   useEffect(() => {
@@ -167,7 +171,7 @@ const Home = () => {
               iconRight={icons.Plus}
               roundedTopCorners
               roundedBottomCorners
-              onPress={() => router.push('editWorkout')}
+              onPress={() => navigation.push('EditWorkoutScreen')}
             />
           </View>
         </View>
@@ -194,10 +198,10 @@ const Home = () => {
                   ],
                 }}
                 onPress={() => {
-                  return router.push({
-                    pathname: 'preview',
-                    params: { folderId, workoutId: item.id, title: item?.title },
-                  });
+                  // return navigation.push({
+                  //   pathname: 'preview',
+                  //   params: { folderId, workoutId: item.id, title: item?.title },
+                  // });
                 }}
                 descItems={[`${item.exercises.length} Exercises`, '5 days ago']}
               />
@@ -208,8 +212,6 @@ const Home = () => {
     </>
   );
 };
-
-export default Home;
 
 const createStyles = (theme: ITheme) => {
   return StyleSheet.create({

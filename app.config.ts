@@ -66,6 +66,9 @@ const appConfig: ExpoConfig = {
   icon: config.icon,
   backgroundColor: '#E4E6EB',
   runtimeVersion: '1.0.0',
+  androidStatusBar: {
+    translucent: true,
+  },
   android: {
     userInterfaceStyle: 'automatic',
     googleServicesFile: config.file.android,

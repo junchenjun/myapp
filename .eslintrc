@@ -37,7 +37,8 @@
           ["~assets", "./src/assets"],
           ["~redux", "./src/redux"],
           ["~utils", "./src/utils"],
-          ["~app", "./src/app"],
+          ["~screens", "./src/screens"],
+          ["~routes", "./src/routes"],
           ["~i18n", "./src/i18n"],
           ["~firebase", "./src/firebase"]
         ],

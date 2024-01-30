@@ -1,4 +1,5 @@
-import { router, useFocusEffect } from 'expo-router';
+import { useFocusEffect } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, BackHandler, FlatList, Platform, StyleSheet, View } from 'react-native';
@@ -13,10 +14,15 @@ import { WorkoutItem } from '~components/organisms/workoutItem/WorkoutItem';
 import { useAppDispatch, useAppSelector } from '~redux/store';
 import { resetWorkoutCreation } from '~redux/workoutCreationSlice';
 import { IExercise } from '~redux/workoutSlice';
+import { RootStackParamList } from '~routes/RootNavigator';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 import { dismissKeyboardBeforeAction } from '~utils/navigation';
 
-export default function EditWorkout() {
+interface IEditWorkoutScreenProps {
+  navigation: NativeStackNavigationProp<RootStackParamList, 'EditWorkoutScreen'>;
+}
+
+export const EditWorkoutScreen = ({ navigation }: IEditWorkoutScreenProps) => {
   const [title, setTitle] = useState('');
   const styles = useThemedStyles(themedStyles);
   const { t } = useTranslation();
@@ -35,14 +41,14 @@ export default function EditWorkout() {
             style: 'cancel',
             onPress: () => {
               dispatch(resetWorkoutCreation());
-              router.back();
+              navigation.goBack();
             },
           },
           {
             text: 'Save',
             onPress: () => {
               dispatch(resetWorkoutCreation());
-              router.back();
+              navigation.goBack();
             },
           },
         ],
@@ -50,7 +56,7 @@ export default function EditWorkout() {
           cancelable: true,
         }
       ),
-    [dispatch]
+    [dispatch, navigation]
   );
 
   useFocusEffect(
@@ -60,13 +66,13 @@ export default function EditWorkout() {
           exitAlert();
         } else {
           dispatch(resetWorkoutCreation());
-          router.back();
+          navigation.goBack();
         }
         return true;
       };
       const backHandler = BackHandler.addEventListener('hardwareBackPress', onBackPress);
       return () => backHandler.remove();
-    }, [dispatch, exercises?.length, exitAlert, title])
+    }, [dispatch, exercises?.length, exitAlert, navigation, title])
   );
 
   const renderItem = useCallback(
@@ -121,12 +127,12 @@ export default function EditWorkout() {
         variant='primary'
         title='Add Exercise'
         float
-        onPress={() => dismissKeyboardBeforeAction(() => router.push('findExercise'))}
+        onPress={() => dismissKeyboardBeforeAction(() => navigation.push('FindExerciseScreen'))}
         icon={icons.Plus}
       />
     </KeyboardSafeView>
   );
-}
+};
 const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
     scroll: {

@@ -165,6 +165,7 @@ async function configureFullScreenDialog(
         <item name="android:windowLightNavigationBar">true</item>
         <item name="android:navigationBarColor">@color/navigationBarColor</item>
         <item name="android:windowBackground">@color/activityBackground</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
       </style>
     `)
   ).style as AndroidConfig.Resources.ResourceGroupXML;

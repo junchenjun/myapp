@@ -1,6 +1,4 @@
-import { BottomTabBarButtonProps } from '@react-navigation/bottom-tabs';
-import { Tabs } from 'expo-router';
-import React from 'react';
+import { BottomTabBarButtonProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -8,9 +6,14 @@ import { icons } from '~assets/icons';
 import { Icon } from '~components/atoms/icon/Icon';
 import { Pressable } from '~components/atoms/pressable/Pressable';
 import { PageHeader } from '~components/molecules/pageHeader/PageHeader';
+import { ActivityTabs } from '~routes/ActivityTabs';
+import { HomeScreen } from '~screens/homeScreen/HomeScreen';
+import { SettingsScreen } from '~screens/settingsScreen/SettingsScreen';
 import { useTheme } from '~theme/ThemeContext';
 
-export default function Layout() {
+const Tab = createBottomTabNavigator();
+
+export function MainTabs() {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
 
@@ -22,7 +25,7 @@ export default function Layout() {
   };
 
   return (
-    <Tabs
+    <Tab.Navigator
       screenOptions={{
         tabBarHideOnKeyboard: true,
         headerShown: false,
@@ -35,13 +38,13 @@ export default function Layout() {
           shadowRadius: 0,
         },
       }}
-      initialRouteName='index'
+      initialRouteName='HomeScreen'
       backBehavior='initialRoute'
       sceneContainerStyle={{ backgroundColor: theme.colors.surfaceExtraDim }}
     >
-      <Tabs.Screen
-        name='(activity)'
-        key='activity'
+      <Tab.Screen
+        name='ActivityTabs'
+        component={ActivityTabs}
         options={{
           tabBarShowLabel: false,
           title: 'Activity',
@@ -52,9 +55,9 @@ export default function Layout() {
           headerShown: false,
         }}
       />
-      <Tabs.Screen
-        name='index'
-        key='home'
+      <Tab.Screen
+        name='HomeScreen'
+        component={HomeScreen}
         options={{
           tabBarShowLabel: false,
           title: 'Workouts',
@@ -73,9 +76,9 @@ export default function Layout() {
           },
         }}
       />
-      <Tabs.Screen
-        name='settings'
-        key='settings'
+      <Tab.Screen
+        name='SettingsScreen'
+        component={SettingsScreen}
         options={{
           tabBarShowLabel: false,
           title: 'Settings',
@@ -89,6 +92,6 @@ export default function Layout() {
           },
         }}
       />
-    </Tabs>
+    </Tab.Navigator>
   );
 }

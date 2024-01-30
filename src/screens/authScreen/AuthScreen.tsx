@@ -1,5 +1,4 @@
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { router } from 'expo-router';
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
@@ -9,14 +8,7 @@ import { Text } from '~components/atoms/text/Text';
 import { firebaseAuth } from '~firebase/firebaseConfig';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
-GoogleSignin.configure({
-  offlineAccess: true,
-  webClientId: '878529743045-prlrevc1bfonrg7k4lfgvg9m0fuqtqon.apps.googleusercontent.com',
-  iosClientId: '878529743045-75atqbf09t8id612juvjudp43ts3fn7u.apps.googleusercontent.com',
-  scopes: ['profile', 'email'],
-});
-
-export default function Auth() {
+export const AuthScreen = () => {
   const styles = useThemedStyles(createStyles);
   const [loading, setLoading] = useState(false);
 
@@ -33,7 +25,7 @@ export default function Auth() {
           if (isNewUser) {
             // await createSamplePlan(info.user.uid);
           }
-          router.replace('(home)');
+          // router.replace('(home)');
         })
         .catch(() => {
           setLoading(false);
@@ -64,7 +56,7 @@ export default function Auth() {
       <Button variant='primary' icon={icons.Apple} loading={loading} title='Sign in with Apple' onPress={() => null} />
     </View>
   );
-}
+};
 
 const createStyles = (theme: ITheme) => {
   const styles = StyleSheet.create({

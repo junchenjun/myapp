@@ -1,16 +1,12 @@
 {
   "compilerOptions": {
     "skipLibCheck": true,
-
-    /* Linting */
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-
-    /* Alias support */
     "baseUrl": "./",
     "paths": {
       "~components/*": ["./src/components/*"],
@@ -18,14 +14,13 @@
       "~assets/*": ["./src/assets/*"],
       "~utils/*": ["./src/utils/*"],
       "~redux/*": ["./src/redux/*"],
-      "~app/*": ["./src/app/*"],
+      "~screens/*": ["./src/screens/*"],
+      "~routes/*": ["./src/routes/*"],
       "~i18n/*": ["./src/i18n/*"],
       "~firebase/*": ["./src/firebase/*"],
       "@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"]
     }
   },
-
-  "include": ["src/**/*", "components/**/*", ".storybook/**/*", "*.ts/*.tsx"],
-
+  "include": ["src/**/*", ".storybook/**/*", "*.ts/*.tsx", "src/@types", "**/*.ts", "**/*.tsx"],
   "extends": "expo/tsconfig.base"
 }

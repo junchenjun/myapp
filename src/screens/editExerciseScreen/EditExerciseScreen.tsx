@@ -1,6 +1,6 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { StackActions } from '@react-navigation/native';
-import { useNavigation } from 'expo-router';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, LayoutChangeEvent, Platform, ScrollView, StyleSheet, View } from 'react-native';
@@ -20,18 +20,22 @@ import { TargetMusclesModal } from '~components/organisms/targetMusclesModal/Tar
 import { useAppDispatch } from '~redux/store';
 import { createExercise } from '~redux/workoutCreationSlice';
 import { IExercise, IMuscleTarget } from '~redux/workoutSlice';
+import { RootStackParamList } from '~routes/RootNavigator';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 import { getTimerInfoBySeconds } from '~utils/dateTime';
 import { dismissKeyboardBeforeAction } from '~utils/navigation';
 
-export default function EditExercise() {
+interface IEditExerciseScreenProps {
+  navigation: NativeStackNavigationProp<RootStackParamList, 'FindExerciseScreen'>;
+}
+
+export const EditExerciseScreen = ({ navigation }: IEditExerciseScreenProps) => {
   const [title, setTile] = useState('');
   const [restTime, setRestTime] = useState(90);
   const [targets, setTargets] = useState<IMuscleTarget[]>([]);
   const [scrollTo, setScrollTo] = useState(0);
 
   const styles = useThemedStyles(themedStyles);
-  const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
@@ -172,7 +176,7 @@ export default function EditExercise() {
       />
     </KeyboardSafeView>
   );
-}
+};
 const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
     scroll: {

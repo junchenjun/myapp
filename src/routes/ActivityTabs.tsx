@@ -1,26 +1,15 @@
-import {
-  createMaterialTopTabNavigator,
-  MaterialTopTabBarProps,
-  MaterialTopTabNavigationOptions,
-} from '@react-navigation/material-top-tabs';
-import { EventMapBase, NavigationState } from '@react-navigation/native';
-import { withLayoutContext } from 'expo-router';
+import { MaterialTopTabBarProps, createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { View } from 'react-native';
 
 import { Pressable } from '~components/atoms/pressable/Pressable';
 import { PageHeader } from '~components/molecules/pageHeader/PageHeader';
+import { ActivityScreen } from '~screens/activityScreen/ActivityScreen';
+import { LibraryScreen } from '~screens/libraryScreen/LibraryScreen';
 import { useTheme } from '~theme/ThemeContext';
 
-const { Navigator } = createMaterialTopTabNavigator();
+const TopTab = createMaterialTopTabNavigator();
 
-export const MaterialTopTabs = withLayoutContext<
-  MaterialTopTabNavigationOptions,
-  typeof Navigator,
-  NavigationState,
-  EventMapBase
->(Navigator);
-
-function MyTabBar({ state, descriptors, navigation, position }: MaterialTopTabBarProps) {
+function TopTabBar({ state, descriptors, navigation, position }: MaterialTopTabBarProps) {
   const theme = useTheme();
 
   return (
@@ -69,22 +58,21 @@ function MyTabBar({ state, descriptors, navigation, position }: MaterialTopTabBa
   );
 }
 
-export default function Layout() {
+export function ActivityTabs() {
   const theme = useTheme();
-
   return (
-    <MaterialTopTabs
+    <TopTab.Navigator
       backBehavior='initialRoute'
-      initialRouteName='Activity'
-      tabBar={props => <MyTabBar {...props} />}
+      initialRouteName='activity'
+      tabBar={props => <TopTabBar {...props} />}
       screenOptions={{
         tabBarShowIcon: false,
         tabBarPressColor: 'transparent',
       }}
       sceneContainerStyle={{ backgroundColor: theme.colors.surfaceExtraDim }}
     >
-      <MaterialTopTabs.Screen name='activity' key='activity' options={{ title: 'Activity' }} />
-      <MaterialTopTabs.Screen name='library' key='library' options={{ title: 'Library' }} />
-    </MaterialTopTabs>
+      <TopTab.Screen name='activity' key='activity' component={ActivityScreen} options={{ title: 'Activity' }} />
+      <TopTab.Screen name='library' key='library' component={LibraryScreen} options={{ title: 'Library' }} />
+    </TopTab.Navigator>
   );
 }

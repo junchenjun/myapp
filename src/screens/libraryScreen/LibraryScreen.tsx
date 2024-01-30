@@ -12,7 +12,7 @@ import { ChangeAppearance } from '~components/organisms/changeAppearance/ChangeA
 import { firebaseAuth } from '~firebase/firebaseConfig';
 import { ITheme, appColorScheme, useTheme, useThemedStyles } from '~theme/ThemeContext';
 
-const Settings = () => {
+export const LibraryScreen = () => {
   const scrollViewRef = useRef(null);
   const appearanceModalRef = useRef<BottomSheetModal>(null);
   const appearanceModalPress = useCallback(() => {
@@ -118,8 +118,6 @@ const Settings = () => {
     </ScrollView>
   );
 };
-
-export default Settings;
 
 const createStyles = (theme: ITheme) => {
   const styles = StyleSheet.create({

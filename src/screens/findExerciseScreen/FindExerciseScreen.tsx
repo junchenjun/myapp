@@ -1,4 +1,4 @@
-import { router, useNavigation } from 'expo-router';
+import { NativeStackNavigationOptions, NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { FlatList, Platform, StyleSheet, View } from 'react-native';
 
@@ -9,13 +9,17 @@ import { KeyboardSafeView } from '~components/layout/keyboardSafeView/KeyboardSa
 import { Accordion } from '~components/molecules/accordion/Accordion';
 import { IActionPageHeader } from '~components/molecules/pageHeader/PageHeader';
 import { IExercise } from '~redux/workoutSlice';
+import { RootStackParamList } from '~routes/RootNavigator';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 import { dismissKeyboardBeforeAction } from '~utils/navigation';
 
-export default function FindExercise() {
+interface IFindExerciseScreenProps {
+  navigation: NativeStackNavigationProp<RootStackParamList, 'FindExerciseScreen'>;
+}
+
+export const FindExerciseScreen = ({ navigation }: IFindExerciseScreenProps) => {
   const [title, setTitle] = useState('');
   const styles = useThemedStyles(themedStyles);
-  const navigation = useNavigation();
 
   const headerSearchBarOptions = useMemo(() => {
     const options: IActionPageHeader['searchBar'] = {
@@ -29,7 +33,7 @@ export default function FindExercise() {
   useEffect(() => {
     navigation.setOptions({
       headerSearchBarOptions,
-    });
+    } as NativeStackNavigationOptions);
   }, [headerSearchBarOptions, navigation]);
 
   const renderItem = useCallback(() => null, []);
@@ -62,12 +66,12 @@ export default function FindExercise() {
         title='New Exercise'
         alignment='right'
         float
-        onPress={() => dismissKeyboardBeforeAction(() => router.push('editExercise'))}
+        onPress={() => dismissKeyboardBeforeAction(() => navigation.push('EditExerciseScreen'))}
         icon={icons.Star}
       />
     </KeyboardSafeView>
   );
-}
+};
 const themedStyles = (theme: ITheme) => {
   return StyleSheet.create({
     scroll: {
