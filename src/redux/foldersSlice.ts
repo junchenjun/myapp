@@ -8,22 +8,33 @@ export interface IFolder {
   id: string;
 }
 
-const initialState: IFolder[] = [];
+export interface IFolders {
+  all?: IFolder[];
+  selected?: string;
+}
+
+const initialState: IFolders = {
+  all: undefined,
+  selected: undefined,
+};
 
 export const folderSlice = createSlice({
   name: 'folders',
   initialState,
   reducers: {
-    setFolders: (_, action: PayloadAction<IFolder[] | undefined>) => {
+    setFolders: (state, action: PayloadAction<IFolder[] | undefined>) => {
       if (action.payload) {
-        return action.payload;
+        state.all = action.payload;
       } else {
         return initialState;
       }
     },
+    setSelectedFolder: (state, action: PayloadAction<string>) => {
+      state.selected = action.payload;
+    },
   },
 });
 
-export const { setFolders } = folderSlice.actions;
+export const { setFolders, setSelectedFolder } = folderSlice.actions;
 
 export const folderReducer = folderSlice.reducer;

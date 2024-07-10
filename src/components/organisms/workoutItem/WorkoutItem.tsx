@@ -36,7 +36,7 @@ export const WorkoutItem = (props: IWorkoutItemProps) => {
           <Text variant='h5Regular' numberOfLines={2} text={title} />
           <View style={styles.desc}>
             {descItems?.map((i, index) => {
-              const showDivider = index !== descItems.length - 1;
+              const showDivider = index !== descItems.length - 1 && descItems.length > 1;
               if (showDivider) {
                 return (
                   <View style={styles.showDivider} key={i}>

@@ -3,7 +3,7 @@ import { StackActions } from '@react-navigation/native';
 import { useNavigation } from 'expo-router';
 import { useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, LayoutChangeEvent, Platform, ScrollView, StyleSheet, View } from 'react-native';
+import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
 import { Button } from '~components/atoms/button/Button';
@@ -17,8 +17,8 @@ import { Text } from '~components/atoms/text/Text';
 import { KeyboardSafeView } from '~components/layout/keyboardSafeView/KeyboardSafeView';
 import { RestTimer } from '~components/organisms/restTimer/RestTimer';
 import { TargetMusclesModal } from '~components/organisms/targetMusclesModal/TargetMusclesModal';
+import { createExercise } from '~redux/newWorkoutSlice';
 import { useAppDispatch } from '~redux/store';
-import { createExercise } from '~redux/workoutCreationSlice';
 import { IExercise, IMuscleTarget } from '~redux/workoutSlice';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 import { getTimerInfoBySeconds } from '~utils/dateTime';
@@ -28,7 +28,7 @@ export default function EditExercise() {
   const [title, setTile] = useState('');
   const [restTime, setRestTime] = useState(90);
   const [targets, setTargets] = useState<IMuscleTarget[]>([]);
-  const [scrollTo, setScrollTo] = useState(0);
+  // const [scrollTo, setScrollTo] = useState(0);
 
   const styles = useThemedStyles(themedStyles);
   const navigation = useNavigation();
@@ -40,11 +40,11 @@ export default function EditExercise() {
   const restTimerModalRef = useRef<BottomSheetModal>(null);
 
   // ios only
-  const enableScrollTo = Platform.OS === 'ios';
-  const onLayout = useCallback((event: LayoutChangeEvent) => {
-    const onLayoutHeight = event.nativeEvent.layout.y;
-    setScrollTo(Math.round(onLayoutHeight));
-  }, []);
+  // const enableScrollTo = Platform.OS === 'ios';
+  // const onLayout = useCallback((event: LayoutChangeEvent) => {
+  //   const onLayoutHeight = event.nativeEvent.layout.y;
+  //   setScrollTo(Math.round(onLayoutHeight));
+  // }, []);
 
   const onTargetsPress = useCallback(() => {
     targetsModalRef.current?.present();
@@ -73,6 +73,8 @@ export default function EditExercise() {
     title,
     targets,
     restTime,
+    sets: [{ weight: 0, reps: 0 }],
+    unit: 'kg',
   };
 
   return (
@@ -90,7 +92,7 @@ export default function EditExercise() {
       <ScrollView ref={ref} showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
         <Card>
           <View style={[styles.item, styles.topItem]}>
-            <Input variant='open' value={title} onChangeValue={setTile} placeholder='Exercise Title*' />
+            <Input autoFocus variant='open' value={title} onChangeValue={setTile} placeholder='Exercise Title*' />
           </View>
           <View style={[styles.item, styles.targets]}>
             <View style={[styles.itemTitle]}>

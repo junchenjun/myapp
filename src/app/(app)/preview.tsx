@@ -1,6 +1,6 @@
-import { router, useLocalSearchParams, useNavigation } from 'expo-router';
+import { router, useNavigation } from 'expo-router';
 import { useCallback } from 'react';
-import { FlatList, Platform, StyleSheet, View } from 'react-native';
+import { FlatList, Platform, ScrollView, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
 import { Button } from '~components/atoms/button/Button';
@@ -12,16 +12,16 @@ import { WorkoutItem } from '~components/organisms/workoutItem/WorkoutItem';
 import { useAppDispatch, useAppSelector } from '~redux/store';
 import { IExercise, setWorkout } from '~redux/workoutSlice';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
+import { getWorkoutTargetMuscles } from '~utils/workouts';
 
 export default function Preview() {
-  const folders = useAppSelector(state => state.folders);
-  const { workoutId, folderId } = useLocalSearchParams();
   const styles = useThemedStyles(themedStyles);
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
 
-  const workout = folders?.find(f => f.id === folderId)?.workouts?.find(w => w.id === workoutId);
-  const labels = ['Back', 'Triceps'];
+  const workout = useAppSelector(state => state.workout.workout);
+
+  const labels = getWorkoutTargetMuscles(workout);
   const ITEM_HEIGHT = 126;
 
   const renderItem = useCallback(
@@ -67,11 +67,17 @@ export default function Preview() {
                 <InfoContainer
                   title='Traget Muscles'
                   content={
-                    <View style={styles.labels}>
+                    <ScrollView
+                      overScrollMode='never'
+                      bounces={labels.length >= 3}
+                      horizontal
+                      contentContainerStyle={styles.labels}
+                      showsHorizontalScrollIndicator={false}
+                    >
                       {labels.map(i => (
-                        <Label title='Back' key={i} />
+                        <Label title={i} key={i} />
                       ))}
-                    </View>
+                    </ScrollView>
                   }
                 />
                 <InfoContainer title='Last Performed' content='4 days ago' />

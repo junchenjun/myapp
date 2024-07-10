@@ -24,7 +24,7 @@ export const EditFolderName = (props: {
   const { close } = useBottomSheet();
 
   const isCreate = !folderId;
-  const currentName = folders?.find(i => i.id === folderId)?.name;
+  const currentName = folders?.all?.find(i => i.id === folderId)?.name;
 
   useEffect(() => {
     return () => {
@@ -38,7 +38,7 @@ export const EditFolderName = (props: {
     }
   }, [isCreate, currentName]);
 
-  const exists = !!folders.filter(i => {
+  const exists = !!folders?.all?.filter(i => {
     if (isCreate) {
       return i.name === value;
     } else {

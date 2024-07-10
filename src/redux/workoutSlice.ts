@@ -26,22 +26,23 @@ export type IMuscleTarget =
   | 'chest';
 
 export interface IExerciseSet {
-  weight: string;
+  weight: number;
   reps: number;
 }
 
 export interface IExercise {
   title: string;
-  restTime?: number;
-  sets?: IExerciseSet[];
+  restTime: number;
+  sets: IExerciseSet[];
   targets: IMuscleTarget[];
+  unit: 'kg' | 'lbs';
 }
 
 export interface IWorkout {
   title: string;
   lastPerformed?: string;
   exercises: IExercise[];
-  id: string;
+  id?: string;
 }
 
 const initialState: {

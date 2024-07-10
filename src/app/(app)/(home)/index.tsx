@@ -1,27 +1,30 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { router } from 'expo-router';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Alert, ScrollView, StyleSheet, View, useColorScheme } from 'react-native';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 import { icons } from '~assets/icons';
 import { ListItem } from '~components/atoms/listItem/ListItem';
 import { Modal } from '~components/atoms/modal/Modal';
-import { Pressable } from '~components/atoms/pressable/Pressable';
-import { Text } from '~components/atoms/text/Text';
 import { WeeklyActivity } from '~components/molecules/weeklyActivity/WeeklyActivity';
 import { BottomMenu } from '~components/organisms/bottomMenu/BottomMenu';
 import { EditFolderName } from '~components/organisms/editFolderName/EditFolderName';
 import { SelectFolder } from '~components/organisms/selectFolder/SelectFolder';
 import { WorkoutItem } from '~components/organisms/workoutItem/WorkoutItem';
-import { deleteFolder } from '~firebase/firebaseConfig';
-import { IFolder } from '~redux/foldersSlice';
-import { useAppSelector } from '~redux/store';
+import { collections, deleteFolder, deleteWorkout, firebaseStore } from '~firebase/firebaseConfig';
+import { IFolder, setSelectedFolder } from '~redux/foldersSlice';
+import { useAppDispatch, useAppSelector } from '~redux/store';
+import { IWorkout, setWorkout } from '~redux/workoutSlice';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
+import { getWorkoutTargetMuscles } from '~utils/workouts';
 
 const Home = () => {
   const [folderId, setFolderId] = useState<IFolder['id']>();
-  const folders = useAppSelector(state => state.folders);
+  const [workouts, setWorkouts] = useState<IWorkout[]>();
+  const folders = useAppSelector(state => state.folders.all);
+  const user = useAppSelector(state => state.auth.user);
+  const dispatch = useAppDispatch();
 
   const selectFolderModalRef = useRef<BottomSheetModal>(null);
   const editFolderNameRef = useRef<BottomSheetModal>(null);
@@ -30,13 +33,33 @@ const Home = () => {
 
   const styles = useThemedStyles(createStyles);
 
-  const colorScheme = useColorScheme();
+  // onSnapshot
+  useEffect(() => {
+    const subscriber = firebaseStore()
+      .collection(collections.user.name)
+      .doc(user?.uid)
+      .collection(collections.user.subCollections.plan.name)
+      .doc(folderId)
+      .collection(collections.user.subCollections.plan.subCollections.workouts.name)
+      .onSnapshot(snapshot => {
+        const data = [] as IWorkout[];
+        snapshot.forEach(doc => {
+          data.push({ ...doc.data(), id: doc.id } as IWorkout);
+        });
+        setWorkouts(data);
+      });
+    return () => subscriber();
+  }, [folderId, user?.uid]);
 
   useEffect(() => {
-    if (!folderId || !folders.find(i => i.id === folderId)) {
+    if (!folderId || !folders?.find(i => i.id === folderId)) {
       setFolderId(folders?.[0]?.id || undefined);
     }
   }, [folderId, folders]);
+
+  useEffect(() => {
+    folderId && dispatch(setSelectedFolder(folderId));
+  }, [dispatch, folderId]);
 
   const onFolderConfigPress = useCallback(() => {
     folderConfigModalRef.current?.present();
@@ -56,15 +79,11 @@ const Home = () => {
   const onFolderDelete = useCallback(() => {
     folderId &&
       deleteFolder(folderId).then(() => {
-        setFolderId(folders.filter(i => i.id !== folderId)[0].id);
+        setFolderId(folders?.filter(i => i.id !== folderId)[0].id);
         folderConfigModalRef.current?.dismiss();
       });
   }, [folderId, folders]);
 
-  const workouts = useMemo(
-    () => folders && folderId && folders.find(i => i.id === folderId)?.workouts,
-    [folderId, folders]
-  );
   const folderName = folders?.find(i => i.id === folderId)?.name;
 
   const folderLimitAlert = useCallback(
@@ -75,7 +94,7 @@ const Home = () => {
     []
   );
 
-  const deleteAlert = useCallback(
+  const deleteFolderAlert = useCallback(
     () =>
       Alert.alert(
         `Delete This Folder?`,
@@ -94,7 +113,37 @@ const Home = () => {
     [onFolderDelete]
   );
 
+  const deleteWorkoutAlert = useCallback(
+    (id: string) =>
+      Alert.alert(
+        `Delete This Workout?`,
+        '',
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+          },
+          { text: 'Delete', onPress: () => folderId && deleteWorkout(folderId, id) },
+        ],
+        {
+          cancelable: true,
+        }
+      ),
+    [folderId]
+  );
+
   const maximumFolderLimit = 5;
+
+  const onWorkoutItemPress = useCallback(
+    (item: IWorkout) => {
+      router.push({
+        pathname: 'preview',
+        params: { title: item?.title },
+      });
+      dispatch(setWorkout(item));
+    },
+    [dispatch]
+  );
 
   return (
     <>
@@ -105,15 +154,15 @@ const Home = () => {
             {
               iconLeft: icons.FolderPlus,
               title: 'New Folder',
-              onPress: folders.length >= 5 ? folderLimitAlert : onAddFolderPress,
+              onPress: folders && folders?.length >= 5 ? folderLimitAlert : onAddFolderPress,
             },
             { iconLeft: icons.Edit, title: 'Edit Folder Name', onPress: onEditFolderNamePress },
             {
               iconLeft: icons.Trash,
               danger: true,
               title: 'Delete Folder',
-              onPress: deleteAlert,
-              disabled: folders.length <= 1,
+              onPress: deleteFolderAlert,
+              disabled: folders && folders?.length <= 1,
             },
           ]}
         />
@@ -123,7 +172,7 @@ const Home = () => {
           onSelect={id => setFolderId(id)}
           folders={folders}
           selectedID={folderId}
-          onActionButton={folders.length >= maximumFolderLimit ? folderLimitAlert : onAddFolderPress}
+          onActionButton={folders && folders?.length >= maximumFolderLimit ? folderLimitAlert : onAddFolderPress}
         />
       </Modal>
       <Modal modalRef={addFolderModalRef} title='Create Folder'>
@@ -171,37 +220,37 @@ const Home = () => {
             />
           </View>
         </View>
-        <Pressable>
-          <Text>{'colorScheme ' + (colorScheme || 'null')}</Text>
-        </Pressable>
+
         {/* List */}
         {workouts && (
           <Animated.View entering={FadeIn} exiting={FadeOut} style={styles.list}>
-            {workouts.map((item, index) => (
-              <WorkoutItem
-                contained
-                key={index}
-                title={item.title}
-                header={{
-                  labels: ['Shoulder', 'biceps'],
-                  menu: [
-                    { iconLeft: icons.Edit, title: 'Edit Workout' },
-                    {
-                      iconLeft: icons.Trash,
-                      danger: true,
-                      title: 'Delete Workout',
-                    },
-                  ],
-                }}
-                onPress={() => {
-                  return router.push({
-                    pathname: 'preview',
-                    params: { folderId, workoutId: item.id, title: item?.title },
-                  });
-                }}
-                descItems={[`${item.exercises.length} Exercises`, '5 days ago']}
-              />
-            ))}
+            {workouts.map((item, index) => {
+              const descItems = [`${item.exercises.length} Exercises`];
+              if (item.lastPerformed) {
+                descItems.push(item.lastPerformed);
+              }
+              return (
+                <WorkoutItem
+                  contained
+                  key={index}
+                  title={item.title}
+                  header={{
+                    labels: getWorkoutTargetMuscles(item),
+                    menu: [
+                      { iconLeft: icons.Edit, title: 'Edit Workout' },
+                      {
+                        iconLeft: icons.Trash,
+                        danger: true,
+                        title: 'Delete Workout',
+                        onPress: () => item.id && deleteWorkoutAlert(item.id),
+                      },
+                    ],
+                  }}
+                  onPress={() => onWorkoutItemPress(item)}
+                  descItems={descItems}
+                />
+              );
+            })}
           </Animated.View>
         )}
       </ScrollView>
@@ -214,7 +263,6 @@ export default Home;
 const createStyles = (theme: ITheme) => {
   return StyleSheet.create({
     scroll: {
-      flex: 1,
       backgroundColor: theme.colors.surfaceExtraDim,
       paddingHorizontal: theme.spacing[4],
       gap: theme.spacing[3],

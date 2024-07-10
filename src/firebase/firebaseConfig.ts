@@ -1,6 +1,8 @@
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
+import { IWorkout } from '~redux/workoutSlice';
+
 (async () =>
   await firestore().settings({
     persistence: true, // disable offline persistence
@@ -15,7 +17,12 @@ export const collections = {
   user: {
     name: 'Users',
     subCollections: {
-      plan: { name: 'Plans' },
+      plan: {
+        name: 'Plans',
+        subCollections: {
+          workouts: { name: 'Workouts' },
+        },
+      },
     },
   },
 } as const;
@@ -57,5 +64,31 @@ export const deleteFolder = (folderId: string) => {
     .doc(uid)
     .collection(collections.user.subCollections.plan.name)
     .doc(folderId)
+    .delete();
+};
+
+export const createWorkout = (folderId: string, workout: IWorkout) => {
+  const uid = auth().currentUser?.uid;
+  return firebaseStore()
+    .collection(collections.user.name)
+    .doc(uid)
+    .collection(collections.user.subCollections.plan.name)
+    .doc(folderId)
+    .collection(collections.user.subCollections.plan.subCollections.workouts.name)
+    .add({
+      exercises: workout.exercises,
+      title: workout.title,
+    });
+};
+
+export const deleteWorkout = (folderId: string, workoutId: string) => {
+  const uid = auth().currentUser?.uid;
+  return firebaseStore()
+    .collection(collections.user.name)
+    .doc(uid)
+    .collection(collections.user.subCollections.plan.name)
+    .doc(folderId)
+    .collection(collections.user.subCollections.plan.subCollections.workouts.name)
+    .doc(workoutId)
     .delete();
 };

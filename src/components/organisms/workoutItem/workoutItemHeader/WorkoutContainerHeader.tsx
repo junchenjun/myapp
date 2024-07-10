@@ -23,22 +23,29 @@ export const WorkoutItemHeader = (props: IWorkoutItemHeader) => {
     modalRef.current?.present();
   }, []);
 
+  const closeModal = useCallback(() => {
+    modalRef.current?.dismiss();
+  }, []);
+
   return (
     <View style={styles.container}>
       {menu && (
         <Modal modalRef={modalRef} backgroundColorKey='surface'>
-          <BottomMenu items={menu} />
+          <BottomMenu items={menu} onItemPressCallback={closeModal} />
         </Modal>
       )}
       <ScrollView
-        bounces={false}
+        overScrollMode='never'
+        bounces={labels && labels.length >= 3}
         horizontal
         contentContainerStyle={styles.labels}
         showsHorizontalScrollIndicator={false}
       >
-        {labels?.map(i => (
-          <Label title={i} key={i} />
-        ))}
+        <View style={styles.container} onStartShouldSetResponder={() => true}>
+          {labels?.map(i => (
+            <Label title={i} key={i} />
+          ))}
+        </View>
       </ScrollView>
       {menu && <Icon icon={icons.More} onPress={handlePresentModalPress} colorKey='onSurface' fill='onSurface' />}
     </View>

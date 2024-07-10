@@ -1,5 +1,5 @@
 import { router, useFocusEffect } from 'expo-router';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, BackHandler, FlatList, Platform, StyleSheet, View } from 'react-native';
 
@@ -10,19 +10,19 @@ import { Text } from '~components/atoms/text/Text';
 import { KeyboardSafeView } from '~components/layout/keyboardSafeView/KeyboardSafeView';
 import { Accordion } from '~components/molecules/accordion/Accordion';
 import { WorkoutItem } from '~components/organisms/workoutItem/WorkoutItem';
+import { resetNewWorkout, setNewWorkoutTitle } from '~redux/newWorkoutSlice';
 import { useAppDispatch, useAppSelector } from '~redux/store';
-import { resetWorkoutCreation } from '~redux/workoutCreationSlice';
 import { IExercise } from '~redux/workoutSlice';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 import { dismissKeyboardBeforeAction } from '~utils/navigation';
 
 export default function EditWorkout() {
-  const [title, setTitle] = useState('');
   const styles = useThemedStyles(themedStyles);
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
-  const exercises = useAppSelector(state => state.workoutCreation.exercises);
+  const exercises = useAppSelector(state => state.newWorkout.exercises);
+  const title = useAppSelector(state => state.newWorkout.title);
 
   const exitAlert = useCallback(
     () =>
@@ -34,14 +34,14 @@ export default function EditWorkout() {
             text: 'Discard',
             style: 'cancel',
             onPress: () => {
-              dispatch(resetWorkoutCreation());
+              dispatch(resetNewWorkout());
               router.back();
             },
           },
           {
             text: 'Save',
             onPress: () => {
-              dispatch(resetWorkoutCreation());
+              dispatch(resetNewWorkout());
               router.back();
             },
           },
@@ -59,7 +59,7 @@ export default function EditWorkout() {
         if (title || exercises?.length) {
           exitAlert();
         } else {
-          dispatch(resetWorkoutCreation());
+          dispatch(resetNewWorkout());
           router.back();
         }
         return true;
@@ -100,7 +100,7 @@ export default function EditWorkout() {
           ListHeaderComponent={
             <View style={styles.header}>
               <Input
-                onChangeValue={setTitle}
+                onChangeValue={v => dispatch(setNewWorkoutTitle(v))}
                 showMessage
                 errorMessage=''
                 variant='open'

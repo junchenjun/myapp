@@ -5,13 +5,17 @@ import { icons } from '~assets/icons';
 import { Pressable } from '~components/atoms/pressable/Pressable';
 import { Text } from '~components/atoms/text/Text';
 import { IActionPageHeader, PageHeader } from '~components/molecules/pageHeader/PageHeader';
-import { useAppDispatch } from '~redux/store';
-import { resetWorkoutCreation } from '~redux/workoutCreationSlice';
+import { createWorkout } from '~firebase/firebaseConfig';
+import { resetNewWorkout } from '~redux/newWorkoutSlice';
+import { useAppDispatch, useAppSelector } from '~redux/store';
 import { useTheme } from '~theme/ThemeContext';
 
 export default function Layout() {
   const dispatch = useAppDispatch();
   const theme = useTheme();
+  const selectedFolder = useAppSelector(state => state.folders.selected);
+  const newExercises = useAppSelector(state => state.newWorkout.exercises);
+  const newWorkoutTitle = useAppSelector(state => state.newWorkout.title);
 
   const createAlert = () =>
     Alert.alert(
@@ -102,15 +106,20 @@ export default function Layout() {
                 left={{
                   icon: icons.Back,
                   onPress: () => {
-                    dispatch(resetWorkoutCreation());
+                    dispatch(resetNewWorkout());
                     router.back();
                   },
                 }}
                 right={{
                   component: (
                     <Pressable
+                      disabled={!(selectedFolder && newExercises?.length && newWorkoutTitle)}
                       onPress={() => {
-                        dispatch(resetWorkoutCreation());
+                        selectedFolder &&
+                          newExercises &&
+                          newWorkoutTitle &&
+                          createWorkout(selectedFolder, { title: newWorkoutTitle, exercises: newExercises });
+                        dispatch(resetNewWorkout());
                         router.back();
                       }}
                     >

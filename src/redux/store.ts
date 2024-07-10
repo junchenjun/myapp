@@ -4,14 +4,14 @@ import { combineReducers } from 'redux';
 
 import { authReducer } from '~redux/authSlice';
 import { folderReducer } from '~redux/foldersSlice';
-import { workoutCreationReducer } from '~redux/workoutCreationSlice';
+import { newWorkoutReducer } from '~redux/newWorkoutSlice';
 import { workoutReducer } from '~redux/workoutSlice';
 
 export const rootReducer = combineReducers({
   auth: authReducer,
   folders: folderReducer,
   workout: workoutReducer,
-  workoutCreation: workoutCreationReducer,
+  newWorkout: newWorkoutReducer,
 });
 
 export const setupStore = (preloadedState?: PreloadedState<RootState>) => {

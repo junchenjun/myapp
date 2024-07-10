@@ -7,16 +7,28 @@ export type IBottomMenuItems = Pick<IListItemProps, 'danger' | 'iconLeft' | 'onP
 
 interface IProps {
   items: IBottomMenuItems;
+  onItemPressCallback?: () => void;
 }
 
 export const BottomMenu = (props: IProps) => {
-  const { items } = props;
+  const { items, onItemPressCallback } = props;
   const styles = useThemedStyles(themedStyles);
 
   return (
     <View style={styles.content}>
       {items.map((i, index) => {
-        return <ListItem key={index} {...i} roundedBottomCorners roundedTopCorners />;
+        return (
+          <ListItem
+            key={index}
+            {...i}
+            roundedBottomCorners
+            roundedTopCorners
+            onPress={() => {
+              i.onPress && i.onPress();
+              onItemPressCallback && onItemPressCallback();
+            }}
+          />
+        );
       })}
     </View>
   );
