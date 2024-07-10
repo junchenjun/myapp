@@ -1,5 +1,4 @@
 import { configureStore, PreloadedState } from '@reduxjs/toolkit';
-// eslint-disable-next-line import/named
 import { useSelector, TypedUseSelectorHook, useDispatch } from 'react-redux';
 import { combineReducers } from 'redux';
 

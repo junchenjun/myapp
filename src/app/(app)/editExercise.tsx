@@ -112,7 +112,7 @@ export default function EditExercise() {
               </ScrollView>
             )}
           </View>
-          <View style={styles.item}>
+          <View style={[styles.item, styles.bottomItem]}>
             <View style={styles.itemTitle}>
               <Text variant='pMDRegular' colorKey='onSurfaceDim'>
                 {t('restTimer')}
@@ -126,7 +126,7 @@ export default function EditExercise() {
               </Pressable>
             </View>
           </View>
-          <View style={styles.item}>
+          {/* <View style={styles.item}>
             <View style={styles.itemTitle}>
               <Text variant='pMDRegular' colorKey='onSurfaceDim'>
                 Exercise Link
@@ -148,7 +148,7 @@ export default function EditExercise() {
               variant='textArea'
               placeholder='Exercise Notes'
             />
-          </View>
+          </View> */}
         </Card>
       </ScrollView>
       <Button
@@ -159,7 +159,7 @@ export default function EditExercise() {
         onPress={() => {
           if (title && targets.length >= 1) {
             dispatch(createExercise(formValues));
-            dismissKeyboardBeforeAction(() => navigation.dispatch(StackActions.pop(2)));
+            dismissKeyboardBeforeAction(() => navigation.dispatch(StackActions.pop(1)));
           } else {
             if (!title) {
               titleRequiredAlert();
@@ -214,6 +214,7 @@ const themedStyles = (theme: ITheme) => {
     },
     bottomItem: {
       borderBottomWidth: 0,
+      paddingBottom: theme.spacing[2],
     },
   });
 };

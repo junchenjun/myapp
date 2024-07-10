@@ -121,7 +121,7 @@ export default function EditWorkout() {
         variant='primary'
         title='Add Exercise'
         float
-        onPress={() => dismissKeyboardBeforeAction(() => router.push('findExercise'))}
+        onPress={() => dismissKeyboardBeforeAction(() => router.push('editExercise'))}
         icon={icons.Plus}
       />
     </KeyboardSafeView>
