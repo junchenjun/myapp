@@ -9,40 +9,17 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "./",
     "paths": {
-      "~components/*": [
-        "./src/components/*"
-      ],
-      "~theme/*": [
-        "./src/theme/*"
-      ],
-      "~assets/*": [
-        "./src/assets/*"
-      ],
-      "~utils/*": [
-        "./src/utils/*"
-      ],
-      "~redux/*": [
-        "./src/redux/*"
-      ],
-      "~app/*": [
-        "./src/app/*"
-      ],
-      "~i18n/*": [
-        "./src/i18n/*"
-      ],
-      "~firebase/*": [
-        "./src/firebase/*"
-      ],
-      "@firebase/auth": [
-        "./node_modules/@firebase/auth/dist/index.rn.d.ts"
-      ]
+      "~components/*": ["./src/components/*"],
+      "~theme/*": ["./src/theme/*"],
+      "~assets/*": ["./src/assets/*"],
+      "~utils/*": ["./src/utils/*"],
+      "~redux/*": ["./src/redux/*"],
+      "~app/*": ["./src/app/*"],
+      "~i18n/*": ["./src/i18n/*"],
+      "~firebase/*": ["./src/firebase/*"],
+      "@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"]
     }
   },
-  "include": [
-    "src/**/*",
-    "components/**/*",
-    ".storybook/**/*",
-    "*.ts/*.tsx"
-  ],
+  "include": ["src/**/*", "components/**/*", ".storybook/**/*", "*.ts/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"],
   "extends": "expo/tsconfig.base"
 }

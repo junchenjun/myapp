@@ -131,6 +131,9 @@ const appConfig: ExpoConfig = {
       projectId: 'd07f4ce2-9833-4bd3-88c7-b86067f065cc',
     },
   },
+  experiments: {
+    typedRoutes: true,
+  },
 };
 
 export default appConfig;
