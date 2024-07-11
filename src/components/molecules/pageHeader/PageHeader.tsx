@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Animated, EnterKeyHintTypeOptions, StyleSheet, TextStyle, View } from 'react-native';
+import { Animated, EnterKeyHintTypeOptions, StyleSheet, TextStyle, View, useWindowDimensions } from 'react-native';
 import { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { EdgeInsets, useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -50,7 +50,8 @@ type IPageHeader = IHeader | IActionPageHeader | ITopBarHeader;
 export const PageHeader = (props: IPageHeader) => {
   const { title, variant } = props;
   const insets = useSafeAreaInsets();
-  const styles = useThemedStyles(themedStyles(insets));
+  const { width: windowWidth } = useWindowDimensions();
+  const styles = useThemedStyles(themedStyles(insets, windowWidth));
   const opacity = useSharedValue(0);
 
   const animatedStyles = useAnimatedStyle(() => {
@@ -79,7 +80,13 @@ export const PageHeader = (props: IPageHeader) => {
       <View style={[styles.container, searchBar && styles.withSearchBar]}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <View style={styles.left}>{left?.icon || left?.component ? componentLeft : null}</View>
-          <Text variant='h6Regular' text={title} animatedStyles={animatedStyles} colorKey='onSurfaceDim' />
+          <Text
+            variant='h6Regular'
+            text={title}
+            animatedStyles={animatedStyles}
+            colorKey='onSurfaceDim'
+            style={styles.title}
+          />
           <View style={styles.right}>{right?.icon || right?.component ? componentRight : null}</View>
         </View>
         {searchBar && (
@@ -112,7 +119,8 @@ export const PageHeader = (props: IPageHeader) => {
   }
 };
 
-const themedStyles = (insets: EdgeInsets) => {
+const themedStyles = (insets: EdgeInsets, windowWidth: number) => {
+  const iconSize = 60;
   return (theme: ITheme) => {
     const paddingTop = insets.top < 40 ? 40 : insets.top + theme.spacing[2];
     return StyleSheet.create({
@@ -134,13 +142,16 @@ const themedStyles = (insets: EdgeInsets) => {
         paddingBottom: theme.spacing[2],
       },
       left: {
-        width: 60,
+        width: iconSize,
         flex: 1,
       },
       right: {
-        width: 60,
+        width: iconSize,
         flex: 1,
         alignItems: 'flex-end',
+      },
+      title: {
+        width: windowWidth - iconSize * 2,
       },
       tabHeader: {
         paddingBottom: theme.spacing[1],

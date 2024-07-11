@@ -63,7 +63,13 @@ export default function Preview() {
             keyExtractor={(item, index) => item.title + index}
             ListHeaderComponent={
               <View style={styles.gap}>
-                <Text text={workout?.title} style={styles.title} variant='h2Medium' colorKey='primary' />
+                <Text
+                  numberOfLines={10}
+                  text={workout.title}
+                  style={styles.title}
+                  variant='h2Medium'
+                  colorKey='primary'
+                />
                 <InfoContainer
                   title='Traget Muscles'
                   content={
@@ -121,6 +127,7 @@ const themedStyles = (theme: ITheme) => {
     title: {
       textAlign: 'center',
       marginBottom: 20,
+      paddingHorizontal: theme.spacing[6],
     },
     labels: {
       flexDirection: 'row',
