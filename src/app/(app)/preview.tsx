@@ -32,10 +32,8 @@ export default function Preview() {
         header={{
           labels: ['Shoulder', 'biceps'],
         }}
-        descItems={[`${item.sets.length} Exercises`]}
+        descItems={[`${item.sets.length} Sets`]}
         contained
-        actionIcon={icons.ExpandRight}
-        onActionIconPress={() => null}
       />
     ),
     [styles.gap.marginTop]
