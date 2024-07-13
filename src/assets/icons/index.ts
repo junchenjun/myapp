@@ -22,6 +22,7 @@ import { IconMail } from '~assets/icons/IconMail';
 import { IconMoon } from '~assets/icons/IconMoon';
 import { IconMore } from '~assets/icons/IconMore';
 import { IconPlus } from '~assets/icons/IconPlus';
+import { IconRemove } from '~assets/icons/IconRemove';
 import { IconRuler } from '~assets/icons/IconRuler';
 import { IconSearch } from '~assets/icons/IconSearch';
 import { IconSettings } from '~assets/icons/IconSettings';
@@ -36,6 +37,7 @@ import { IconUser } from '~assets/icons/IconUser';
 import { IconZap } from '~assets/icons/IconZap';
 
 const icons = {
+  Remove: IconRemove,
   Lightning: IconLightning,
   Zap: IconZap,
   Back: IconBack,

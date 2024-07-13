@@ -29,6 +29,7 @@ type ICommonInputProps = {
   onFocus?: () => void;
   onBlur?: () => void;
   enterKeyHint?: EnterKeyHintTypeOptions;
+  maxLength?: number;
 };
 
 interface IOpenInputProps extends ICommonInputProps {
@@ -48,7 +49,11 @@ interface ITextAreaInputProps extends ICommonInputProps {
   variant: 'textArea';
 }
 
-export type IInputProps = IOpenInputProps | IEnclosedInputProps | ITextAreaInputProps;
+interface ISmallInputProps extends ICommonInputProps {
+  variant: 'small';
+}
+
+export type IInputProps = IOpenInputProps | IEnclosedInputProps | ITextAreaInputProps | ISmallInputProps;
 
 export const Input = (props: IInputProps) => {
   const {
@@ -64,9 +69,9 @@ export const Input = (props: IInputProps) => {
     onBlur,
     enterKeyHint = 'done',
     variant,
+    maxLength,
   } = props;
 
-  const multiline = variant === 'textArea';
   const icon = variant === 'enclosed' ? props.icon : undefined;
   const showMessage = (variant === 'enclosed' || variant === 'open') && props.showMessage;
   const errorMessage = showMessage ? props.errorMessage : '';
@@ -107,7 +112,7 @@ export const Input = (props: IInputProps) => {
   }, [onBlur]);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, variant === 'small' ? { width: 90 } : null]}>
       {icon && (
         <Icon
           icon={icon}
@@ -116,25 +121,26 @@ export const Input = (props: IInputProps) => {
         />
       )}
       <TextInput
-        multiline={multiline}
-        maxLength={multiline ? 320 : 48}
+        multiline={variant === 'textArea' || variant === 'small'}
+        maxLength={maxLength ? maxLength : variant === 'textArea' ? 320 : 48}
         ref={inputRef}
         onLayout={icon && onLayout}
         style={[
           styles.input,
-          multiline && styles.large,
+          variant === 'textArea' && styles.large,
           !editable && styles.disabled,
           !!errorMessage && styles.error,
           icon && styles.withIcon,
           { color: editable ? theme.colors.onSurface : theme.colors.onSurfaceDim },
           variant === 'open' && styles.open,
+          variant === 'small' ? { borderColor: theme.colors.outlineExtraDim, padding: theme.spacing[1] } : null,
         ]}
         onChangeText={onChangeValue}
         value={value}
         placeholder={placeholder}
         keyboardType={keyboardType}
         autoFocus={!!autoFocus}
-        clearButtonMode='while-editing'
+        clearButtonMode={variant === 'small' ? 'never' : 'while-editing'}
         cursorColor={theme.colors.primary}
         editable={!!editable}
         returnKeyType={returnKeyType}
@@ -151,7 +157,7 @@ export const Input = (props: IInputProps) => {
         enterKeyHint={enterKeyHint}
         importantForAutofill='no'
         selectTextOnFocus={false}
-        textAlign='left'
+        textAlign={variant === 'small' ? 'center' : 'left'}
       />
       {showMessage && (
         <View style={[styles.message, !!errorMessage && styles.messageVisible]}>

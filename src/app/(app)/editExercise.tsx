@@ -3,7 +3,7 @@ import { StackActions } from '@react-navigation/native';
 import { useNavigation } from 'expo-router';
 import { useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, ScrollView, StyleSheet, View } from 'react-native';
+import { Alert, Keyboard, ScrollView, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
 import { Button } from '~components/atoms/button/Button';
@@ -47,10 +47,24 @@ export default function EditExercise() {
   // }, []);
 
   const onTargetsPress = useCallback(() => {
-    targetsModalRef.current?.present();
+    if (Keyboard.isVisible()) {
+      Keyboard.dismiss();
+      setTimeout(() => {
+        targetsModalRef.current?.present();
+      }, 50);
+    } else {
+      targetsModalRef.current?.present();
+    }
   }, []);
   const onRestTimerPress = useCallback(() => {
-    restTimerModalRef.current?.present();
+    if (Keyboard.isVisible()) {
+      Keyboard.dismiss();
+      setTimeout(() => {
+        restTimerModalRef.current?.present();
+      }, 50);
+    } else {
+      restTimerModalRef.current?.present();
+    }
   }, []);
 
   const titleRequiredAlert = useCallback(
@@ -89,7 +103,12 @@ export default function EditExercise() {
           }}
         />
       </Modal>
-      <ScrollView ref={ref} showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
+      <ScrollView
+        ref={ref}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps='handled'
+        contentContainerStyle={styles.scroll}
+      >
         <Card>
           <View style={[styles.item, styles.topItem]}>
             <Input autoFocus variant='open' value={title} onChangeValue={setTile} placeholder='Exercise Title*' />

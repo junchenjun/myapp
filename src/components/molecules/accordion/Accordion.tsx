@@ -153,7 +153,7 @@ const AccordionItem = (props: IAccordionItemProps) => {
     <>
       {trigger}
       <Animated.View style={[styles.collapsible, animatedStyle, { overflow: 'hidden' }]}>
-        <View style={{ position: 'absolute', width: '100%' }} onLayout={onLayout}>
+        <View style={{ position: 'absolute', width: '100%', top: 0 }} onLayout={onLayout}>
           {content}
         </View>
       </Animated.View>

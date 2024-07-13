@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Keyboard, Platform, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import { Keyboard, Platform, StyleSheet, View } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -14,24 +14,24 @@ interface ICommonButtonProps {
   title?: string;
   disabled?: boolean;
   icon?: IIcon;
-  style?: StyleProp<ViewStyle>;
-  alignment?: 'left' | 'center' | 'right';
 }
 
 interface IPrimaryButton extends ICommonButtonProps {
   variant: 'primary';
   loading?: boolean;
   float?: boolean;
+  alignment?: 'left' | 'center' | 'right';
 }
 
 interface IGhostButton extends ICommonButtonProps {
   variant: 'ghost';
+  withPaddings?: boolean;
 }
 
 export type IButtonProps = IPrimaryButton | IGhostButton;
 
 export const Button = (props: IButtonProps) => {
-  const { onPress, title, variant, disabled, icon, style, alignment = 'center' } = props;
+  const { onPress, title, variant, disabled, icon } = props;
 
   const insets = useSafeAreaInsets();
   const floatBottomInset = insets.bottom + 25;
@@ -70,10 +70,9 @@ export const Button = (props: IButtonProps) => {
       <Animated.View
         style={[
           styles.container,
-          styles[alignment],
+          styles[props.alignment || 'center'],
           float && styles.float,
           floatAnimation && floatAnimatedStyles,
-          style,
         ]}
       >
         <Pressable disabled={isDisabled} style={styles.button} onPress={onPress}>
@@ -84,8 +83,12 @@ export const Button = (props: IButtonProps) => {
     );
   } else if (variant === 'ghost') {
     return (
-      <View style={[styles.container, styles[alignment], style]}>
-        <Pressable disabled={disabled} style={styles.button} onPress={onPress}>
+      <View style={[styles.container]}>
+        <Pressable
+          disabled={disabled}
+          style={[styles.button, !props.withPaddings ? { paddingHorizontal: 0, height: 'auto' } : null]}
+          onPress={onPress}
+        >
           {icon && <Icon icon={icon} colorKey='primary' />}
           <Text text={title} colorKey='primary' variant='pLGRegular' />
         </Pressable>

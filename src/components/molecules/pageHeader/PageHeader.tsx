@@ -152,6 +152,7 @@ const themedStyles = (insets: EdgeInsets, windowWidth: number) => {
       },
       title: {
         width: windowWidth - iconSize * 2,
+        textAlign: 'center',
       },
       tabHeader: {
         paddingBottom: theme.spacing[1],

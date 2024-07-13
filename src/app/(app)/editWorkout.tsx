@@ -1,6 +1,5 @@
 import { router, useFocusEffect } from 'expo-router';
 import { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Alert, BackHandler, FlatList, Platform, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
@@ -9,8 +8,8 @@ import { Input } from '~components/atoms/input/Input';
 import { Text } from '~components/atoms/text/Text';
 import { KeyboardSafeView } from '~components/layout/keyboardSafeView/KeyboardSafeView';
 import { Accordion } from '~components/molecules/accordion/Accordion';
-import { WorkoutItem } from '~components/organisms/workoutItem/WorkoutItem';
-import { resetNewWorkout, setNewWorkoutTitle } from '~redux/newWorkoutSlice';
+import ExerciseSets from '~components/molecules/exerciseSets/ExerciseSets';
+import { resetNewWorkout, updateNewWorkoutTitle } from '~redux/newWorkoutSlice';
 import { useAppDispatch, useAppSelector } from '~redux/store';
 import { IExercise } from '~redux/workoutSlice';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
@@ -18,8 +17,6 @@ import { dismissKeyboardBeforeAction } from '~utils/navigation';
 
 export default function EditWorkout() {
   const styles = useThemedStyles(themedStyles);
-  const { t } = useTranslation();
-
   const dispatch = useAppDispatch();
   const exercises = useAppSelector(state => state.newWorkout.exercises);
   const title = useAppSelector(state => state.newWorkout.title);
@@ -69,27 +66,15 @@ export default function EditWorkout() {
     }, [dispatch, exercises?.length, exitAlert, title])
   );
 
-  const renderItem = useCallback(
-    ({ item }: { item: IExercise }) => (
-      <WorkoutItem
-        title={item.title}
-        header={{
-          labels: item.targets.map(i => t(i)),
-        }}
-        descItems={['8 Exercises']}
-        contained
-        actionIcon={icons.ExpandRight}
-        onActionIconPress={() => null}
-        style={styles.item}
-      />
-    ),
-    [styles.item, t]
-  );
+  const renderItem = useCallback(({ item, index }: { item: IExercise; index: number }) => {
+    return <ExerciseSets index={index} item={item} />;
+  }, []);
 
   return (
     <KeyboardSafeView>
-      <Accordion>
+      <Accordion expandedIds={exercises?.map((_, index) => index.toString())}>
         <FlatList
+          keyboardShouldPersistTaps='handled'
           removeClippedSubviews={Platform.OS === 'android'}
           scrollEventThrottle={16}
           initialNumToRender={8}
@@ -100,7 +85,7 @@ export default function EditWorkout() {
           ListHeaderComponent={
             <View style={styles.header}>
               <Input
-                onChangeValue={v => dispatch(setNewWorkoutTitle(v))}
+                onChangeValue={v => dispatch(updateNewWorkoutTitle(v))}
                 showMessage
                 errorMessage=''
                 variant='open'
@@ -146,6 +131,12 @@ const themedStyles = (theme: ITheme) => {
     },
     item: {
       marginBottom: theme.spacing[3],
+    },
+    buttons: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginTop: theme.spacing[3],
     },
   });
 };

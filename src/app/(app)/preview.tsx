@@ -32,7 +32,7 @@ export default function Preview() {
         header={{
           labels: ['Shoulder', 'biceps'],
         }}
-        descItems={['8 Exercises']}
+        descItems={[`${item.sets.length} Exercises`]}
         contained
         actionIcon={icons.ExpandRight}
         onActionIconPress={() => null}
@@ -86,7 +86,7 @@ export default function Preview() {
                     </ScrollView>
                   }
                 />
-                <InfoContainer title='Last Performed' content='4 days ago' />
+                {workout.lastPerformed && <InfoContainer title='Last Performed' content='4 days ago' />}
                 <Text variant='pSMRegular' colorKey='onSurfaceDim' text={`Exercises(${workout.exercises.length}) `} />
               </View>
             }
@@ -94,6 +94,7 @@ export default function Preview() {
         </Accordion>
       )}
       <Button
+        alignment='right'
         variant='primary'
         title='Start Workout'
         float

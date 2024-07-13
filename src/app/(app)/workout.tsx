@@ -4,7 +4,6 @@ import { Alert, BackHandler, ScrollView, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
 import { Button } from '~components/atoms/button/Button';
-import { Text } from '~components/atoms/text/Text';
 import { Accordion } from '~components/molecules/accordion/Accordion';
 import { WorkoutItem } from '~components/organisms/workoutItem/WorkoutItem';
 import { useAppSelector } from '~redux/store';
@@ -59,15 +58,12 @@ const Workout = () => {
                     />
                   )}
                 </Accordion.Trigger>
-                <Accordion.Content>
-                  <Text>content content content content content content content</Text>
-                  <Text>content content content content content content content</Text>
-                  <Text>content content content content content content content</Text>
-                  <Text>content content content content content content content</Text>
-                  <Text>content content content content content content content</Text>
-                  <Text>content content content content content content content</Text>
-                  <Text>content content content content content content content</Text>
-                </Accordion.Content>
+                {/* <Accordion.Content>
+                  <ExerciseSet index={1} reps={0} weight={0} />
+                  <ExerciseSet index={2} reps={0} weight={0} />
+                  <ExerciseSet index={3} reps={0} weight={0} />
+                  <ExerciseSet index={4} reps={0} weight={0} />
+                </Accordion.Content> */}
               </Accordion.Item>
             );
           })}
