@@ -2,6 +2,7 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { EdgeInsets, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { icons } from '~assets/icons';
 import { Button } from '~components/atoms/button/Button';
@@ -17,7 +18,8 @@ GoogleSignin.configure({
 });
 
 export default function Auth() {
-  const styles = useThemedStyles(createStyles);
+  const insets = useSafeAreaInsets();
+  const styles = useThemedStyles(createStyles(insets));
   const [loading, setLoading] = useState(false);
 
   const googleSignIn = async () => {
@@ -52,33 +54,53 @@ export default function Auth() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text text='Sign In' />
+        <Text text='Sign In' variant='h1Medium' />
       </View>
-      <Button
-        variant='primary'
-        icon={icons.Google}
-        loading={loading}
-        title='Sign in with Google'
-        onPress={googleSignIn}
-      />
-      <Button variant='primary' icon={icons.Apple} loading={loading} title='Sign in with Apple' onPress={() => null} />
+      <View style={styles.buttons}>
+        <Button
+          variant='primary'
+          icon={icons.Google}
+          loading={loading}
+          title='Sign in with Google'
+          onPress={googleSignIn}
+          alignment='stretch'
+        />
+        <Button
+          variant='primary'
+          alignment='stretch'
+          icon={icons.Apple}
+          loading={loading}
+          title='Sign in with Apple'
+          onPress={() => null}
+          disabled
+        />
+      </View>
     </View>
   );
 }
 
-const createStyles = (theme: ITheme) => {
+const createStyles = (insets: EdgeInsets) => (theme: ITheme) => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
       justifyContent: 'flex-end',
       alignItems: 'flex-start',
-      padding: 24,
-      gap: 15,
+      backgroundColor: theme.colors.surfaceExtraBright,
+    },
+    buttons: {
+      width: '100%',
+      padding: theme.spacing[6],
+      gap: theme.spacing[3],
       backgroundColor: theme.colors.surfaceExtraDim,
-      paddingBottom: 100,
+      paddingBottom: theme.spacing[6] + insets.bottom,
+      paddingTop: theme.spacing[6],
+      borderTopLeftRadius: theme.radius.xl,
+      borderTopRightRadius: theme.radius.xl,
     },
     header: {
-      marginBottom: 10,
+      justifyContent: 'center',
+      flex: 1,
+      alignSelf: 'center',
     },
     icon: {
       color: theme.colors.onSurfaceDim,

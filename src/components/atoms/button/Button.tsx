@@ -20,7 +20,7 @@ interface IPrimaryButton extends ICommonButtonProps {
   variant: 'primary';
   loading?: boolean;
   float?: boolean;
-  alignment?: 'left' | 'center' | 'right';
+  alignment?: 'left' | 'center' | 'right' | 'stretch';
 }
 
 interface IGhostButton extends ICommonButtonProps {
@@ -119,6 +119,9 @@ const themedStyles = (variant: IButtonProps['variant'], floatBottomInset: number
         left: theme.spacing[3],
       },
       center: {},
+      stretch: {
+        width: '100%',
+      },
       right: {
         right: theme.spacing[3],
       },

@@ -109,6 +109,11 @@ export const themeRadius = {
 } as const;
 
 export const themeFonts = {
+  // branding
+  branding: {
+    fontFamily: 'Kanada-Wide',
+    fontSize: 36,
+  },
   // heading
   h1Light: {
     fontFamily: 'Kanit-Light',

@@ -80,11 +80,11 @@ const appConfig: ExpoConfig = {
           }
         : undefined,
     splash: {
-      backgroundColor: '#F4F5F6',
+      backgroundColor: '#1275E3',
       image: './src/assets/images/splash.png',
       resizeMode: 'contain',
       dark: {
-        backgroundColor: '#141517',
+        backgroundColor: '#1275E3',
         image: './src/assets/images/splashDark.png',
         resizeMode: 'contain',
       },
@@ -94,10 +94,10 @@ const appConfig: ExpoConfig = {
     bundleIdentifier: config.package,
     googleServicesFile: config.file.ios,
     splash: {
-      backgroundColor: '#F4F5F6',
+      backgroundColor: '#1275E3',
       image: './src/assets/images/splash.png',
       dark: {
-        backgroundColor: '#141517',
+        backgroundColor: '#1275E3',
         image: './src/assets/images/splashDark.png',
       },
     },
@@ -121,6 +121,10 @@ const appConfig: ExpoConfig = {
           './src/assets/fonts/Kanit-LightItalic.ttf',
           './src/assets/fonts/Kanit-Medium.ttf',
           './src/assets/fonts/Kanit-Regular.ttf',
+          './src/assets/fonts/Kanada-Italic.otf',
+          './src/assets/fonts/Kanada-Wide.otf',
+          './src/assets/fonts/Kanada-WideItalic.otf',
+          './src/assets/fonts/Kanada.otf',
         ],
       },
     ],
