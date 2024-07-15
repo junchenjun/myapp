@@ -5,6 +5,7 @@ import { useCallback, useRef } from 'react';
 import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 
 import { icons } from '~assets/icons';
+import { Icon } from '~components/atoms/icon/Icon';
 import { ListItem } from '~components/atoms/listItem/ListItem';
 import { Modal } from '~components/atoms/modal/Modal';
 import { Text } from '~components/atoms/text/Text';
@@ -115,6 +116,9 @@ const Settings = () => {
         <ListItem iconRight={icons.External} iconLeft={icons.File} withBorder title='Terms of Service' />
         <ListItem danger iconLeft={icons.Trash} roundedBottomCorners title='Delete Account' />
       </View>
+      <View style={styles.logo}>
+        <Icon icon={icons.Logo} size={100} fill='primary' />
+      </View>
     </ScrollView>
   );
 };
@@ -137,6 +141,9 @@ const createStyles = (theme: ITheme) => {
     },
     menu: {
       width: '100%',
+    },
+    logo: {
+      alignSelf: 'center',
     },
   });
   return styles;

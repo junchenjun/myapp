@@ -18,6 +18,7 @@ import { IconFolderPlus } from '~assets/icons/IconFolderPlus';
 import { IconGoogle } from '~assets/icons/IconGoogle';
 import { IconLightbulb } from '~assets/icons/IconLightbulb';
 import { IconLightning } from '~assets/icons/IconLightning';
+import { IconLogo } from '~assets/icons/IconLogo';
 import { IconMail } from '~assets/icons/IconMail';
 import { IconMoon } from '~assets/icons/IconMoon';
 import { IconMore } from '~assets/icons/IconMore';
@@ -37,6 +38,7 @@ import { IconUser } from '~assets/icons/IconUser';
 import { IconZap } from '~assets/icons/IconZap';
 
 const icons = {
+  Logo: IconLogo,
   Remove: IconRemove,
   Lightning: IconLightning,
   Zap: IconZap,

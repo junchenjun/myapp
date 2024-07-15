@@ -6,7 +6,7 @@ import { EdgeInsets, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { icons } from '~assets/icons';
 import { Button } from '~components/atoms/button/Button';
-import { Text } from '~components/atoms/text/Text';
+import { Icon } from '~components/atoms/icon/Icon';
 import { firebaseAuth } from '~firebase/firebaseConfig';
 import { ITheme, useThemedStyles } from '~theme/ThemeContext';
 
@@ -54,7 +54,7 @@ export default function Auth() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text text='Sign In' variant='h1Medium' />
+        <Icon icon={icons.Logo} size={250} fill='primary' />
       </View>
       <View style={styles.buttons}>
         <Button
@@ -91,7 +91,7 @@ const createStyles = (insets: EdgeInsets) => (theme: ITheme) => {
       width: '100%',
       padding: theme.spacing[6],
       gap: theme.spacing[3],
-      backgroundColor: theme.colors.surfaceExtraDim,
+      backgroundColor: theme.colors.surfaceDim,
       paddingBottom: theme.spacing[6] + insets.bottom,
       paddingTop: theme.spacing[6],
       borderTopLeftRadius: theme.radius.xl,
